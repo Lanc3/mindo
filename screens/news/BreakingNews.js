@@ -1,21 +1,27 @@
 import React,{useEffect,useState} from "react";
-import { View,ActivityIndicator, Text,Button,StyleSheet, ScrollView, FlatList} from "react-native";
+import { View,SafeAreaView, Text,Button,StyleSheet, ScrollView, FlatList} from "react-native";
 import { ArticleCard } from "../../components/ArticleCard";
 import useResults from "../../hooks/useResults";
+import ConsultingRoomsScreen from "../classifieds/ConsultingRoomsScreen";
 
 const BreakingNews = ({navigation}) => {
     const [categoryID,setCategorID]  = useState(0);
-    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor] = useResults();
+    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
-    const [isLoading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
+    const [posts, setPosts] = useState([]);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [lastPage, setLastPage] = useState(false);
+    const [categoryId, setCategoryId] = useState(0);
 
     const getid = async() =>{
         
         try{
             const response = await getCategoyIdBySlug("breaking-news");
             const id = await response;
-            const json = JSON.parse(await getPostsByCategory(id,1));
-            setData(json)
+            const json = JSON.parse(await getPostsByCategory(id,page));
+            setData(prevPosts => [...prevPosts, ...json]);
         }catch(error){
             console.log(error)
         }finally{
@@ -26,16 +32,19 @@ const BreakingNews = ({navigation}) => {
 
      useEffect(() => {
         getid();
-      }, []);
-
+      }, [page]);
     return(
-        <View style={styles.container}>
-            <Text style={styles.pageTitle}>Breaking News</Text>
-            {isLoading ? <ActivityIndicator/> : (
-            <FlatList
-            data={data}
-            keyExtractor={({ id }, index) => id.toString()}
-            renderItem={({ item }) => (
+        <SafeAreaView style={{ flex: 1, paddingTop: 5 }}>
+      {data.length > 0 ? (
+        <FlatList
+          onEndReached={() => {
+            if (!loading && !lastPage) {
+              setPage(prevPage => prevPage + 1);
+            }
+          }}
+          data={data}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({ item }) => (
                 <ArticleCard props title={item["title"]["rendered"].toString()}
                 excerpt = {item["excerpt"]["rendered"].toString()}
                 date = {item["date"].toString()}
@@ -44,13 +53,15 @@ const BreakingNews = ({navigation}) => {
                 authorId = {item["author"]}
                 navi = {navigation}
                 />
+
             )}
           />
+          ) : (
+            <Text>Loading...</Text>
           )}
-
-        </View>
-    );
-};
+        </SafeAreaView>
+      );
+    };
 
 export default BreakingNews;
 

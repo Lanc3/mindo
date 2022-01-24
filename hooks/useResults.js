@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
-
+import { webUrl } from '../constants/Const';
 
 
 export default () => {
@@ -31,7 +31,6 @@ const getAuthor = async(id:number) =>{
 const getMediaAPI = async(id:number) => {
     try{
         const response = await wp.media().id(id);
-        
         return response.guid.rendered.toString();
     }catch(error){
 
@@ -46,7 +45,7 @@ const getPostsByCategory = async(categoryID:number,pageNumber:number) => {
     //     console.log("error getPostsByCategory " + error);
     // });
     try{
-        const response = await wp.posts().categories(categoryID).perPage(20).page(pageNumber);
+        const response = await wp.posts().categories(categoryID).perPage(10).page(pageNumber);
         const posts = await JSON.stringify(response);
         return posts;
     }catch(error){
@@ -56,9 +55,7 @@ const getPostsByCategory = async(categoryID:number,pageNumber:number) => {
 //todo wp.media().id( n ) get media link for rendeing images
 const getAllPosts = async() => {
     getAll( wp.posts().categories(26)).then(function( allPosts ) {
-        
         console.log(allPosts.length);
-     
     });
 };
 
@@ -101,5 +98,17 @@ function getAll( request ) {
         });
     });
 }
-    return[getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor];
+
+const fetchApiData = async route => {
+    try {
+      const response = await fetch(route);
+      const json = await response.json();
+      return json
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+    return[getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData];
 }

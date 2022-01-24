@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,authorId}) {
     const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor] = useResults();
-    const [imageData, setImageData] = useState([]);
+    const [imageData, setImageData] = useState("../assets/images/splash.png");
     const [name, setName] = useState([]);
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder" />

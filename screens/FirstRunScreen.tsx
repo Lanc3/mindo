@@ -91,7 +91,7 @@ const FirstRunScreen = ({navigation}) => {
               }]}>Stay Up to date with Medical Independent</Text>
               <Text style={styles.text}>Sign in with account</Text>
               <View style={styles.button}>
-              <TouchableOpacity onPress={()=>navigation.navigate('SignInScreen')}>
+              <TouchableOpacity onPress={()=> navigation.navigate('MainDrawer',{screen :'BreakingNews'})}>
                   <LinearGradient
                       colors={['#000', '#000']}
                       style={styles.signIn}

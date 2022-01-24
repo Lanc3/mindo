@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text,Dimensions,StyleSheet,Platform,TouchableOpacity,Alert,StatusBar,TextInput } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -7,8 +7,80 @@ import { AuthContext } from "../components/Context";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Feather from '@expo/vector-icons//Feather';
 import Svg, { Path } from "react-native-svg";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loginUrl } from '../constants/Const';
 
 const SignInScreen = ({navigation}) => {
+    const [isLoading, setIsLoading] = useState(true); //true when the app is loading
+  const [isLogged, setIsLogged] = useState(false); //True if the user is logged in
+  const [userToken, setUserToken] = useState(null); //User token, maybe a useless state
+  const [userProfile, setUserProfile] = useState(null); //userProfile object, it contains token too
+  const [loggingIn, setloggingIn] = useState(false); //True when user is waiting for auth
+  const [error, setError] = useState("Enter Details"); //Error texts from the app or serve
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  const wrongDetails = () =>
+    Alert.alert('Error', error, [
+      { text: 'OK', onPress: () => console.log('OK Pressed') },
+    ]);
+
+    const doLogin = async (email, password) => {
+        setloggingIn(true);
+        setError(null);
+        let formData = new FormData();
+        formData.append('type', 'login');
+        formData.append('email', email);
+        formData.append('password', password);
+        console.log(email + '...' + password);
+        try {
+          let response = await fetch(loginUrl, {
+            method: 'POST',
+            body: formData,
+          });
+          let json = await response.json();
+          console.log(json);
+          if (json.status != false) {
+            setError(null);
+            try {
+              await AsyncStorage.setItem(
+                'userProfile',
+                JSON.stringify({
+                  isLoggedIn: json.status,
+                  authToken: json.token,
+                  id: json.data.id,
+                  name: json.data.user_login,
+                  avatar: json.avatar,
+                })
+              );
+            } catch {
+              setError('Error storing data on device');
+              wrongDetails();
+            }
+            setUserProfile({
+              isLoggedIn: json.status,
+              authToken: json.token,
+              id: json.data.id,
+              name: json.data.user_login,
+              avatar: json.avatar,
+            });
+            setIsLogged(true);
+            setUserProfile(json);
+            setUserToken(json.token);
+            navigation.navigate('MainDrawer',{screen :'BreakingNews'});
+          } else {
+            setIsLogged(false);
+            setError('Login Failed, Invalid email or password');
+            wrongDetails();
+          }
+          setloggingIn(false);
+        } catch (error) {
+          console.error(error);
+          setError('Error connecting to server');
+          wrongDetails();
+          setloggingIn(false);
+        }
+      };
 
     const [data, setData] = React.useState({
         username: '',
@@ -20,9 +92,6 @@ const SignInScreen = ({navigation}) => {
     });
 
     const { colors } = useTheme();
-
-    
-
     const textInputChange = (val) => {
         if( val.trim().length >= 4 ) {
             setData({
@@ -78,28 +147,6 @@ const SignInScreen = ({navigation}) => {
         }
     }
 
-    const loginHandle = (userName, password) => {
-        
-        // const foundUser = users.filter( item => {
-        //     return userName == item.username && password == item.password;
-        // } );
-
-        // if ( data.username.length == 0 || data.password.length == 0 ) {
-        //     Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
-        //         {text: 'Okay'}
-        //     ]);
-        //     return;
-        // }
-
-        // if ( foundUser.length == 0 ) {
-        //     Alert.alert('Invalid User!', 'Username or password is incorrect.', [
-        //         {text: 'Okay'}
-        //     ]);
-        //     return;
-        // }
-        //signIn(foundUser);
-        navigation.navigate("BreakingNews");
-    }
 
     return (
       <View style={styles.container}>
@@ -156,24 +203,24 @@ const SignInScreen = ({navigation}) => {
                         />
                         <Path d="M152.1,36.4c1.2,0,2.2,0.3,2.9,1c0.7,0.6,1.1,1.5,1.1,2.7c0,1.1-0.4,2-1.1,2.7c-0.7,0.6-1.7,1-2.9,1
 		                        c-1.2,0-2.2-0.3-2.9-1c-0.7-0.6-1.1-1.5-1.1-2.7c0-1.1,0.4-2,1.1-2.7C149.9,36.8,150.9,36.4,152.1,36.4z" fill="#6e822b" 
-                        />    
+                        />
                         <Path d="M169.5,18v20.7c0,1.3,0.2,2.2,0.7,2.7c0.5,0.5,1.2,0.7,2.4,0.7v1c-0.6,0-1.5-0.1-2.7-0.1
                                 c-1.2,0-2.4-0.1-3.6-0.1c-1.2,0-2.5,0-3.8,0.1c-1.3,0-2.2,0.1-2.8,0.1v-1c1.1,0,1.9-0.2,2.4-0.7c0.5-0.5,0.7-1.4,0.7-2.7v-15
                                 c0-1.4-0.2-2.5-0.6-3.2c-0.4-0.7-1.2-1-2.4-1v-1c1,0.1,2,0.1,2.9,0.1c1.3,0,2.6-0.1,3.7-0.2C167.5,18.4,168.5,18.2,169.5,18z
                                 M165.8,6.3c1.3,0,2.4,0.3,3.2,1c0.8,0.6,1.2,1.5,1.2,2.7c0,1.1-0.4,2-1.2,2.7c-0.8,0.6-1.8,1-3.2,1c-1.3,0-2.4-0.3-3.2-1
-                                c-0.8-0.6-1.2-1.5-1.2-2.7c0-1.1,0.4-2,1.2-2.7C163.4,6.6,164.5,6.3,165.8,6.3z" fill="#6e822b" 
+                                c-0.8-0.6-1.2-1.5-1.2-2.7c0-1.1,0.4-2,1.2-2.7C163.4,6.6,164.5,6.3,165.8,6.3z" fill="#6e822b"
                         />
                         <Path d="M186.8,17.9c2.8,0,5,0.8,6.6,2.5c1.6,1.6,2.4,4.3,2.4,8.1h-15.6l-0.1-0.9h9.7c0-1.6-0.1-3-0.3-4.3
                                 c-0.2-1.3-0.6-2.4-1-3.2c-0.5-0.8-1.1-1.2-1.9-1.2c-1.1,0-2,0.7-2.8,2.1c-0.8,1.4-1.2,3.7-1.4,6.9l0.1,0.3c0,0.4-0.1,0.8-0.1,1.2
                                 c0,0.4,0,0.8,0,1.3c0,2.2,0.3,4,0.9,5.3c0.6,1.4,1.4,2.4,2.4,3c0.9,0.6,1.9,0.9,2.9,0.9c0.9,0,2-0.2,3.1-0.7
                                 c1.1-0.5,2.2-1.5,3.2-3.1l0.9,0.3c-0.4,1.2-1,2.4-1.8,3.5c-0.8,1.1-1.9,2.1-3.1,2.8c-1.3,0.7-2.8,1.1-4.6,1.1
                                 c-2.2,0-4.1-0.5-5.7-1.4c-1.6-0.9-2.9-2.3-3.9-4.2c-0.9-1.9-1.4-4.2-1.4-7.1c0-2.9,0.5-5.4,1.5-7.4c1-2,2.4-3.4,4.1-4.4
-                                C182.6,18.4,184.6,17.9,186.8,17.9z" fill="#6e822b" 
-                        />                 
+                                C182.6,18.4,184.6,17.9,186.8,17.9z" fill="#6e822b"
+                        />
                         </Svg>
         </Animatable.View>
         </View>
-        <Animatable.View 
+        <Animatable.View
             animation="fadeInUpBig"
             style={[styles.footer, {
                 backgroundColor: '#6e822b'
@@ -181,28 +228,28 @@ const SignInScreen = ({navigation}) => {
         >
             <Text style={[styles.text_footer, {
                 color: '#fff'
-            }]}>Username</Text>
+            }]}>Email</Text>
             <View style={styles.action}>
-                <FontAwesome 
+                <FontAwesome
                     name="user-o"
                     color={'#fff'}
                     size={20}
                 />
-                <TextInput 
-                    placeholder="Enter Your Username"
+                <TextInput
+                    placeholder="Enter Your Email Address"
                     placeholderTextColor="#fff"
                     style={[styles.textInput, {
                         color:'#fff'
                     }]}
                     autoCapitalize="none"
-                    onChangeText={(val) => textInputChange(val)}
-                    onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
+                    onChangeText={(email) => setEmail(email)}
+                    value={email}
                 />
-                {data.check_textInputChange ? 
+                {data.check_textInputChange ?
                 <Animatable.View
                     animation="bounceIn"
                 >
-                    <Feather 
+                    <Feather
                         name="check-circle"
                         color="green"
                         size={20}
@@ -210,12 +257,12 @@ const SignInScreen = ({navigation}) => {
                 </Animatable.View>
                 : null}
             </View>
-            { data.isValidUser ? null : 
+            { data.isValidUser ? null :
             <Animatable.View animation="fadeInLeft" duration={500}>
             <Text style={styles.errorMsg}>Username must be 4 characters long.</Text>
             </Animatable.View>
             }
-            
+
 
             <Text style={[styles.text_footer, {
                 color: '#fff',
@@ -235,7 +282,9 @@ const SignInScreen = ({navigation}) => {
                         color: colors.text
                     }]}
                     autoCapitalize="none"
-                    onChangeText={(val) => handlePasswordChange(val)}
+                    onChangeText={(password) => setPassword(password)}
+                    value={password}
+                    secureTextEntry={true}
                 />
                 <TouchableOpacity
                     onPress={updateSecureTextEntry}
@@ -260,7 +309,7 @@ const SignInScreen = ({navigation}) => {
             <Text style={styles.errorMsg}>Password must be 8 characters long.</Text>
             </Animatable.View>
             }
-            
+
 
             <TouchableOpacity>
                 <Text style={{color: '#6e822b', marginTop:15}}>Forgot password?</Text>
@@ -268,7 +317,7 @@ const SignInScreen = ({navigation}) => {
             <View style={styles.button}>
                 <TouchableOpacity
                     style={styles.signIn}
-                    onPress={() => navigation.navigate('MainDrawer',{screen :'BreakingNews'})}
+                    onPress={() => doLogin(email, password)}
                 >
                 <LinearGradient
                     colors={['#000', '#000']}
