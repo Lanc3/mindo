@@ -15,7 +15,7 @@ export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,aut
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
-const _handleFacebookLinking =() => 
+const _handleFacebookLinking =() =>
 {
         Linking.openURL("http://www.facebook.com/MedicalIndependent");
 };
@@ -45,7 +45,6 @@ const getAuthorName = async() =>{
     }catch(error){
         console.log(error)
     }finally{
-       
     };
 }
 
@@ -63,17 +62,14 @@ useEffect(() => {
                 onPress={() => navi.navigate("FullArticleScreen",{title:title,date:date,imageData:imageData,htmlData:totalData})}
             >
         <Surface style={styles.cardStyle}>
-                <Card.Cover source={{ uri: ""+imageData }} resizeMode={'cover'} />
+                <Card.Cover source={{ uri: imageData }} resizeMode={'cover'} />
                 <Card.Content>
-                
                     <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
-             
                 <Divider style={styles.divider}/>
                 <WebRender htmlData={excerpt}/>
                 <Divider style={styles.divider}/>
                 <View style={styles.cardEnd}>
-                    <Text style={styles.author}>Autor Name - </Text>
-                    <Text>{formatDate(date)}</Text>
+                    <Text style={styles.dateS}>{formatDate(date)}</Text>
                 </View>
                 </Card.Content>
             </Surface>
@@ -101,7 +97,7 @@ const styles = StyleSheet.create({
     },
     divider:{
         backgroundColor:'#000',
-        marginRight:10
+        margin:10
     },
     content:{
         paddingLeft:0,
@@ -132,12 +128,16 @@ const styles = StyleSheet.create({
        flex:1,
        flexDirection:'row',
        marginBottom:10,
-       marginTop:10
+       marginTop:10,
+       alignItems:'flex-end'
     },
     author:{
         fontWeight:'bold'
     },
     render:{
         paddingBottom:10
+    },
+    dateS:{
+        justifyContent:'center'
     }
 })

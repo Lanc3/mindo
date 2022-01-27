@@ -7,7 +7,7 @@ const MedicalSecretaryScreen = () => {
             <Text>Advertise Screen</Text>
 
             <Button
-            title="meh"
+            title="mehss"
             onPress={() => alert('hello')}
             />
 

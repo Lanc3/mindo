@@ -1,13 +1,31 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { View, Text,Button,StyleSheet,Dimensions,StatusBar,TouchableOpacity } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import MaterialIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Svg, { Path } from "react-native-svg";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FirstRunScreen = ({navigation}) => {
     const { colors } = useTheme();
+
+    const _retrieveData = async () => {
+        try {
+          const value = await AsyncStorage.getItem('userProfile');
+          if (value !== null) {
+            console.log("enterrr")
+            navigation.navigate('MainDrawer',{screen :'BreakingNews'});
+          }
+        } catch (error) {
+          // Error retrieving data
+        }
+      };
+
+    useEffect(() => {
+        _retrieveData();
+      }, []);
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#000' barStyle="light-content"/>
@@ -91,7 +109,7 @@ const FirstRunScreen = ({navigation}) => {
               }]}>Stay Up to date with Medical Independent</Text>
               <Text style={styles.text}>Sign in with account</Text>
               <View style={styles.button}>
-              <TouchableOpacity onPress={()=> navigation.navigate('MainDrawer',{screen :'BreakingNews'})}>
+              <TouchableOpacity onPress={()=> navigation.navigate('SignInScreen')}>
                   <LinearGradient
                       colors={['#000', '#000']}
                       style={styles.signIn}

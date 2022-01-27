@@ -155,6 +155,7 @@ function MainDrawerNavigation() {
       <Drawer.Screen name="Volunterring" component={VolunterringScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="Events" component={EventsScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="FullArticleScreen" component={FullArticleScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="SignInScreenlogout" component={SignInScreen} options={{headerShown:false}}/>
     </Drawer.Navigator>
   );
 }

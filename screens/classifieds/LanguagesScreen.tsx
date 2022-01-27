@@ -7,7 +7,7 @@ const LanguagesScreen = () => {
             <Text>Advertise Screen</Text>
 
             <Button
-            title="meh"
+            title="mehs"
             onPress={() => alert('hello')}
             />
 

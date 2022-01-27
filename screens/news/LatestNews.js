@@ -4,20 +4,17 @@ import { ArticleCard } from "../../components/ArticleCard";
 import useResults from "../../hooks/useResults";
 import ConsultingRoomsScreen from "../classifieds/ConsultingRoomsScreen";
 
-const BreakingNews = ({navigation}) => {
+const LatestNews = ({navigation}) => {
     const [categoryID,setCategorID]  = useState(0);
     const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
     const [lastPage, setLastPage] = useState(false);
-    const [categoryId, setCategoryId] = useState(0);
 
     const getid = async() =>{
         try{
-            const response = await getCategoyIdBySlug("breaking-news");
+            const response = await getCategoyIdBySlug("latest-news");
             const id = await response;
             const json = JSON.parse(await getPostsByCategory(id,page));
             setData(prevPosts => [...prevPosts, ...json]);
@@ -29,12 +26,22 @@ const BreakingNews = ({navigation}) => {
 
     };
 
-     useEffect(() => {
-        getid();
-      }, [page]);
+useEffect(() =>
+{
+    getid();
+    return () =>
+    {
+          // Anything in here is fired on component unmount.
+      setData([]);
+      setLoading(true);
+      setLastPage(false);
+      setPage(1);
+    }
+}, [page]);
+
     return(
         <SafeAreaView style={{ flex: 1, paddingTop: 5 }}>
-          <Text style={styles.pageTitle}>Breaking News</Text>
+          <Text style={styles.pageTitle}>Latest News</Text>
       {data.length > 0 ? (
         <FlatList
           onEndReached={() => {
@@ -66,7 +73,7 @@ const BreakingNews = ({navigation}) => {
       );
     };
 
-export default BreakingNews;
+export default LatestNews;
 
 const styles = StyleSheet.create({
     container:{

@@ -32,14 +32,12 @@ const SignInScreen = ({navigation}) => {
         formData.append('type', 'login');
         formData.append('email', email);
         formData.append('password', password);
-        console.log(email + '...' + password);
         try {
           let response = await fetch(loginUrl, {
             method: 'POST',
             body: formData,
           });
           let json = await response.json();
-          console.log(json);
           if (json.status != false) {
             setError(null);
             try {
@@ -217,7 +215,7 @@ const SignInScreen = ({navigation}) => {
                                 c-2.2,0-4.1-0.5-5.7-1.4c-1.6-0.9-2.9-2.3-3.9-4.2c-0.9-1.9-1.4-4.2-1.4-7.1c0-2.9,0.5-5.4,1.5-7.4c1-2,2.4-3.4,4.1-4.4
                                 C182.6,18.4,184.6,17.9,186.8,17.9z" fill="#6e822b"
                         />
-                        </Svg>
+        </Svg>
         </Animatable.View>
         </View>
         <Animatable.View

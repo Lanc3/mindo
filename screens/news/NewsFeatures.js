@@ -4,7 +4,7 @@ import { ArticleCard } from "../../components/ArticleCard";
 import useResults from "../../hooks/useResults";
 import ConsultingRoomsScreen from "../classifieds/ConsultingRoomsScreen";
 
-const BreakingNews = ({navigation}) => {
+const NewsFeatures = ({navigation}) => {
     const [categoryID,setCategorID]  = useState(0);
     const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
@@ -17,7 +17,7 @@ const BreakingNews = ({navigation}) => {
 
     const getid = async() =>{
         try{
-            const response = await getCategoyIdBySlug("breaking-news");
+            const response = await getCategoyIdBySlug("news-features");
             const id = await response;
             const json = JSON.parse(await getPostsByCategory(id,page));
             setData(prevPosts => [...prevPosts, ...json]);
@@ -34,7 +34,7 @@ const BreakingNews = ({navigation}) => {
       }, [page]);
     return(
         <SafeAreaView style={{ flex: 1, paddingTop: 5 }}>
-          <Text style={styles.pageTitle}>Breaking News</Text>
+          <Text style={styles.pageTitle}>News Features</Text>
       {data.length > 0 ? (
         <FlatList
           onEndReached={() => {
@@ -66,7 +66,7 @@ const BreakingNews = ({navigation}) => {
       );
     };
 
-export default BreakingNews;
+export default NewsFeatures;
 
 const styles = StyleSheet.create({
     container:{

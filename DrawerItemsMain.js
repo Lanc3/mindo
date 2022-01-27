@@ -107,7 +107,7 @@ export const drawerItemsMain = [
         {nav: 'MainDrawer', routeName: 'LocumRequired', title: 'Locum Required'},
         {nav: 'MainDrawer', routeName: 'MedicalEquipment', title: 'Medical Equipment'},
         {nav: 'MainDrawer', routeName: 'MedicalPractice', title: 'Medical Practice'},
-        {nav: 'MainDrawer', routeName: 'MedicalSecretary', tite: 'Practice Nurse'},
+        {nav: 'MainDrawer', routeName: 'MedicalSecretary', title: 'Practice Nurse'},
         {nav: 'MainDrawer', routeName: 'Property', title: 'Property'},
         {nav: 'MainDrawer', routeName: 'Training', title: 'Training'},
         {nav: 'MainDrawer', routeName: 'Volunterring', title: 'Volunterring'},

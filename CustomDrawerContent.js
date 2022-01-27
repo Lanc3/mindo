@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Svg, { Path } from "react-native-svg";
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function CustomDrawerContent(props) {
   const [mainDrawer, setMainDrawer] = useState(true);
@@ -36,7 +37,17 @@ function CustomDrawerContent(props) {
     }
   };
 
-  const logOut = async () => console.log('log out');
+  const logOut = async () => {
+    try {
+      await AsyncStorage.removeItem('userProfile');
+      props.navigation.navigate('MainDrawer',{screen :'SignInScreenlogout'});
+      return true;
+    } catch (exception) {
+      setError('Error deleting data');
+      return false;
+    }
+  };
+
   const expandable = <Icon name={"chevron-down"} color={'#6e822b'} size ={25} />;
 
   function renderMainDrawer() {
