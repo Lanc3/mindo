@@ -19,7 +19,7 @@ export default function FullArticleScreen({route}) {
       <ScrollView style={styles.scrollView}>
       <Text style={styles.title} numberOfLines={3}>{title}</Text>
       <View style={styles.subTitle}>
-        <Text>Autor Name - </Text>
+        <Text> Date - </Text>
         <Text>{formatDate(date)}</Text>
       </View>
       <View>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
       fontSize:25,
       fontWeight:'bold',
       justifyContent:'center',
-      padding:15,
+      padding:5,
     },
     subTitle:{
       flex:1,

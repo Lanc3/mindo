@@ -69,7 +69,7 @@ useEffect(() => {
                 <WebRender htmlData={excerpt}/>
                 <Divider style={styles.divider}/>
                 <View style={styles.cardEnd}>
-                    <Text style={styles.dateS}>{formatDate(date)}</Text>
+                    {/* <Text style={styles.dateS}>{formatDate(date)}</Text> */}
                 </View>
                 </Card.Content>
             </Surface>
@@ -90,21 +90,21 @@ const styles = StyleSheet.create({
         padding:10
     },
     cardStyle:{
-        minWidth:'95%',
+        minWidth:'100%',
         padding:0,
         marginBottom:10,
         elevation:12,
     },
     divider:{
         backgroundColor:'#000',
-        margin:10
+        margin:5
     },
     content:{
         paddingLeft:0,
     },
     titleStyle:{
         paddingRight:0,
-        fontSize:15,
+        fontSize:17,
         fontWeight:'bold',
         justifyContent:'center'
     },

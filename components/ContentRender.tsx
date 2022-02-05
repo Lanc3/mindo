@@ -1,19 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { WebView } from 'react-native-webview';
-import { StyleSheet } from 'react-native';
+import { StyleSheet ,View,Dimensions} from 'react-native';
 import Constants from 'expo-constants';
-import { Dimensions } from 'react-native';
 import rnTextSize, { TSFontSpecs } from 'react-native-text-size'
-
+import AutoHeightWebView from 'react-native-autoheight-webview'
 
 export default function ContentRender({htmlData,newHeight}) {
 
+  const injectedScript = function() {
+    function waitForBridge() {
+      if (window.postMessage.length !== 1){
+        setTimeout(waitForBridge, 200);
+      }
+      else {
+        postMessage(
+          Math.max(document.documentElement.clientHeight, document.documentElement.scrollHeight, document.body.clientHeight, document.body.scrollHeight)
+        )
+      }
+    }
+    waitForBridge();
+  };
+
   return (
-    <WebView
-      style={{height:newHeight, width:windowWidth-40}}
-      originWhitelist={['*']}
-      source={{ html: '<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body>'+htmlData+'</body></html>' }}
-    />
+    <View>
+      <AutoHeightWebView
+    style={{ width: Dimensions.get('window').width - 45, marginTop: 10 }}
+    customScript={`document.body.style.background = 'white';`}
+    customStyle={`
+      * {
+        font-family: 'Times New Roman';
+      }
+      p {
+        font-size: 16px;
+      }
+    `}
+    onSizeUpdated={size => console.log(size.height)}
+    files={[{
+        href: 'cssfileaddress',
+        type: 'text/css',
+        rel: 'stylesheet'
+    }]}
+    source={{ html: '<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body>'+htmlData+'</body></html>' }}
+    scalesPageToFit={true}
+    viewportContent={'width=device-width, user-scalable=no'}
+    /*
+    other react-native-webview props
+    */
+  />
+    </View>
   );
 }
 const windowWidth = Dimensions.get('window').width;

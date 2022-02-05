@@ -51,6 +51,18 @@ export const drawerItemsMain = [
     ],
     },
     {
+      key: 'NewsTeam',
+      title: 'News Team',
+      iconName: 'home-outline',
+      isExpandable:true,
+      routes: [
+        {nav: 'MainDrawer', routeName: 'CatherineReilly', title: 'Catherine Reilly'},
+        {nav: 'MainDrawer', routeName: 'DavidLynch', title: 'David Lynch'},
+        {nav: 'MainDrawer', routeName: 'PaulMulholland', title: 'Paul Mulholland'},
+        {nav: 'MainDrawer', routeName: 'PriscillaLynch', title: 'Priscilla Lynch'},
+    ],
+    },
+    {
       key: 'Clinical',
       title: 'Clinical',
       iconName: 'home-outline',
@@ -95,23 +107,15 @@ export const drawerItemsMain = [
       isExpandable:true,
       routes: [
         {nav: 'MainDrawer', routeName: 'ConsultingRooms', title: 'Consulting Rooms'},
-        {nav: 'MainDrawer', routeName: 'Dermatology', title: 'Dermatology'},
         {nav: 'MainDrawer', routeName: 'DoctorsWanted', title: 'Doctors Wanted'},
-        {nav: 'MainDrawer', routeName: 'DoctorAvailable', title: 'Doctor Available'},
-        {nav: 'MainDrawer', routeName: 'FlatsToLet', title: 'Flats To Let'},
-        {nav: 'MainDrawer', routeName: 'GolfAndSports', title: 'Golf And Sports'},
-        {nav: 'MainDrawer', routeName: 'HolidayResorts', title: 'Holiday Resorts'},
-        {nav: 'MainDrawer', routeName: 'InternationalJobs', title: 'International Jobs'},
-        {nav: 'MainDrawer', routeName: 'Languages', title: 'Languages'},
-        {nav: 'MainDrawer', routeName: 'LocumAvailable', title: 'Locum Available'},
         {nav: 'MainDrawer', routeName: 'LocumRequired', title: 'Locum Required'},
-        {nav: 'MainDrawer', routeName: 'MedicalEquipment', title: 'Medical Equipment'},
-        {nav: 'MainDrawer', routeName: 'MedicalPractice', title: 'Medical Practice'},
-        {nav: 'MainDrawer', routeName: 'MedicalSecretary', title: 'Practice Nurse'},
-        {nav: 'MainDrawer', routeName: 'Property', title: 'Property'},
+        {nav: 'MainDrawer', routeName: 'DoctorAvailable', title: 'Doctor Available'},
+        {nav: 'MainDrawer', routeName: 'LocumAvailable', title: 'Locum Available'},
         {nav: 'MainDrawer', routeName: 'Training', title: 'Training'},
-        {nav: 'MainDrawer', routeName: 'Volunterring', title: 'Volunterring'},
-        {nav: 'MainDrawer', routeName: 'Events', title: 'Events'},
+        {nav: 'MainDrawer', routeName: 'PartnershipAvailable', title: 'Partnership Available'},
+        {nav: 'MainDrawer', routeName: 'MedicalPractice', title: 'Medical Practice - For Sale/To Let'},
+        {nav: 'MainDrawer', routeName: 'Property', title: 'Property To Let/Buy'},
+        {nav: 'MainDrawer', routeName: 'Miscellaneous', title: 'Miscellaneous'},
     ],
     },
     {
@@ -132,24 +136,5 @@ export const drawerItemsMain = [
         {nav: 'MainDrawer', routeName: 'AdvertiseScreen', title: 'Advertise'},
     ],
     },
-    {
-      key: 'Premium',
-      title: 'Premium',
-      iconName: 'briefcase-outline',
-      isExpandable:false,
-      routes: [
-        {nav: 'MainDrawer', routeName: 'PremiumScreen', title: 'Premium'},
-    ],
-    },
-    {
-      key: 'Competition',
-      title: 'Competition',
-      iconName: 'arm-flex-outline',
-      isExpandable:false,
-      routes: [
-        {nav: 'MainDrawer', routeName: 'CompetitionScreen', title: 'Competition'},
-    ],
-    },
   ];
-  
-  
+

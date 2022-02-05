@@ -75,7 +75,12 @@ import VolunterringScreen from './screens/classifieds/VolunterringScreen';
 import EventsScreen from './screens/classifieds/EventsScreen';
 import HomeScreen from './screens/HomeScreen';
 import FullArticleScreen from './screens/FullArticleScreen';
-
+import CatherineReillyScreen from './screens/newsTeam/CatherineReillyScreen';
+import DavidLynchScreen from './screens/newsTeam/DavidLynchScreen';
+import PaulMulhollandScreen from './screens/newsTeam/PaulMulhollandScreen';
+import PriscillaLynchScreen from './screens/newsTeam/PriscillaLynchScreen';
+import SponsoredScreen from './screens/sponsored/SponsoredScreen';
+import AdvertiseScreen from './screens/advertise/AdvertiseScreen';
 const Drawer = createDrawerNavigator();
 
 function MainDrawerNavigation() {
@@ -156,6 +161,12 @@ function MainDrawerNavigation() {
       <Drawer.Screen name="Events" component={EventsScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="FullArticleScreen" component={FullArticleScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="SignInScreenlogout" component={SignInScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="CatherineReilly" component={CatherineReillyScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="DavidLynch" component={DavidLynchScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="PaulMulholland" component={PaulMulhollandScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="PriscillaLynch" component={PriscillaLynchScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="SponsoredScreen" component={SponsoredScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="AdvertiseScreen" component={AdvertiseScreen} options={{headerShown:false}}/>
     </Drawer.Navigator>
   );
 }

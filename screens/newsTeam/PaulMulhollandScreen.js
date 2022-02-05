@@ -4,7 +4,7 @@ import { ArticleCard } from "../../components/ArticleCard";
 import useResults from "../../hooks/useResults";
 import ConsultingRoomsScreen from "../classifieds/ConsultingRoomsScreen";
 
-const BreakingNews = ({navigation}) => {
+const PaulMulhollandScreen = ({navigation}) => {
     const [categoryID,setCategorID]  = useState(0);
     const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
@@ -66,7 +66,7 @@ const BreakingNews = ({navigation}) => {
       );
     };
 
-export default BreakingNews;
+export default PaulMulhollandScreen;
 
 const styles = StyleSheet.create({
     container:{
