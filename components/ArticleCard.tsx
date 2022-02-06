@@ -13,18 +13,6 @@ export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,aut
     const [imageData, setImageData] = useState("../assets/images/splash.png");
     const [name, setName] = useState([]);
 
-const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
-
-const _handleFacebookLinking =() =>
-{
-        Linking.openURL("http://www.facebook.com/MedicalIndependent");
-};
-const _handleTwitterLinking =() => {
-    Linking.openURL("http://www.twitter.com/med_indonews");
-};
-const _handleLinkedInLinking =() => {
-    Linking.openURL("http://www.linkedin.com/company/greencross-publishing");
-};
 
 const getMedia = async() =>{
     try{
@@ -90,7 +78,7 @@ const styles = StyleSheet.create({
         padding:10
     },
     cardStyle:{
-        minWidth:'100%',
+        minWidth:'90%',
         padding:0,
         marginBottom:10,
         elevation:12,
@@ -103,7 +91,7 @@ const styles = StyleSheet.create({
         paddingLeft:0,
     },
     titleStyle:{
-        paddingRight:0,
+        padding:10,
         fontSize:17,
         fontWeight:'bold',
         justifyContent:'center'

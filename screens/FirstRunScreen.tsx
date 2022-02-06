@@ -14,8 +14,7 @@ const FirstRunScreen = ({navigation}) => {
         try {
           const value = await AsyncStorage.getItem('userProfile');
           if (value !== null) {
-            console.log("enterrr")
-            navigation.navigate('MainDrawer',{screen :'BreakingNews'});
+            navigation.navigate('MainDrawer',{screen :'Home'});
           }
         } catch (error) {
           // Error retrieving data

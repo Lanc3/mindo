@@ -11,6 +11,7 @@ import {
 import Svg, { Path } from "react-native-svg";
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { OtherSites } from './components/OtherSites';
 
 function CustomDrawerContent(props) {
   const [mainDrawer, setMainDrawer] = useState(true);
@@ -62,8 +63,6 @@ function CustomDrawerContent(props) {
                 onItemParentPress(parent.key);
               }}>
               <View style={styles.parentItem}>
-
-              
                 <Text style={[styles.icon, styles.title]}>{parent.title}</Text>
                 <View style={styles.bottom}> 
                   {parent.isExpandable ? expandable : null}
@@ -113,10 +112,11 @@ function CustomDrawerContent(props) {
           <View style={styles.parentItem}>
             <View style={styles.iconStyle}> 
             <Icon name={"logout"} color={'#6e822b'} size ={25} />
-            
             </View>
             <Text style={styles.title}>{'Sign out'}</Text>
+            
           </View>
+          <OtherSites></OtherSites>
         </TouchableOpacity>
       </View>
     );

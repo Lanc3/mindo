@@ -96,7 +96,7 @@ function MainDrawerNavigation() {
       drawerContent={(props) => (
         <CustomDrawerContent drawerItems={drawerItemsMain} {...props} />
       )}>
-      <Drawer.Screen name="Home" component={BreakingNews} options={{headerShown:false}}/>
+      <Drawer.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="BreakingNews" component={BreakingNews} options={{headerShown:false}}/>
       <Drawer.Screen name="LatestNews" component={LatestNews} options={{headerShown:false}}/>
       <Drawer.Screen name="NewsFeatures" component={NewsFeatures} options={{headerShown:false}}/>

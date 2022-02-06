@@ -65,7 +65,7 @@ const SignInScreen = ({navigation}) => {
             setIsLogged(true);
             setUserProfile(json);
             setUserToken(json.token);
-            navigation.navigate('MainDrawer',{screen :'BreakingNews'});
+            navigation.navigate('MainDrawer',{screen :'Home'});
           } else {
             setIsLogged(false);
             setError('Login Failed, Invalid email or password');

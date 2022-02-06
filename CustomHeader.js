@@ -11,9 +11,12 @@ import Svg, { Path } from "react-native-svg";
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 
 function CustomHeader(props) {
-  const toggleDrawer = () =>
+  const toggleDrawer = () =>{
     props.navigation.dispatch(DrawerActions.toggleDrawer());
-
+  }
+const goHome = () => {
+  props.navigation.navigate('MainDrawer',{screen :'Home'});
+}
   return (
     <SafeAreaView>
       <View style={styles.headerContainer}>
@@ -26,6 +29,9 @@ function CustomHeader(props) {
           </TouchableOpacity>
         </View>
         <View style={styles.header}>
+        <TouchableOpacity
+        onPress={goHome}
+        >
         <Svg
                             width={160}
                             height={35}
@@ -87,8 +93,10 @@ function CustomHeader(props) {
                                 c-2.2,0-4.1-0.5-5.7-1.4c-1.6-0.9-2.9-2.3-3.9-4.2c-0.9-1.9-1.4-4.2-1.4-7.1c0-2.9,0.5-5.4,1.5-7.4c1-2,2.4-3.4,4.1-4.4
                                 C182.6,18.4,184.6,17.9,186.8,17.9z" fill="#fff" 
                         />                 
-                        </Svg>
+        </Svg>
+        </TouchableOpacity>
         </View>
+        
       </View>
     </SafeAreaView>
   );
@@ -100,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: '#000',
-    
+
   },
   headerLeft: {
     flexDirection: 'row',
