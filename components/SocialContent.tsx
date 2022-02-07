@@ -14,19 +14,26 @@ export function SocialContent(props) {
 const _handleLinkedInLinking =() => {
     Linking.openURL("http://www.linkedin.com/company/greencross-publishing");
 };
+const _handleInstagramLinking =() => {
+    Linking.openURL("https://www.instagram.com/medicalindependent/");
+};
 
     return (
         <View style={styles.container}>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="facebook" backgroundColor="#3b5998" onPress={_handleFacebookLinking}>
+                <FontAwesome.Button  name="twitter" backgroundColor="#000" onPress={_handleTwitterLinking}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="twitter" backgroundColor="#1da1f2" onPress={_handleTwitterLinking}>
+                <FontAwesome.Button  name="facebook" backgroundColor="#000" onPress={_handleFacebookLinking}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="linkedin" backgroundColor="#0077b5" onPress={_handleLinkedInLinking}>
+                <FontAwesome.Button  name="linkedin" backgroundColor="#000" onPress={_handleLinkedInLinking}>
+                </FontAwesome.Button>
+            </View>
+            <View style={styles.spacer}>
+                <FontAwesome.Button  name="instagram" backgroundColor="#000" onPress={_handleInstagramLinking}>
                 </FontAwesome.Button>
             </View>
             
@@ -37,10 +44,10 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         flexDirection:'row',
-        justifyContent:'center',
+        justifyContent:'flex-start',
         alignItems:'center'
     },
     spacer:{
-        padding:10
+        padding:0
     }
 })

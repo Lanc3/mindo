@@ -8,7 +8,7 @@ const [categories,setCategories] = useState([]);
 
 var WPAPI = require( 'wpapi' );
 var _ = require( 'lodash' );
-let wp = new WPAPI({endpoint:'https://dev.medicalindependent.ie/wp-json/'});
+let wp = new WPAPI({endpoint:'https://medicalindependent.ie/wp-json/'});
 
 const getCategoryAPI = async() => {
 //posts?filter[cat]=1

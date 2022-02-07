@@ -19,17 +19,17 @@ const _handleLinkedInLinking =() => {
         <View style={styles.container}>
             <View style={styles.spacer}>
             <TouchableHighlight onPress={() => _handleFacebookLinking()}>
-                <Image  source={require('./../assets/images/doctorCPD.png')} />
+                <Image style={styles.image} source={require('./../assets/images/doctorCPD.png')} />
             </TouchableHighlight>
             </View>
             <View style={styles.spacer}>
             <TouchableHighlight onPress={() => _handleTwitterLinking()}>
-                <Image  source={require('./../assets/images/pharmaCPD.png')} />
+                <Image style={styles.image} source={require('./../assets/images/pharmaCPD.png')} />
             </TouchableHighlight>
             </View>
             <View style={styles.spacer}>
             <TouchableHighlight onPress={() => _handleLinkedInLinking()}>
-                <Image  source={require('./../assets/images/nurseCPD.png')} />
+                <Image style={styles.image} source={require('./../assets/images/nurseCPD.png')} />
             </TouchableHighlight>
             </View>
         </View>
@@ -42,9 +42,12 @@ const styles = StyleSheet.create({
         flexDirection:'row',
 
         maxWidth:windowWidth,
-
+        paddingBottom:20
     },
     spacer:{
-        padding:10
+        padding:0
+    },
+    image:{
+      height:20  
     }
 })
