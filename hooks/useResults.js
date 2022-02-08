@@ -47,6 +47,7 @@ const getPostsByCategory = async(categoryID:number,pageNumber:number) => {
     try{
         const response = await wp.posts().categories(categoryID).perPage(10).page(pageNumber);
         const posts = await JSON.stringify(response);
+
         return posts;
     }catch(error){
         console.log("getPostsByCategory : "+error)
@@ -97,18 +98,30 @@ function getAll( request ) {
             return _.flatten( responses );
         });
     });
-}
+}//wp.users().id( n )
 
-const fetchApiData = async route => {
+const getUser = async (id) => {
+    console.log("hit")
+    try{
+        const response = await wp.users().id(id);
+        const json = await response.json();
+        console.log(json)
+        return json;
+    }catch (error){
+        console.log(error);
+    }
+  };
+
+const fetchApiData = async (slug) => {
     try {
-      const response = await fetch(route);
+      const response = await fetch(`https://medicalindependent.ie/wp-json/wp/v2/posts?category_slug=${slug}`);
       const json = await response.json();
-      return json
+      return response.headers.map["x-wp-totalpages"];
     } catch (error) {
       console.error(error);
       return null;
     }
   };
 
-    return[getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData];
+    return[getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser];
 }

@@ -6,13 +6,13 @@ export const Slide = (props: any) => {
 
   const { item } = props;
 
-  const {navigation} = props;
+  const {navigation, nameSlug} = props;
 
   return (
       
     <View style={styles.slide}>
         
-      <Text style={{ ...styles.slideText }}>
+     
       <ArticleCard props title={item["title"]["rendered"].toString()}
                 excerpt = {item["excerpt"]["rendered"].toString()}
                 date = {item["date"].toString()}
@@ -20,8 +20,9 @@ export const Slide = (props: any) => {
                 totalData = {item["content"]["rendered"]}
                 authorId = {item["author"]}
                 navi = {navigation}
+                nameSlug = {nameSlug}
                 />
-      </Text>
+      
     </View>
   );
 }
@@ -29,17 +30,16 @@ const styles = StyleSheet.create({
     slide: {
       paddingHorizontal:0,
       paddingBottom: 0,
-      paddingTop: 10,
+      paddingTop: 0,
       flexBasis: '90%',
       flex: 1,
       maxWidth: '90%',
       display: 'flex',
       flexDirection: 'row',
-      flexWrap: 'wrap',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       alignContent: 'center',
       justifyContent: 'center',
-      height: 400,
+      height: 300,
     },
     slideText: {
       width: '100%',

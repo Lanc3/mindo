@@ -8,8 +8,8 @@ import { WebView } from 'react-native-webview';
 import WebRender from "./WebRender";
 import { useNavigation } from '@react-navigation/native';
 
-export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,authorId}) {
-    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor] = useResults();
+export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug}) {
+    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser] = useResults();
     const [imageData, setImageData] = useState("../assets/images/splash.png");
     const [name, setName] = useState([]);
 
@@ -18,16 +18,16 @@ const getMedia = async() =>{
     try{
         const image = await getMediaAPI(mediaID);
         setImageData(image)
+        
     }catch(error){
         console.log(error)
     }finally{
-       
     };
 }
 
 const getAuthorName = async() =>{
     try{
-        const name = await getAuthor(1);
+        const name = await getUser(1);
         console.log(name)
         setName(name)
     }catch(error){
@@ -49,18 +49,15 @@ useEffect(() => {
             <TouchableOpacity
                 onPress={() => navi.navigate("FullArticleScreen",{title:title,date:date,imageData:imageData,htmlData:totalData})}
             >
-        <Surface style={styles.cardStyle}>
-                <Card.Cover source={{ uri: imageData }} resizeMode={'cover'} />
-                <Card.Content>
-                    <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
-                <Divider style={styles.divider}/>
-                <WebRender htmlData={excerpt}/>
-                <Divider style={styles.divider}/>
-                <View style={styles.cardEnd}>
-                    {/* <Text style={styles.dateS}>{formatDate(date)}</Text> */}
+                <Image style ={styles.image}source={{ uri: imageData }}/>
+                <Text style={styles.greenTitle}>{nameSlug}</Text>
+                <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
+                <View style={styles.footer}>
+                    <Text>By </Text>
+                    <Text style={{color:'black'}}>Mindo</Text>
+                    <Text> - </Text>
+                    <Text >{formatDate(date)}</Text>
                 </View>
-                </Card.Content>
-            </Surface>
             </TouchableOpacity>
         </View>
     );
@@ -71,16 +68,16 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
-        flexGrow:1,
-        paddingBottom:55
+        flex:1,
+        paddingBottom:0
     },
     spacer:{
         padding:10
     },
     cardStyle:{
-        minWidth:'90%',
-        padding:0,
-        marginBottom:10,
+        minWidth:'70%',
+        paddingLeft:-10,
+        margin:10,
         elevation:12,
     },
     divider:{
@@ -91,10 +88,11 @@ const styles = StyleSheet.create({
         paddingLeft:0,
     },
     titleStyle:{
-        padding:10,
+        paddingRight:10,
         fontSize:17,
         fontWeight:'bold',
-        justifyContent:'center'
+        justifyContent:'flex-start',
+        height:50
     },
     surface: {
         elevation: 1,
@@ -126,6 +124,21 @@ const styles = StyleSheet.create({
         paddingBottom:10
     },
     dateS:{
-        justifyContent:'center'
+        justifyContent:'center',
+        color:'#000'
+    },
+    image:{
+    width:'100%',
+    height:200
+    },
+    greenTitle:{
+        color:'#6e822b',
+        paddingTop:10
+    },
+    footer:{
+        flex:1,
+        flexDirection:'row',
+        height:20,
+        width:'100%'
     }
 })

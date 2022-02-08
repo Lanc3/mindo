@@ -6,8 +6,8 @@ import { StyleSheet } from 'react-native'
 
 export const Carousel = (props: any) => {
 
-  const { items, style,navigation } = props;
-  
+  const { items, style,navigation,nameSlug} = props;
+
   const itemsPerInterval = props.itemsPerInterval === undefined
     ? 1
     : props.itemsPerInterval;
@@ -19,7 +19,7 @@ export const Carousel = (props: any) => {
   const init = (width: number) => {
     // initialise width
     setWidth(width);
-    
+    console.log(nameSlug)
     // initialise total intervals
     const totalItems = items.length;
     setIntervals(Math.ceil(totalItems / itemsPerInterval));
@@ -43,7 +43,7 @@ export const Carousel = (props: any) => {
         key={i}
         style={{
           ...styles.bullet,
-          opacity: interval === i ? 0.5 : 0.1
+          opacity: interval === i ? 1 : 0.4
         }}
       >
         &bull;
@@ -82,6 +82,7 @@ export const Carousel = (props: any) => {
                   key={index}
                   item={item}
                   navigation={navigation}
+                  nameSlug = {nameSlug}
                 />
               );
           }
@@ -95,7 +96,7 @@ export const Carousel = (props: any) => {
 }
 const styles = StyleSheet.create({
   statsHead: {
-    paddingTop: 10,
+    paddingTop: 0,
     paddingHorizontal: 12,
   },
   container: {
@@ -106,7 +107,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     shadowColor: '#fcfcfc',
     shadowOpacity: 1,
-    marginTop: 10,
+    marginTop: 0,
+    paddingRight:0,
     shadowOffset: {
       width: 0,
       height: 5
@@ -119,18 +121,18 @@ const styles = StyleSheet.create({
   },
   bullets: {
     position: 'absolute',
-    top: 0,
-    right: 0,
+    bottom: 90,
+    left: 0,
     display: 'flex',
     justifyContent: 'flex-start',
     flexDirection: 'row',
     paddingHorizontal: 10,
-    paddingTop: 5,
-    color: '#6e822b',
+    paddingTop: 0,
+    color: 'black',
   },
   bullet: {
     paddingHorizontal: 5,
-    fontSize: 20,
+    fontSize: 40,
   }
 });
 
