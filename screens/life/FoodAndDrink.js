@@ -5,14 +5,14 @@ import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
 
-const ProfSeamusScreen = ({navigation}) => {
+const FoodAndDrink = ({navigation}) => {
     const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
     const [totalPages, setTotalPages] = useState(0);
-    const [title,setTitle] = useState("Prof Seamus O’Mahony");
-    const [slug,setSlug] = useState("profseamusomahony");
+    const [title,setTitle] = useState("Food And Drink");
+    const [slug,setSlug] = useState("food-and-drink");
 
     const nextpage = () =>{
       if(page <= totalPages)
@@ -91,7 +91,7 @@ const ProfSeamusScreen = ({navigation}) => {
       );
     };
 
-export default ProfSeamusScreen;
+export default FoodAndDrink;
 
 const styles = StyleSheet.create({
     container:{

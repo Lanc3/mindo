@@ -14,14 +14,14 @@ export const Footer = ({navi}) => {
     { label: 'Investigations', value: 'Investigations' },
     { label: 'Interviews', value: 'Interviews' },
     { label: 'Photo News', value: 'PhotoNews' },
-    { label: 'Conference', value: 'SocietyNews' },
+    { label: 'Conference', value: 'Conference' },
   ];
   const Comment = [
     { label: 'Editorial', value: 'Editorial' },
-    { label: 'Medico-Legal', value: 'BreakingNews' },
+    { label: 'Medico-Legal', value: 'MedicoLegal' },
     { label: 'Dr Paddy Barrett', value: 'DrPaddy' },
     { label: 'Dr Neasa Conneally', value: 'DrNeasa' },
-    { label: 'Dr Gabrielle Colleran', value: 'Interviews' },
+    { label: 'Dr Gabrielle Colleran', value: 'DrGabrielleScreen' },
     { label: 'Dr Michael Conroy', value: 'DrMichael' },
     { label: 'Dr Lucia Gannon', value: 'DrLucia' },
     { label: 'Dr Pat Harrold', value: 'DrPat' },
@@ -31,20 +31,20 @@ export const Footer = ({navi}) => {
     { label: 'George Winter', value: 'GeorgeWinter' },
   ];
   const Life = [
-    { label: 'Cartoon', value: 'LatestNews' },
-    { label: 'Book Review', value: 'BreakingNews' },
-    { label: 'Food and Drink', value: 'NewsFeatures' },
-    { label: 'Motoring', value: 'Investigations' },
-    { label: 'Sport', value: 'Interviews' },
-    { label: 'Finance', value: 'PhotoNews' },
-    { label: 'The Gander', value: 'SocietyNews' },
-    { label: 'The Dorsal View', value: 'SocietyNews' },
+    { label: 'Cartoon', value: 'Cartoon' },
+    { label: 'Book Review', value: 'BookReview' },
+    { label: 'Food and Drink', value: 'FoodAndDrink' },
+    { label: 'Motoring', value: 'Motoring' },
+    { label: 'Sport', value: 'Sport' },
+    { label: 'Finance', value: 'Finance' },
+    { label: 'The Gander', value: 'TheGander' },
+    { label: 'The Dorsal View', value: 'TheDorsalView' },
   ];
   const Clinical = [
-    { label: 'Clinical News', value: 'LatestNews' },
-    { label: 'Case Studies', value: 'BreakingNews' },
-    { label: 'Research', value: 'NewsFeatures' },
-    { label: 'Feature', value: 'Investigations' },
+    { label: 'Clinical News', value: 'ClinicalNews' },
+    { label: 'Case Studies', value: 'CaseStudies' },
+    { label: 'Research', value: 'Research' },
+    { label: 'Feature', value: 'Feature' },
   ];
   const team = [
     { label: 'Catherine Reilly', value: 'CatherineReilly' },

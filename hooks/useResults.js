@@ -116,10 +116,10 @@ const fetchApiData = async (slug) => {
     try {
       const response = await fetch(`https://medicalindependent.ie/wp-json/wp/v2/posts?category_slug=${slug}`);
       const json = await response.json();
-      return response.headers.map["x-wp-totalpages"];
+      const total = await response.headers.map["x-wp-totalpages"];
+      return total;
     } catch (error) {
       console.error(error);
-      return null;
     }
   };
 

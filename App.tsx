@@ -17,11 +17,10 @@ import NewsFeatures from './screens/news/NewsFeatures';
 import Investigations from './screens/news/Investigations';
 import Interviews from './screens/news/Interviews';
 import PhotoNews from './screens/news/PhotoNews';
-import SocietyNews from './screens/news/SocietyNews';
+import Conference from './screens/news/Conference';
 import EditorialScreen from './screens/comments/EditorialScreen';
 import DrChristineScreen from './screens/comments/DrChristineScreen';
 import DrMichaelScreen from './screens/comments/DrMichaelScreen';
-import DrMuirisScreen from './screens/comments/DrMuirisScreen';
 import DrPatScreen from './screens/comments/DrPatScreen';
 import GeorgeWinterScreen from './screens/comments/GeorgeWinterScreen';
 import DrPaddyScreen from './screens/comments/DrPaddyScreen';
@@ -29,18 +28,18 @@ import DrLuciaScreen from './screens/comments/DrLuciaScreen';
 import DrNeasaScreen from './screens/comments/DrNeasaScreen';
 import ProfBrendanScreen from './screens/comments/ProfBrendanScreen';
 import ProfSeamusScreen from './screens/comments/ProfSeamusScreen';
-import LettersScreen from './screens/comments/LettersScreen';
-import ConferencesScreen from './screens/life/ConferencesScreen';
+import MedicoLegal from './screens/comments/MedicoLegal';
+import BookReview from './screens/life/BookReview';
 import FinanceScreen from './screens/life/FinanceScreen';
 import TheGanderScreen from './screens/life/TheGanderScreen';
 import TheDorsalViewScreen from './screens/life/TheDorsalViewScreen';
 import SportScreen from './screens/life/SportScreen';
-import CultureScreen from './screens/life/CultureScreen';
+import Cartoon from './screens/life/Cartoon';
 import MotoringScreen from './screens/life/MotoringScreen';
 import SportsQuizScreen from './screens/life/SportsQuizScreen';
 import CaseStudiesScreen from './screens/clinical/CaseStudiesScreen';
 import FeatureScreen from './screens/clinical/FeatureScreen';
-import InterviewScreen from './screens/clinical/InterviewScreen';
+import ClinicalNews from './screens/clinical/ClinicalNews';
 import ResearchScreen from './screens/clinical/ResearchScreen';
 import ISRScreen from './screens/societies/ISRScreen';
 import CPIScreen from './screens/societies/CPIScreen';
@@ -81,6 +80,8 @@ import PaulMulhollandScreen from './screens/newsTeam/PaulMulhollandScreen';
 import PriscillaLynchScreen from './screens/newsTeam/PriscillaLynchScreen';
 import SponsoredScreen from './screens/sponsored/SponsoredScreen';
 import AdvertiseScreen from './screens/advertise/AdvertiseScreen';
+import DrGabrielleScreen from './screens/comments/DrGabrielleScreen';
+import FoodAndDrink from './screens/life/FoodAndDrink';
 const Drawer = createDrawerNavigator();
 
 function MainDrawerNavigation() {
@@ -98,16 +99,17 @@ function MainDrawerNavigation() {
       )}>
       <Drawer.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="BreakingNews" component={BreakingNews} options={{headerShown:false}}/>
+      <Drawer.Screen name="FoodAndDrink" component={FoodAndDrink} options={{headerShown:false}}/>
+      <Drawer.Screen name="DrGabrielleScreen" component={DrGabrielleScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="LatestNews" component={LatestNews} options={{headerShown:false}}/>
       <Drawer.Screen name="NewsFeatures" component={NewsFeatures} options={{headerShown:false}}/>
       <Drawer.Screen name="Investigations" component={Investigations} options={{headerShown:false}}/>
       <Drawer.Screen name="Interviews" component={Interviews} options={{headerShown:false}}/>
       <Drawer.Screen name="PhotoNews" component={PhotoNews} options={{headerShown:false}}/>
-      <Drawer.Screen name="SocietyNews" component={SocietyNews} options={{headerShown:false}}/>
+      <Drawer.Screen name="Conference" component={Conference} options={{headerShown:false}}/>
       <Drawer.Screen name="Editorial" component={EditorialScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="DrChristine" component={DrChristineScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="DrMichael" component={DrMichaelScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="DrMuiris" component={DrMuirisScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="DrPat" component={DrPatScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="GeorgeWinter" component={GeorgeWinterScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="DrPaddy" component={DrPaddyScreen} options={{headerShown:false}}/>
@@ -115,18 +117,18 @@ function MainDrawerNavigation() {
       <Drawer.Screen name="DrNeasa" component={DrNeasaScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="ProfBrendan" component={ProfBrendanScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="ProfSeamus" component={ProfSeamusScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="Letters" component={LettersScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="Conferences" component={ConferencesScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="MedicoLegal" component={MedicoLegal} options={{headerShown:false}}/>
+      <Drawer.Screen name="Cartoon" component={Cartoon} options={{headerShown:false}}/>
       <Drawer.Screen name="Finance" component={FinanceScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="TheGander" component={TheGanderScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="TheDorsalView" component={TheDorsalViewScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="Sport" component={SportScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="Culture" component={CultureScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="BookReview" component={BookReview} options={{headerShown:false}}/>
       <Drawer.Screen name="Motoring" component={MotoringScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="SportsQuiz" component={SportsQuizScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="CaseStudies" component={CaseStudiesScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="Feature" component={FeatureScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="Interview" component={InterviewScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="ClinicalNews" component={ClinicalNews} options={{headerShown:false}}/>
       <Drawer.Screen name="Research" component={ResearchScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="ISR" component={ISRScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="CPI" component={CPIScreen} options={{headerShown:false}}/>

@@ -1,36 +1,34 @@
-import React,{useEffect,useState} from "react";
-import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList, requireNativeComponent} from "react-native";
-import { ArticleCard } from "../../components/ArticleCard";
+import React,{useEffect,useState,useCallback} from "react";
+import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
 import useResults from "../../hooks/useResults";
-import ConsultingRoomsScreen from "../classifieds/ConsultingRoomsScreen";
 import { Footer } from "../../components/Footer";
-import Carousel from "../../components/Carousel";
 import { ShortCard } from "../../components/ShortCard";
+import { Header } from "../../components/Header";
 
-const LatestNews = ({navigation}) => {
-    const [categoryID,setCategorID]  = useState(0);
+const Investigations = ({navigation}) => {
     const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
-    const [lastPage, setLastPage] = useState(false);
-    const [categoryId, setCategoryId] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
+    const [title,setTitle] = useState("Latest News");
+    const [slug,setSlug] = useState("latest-news");
+
     const nextpage = () =>{
+      if(page <= totalPages)
       setPage(prevPage => prevPage + 1)
     }
     const perviouspage = () =>{
+      if(page > 0)
       setPage(prevPage => prevPage - 1)
     }
-    const getid = async() =>{
+    const getContent = useCallback(async() =>{
         try{
-            const response = await getCategoyIdBySlug("latest-news");
+            const response = await getCategoyIdBySlug(slug);
             const id = await response;
             const json = JSON.parse(await getPostsByCategory(id,page));
-            const total = fetchApiData("latest-news");//getting total pages per slug
-            setTotalPages(total._W)
+            const total = await fetchApiData(slug);//getting total pages per slug
+            setTotalPages(total)
             setData(json);
         }catch(error){
             console.log(error)
@@ -38,31 +36,36 @@ const LatestNews = ({navigation}) => {
             setLoading(false);
         };
 
-    };
+    },[page]);
 
      useEffect(() => {
-        getid();
-      }, [page]);
+      getContent();
+      }, [getContent]);
+
     return(
-        <ScrollView style={{ flex: 1, paddingTop: 5 }}>
-          <Text style={styles.pageTitle}>Latest News</Text>
-          <Carousel
-        style='slide'
-        items={data}
-        navigation={navigation}
-        nameSlug={"Latest News"}
-      />
+        <View style={{ flex: 1, paddingTop: 5 }}>
       {data.length > 0 ? (
         <View>
-          <View style={styles.max}>
         <FlatList
-          // onEndReached={() => {
-          //   if (!loading && !lastPage) {
-          //     setPage(prevPage => prevPage + 1);
-          //   }
-          // }}
+          ListHeaderComponent={<Header title={title} navigation={navigation} data={data}></Header>}
+          ListFooterComponent={
+            <View>
+            <View style={styles.pageNav}>
+            {page > 1 ?
+            <TouchableOpacity onPress={()=> perviouspage()}>
+            <Text style={styles.nextGreen}>Previous  </Text>
+          </TouchableOpacity> : null}
+
+          <Text style={styles.next}> {page} ...  </Text>
+          <Text style={styles.next}>{totalPages}</Text>
+            <TouchableOpacity onPress={()=> nextpage()}>
+              <Text style={styles.nextGreen}>  Next</Text>
+            </TouchableOpacity>
+          </View>
+            <Footer navi={navigation}/>
+            </View>
+          }
           data={data}
-          scrollEnabled={false}
           keyExtractor={item => ""+item.date+item.id.toString()}
           renderItem={({ item }) => (
                 <ShortCard props title={item["title"]["rendered"].toString()}
@@ -72,40 +75,23 @@ const LatestNews = ({navigation}) => {
                 totalData = {item["content"]["rendered"]}
                 authorId = {item["author"]}
                 navi = {navigation}
-                nameSlug = {'Latest News'}
+                nameSlug={title}
                 />
 
             )}
           />
-          <View style={styles.pageNav}>
-            <Text>{totalPages}</Text>
-            {page > 1 ? 
-            <TouchableOpacity onPress={()=> perviouspage()}>
-            <Text>Previous  </Text>
-          </TouchableOpacity> : null}
-          <Text> {page} </Text>
-            <TouchableOpacity onPress={()=> nextpage()}>
-              <Text>  Next</Text>
-            </TouchableOpacity>
           </View>
-          </View>
-          <ScrollView>
-          <Footer
-          navi={navigation}
-          />
-          </ScrollView>
-            </View>
           ) : (
           <View>
             <Image style={styles.image} source={require("../../assets/images/logo.png" )}/>
             <Text style={styles.pageTitle}>Loading...</Text>
           </View>
           )}
-        </ScrollView>
+        </View>
       );
     };
 
-export default LatestNews;
+export default Investigations;
 
 const styles = StyleSheet.create({
     container:{
@@ -126,10 +112,14 @@ const styles = StyleSheet.create({
       height:300,
       resizeMode: 'contain',
     },
-    max:{
-      maxHeight:1700
-    },
     pageNav:{
       flexDirection:'row'
+    },
+    next:{
+      fontSize:16
+    },
+    nextGreen:{
+      fontSize:16,
+      color:'#6e822b',
     }
 });
