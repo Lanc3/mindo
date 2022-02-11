@@ -6,7 +6,7 @@ import { StyleSheet } from 'react-native'
 
 export const Carousel = (props: any) => {
 
-  const { items, style,navigation,nameSlug} = props;
+  const { items, style,navigation,nameSlug,pageRouteName} = props;
 
   const itemsPerInterval = props.itemsPerInterval === undefined
     ? 1
@@ -50,7 +50,8 @@ export const Carousel = (props: any) => {
       </Text>
     );
   }
-
+  const slideBulets = <View style={styles.bullets}>{bullets}</View>;
+  const statBullets = <View style={styles.statBullets}>{bullets}</View>;
   return (
     <View style={styles.container}>
       <ScrollView
@@ -71,9 +72,12 @@ export const Carousel = (props: any) => {
             case 'stats':
               return (
                 <Stat
-                  key={index}
-                  label={item.label}
-                  value={item.value}
+                key={index}
+                item={item}
+                navigation={navigation}
+                nameSlug = {nameSlug}
+                articleTitle = {nameSlug}
+                pageRouteName = {pageRouteName}
                 />
               );
             default:
@@ -88,9 +92,7 @@ export const Carousel = (props: any) => {
           }
         })}
       </ScrollView>
-      <View style={styles.bullets}>
-        {bullets}
-      </View>
+      {style === "stats" ? statBullets : slideBulets}
     </View>
   )
 }
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
     shadowColor: '#fcfcfc',
     shadowOpacity: 1,
     marginTop: 0,
-    paddingRight:0,
+    marginBottom:10,
     shadowOffset: {
       width: 0,
       height: 5
@@ -133,6 +135,17 @@ const styles = StyleSheet.create({
   bullet: {
     paddingHorizontal: 5,
     fontSize: 40,
+  },
+  statBullets: {
+    position: 'absolute',
+    bottom: -25,
+    left: 0,
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingTop: 0,
+    color: 'black',
   }
 });
 

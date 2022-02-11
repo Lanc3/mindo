@@ -470,12 +470,16 @@ footerStyle:{
   flex:1,
   justifyContent:'center',
   alignContent:'center',
-  alignItems:'center'
+  alignItems:'center',
+  paddingTop:30
 },
 footerText:{
   color:'#767676',
   fontSize:13,
   marginBottom:10
+},
+stat:{
+  paddingTop:10
 }
   });
 

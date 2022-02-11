@@ -3,7 +3,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  Text,
+  Image,
   SafeAreaView,
 } from 'react-native';
 import {DrawerActions} from '@react-navigation/native';
@@ -17,6 +17,16 @@ function CustomHeader(props) {
 const goHome = () => {
   props.navigation.navigate('MainDrawer',{screen :'Home'});
 }
+const logOut = async () => {
+  try {
+    await AsyncStorage.removeItem('userProfile');
+    props.navigation.navigate('MainDrawer',{screen :'SignInScreenlogout'});
+  
+  } catch (exception) {
+    console.log('Error deleting data');
+
+  }
+};
   return (
     <SafeAreaView>
       <View style={styles.headerContainer}>
@@ -96,7 +106,22 @@ const goHome = () => {
         </Svg>
         </TouchableOpacity>
         </View>
-        
+        <View style={styles.logout}>
+        <TouchableOpacity onPress={logOut }>
+        <Svg
+          width={50}
+          height={50}
+          viewBox="-10 -13 50 50">
+            <Path d="M15.3,0C9.4,0,4.6,4.9,4.6,10.9s4.8,10.8,10.7,10.8S26,16.8,26,10.9S21.2,0,15.3,0z M15.3,2.9
+	c2.3,0,4.2,1.9,4.2,4.3s-1.9,4.3-4.2,4.3s-4.2-1.8-4.2-4.3S13,2.9,15.3,2.9z M15.3,20.6c-3.8,0-6.8-1.8-6.8-4.1l0,0l0,0l0,0
+	c0-0.2,0-0.3,0.1-0.5c0.1-0.6,0.3-1.1,0.5-1.6c0.4-0.8,1.1-1.6,1.8-2.1c0.4-0.3,0.9-0.6,1.4-0.8l0,0c0.8,0.6,1.9,1,3,1s2.2-0.4,3-1
+	c0.3,0.1,0.6,0.3,0.9,0.5c0.8,0.5,1.5,1.2,2,2c0.2,0.4,0.4,0.8,0.6,1.2c0.1,0.2,0.1,0.4,0.2,0.7V16c0,0.2,0.1,0.3,0.1,0.5l0,0l0,0
+	l0,0C22.1,18.8,19.1,20.6,15.3,20.6z" fill="#6E822B" 
+                        />
+        </Svg>
+        </TouchableOpacity>
+        </View>
+
       </View>
     </SafeAreaView>
   );
@@ -120,7 +145,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingRight: 20,
+    paddingLeft: 20,
   },
   buttonTxt: {
     color: '#ddd',
@@ -129,6 +154,9 @@ const styles = StyleSheet.create({
   headerTxt: {
     color: '#ddd',
   },
+  logout:{
+    
+  }
 });
 
 export default CustomHeader;

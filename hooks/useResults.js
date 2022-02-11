@@ -6,8 +6,8 @@ import { webUrl } from '../constants/Const';
 export default () => {
 const [categories,setCategories] = useState([]);
 
-var WPAPI = require( 'wpapi' );
-var _ = require( 'lodash' );
+var WPAPI = require( 'wpapi/superagent' );
+
 let wp = new WPAPI({endpoint:'https://medicalindependent.ie/wp-json/'});
 
 const getCategoryAPI = async() => {
@@ -111,6 +111,22 @@ const getUser = async (id) => {
         console.log(error);
     }
   };
+  const getPostByAuthorId = async (id) => {
+    console.log("hitxcxcsd")
+    fetch( 'https://medicalindependent.ie/wp-json/wp/v2/posts?author=3248')
+.then( res => console.log( res ))
+.then( res => console.log( res ) );
+
+    //  WPAPI.discover( 'https://medicalindependent.ie/' )
+    // .then(function( site ) {
+    //     // Apply an arbitrary `filter` query parameter:
+    //     // All posts belonging to author with nicename "jadenbeirne"
+
+    //     console.log("hitttt")
+
+
+    // });
+  };
 
 const fetchApiData = async (slug) => {
     try {
@@ -123,5 +139,5 @@ const fetchApiData = async (slug) => {
     }
   };
 
-    return[getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser];
+    return[getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser,getPostByAuthorId];
 }

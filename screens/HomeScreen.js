@@ -1,9 +1,10 @@
-import React,{useEffect,useState} from "react";
-import { View, Text,Image,StyleSheet, SafeAreaView, ScrollView } from "react-native";
-import { SocialContent } from "../components/SocialContent";
-import { ArticleCard } from "../components/ArticleCard";
+import React,{useEffect,useState,useCallback} from "react";
+import { View, Text,Image,StyleSheet, TouchableOpacity, ScrollView ,Dimensions} from "react-native";
 import Carousel from "../components/Carousel";
 import useResults from "../hooks/useResults";
+import Footer from "../components/Footer";
+import { ECopy } from "../components/ECopy";
+import ArticleList from "../components/ArticleList";
 
 
 const HomeScreen = (props) => {
@@ -13,7 +14,8 @@ const HomeScreen = (props) => {
     const [feature, setFeature] = useState([]);
     const [team, setTeam] = useState([]);
     const [loading, setLoading] = useState(true);
-    const getid = async() =>{
+
+    const getContent = useCallback(async() =>{
         try{
             const response = await getCategoyIdBySlug("latest-news");
             const id = await response;
@@ -52,47 +54,58 @@ const HomeScreen = (props) => {
         };
         };
 
-    };
+    },[]);
 
-     useEffect(() => {
-        getid();
-      },[]);
+    useEffect(() => {
+      getContent();
+      }, [getContent]);
 
     return(
         <ScrollView style={styles.container}>
       {team.length > 0 ? (
         <View>
-      <Text style={styles.titleStyle}>
-        Latest News
-      </Text>
       <Carousel
         style='slide'
         items={latestNews}
         navigation={props.navigation}
+        nameSlug={"Latest News"}
       />
+      <ArticleList navigation={props.navigation} slugName={"latest-news"} titleName={"Latest News"} showAmount={5} pageRouteName={"LatestNews"}/>
+      <View style={styles.divider}/>
+      <ArticleList navigation={props.navigation} slugName={"breaking-news"} titleName={"Breaking News"} showAmount={3} pageRouteName={"BreakingNews"}/>
+      <View style={styles.divider}/>
       <Text style={styles.titleStyle}>
         Comments
       </Text>
       <Carousel
-        style='slide'
+        style='stats'
         items={comments}
         navigation={props.navigation}
+        nameSlug={"Comments"}
+        title={"Comment"}
+        pageRouteName={"Editorial"}
       />
-      <Text style={styles.titleStyle}>
-        Featured News
-      </Text>
+      <View style={styles.divider}/>
+      <ECopy></ECopy>
+      <View style={styles.divider}/>
+      <View style={styles.topSmallNav}>
+                  <View style={styles.titleContainer}>
+                    <Text style={styles.titleStyle}>News Features</Text>
+                  </View>
+                  <TouchableOpacity onPress={()=>{props.navigation.navigate('MainDrawer',{screen :'NewsFeatures'});}}>
+                      <View style={styles.veiwContainer}>
+                        <Text style={styles.viewAll}>View All</Text>
+                      </View>
+                  </TouchableOpacity>
+              </View>
       <Carousel
         style='slide'
         items={feature}
         navigation={props.navigation}
       />
-      <Text style={styles.titleStyle}>
-        Comments
-      </Text>
-      <Carousel
-        style='slide'
-        items={team}
-      />
+      <ArticleList navigation={props.navigation} slugName={"feature-news"} titleName={"Feature News"} showAmount={2} pageRouteName={"NewsFeatures"}/>
+      <View style={styles.divider}/>
+      <Footer/>
       </View>
       )
     : (
@@ -101,13 +114,12 @@ const HomeScreen = (props) => {
             <Text style={styles.pageTitle}>Loading...</Text>
           </View>
     )}
-    <SocialContent></SocialContent>
     </ScrollView>
     );
 };
 
 export default HomeScreen;
-
+const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     container:{
         flex: 1,
@@ -130,6 +142,36 @@ const styles = StyleSheet.create({
         fontSize:22,
         fontWeight:'bold',
         justifyContent:'center',
-        alignSelf:'center'
+        alignSelf:'center',
+    },
+    divider:{
+      color:'black',
+      borderBottomWidth:1,
+      borderBottomColor:'black',
+      width:windowWidth-10,
+      borderStyle:'solid',
+      marginLeft:5
+    },
+    topSmallNav:{
+        flex:1,
+        flexDirection:'row',
+        margin:10
+    },
+    viewAll:{
+        color:'#6e822b',
+    },
+    veiwContainer:{
+        flex:1,
+        justifyContent:'flex-end',
+        paddingRight:10
+    },
+    titleStyle:{
+        fontSize:16,
+        fontWeight:'bold',
+        paddingLeft:10
+    },
+    titleContainer:{
+        flex:1,
+        justifyContent:'flex-start'
     }
 });

@@ -6,7 +6,8 @@ export const Header = ({title,navigation,data}) => {
 
   return (
     <View style={styles.stat}>
-        <Text style={styles.pageTitle}>{title}</Text>
+      {title != null ?<Text style={styles.pageTitle}>{title}</Text>:null}
+        
           <Carousel
         style='slide'
         items={data}

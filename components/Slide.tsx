@@ -9,10 +9,7 @@ export const Slide = (props: any) => {
   const {navigation, nameSlug} = props;
 
   return (
-      
     <View style={styles.slide}>
-        
-     
       <ArticleCard props title={item["title"]["rendered"].toString()}
                 excerpt = {item["excerpt"]["rendered"].toString()}
                 date = {item["date"].toString()}
@@ -22,7 +19,6 @@ export const Slide = (props: any) => {
                 navi = {navigation}
                 nameSlug = {nameSlug}
                 />
-      
     </View>
   );
 }

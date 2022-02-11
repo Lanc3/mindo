@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from "react";
-import { View,StyleSheet,Text,Image,TouchableOpacity} from 'react-native';
+import { View,StyleSheet,Text,Image,TouchableOpacity,Dimensions} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
 import { Avatar, Button, Card,Surface ,Title,IconButton, Paragraph,Divider } from 'react-native-paper';
@@ -62,6 +62,7 @@ useEffect(() => {
         </View>
     );
 };
+const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     container:{
         backgroundColor:'#fff',
@@ -128,8 +129,9 @@ const styles = StyleSheet.create({
         color:'#000'
     },
     image:{
-    width:'100%',
-    height:200
+    width:windowWidth,
+    height:200,
+    resizeMode:'stretch'
     },
     greenTitle:{
         color:'#6e822b',

@@ -1,55 +1,68 @@
 import React from 'react'
-import { View, Text } from 'react-native'
-import { StyleSheet } from 'react-native'
+import { View, Text ,StyleSheet,TouchableOpacity} from 'react-native'
+import { ShortCard } from './ShortCard';
 
 export const Stat = (props: any) => {
 
-  const { label, value } = props;
+  const { item } = props;
+
+  const {navigation, nameSlug,articleTitle,pageRouteName} = props;
 
   return (
-    <View style={styles.stat}>
-      <Text style={{ ...styles.statText }}>
-        {value}
-      </Text>
-      <View style={styles.statHold}>
-        <Text style={{ ...styles.statLabel }}>
-          {label}
-        </Text>
-      </View>
+    <View style={styles.slide}>
+                    <View style={styles.topSmallNav}>
+                  <View style={styles.titleContainer}>
+                    <Text style={styles.titleStyle}>{articleTitle}</Text>
+                  </View>
+                  <TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :pageRouteName});}}>
+                      <View style={styles.veiwContainer}>
+                        <Text style={styles.viewAll}>View All</Text>
+                      </View>
+                  </TouchableOpacity>
+              </View>
+     <ShortCard title={item["title"]["rendered"].toString()}
+                excerpt = {item["excerpt"]["rendered"].toString()}
+                date = {item["date"].toString()}
+                mediaID = {item["featured_media"]}
+                totalData = {item["content"]["rendered"]}
+                authorId = {item["author"]}
+                navi = {navigation}
+                nameSlug={nameSlug}
+                articleTitle={articleTitle}
+                />
     </View>
   );
 }
- const styles = StyleSheet.create({
-    stat: {
-      paddingHorizontal: 20,
-      paddingBottom: 10,
-      paddingTop: 30,
-      flexBasis: '33%',
-      flex: 1,
-      maxWidth: '33%',
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      alignItems: 'center',
-      alignContent: 'center',
-      justifyContent: 'center',
+const styles = StyleSheet.create({
+    slide: {
+      flex:1,
+      justifyContent:'flex-start',
     },
-    statText: {
+    slideText: {
       width: '100%',
       textAlign: 'left',
       fontSize: 20,
     },
-    statHold: {
-      width: '100%',
-      marginBottom: 8,
+    topSmallNav:{
+        flex:1,
+        flexDirection:'row',
     },
-    statLabel: {
-      width: '100%',
-      textAlign: 'left',
-      fontSize: 11,
-      fontWeight: '600',
-      paddingTop: 5,
+    viewAll:{
+        color:'#6e822b',
     },
+    veiwContainer:{
+        flex:1,
+        justifyContent:'flex-end',
+        paddingRight:10
+    },
+    titleStyle:{
+        fontSize:16,
+        fontWeight:'bold',
+        paddingLeft:10
+    },
+    titleContainer:{
+        flex:1,
+        justifyContent:'flex-start'
+    }
   });
-
 export default Stat;

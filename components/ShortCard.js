@@ -18,7 +18,6 @@ const getMedia = async() =>{
     try{
         const image = await getMediaAPI(mediaID);
         setImageData(image)
-        
     }catch(error){
         console.log(error)
     }finally{
@@ -64,7 +63,6 @@ useEffect(() => {
                     </View>
                     </View>
                 </View>
-                <Divider style={styles.divider}/>
             </TouchableOpacity>
         </View>
     );
@@ -72,7 +70,8 @@ useEffect(() => {
 const styles = StyleSheet.create({
     container:{
         backgroundColor:'#fff',
-
+        paddingTop:10,
+        paddingBottom:10
     },
     spacer:{
         padding:10
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
         fontSize:15,
         fontWeight:'bold',
         justifyContent:'flex-start',
-
+        minHeight:50
     },
     surface: {
         elevation: 1,

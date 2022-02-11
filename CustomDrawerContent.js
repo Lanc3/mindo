@@ -105,16 +105,6 @@ function CustomDrawerContent(props) {
     }
   };
 
-  const logOut = async () => {
-    try {
-      await AsyncStorage.removeItem('userProfile');
-      props.navigation.navigate('MainDrawer',{screen :'SignInScreenlogout'});
-      return true;
-    } catch (exception) {
-      setError('Error deleting data');
-      return false;
-    }
-  };
   const goToLink =(value) => {
     console.log(value)
     props.navigation.navigate('MainDrawer',{screen :value});
