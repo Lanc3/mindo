@@ -1,12 +1,11 @@
 import React,{useEffect,useState,useCallback} from "react";
 import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import useResults from "../../hooks/useResults";
+import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/useResults'
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
 
 const ITSScreen = ({navigation}) => {
-    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
@@ -26,7 +25,6 @@ const ITSScreen = ({navigation}) => {
         try{
             const response = await getCategoyIdBySlug(slug);
             const id = await response;
-            console.log(id)
             const json = JSON.parse(await getPostsByCategory(id,page));
             const total = await fetchApiData(slug);//getting total pages per slug
             setTotalPages(total)

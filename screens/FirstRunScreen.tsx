@@ -13,7 +13,8 @@ const FirstRunScreen = ({navigation}) => {
     const _retrieveData = async () => {
         try {
           const value = await AsyncStorage.getItem('userProfile');
-          if (value !== null) {
+          console.log(value)
+          if (value === null) {
             //
           }
           else{

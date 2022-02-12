@@ -355,7 +355,7 @@ const goToTerms =() => {
           maxHeight={300}
           labelField="label"
           valueField="value"
-          placeholder={!isFocus ? 'Scocieties' : 'Scocieties'}
+          placeholder={!isFocus ? 'Societies' : 'Societies'}
           value={'value'}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
