@@ -113,7 +113,7 @@ const HomeScreen = (props) => {
       />
       <ArticleList navigation={props.navigation} slugName={"feature-news"} titleName={"Feature News"} showAmount={2} pageRouteName={"NewsFeatures"}/>
       <View style={styles.divider}/>
-      <Footer/>
+      <Footer navi={props.navigation}/>
       </View>
       )
     : (
