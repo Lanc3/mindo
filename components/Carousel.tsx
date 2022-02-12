@@ -19,7 +19,6 @@ export const Carousel = (props: any) => {
   const init = (width: number) => {
     // initialise width
     setWidth(width);
-    console.log(nameSlug)
     // initialise total intervals
     const totalItems = items.length;
     setIntervals(Math.ceil(totalItems / itemsPerInterval));

@@ -7,9 +7,11 @@ import useResults from '../hooks/useResults';
 import { WebView } from 'react-native-webview';
 import WebRender from "./WebRender";
 import { useNavigation } from '@react-navigation/native';
+import {getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
+
 
 export function ShortCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug}) {
-    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser] = useResults();
+    //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser] = useResults();
     const [imageData, setImageData] = useState("../assets/images/splash.png");
     const [name, setName] = useState([]);
 
@@ -24,16 +26,6 @@ const getMedia = async() =>{
     };
 }
 
-const getAuthorName = async() =>{
-    try{
-        const name = await getUser(1);
-        console.log(name)
-        setName(name)
-    }catch(error){
-        console.log(error)
-    }finally{
-    };
-}
 
 const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" }

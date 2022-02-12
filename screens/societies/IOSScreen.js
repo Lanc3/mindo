@@ -1,17 +1,18 @@
 import React,{useEffect,useState,useCallback} from "react";
 import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/useResults'
+import useResults from "../../hooks/useResults";
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
 
-const DrPaddyScreen = ({navigation}) => {
+const IOSScreen = ({navigation}) => {
+    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
     const [totalPages, setTotalPages] = useState(0);
-    const [title,setTitle] = useState("Dr Paddy Barrett");
-    const [slug,setSlug] = useState("dr-paddy-barrett");
+    const [title,setTitle] = useState("Irish Osteoporosis Society");
+    const [slug,setSlug] = useState("ios");
 
     const nextpage = () =>{
       if(page <= totalPages)
@@ -25,6 +26,7 @@ const DrPaddyScreen = ({navigation}) => {
         try{
             const response = await getCategoyIdBySlug(slug);
             const id = await response;
+            console.log(id)
             const json = JSON.parse(await getPostsByCategory(id,page));
             const total = await fetchApiData(slug);//getting total pages per slug
             setTotalPages(total)
@@ -90,7 +92,7 @@ const DrPaddyScreen = ({navigation}) => {
       );
     };
 
-export default DrPaddyScreen;
+export default IOSScreen;
 
 const styles = StyleSheet.create({
     container:{

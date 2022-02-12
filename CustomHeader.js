@@ -9,6 +9,7 @@ import {
 import {DrawerActions} from '@react-navigation/native';
 import Svg, { Path } from "react-native-svg";
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function CustomHeader(props) {
   const toggleDrawer = () =>{
@@ -20,11 +21,9 @@ const goHome = () => {
 const logOut = async () => {
   try {
     await AsyncStorage.removeItem('userProfile');
-    props.navigation.navigate('MainDrawer',{screen :'SignInScreenlogout'});
-  
+    props.navigation.navigate('SignInScreen');
   } catch (exception) {
-    console.log('Error deleting data');
-
+    console.log('Error deleting data', exception);
   }
 };
   return (
@@ -107,7 +106,7 @@ const logOut = async () => {
         </TouchableOpacity>
         </View>
         <View style={styles.logout}>
-        <TouchableOpacity onPress={logOut }>
+        <TouchableOpacity onPress={logOut}>
         <Svg
           width={50}
           height={50}

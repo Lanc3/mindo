@@ -62,7 +62,7 @@ export const Footer = ({navi}) => {
     { label: 'IICN / INA', value: 'IICNINA' },
     { label: 'IES', value: 'IES' },
     { label: 'ICS', value: 'ICS' },
-    { label: 'IOS', value: 'NewsFeatures' },
+    { label: 'IOS', value: 'IOSScreen' },
   ];
   const links = [
     { label: 'About Us', value: 'CatherineReilly' },
@@ -70,7 +70,6 @@ export const Footer = ({navi}) => {
     { label: 'Terms & Conditions', value: 'PaulMulholland' },
   ];
   const goToLink =(value) => {
-    console.log(value)
     navi.navigate('MainDrawer',{screen :value});
   };
 

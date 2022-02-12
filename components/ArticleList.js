@@ -2,10 +2,11 @@ import React,{useEffect,useState,useCallback} from "react";
 import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
 import useResults from "../hooks/useResults";
 import { ShortCard } from "./ShortCard";
+import {getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
 
 
 const ArticleList = ({navigation,slugName,titleName,showAmount,pageRouteName}) => {
-    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
+    //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);

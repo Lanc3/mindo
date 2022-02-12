@@ -1,12 +1,11 @@
 import React,{useEffect,useState,useCallback} from "react";
 import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import useResults from "../../hooks/useResults";
+import {getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../../hooks/useResults'
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
 
 const CatherineReillyScreen = ({navigation}) => {
-    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser,getPostByAuthorId] = useResults();
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
@@ -23,16 +22,16 @@ const CatherineReillyScreen = ({navigation}) => {
       setPage(prevPage => prevPage - 1)
     }
     const getContent = useCallback(async() =>{
-        // try{
-        //     const response = await getPostByAuthorId(3);
-        //     const posts = JSON.parse(response);
-        //     console.log(posts)
-        //     setData(json);
-        // }catch(error){
-        //     console.log(error)
-        // }finally{
-        //     setLoading(false);
-        // };
+        try{
+            const response = await getPostByAuthorId(3248);
+            const total = await getTotalPostByAuthor(3248);//getting total pages per slug
+            setTotalPages(total)
+            setData(response);
+        }catch(error){
+            console.log(error)
+        }finally{
+            setLoading(false);
+        };
 
     },[page]);
 

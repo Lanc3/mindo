@@ -77,7 +77,7 @@ function CustomDrawerContent(props) {
     { label: 'IICN / INA', value: 'IICNINA' },
     { label: 'IES', value: 'IES' },
     { label: 'ICS', value: 'ICS' },
-    { label: 'IOS', value: 'NewsFeatures' },
+    { label: 'IOS', value: 'IOSScreen' },
   ];
   const links = [
     { label: 'About Us', value: 'CatherineReilly' },
@@ -106,7 +106,6 @@ function CustomDrawerContent(props) {
   };
 
   const goToLink =(value) => {
-    console.log(value)
     props.navigation.navigate('MainDrawer',{screen :value});
   };
   const expandable = <Icon name={"chevron-down"} color={'#6e822b'} size ={25} />;
@@ -118,7 +117,6 @@ const goToClassifieds =() => {
   props.navigation.navigate('MainDrawer',{screen :'GalleriesScreen'});
 };
 const goToSponsored =(value) => {
-  console.log(value)
   props.navigation.navigate('MainDrawer',{screen :'SponsoredScreen'});
 };
 const goToAdvertise =() => {

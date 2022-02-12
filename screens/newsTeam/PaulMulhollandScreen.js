@@ -1,72 +1,95 @@
-import React,{useEffect,useState} from "react";
-import { Image,SafeAreaView, Text,Button,StyleSheet, View, FlatList, requireNativeComponent} from "react-native";
-import { ArticleCard } from "../../components/ArticleCard";
-import useResults from "../../hooks/useResults";
-import ConsultingRoomsScreen from "../classifieds/ConsultingRoomsScreen";
+import React,{useEffect,useState,useCallback} from "react";
+import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
+import {getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../../hooks/useResults'
+import { Footer } from "../../components/Footer";
+import { ShortCard } from "../../components/ShortCard";
+import { Header } from "../../components/Header";
 
-const PaulMulhollandScreen = ({navigation}) => {
-    const [categoryID,setCategorID]  = useState(0);
-    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
+const CatherineReillyScreen = ({navigation}) => {
     const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
-    const [lastPage, setLastPage] = useState(false);
-    const [categoryId, setCategoryId] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
+    const [title,setTitle] = useState("Paul Mulholland");
+    const [authorID,setAuthorID] = useState(3249);
 
-    const getid = async() =>{
+    const nextpage = () =>{
+      if(page <= totalPages)
+      setPage(prevPage => prevPage + 1)
+    }
+    const perviouspage = () =>{
+      if(page > 0)
+      setPage(prevPage => prevPage - 1)
+    }
+    const getContent = useCallback(async() =>{
         try{
-            const response = await getCategoyIdBySlug("breaking-news");
-            const id = await response;
-            const json = JSON.parse(await getPostsByCategory(id,page));
-            setData(prevPosts => [...prevPosts, ...json]);
+            const response = await getPostByAuthorId(authorID);
+            const total = await getTotalPostByAuthor(authorID);//getting total pages per slug
+            setTotalPages(total)
+            setData(response);
         }catch(error){
             console.log(error)
         }finally{
             setLoading(false);
         };
 
-    };
+    },[page]);
 
      useEffect(() => {
-        getid();
-      }, [page]);
+      getPostByAuthorId(3)
+      getContent();
+      }, [getContent]);
+
     return(
-        <SafeAreaView style={{ flex: 1, paddingTop: 5 }}>
-          <Text style={styles.pageTitle}>Breaking News</Text>
+        <View style={{ flex: 1, paddingTop: 5 }}>
       {data.length > 0 ? (
+        <View>
         <FlatList
-          onEndReached={() => {
-            if (!loading && !lastPage) {
-              setPage(prevPage => prevPage + 1);
-            }
-          }}
+          ListHeaderComponent={<Header title={title} navigation={navigation} data={data}></Header>}
+          ListFooterComponent={
+            <View>
+            <View style={styles.pageNav}>
+            {page > 1 ?
+            <TouchableOpacity onPress={()=> perviouspage()}>
+            <Text style={styles.nextGreen}>Previous  </Text>
+          </TouchableOpacity> : null}
+
+          <Text style={styles.next}> {page} ...  </Text>
+          <Text style={styles.next}>{totalPages}</Text>
+            <TouchableOpacity onPress={()=> nextpage()}>
+              <Text style={styles.nextGreen}>  Next</Text>
+            </TouchableOpacity>
+          </View>
+            <Footer navi={navigation}/>
+            </View>
+          }
           data={data}
           keyExtractor={item => ""+item.date+item.id.toString()}
           renderItem={({ item }) => (
-                <ArticleCard props title={item["title"]["rendered"].toString()}
+                <ShortCard props title={item["title"]["rendered"].toString()}
                 excerpt = {item["excerpt"]["rendered"].toString()}
                 date = {item["date"].toString()}
                 mediaID = {item["featured_media"]}
                 totalData = {item["content"]["rendered"]}
                 authorId = {item["author"]}
                 navi = {navigation}
+                nameSlug={title}
                 />
 
             )}
           />
+          </View>
           ) : (
           <View>
             <Image style={styles.image} source={require("../../assets/images/logo.png" )}/>
             <Text style={styles.pageTitle}>Loading...</Text>
           </View>
           )}
-        </SafeAreaView>
+        </View>
       );
     };
 
-export default PaulMulhollandScreen;
+export default CatherineReillyScreen;
 
 const styles = StyleSheet.create({
     container:{
@@ -86,5 +109,15 @@ const styles = StyleSheet.create({
       width: '100%',
       height:300,
       resizeMode: 'contain',
+    },
+    pageNav:{
+      flexDirection:'row'
+    },
+    next:{
+      fontSize:16
+    },
+    nextGreen:{
+      fontSize:16,
+      color:'#6e822b',
     }
 });

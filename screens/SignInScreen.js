@@ -22,7 +22,7 @@ const SignInScreen = ({navigation}) => {
 
   const wrongDetails = () =>
     Alert.alert('Error', error, [
-      { text: 'OK', onPress: () => console.log('OK Pressed') },
+      { text: 'OK', onPress: () => {} },
     ]);
 
     const doLogin = async (email, password) => {

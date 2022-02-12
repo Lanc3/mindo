@@ -7,9 +7,10 @@ import useResults from '../hooks/useResults';
 import { WebView } from 'react-native-webview';
 import WebRender from "./WebRender";
 import { useNavigation } from '@react-navigation/native';
+import {getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
 
 export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug}) {
-    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser] = useResults();
+    //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser] = useResults();
     const [imageData, setImageData] = useState("../assets/images/splash.png");
     const [name, setName] = useState([]);
 
@@ -18,7 +19,6 @@ const getMedia = async() =>{
     try{
         const image = await getMediaAPI(mediaID);
         setImageData(image)
-        
     }catch(error){
         console.log(error)
     }finally{

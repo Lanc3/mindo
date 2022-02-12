@@ -5,7 +5,7 @@ import useResults from "../../hooks/useResults";
 
 const ConsultingRoomsScreen = ({navigation}) => {
     const [categoryID,setCategorID]  = useState(0);
-    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
+    const [getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor] = useResults();
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState([]);

@@ -14,6 +14,9 @@ const FirstRunScreen = ({navigation}) => {
         try {
           const value = await AsyncStorage.getItem('userProfile');
           if (value !== null) {
+            //
+          }
+          else{
             navigation.navigate('MainDrawer',{screen :'Home'});
           }
         } catch (error) {

@@ -5,10 +5,11 @@ import useResults from "../hooks/useResults";
 import Footer from "../components/Footer";
 import { ECopy } from "../components/ECopy";
 import ArticleList from "../components/ArticleList";
+import {getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
 
 
 const HomeScreen = (props) => {
-    const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
+    //const [getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor] = useResults();
     const [latestNews, setlatestNews] = useState([]);
     const [comments, setComments] = useState([]);
     const [feature, setFeature] = useState([]);
@@ -74,9 +75,16 @@ const HomeScreen = (props) => {
       <View style={styles.divider}/>
       <ArticleList navigation={props.navigation} slugName={"breaking-news"} titleName={"Breaking News"} showAmount={3} pageRouteName={"BreakingNews"}/>
       <View style={styles.divider}/>
-      <Text style={styles.titleStyle}>
-        Comments
-      </Text>
+      <View style={styles.topSmallNav}>
+                  <View style={styles.titleContainer}>
+                    <Text style={styles.titleStyle}>Comments</Text>
+                  </View>
+                  <TouchableOpacity onPress={()=>{props.navigation.navigate('MainDrawer',{screen :'Editorial'});}}>
+                      <View style={styles.veiwContainer}>
+                        <Text style={styles.viewAll}>View All</Text>
+                      </View>
+                  </TouchableOpacity>
+              </View>
       <Carousel
         style='stats'
         items={comments}

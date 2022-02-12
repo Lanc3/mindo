@@ -10,16 +10,6 @@ export const Stat = (props: any) => {
 
   return (
     <View style={styles.slide}>
-                    <View style={styles.topSmallNav}>
-                  <View style={styles.titleContainer}>
-                    <Text style={styles.titleStyle}>{articleTitle}</Text>
-                  </View>
-                  <TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :pageRouteName});}}>
-                      <View style={styles.veiwContainer}>
-                        <Text style={styles.viewAll}>View All</Text>
-                      </View>
-                  </TouchableOpacity>
-              </View>
      <ShortCard title={item["title"]["rendered"].toString()}
                 excerpt = {item["excerpt"]["rendered"].toString()}
                 date = {item["date"].toString()}
@@ -37,6 +27,7 @@ const styles = StyleSheet.create({
     slide: {
       flex:1,
       justifyContent:'flex-start',
+      height:150
     },
     slideText: {
       width: '100%',

@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
     image:{
       height:windowWidth/2,
       width:windowWidth/2,
-      resizeMode:'contain'
+      resizeMode:'contain',
+      flex:1
     },
     imageContainer:{
         padding:10
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
         fontWeight:'bold'
     },
     textContainer:{
-
+        flex:1,
+        maxWidth:(windowWidth/2)-30
     }
 })

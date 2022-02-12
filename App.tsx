@@ -82,6 +82,7 @@ import SponsoredScreen from './screens/sponsored/SponsoredScreen';
 import AdvertiseScreen from './screens/advertise/AdvertiseScreen';
 import DrGabrielleScreen from './screens/comments/DrGabrielleScreen';
 import FoodAndDrink from './screens/life/FoodAndDrink';
+import IOSScreen from './screens/societies/IOSScreen';
 const Drawer = createDrawerNavigator();
 
 function MainDrawerNavigation() {
@@ -99,6 +100,7 @@ function MainDrawerNavigation() {
       )}>
       <Drawer.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="BreakingNews" component={BreakingNews} options={{headerShown:false}}/>
+      <Drawer.Screen name="IOSScreen" component={IOSScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="FoodAndDrink" component={FoodAndDrink} options={{headerShown:false}}/>
       <Drawer.Screen name="DrGabrielleScreen" component={DrGabrielleScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="LatestNews" component={LatestNews} options={{headerShown:false}}/>
