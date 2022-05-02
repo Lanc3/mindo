@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "839647357643",
+    "project_id": "mindo-2e45f",
+    "storage_bucket": "mindo-2e45f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839647357643:android:4852131b6b9ef94e15894e",
+        "android_client_info": {
+          "package_name": "com.sirlanc3.mindo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839647357643-oobj3gbq4q0007ekhap6p5t66v0cite8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByzRrv4Gun0ygIPfEXf9pww5PFfm8ezY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "839647357643-oobj3gbq4q0007ekhap6p5t66v0cite8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

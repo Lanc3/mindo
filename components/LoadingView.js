@@ -1,39 +1,13 @@
-import React from 'react';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Image,
-  SafeAreaView,
-} from 'react-native';
-import {DrawerActions} from '@react-navigation/native';
+import React ,{Component,useEffect, useState}from 'react';
+import { View, Text, Animated, Dimensions, TouchableOpacity,TouchableNativeFeedback, StyleSheet,ScrollView } from 'react-native'
 import Svg, { Path } from "react-native-svg";
-import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Drawer from './components/Drawer';
-function CustomHeader(props) {
-  const toggleDrawer = () =>{
-    props.navigation.dispatch(DrawerActions.toggleDrawer());
-  }
-const goHome = () => {
-  props.navigation.navigate('MainDrawer',{screen :'Home'});
-}
+import * as Progress from 'react-native-progress';
+export default function LoadingView({loadingProgress}) {
 
   return (
-    <SafeAreaView>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerLeft}>
-          <TouchableOpacity
-            onPress={toggleDrawer}
-            style={styles.leftButton}
-            testID="CustomHeader-toggleDrawer">
-            <Icon name={"menu"} color={'#6e822b'} size ={25} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.header}>
-        <TouchableOpacity
-        onPress={goHome}
-        >
+    <View style={styles.loadingContainer}>
+        <Progress.Circle style={{position:'absolute',top:windowHeight/2-100}} size={180} progress={loadingProgress} color={'rgba(110, 130, 43, 1.0)'}/>
+        <View style={styles.logoContainer}>
         <Svg
                             width={160}
                             height={35}
@@ -96,61 +70,32 @@ const goHome = () => {
                                 C182.6,18.4,184.6,17.9,186.8,17.9z" fill="#fff" 
                         />                 
         </Svg>
-        </TouchableOpacity>
         </View>
-        <View style={styles.logout}>
-          <Drawer navi={props.navigation}/>
-        {/* <TouchableOpacity onPress={logOut}>
-        <Svg
-          width={50}
-          height={50}
-          viewBox="-10 -13 50 50">
-            <Path d="M15.3,0C9.4,0,4.6,4.9,4.6,10.9s4.8,10.8,10.7,10.8S26,16.8,26,10.9S21.2,0,15.3,0z M15.3,2.9
-	c2.3,0,4.2,1.9,4.2,4.3s-1.9,4.3-4.2,4.3s-4.2-1.8-4.2-4.3S13,2.9,15.3,2.9z M15.3,20.6c-3.8,0-6.8-1.8-6.8-4.1l0,0l0,0l0,0
-	c0-0.2,0-0.3,0.1-0.5c0.1-0.6,0.3-1.1,0.5-1.6c0.4-0.8,1.1-1.6,1.8-2.1c0.4-0.3,0.9-0.6,1.4-0.8l0,0c0.8,0.6,1.9,1,3,1s2.2-0.4,3-1
-	c0.3,0.1,0.6,0.3,0.9,0.5c0.8,0.5,1.5,1.2,2,2c0.2,0.4,0.4,0.8,0.6,1.2c0.1,0.2,0.1,0.4,0.2,0.7V16c0,0.2,0.1,0.3,0.1,0.5l0,0l0,0
-	l0,0C22.1,18.8,19.1,20.6,15.3,20.6z" fill="#6E822B" 
-                        />
-        </Svg>
-        </TouchableOpacity> */}
-        </View>
-
-      </View>
-    </SafeAreaView>
+        {/* <Text style={styles.pageTitle}>Loading</Text> */}
+    </View>
   );
-}
+};
 
+const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: '#000',
-
-  },
-  headerLeft: {
-    flexDirection: 'row',
-  },
-  leftButton: {
-    marginLeft: 10,
-  },
-  header: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingLeft: 20,
-  },
-  buttonTxt: {
-    color: '#ddd',
-    fontWeight: 'bold',
-  },
-  headerTxt: {
-    color: '#ddd',
-  },
-  logout:{
-    
-  }
+    loadingContainer:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'#000',
+        height:windowHeight,
+        width:windowWidth
+    },
+    logoContainer:{
+        position:'absolute',
+        top:windowHeight/2-30,
+    },
+    pageTitle:{
+        fontSize:26,
+        fontFamily:'sans-serif',
+        fontWeight:"bold",
+        alignSelf:'center',
+        color:'#fff'
+    }
 });
-
-export default CustomHeader;
-

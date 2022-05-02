@@ -1,18 +1,19 @@
 import React,{useEffect,useState,useCallback} from "react";
 import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
+import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/useResults'
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
-import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/useResults'
-import {LoadingView} from '../../components/LoadingView'
-const AdvertiseScreen = ({navigation}) => {
+import LoadingView from "../../components/LoadingView";
+
+const ECopy = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    const [title,setTitle] = useState("Adverties");
-    const [slug,setSlug] = useState("advertise");
-    const [progress,setProgress] = useState(0);
+    const [title,setTitle] = useState("E-Copy");
+    const [slug,setSlug] = useState("ecopy");
+
     const nextpage = () =>{
       if(page <= totalPages)
       setPage(prevPage => prevPage + 1)
@@ -23,21 +24,19 @@ const AdvertiseScreen = ({navigation}) => {
     }
     const getContent = useCallback(async() =>{
         try{
-          setProgress(0.25);
+          setLoading(0.5);
             const response = await getCategoyIdBySlug(slug);
             const id = await response;
             const json = JSON.parse(await getPostsByCategory(id,page));
             const total = await fetchApiData(slug);//getting total pages per slug
             setTotalPages(total)
             setData(json);
-            setProgress(0.6);
         }catch(error){
             console.log(error)
         }finally{
-            setLoading(false);
-            setProgress(1);
+            setLoading(1);
         };
-
+        setLoading(1);
     },[page]);
 
      useEffect(() => {
@@ -84,22 +83,19 @@ const AdvertiseScreen = ({navigation}) => {
           />
           </View>
           ) : (
-          <View>
-            <LoadingView loadingProgress={progress}/>
-          </View>
+          <LoadingView loading={1}/>
           )}
         </View>
       );
     };
 
-export default AdvertiseScreen;
+export default ECopy;
 
 const styles = StyleSheet.create({
     container:{
         flex: 1,
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'#FFFFFF'
     },
     pageTitle:{
         fontSize:26,

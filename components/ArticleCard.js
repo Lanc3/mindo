@@ -35,9 +35,16 @@ const getAuthorName = async() =>{
     }finally{
     };
 }
-
+function convertDateToEnglish(date){
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var date = new Date(date);
+    var month = months[date.getMonth()];
+    var day = date.getDate();
+    var year = date.getFullYear();
+    return day + " " + month + ", " + year;
+}
 const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" }
+    const options = { year: "numeric", month: "String", day: "numeric" }
     return new Date(dateString).toLocaleDateString(undefined, options)
 }
 useEffect(() => {
@@ -53,10 +60,10 @@ useEffect(() => {
                 <Text style={styles.greenTitle}>{nameSlug}</Text>
                 <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
                 <View style={styles.footer}>
-                    <Text>By </Text>
+                    <Text style={{paddingLeft:10}}>By </Text>
                     <Text style={{color:'black'}}>Mindo</Text>
                     <Text> - </Text>
-                    <Text >{formatDate(date)}</Text>
+                    <Text >{convertDateToEnglish(date)}</Text>
                 </View>
             </TouchableOpacity>
         </View>
@@ -89,7 +96,7 @@ const styles = StyleSheet.create({
         paddingLeft:0,
     },
     titleStyle:{
-        paddingRight:10,
+        paddingLeft:10,
         fontSize:17,
         fontWeight:'bold',
         justifyContent:'flex-start',
@@ -135,7 +142,8 @@ const styles = StyleSheet.create({
     },
     greenTitle:{
         color:'#6e822b',
-        paddingTop:10
+        paddingTop:10,
+        paddingLeft:10,
     },
     footer:{
         flex:1,

@@ -49,6 +49,8 @@ const SignInScreen = ({navigation}) => {
                   id: json.data.id,
                   name: json.data.user_login,
                   avatar: json.avatar,
+                  freeArticle: 5,
+                  freeAccount: false,
                 })
               );
             } catch {
@@ -65,7 +67,12 @@ const SignInScreen = ({navigation}) => {
             setIsLogged(true);
             setUserProfile(json);
             setUserToken(json.token);
-            navigation.navigate('MainDrawer',{screen :'Home'});
+            try{
+                navigation.navigate('MainDrawer',{screen :'Home'});
+            }
+            catch{
+                console.log("error")
+            }
           } else {
             setIsLogged(false);
             setError('Login Failed, Invalid email or password');
@@ -400,7 +407,7 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 2
     },
     textSign: {
         fontSize: 18,

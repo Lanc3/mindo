@@ -31,6 +31,14 @@ const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" }
     return new Date(dateString).toLocaleDateString(undefined, options)
 }
+function convertDateToEnglish(date){
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var date = new Date(date);
+    var month = months[date.getMonth()];
+    var day = date.getDate();
+    var year = date.getFullYear();
+    return day + " " + month + ", " + year;
+  }
 useEffect(() => {
     getMedia();
   }, []);
@@ -51,7 +59,7 @@ useEffect(() => {
                         <Text>By </Text>
                         <Text style={{color:'black'}}>Mindo</Text>
                         <Text> - </Text>
-                        <Text >{formatDate(date)}</Text>
+                        <Text >{convertDateToEnglish(date)}</Text>
                     </View>
                     </View>
                 </View>

@@ -1,36 +1,35 @@
 import React,{useEffect,useState,useCallback} from "react";
 import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import useResults from "../hooks/useResults";
 import { ShortCard } from "./ShortCard";
 import {getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
+import LoadingView from '../components/LoadingView';
+import { AdBlockBig } from "./AdBlockBig";
 
-
-const ArticleList = ({navigation,slugName,titleName,showAmount,pageRouteName}) => {
+const ArticleList = ({navigation, slugName,list,titleName,showAmount,pageRouteName}) => {
     //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [title,setTitle] = useState(titleName);
     const [slug,setSlug] = useState(slugName);
 
     const getContent = useCallback(async() =>{
         try{
-            const response = await getCategoyIdBySlug(slug);
-            const id = await response;
-            const json = JSON.parse(await getPostsByCategory(id,page));
+          setLoading(0.25);
             const total = await fetchApiData(slug);//getting total pages per slug
             setTotalPages(total)
             const newArray = [];
             for(let i = 0;i < showAmount;i++)
             {
-                newArray.push(json[i]);
+                newArray.push(list[i]);
             }
             setData(newArray);
+            setLoading(0.6);
         }catch(error){
             console.log(error)
         }finally{
-            setLoading(false);
+            setLoading(1);
         };
 
     },[page]);
@@ -38,7 +37,15 @@ const ArticleList = ({navigation,slugName,titleName,showAmount,pageRouteName}) =
      useEffect(() => {
       getContent();
       }, [getContent]);
-
+      const ad = `<!-- PCDSI MPU [iframe] -->
+      <script type="text/javascript">
+      var rnd = window.rnd || Math.floor(Math.random()*10e6);
+      var pid542443 = window.pid542443 || rnd;
+      var plc542443 = window.plc542443 || 0;
+      var abkw = window.abkw || '';
+      var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=300x250;setID=542443;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid542443+';place='+(plc542443++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
+      document.write('<ifr'+'ame src="'+absrc+'" width="300" height="250" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
+      </script>`;
     return(
         <View style={{ flex: 1, paddingTop: 5 }}>
       {data.length > 0 ? (
@@ -59,8 +66,12 @@ const ArticleList = ({navigation,slugName,titleName,showAmount,pageRouteName}) =
           }
           data={data}
           keyExtractor={item => ""+item.date+item.id.toString()}
-          renderItem={({ item }) => (
-                <ShortCard props title={item["title"]["rendered"].toString()}
+          renderItem={({ item, index })=>{
+            if(index === 3){
+                return(<AdBlockBig htmlData={ad}/>)
+            }
+            return(
+              <ShortCard props title={item["title"]["rendered"].toString()}
                 excerpt = {item["excerpt"]["rendered"].toString()}
                 date = {item["date"].toString()}
                 mediaID = {item["featured_media"]}
@@ -69,14 +80,13 @@ const ArticleList = ({navigation,slugName,titleName,showAmount,pageRouteName}) =
                 navi = {navigation}
                 nameSlug={title}
                 />
-
-            )}
+            )
+        }}
           />
           </View>
           ) : (
           <View>
-            <Image style={styles.image} source={require("../assets/images/logo.png" )}/>
-            <Text style={styles.pageTitle}>Loading...</Text>
+            <LoadingView loading={1}/>
           </View>
           )}
         </View>

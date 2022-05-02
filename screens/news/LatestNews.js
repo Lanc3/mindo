@@ -4,11 +4,13 @@ import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/us
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
+import LoadingView from "../../components/LoadingView";
+import { AdBlockBig } from "../../components/AdBlockBig";
 
 const Investigations = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [title,setTitle] = useState("Latest News");
     const [slug,setSlug] = useState("latest-news");
@@ -23,6 +25,7 @@ const Investigations = ({navigation}) => {
     }
     const getContent = useCallback(async() =>{
         try{
+          setLoading(0.5);
             const response = await getCategoyIdBySlug(slug);
             const id = await response;
             const json = JSON.parse(await getPostsByCategory(id,page));
@@ -32,9 +35,9 @@ const Investigations = ({navigation}) => {
         }catch(error){
             console.log(error)
         }finally{
-            setLoading(false);
+            setLoading(1);
         };
-
+        setLoading(1);
     },[page]);
 
      useEffect(() => {
@@ -66,8 +69,12 @@ const Investigations = ({navigation}) => {
           }
           data={data}
           keyExtractor={item => ""+item.date+item.id.toString()}
-          renderItem={({ item }) => (
-                <ShortCard props title={item["title"]["rendered"].toString()}
+          renderItem={({ item, index })=>{
+            if(index === 3){
+                return(<AdBlockBig/>)
+            }
+            return(
+              <ShortCard props title={item["title"]["rendered"].toString()}
                 excerpt = {item["excerpt"]["rendered"].toString()}
                 date = {item["date"].toString()}
                 mediaID = {item["featured_media"]}
@@ -76,15 +83,12 @@ const Investigations = ({navigation}) => {
                 navi = {navigation}
                 nameSlug={title}
                 />
-
-            )}
+            )
+        }}
           />
           </View>
           ) : (
-          <View>
-            <Image style={styles.image} source={require("../../assets/images/logo.png" )}/>
-            <Text style={styles.pageTitle}>Loading...</Text>
-          </View>
+          <LoadingView loading={1}/>
           )}
         </View>
       );
@@ -97,7 +101,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'#FFFFFF'
     },
     pageTitle:{
         fontSize:26,

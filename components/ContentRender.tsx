@@ -22,10 +22,10 @@ export default function ContentRender({htmlData,newHeight}) {
   };
 
   return (
-    <View>
+    <View style={{paddingLeft:20}}>
       <AutoHeightWebView
     style={{ width: Dimensions.get('window').width - 45, marginTop: 10 }}
-    customScript={`document.body.style.background = 'white';`}
+    customScript={`document.body.style.background = 'white';document.body.style.padding-left = '50px';document.body.style.margin = '60px';`}
     customStyle={`
       * {
         font-family: 'Times New Roman';

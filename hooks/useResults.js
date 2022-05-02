@@ -11,6 +11,31 @@ export const getMediaAPI = async(id) => {
     }
 }
 
+export const getLastPost = async() => {
+    try{
+        const response = await wp.posts().perPage(1);
+        return response[0].date.toString();
+    }catch(error){
+
+    }
+}
+export const getAllArticles = async() => {
+  const response = await getCategoyIdBySlug("latest-news");
+}
+
+export const postToken = async(token) => {
+    try{
+      const response = await fetch(`https://dev.medicalindependent.ie?lceps_key=6266d56cd816a&add_token=${token}`, {
+	          method: 'post',
+	          body: JSON.stringify(token),
+	          headers: {'Content-Type': 'application/json'}
+        });
+        return response;
+    }catch(error){
+
+    }
+}
+
 export const getPostsByCategory = async(categoryID,pageNumber) => {
     try{
         const response = await wp.posts().categories(categoryID).perPage(10).page(pageNumber);
@@ -19,6 +44,15 @@ export const getPostsByCategory = async(categoryID,pageNumber) => {
     }catch(error){
         console.log("getPostsByCategory : "+error)
     };
+};
+
+export const getLatestPostsByCategory = async(categoryID) => {
+  try{
+      const response = await wp.posts().categories(categoryID).perPage(1);
+      return response[0].date.toString();
+  }catch(error){
+      console.log("getLatestPostsByCategory : "+error)
+  };
 };
 
 export const getDescriptionByCategory = async(categoryID,pageNumber) => {

@@ -1,27 +1,87 @@
 import React,{useEffect,useState} from "react";
-import { View, Text,Button,StyleSheet,Dimensions,StatusBar,TouchableOpacity } from "react-native";
+import { View, Text,Platform,StyleSheet,Dimensions,StatusBar,TouchableOpacity } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import MaterialIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Svg, { Path } from "react-native-svg";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import {postToken} from '../hooks/useResults';
+
 
 const FirstRunScreen = ({navigation}) => {
     const { colors } = useTheme();
+    const [token,setToken] = useState({expoPushToken:''});
+    const registerForPushNotificationsAsync = async () => {
+      if (Device.isDevice) {
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+        if (existingStatus !== 'granted') {
+          const { status } = await Notifications.requestPermissionsAsync();
+          finalStatus = status;
+        }
+        if (finalStatus !== 'granted') {
+          alert('Failed to get push token for push notification!');
+          return;
+        }
+        const token = (await Notifications.getExpoPushTokenAsync()).data;
+        console.log(token);
+        setToken({ expoPushToken: token });
+       
+        console.log(token);
+      } else {
+        alert('Must use physical device for Push Notifications');
+      }
+
+      if (Platform.OS === 'android') {
+        Notifications.setNotificationChannelAsync('default', {
+          name: 'default',
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: '#FF231F7C',
+        });
+      }
+      };
 
     const _retrieveData = async () => {
         try {
           const value = await AsyncStorage.getItem('userProfile');
-          console.log(value)
           if (value === null) {
-            //
+            registerForPushNotificationsAsync();
           }
           else{
             navigation.navigate('MainDrawer',{screen :'Home'});
           }
         } catch (error) {
           // Error retrieving data
+        }
+      };
+      const _storeData = async (value) => {
+        try {
+          await AsyncStorage.setItem(
+            'userProfile',
+            JSON.stringify({
+              isLoggedIn: null,
+              authToken: null,
+              id: null,
+              name: null,
+              avatar: null,
+              freeArticle: 5,
+              freeAccount: true,
+            })
+          );
+        } catch {
+          console.log('Error storing data on device');
+
+        }finally{
+          try{
+            navigation.navigate('MainDrawer',{screen :'Home'});
+          }
+          catch{
+            console.log('Error navigating to Home');
+          }
         }
       };
 
@@ -110,9 +170,9 @@ const FirstRunScreen = ({navigation}) => {
               <Text style={[styles.title, {
                   color: '#fff'
               }]}>Stay Up to date with Medical Independent</Text>
-              <Text style={styles.text}>Sign in with account</Text>
+              <Text style={styles.text}>Sign in with your account{token[0]}</Text>
               <View style={styles.button}>
-              <TouchableOpacity onPress={()=> navigation.navigate('SignInScreen')}>
+              <TouchableOpacity style={styles.containerButtons} onPress={()=> navigation.navigate('SignInScreen')}>
                   <LinearGradient
                       colors={['#000', '#000']}
                       style={styles.signIn}
@@ -123,6 +183,15 @@ const FirstRunScreen = ({navigation}) => {
                           color="#fff"
                           size={20}
                       />
+                  </LinearGradient>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.containerButtons} onPress={_storeData}>
+                  <LinearGradient
+                      colors={['#000', '#000']}
+                      style={styles.signIn}
+                  >
+                      <Text style={styles.textSign}>Continue with limited access</Text>
+   
                   </LinearGradient>
               </TouchableOpacity>
               </View>
@@ -169,15 +238,15 @@ const styles = StyleSheet.create({
       marginTop:5
   },
   button: {
-      alignItems: 'flex-end',
+
       marginTop: 30
   },
   signIn: {
-      width: 150,
+      width: "100%",
       height: 40,
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 50,
+      borderRadius: 5,
       flexDirection: 'row',
       
   },
@@ -185,5 +254,8 @@ const styles = StyleSheet.create({
       color: 'white',
       fontWeight: 'bold',
       paddingRight:5
+  },
+  containerButtons: {
+    padding: 3,
   }
 });

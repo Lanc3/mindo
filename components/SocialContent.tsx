@@ -2,7 +2,7 @@ import React from 'react';
 import { View,StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
-
+import { Ionicons } from '@expo/vector-icons';
 export function SocialContent(props) {
 
   const _handleFacebookLinking =() => {
@@ -21,19 +21,19 @@ const _handleInstagramLinking =() => {
     return (
         <View style={styles.container}>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="twitter" backgroundColor="#000" onPress={_handleTwitterLinking}>
+                <FontAwesome.Button  name="twitter"size={18} backgroundColor="#000" onPress={_handleTwitterLinking}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="facebook" backgroundColor="#000" onPress={_handleFacebookLinking}>
+                <FontAwesome.Button  name="facebook-square" size={18} color="#fff" backgroundColor="#000" onPress={_handleFacebookLinking}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="linkedin" backgroundColor="#000" onPress={_handleLinkedInLinking}>
+                <FontAwesome.Button  name="linkedin-square" size={18} color="#fff" backgroundColor="#000" onPress={_handleLinkedInLinking}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="instagram" backgroundColor="#000" onPress={_handleInstagramLinking}>
+                <FontAwesome.Button  name="instagram" size={18} backgroundColor="#000" onPress={_handleInstagramLinking}>
                 </FontAwesome.Button>
             </View>
             
@@ -45,9 +45,8 @@ const styles = StyleSheet.create({
         flex:1,
         flexDirection:'row',
         justifyContent:'flex-start',
-        alignItems:'center'
     },
     spacer:{
-        padding:0
+        margin:-5
     }
 })

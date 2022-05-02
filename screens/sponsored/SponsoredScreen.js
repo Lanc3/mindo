@@ -1,4 +1,4 @@
-import React,{useEffect,useState,useCallback} from "react";
+import React,{useEffect,useState,useCallback,useRef} from "react";
 import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
@@ -12,7 +12,7 @@ const SponsoredScreen = ({navigation}) => {
     const [totalPages, setTotalPages] = useState(0);
     const [title,setTitle] = useState("Sponsored");
     const [slug,setSlug] = useState("sponsored-content");
-
+    const scrollRef = useRef();
     const nextpage = () =>{
       if(page <= totalPages)
       setPage(prevPage => prevPage + 1)
@@ -42,7 +42,7 @@ const SponsoredScreen = ({navigation}) => {
       }, [getContent]);
 
     return(
-        <View style={{ flex: 1, paddingTop: 5 }}>
+        <ScrollView ref={scrollRef} style={{ flex: 1, paddingTop: 5 }}>
       {data.length > 0 ? (
         <View>
         <FlatList
@@ -61,7 +61,7 @@ const SponsoredScreen = ({navigation}) => {
               <Text style={styles.nextGreen}>  Next</Text>
             </TouchableOpacity>
           </View>
-            <Footer navi={navigation}/>
+            <Footer navi={navigation} refS={scrollRef}/>
             </View>
           }
           data={data}
@@ -86,7 +86,7 @@ const SponsoredScreen = ({navigation}) => {
             <Text style={styles.pageTitle}>Loading...</Text>
           </View>
           )}
-        </View>
+        </ScrollView>
       );
     };
 

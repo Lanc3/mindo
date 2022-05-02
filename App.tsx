@@ -1,7 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-gesture-handler';
-import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import {store, persistor} from './state/store';
+import React, { useEffect } from 'react';
+import {StyleSheet, BackHandler, Alert} from 'react-native';
 import {NavigationContainer,} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -83,9 +86,11 @@ import AdvertiseScreen from './screens/advertise/AdvertiseScreen';
 import DrGabrielleScreen from './screens/comments/DrGabrielleScreen';
 import FoodAndDrink from './screens/life/FoodAndDrink';
 import IOSScreen from './screens/societies/IOSScreen';
+import ECopy from './screens/life/ECopy';
 const Drawer = createDrawerNavigator();
 
 function MainDrawerNavigation() {
+  
   return (
     <Drawer.Navigator
     screenOptions={{
@@ -93,11 +98,12 @@ function MainDrawerNavigation() {
         backgroundColor: '#c6cbef',
         width: '100%',
       },
+      
     }}
       initialRouteName="FirstRunScreen"
       drawerContent={(props) => (
         <CustomDrawerContent drawerItems={drawerItemsMain} {...props} />
-      )}>
+      )}><Drawer.Screen name="ECopy" component={ECopy} options={{headerShown:false}}/>
       <Drawer.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="BreakingNews" component={BreakingNews} options={{headerShown:false}}/>
       <Drawer.Screen name="IOSScreen" component={IOSScreen} options={{headerShown:false}}/>
@@ -178,12 +184,23 @@ function MainDrawerNavigation() {
 const Stack = createStackNavigator();
 
 export default function App() {
+  useEffect(() => {
+    const backAction = () => {
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove();
+  }, []);
   return (
-    <NavigationContainer>
+    <Provider store={store}>
+        <PersistGate persistor={persistor} loading={null}>
+        <NavigationContainer>
       <Stack.Navigator
       initialRouteName="FirstRunScreen"
         screenOptions={{
-          headerMode: 'screen',
+          headerMode: 'float',
           headerTintColor: '#404554',
           headerTitleStyle: {
             fontWeight: 'bold',
@@ -196,9 +213,10 @@ export default function App() {
         <Stack.Screen name="FirstRunScreen" component={FirstRunScreen} options={{headerShown:false}}/>
         <Stack.Screen name="SignInScreen" component={SignInScreen} options={{headerShown:false}}/>
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{headerShown:false}}/>
-        
       </Stack.Navigator>
     </NavigationContainer>
+        </PersistGate>
+    </Provider>
   );
 }
 

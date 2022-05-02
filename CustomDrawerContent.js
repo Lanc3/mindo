@@ -7,14 +7,15 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  FlatList,
 } from 'react-native';
 import Svg, { Path } from "react-native-svg";
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { OtherSites } from './components/OtherSites';
 import { SocialContent } from './components/SocialContent';
-import { Avatar, Button, Card,Surface ,Title,IconButton, Paragraph,Divider } from 'react-native-paper';
+import AccordionListItem from './components/AccordionListItem';
 import { Dropdown } from 'react-native-element-dropdown';
 
 function CustomDrawerContent(props) {
@@ -84,26 +85,7 @@ function CustomDrawerContent(props) {
     { label: 'Privacy Policy', value: 'DavidLynch' },
     { label: 'Terms & Conditions', value: 'PaulMulholland' },
   ];
-  const toggleMainDrawer = () => {
-    setMainDrawer(true);
-    setFilteredItems([]);
-  };
 
-  const onItemParentPress = (key) => {
-    const filteredMainDrawerRoutes = props.drawerItems.find((e) => {
-      return e.key === key;
-    });
-    if (filteredMainDrawerRoutes.routes.length === 1) {
-      const selectedRoute = filteredMainDrawerRoutes.routes[0];
-      props.navigation.toggleDrawer();
-      props.navigation.navigate(selectedRoute.nav, {
-        screen: selectedRoute.routeName,
-      });
-    } else {
-      setMainDrawer(false);
-      setFilteredItems(filteredMainDrawerRoutes);
-    }
-  };
 
   const goToLink =(value) => {
     props.navigation.navigate('MainDrawer',{screen :value});
@@ -129,273 +111,122 @@ const goToTerms =() => {
   props.navigation.navigate('MainDrawer',{screen :'GalleriesScreen'});
 };
 
-  function renderMainDrawer() {
-    return (
-      <View>
-        {props.drawerItems.map((parent) => (
-          <View key={parent.key}>
-            <TouchableOpacity
-              key={parent.key}
-              testID={parent.key}
-              onPress={() => {
-                onItemParentPress(parent.key);
-              }}>
-              <View style={styles.parentItem}>
-                <Text style={[styles.icon, styles.title]}>{parent.title}</Text>
-                <View style={styles.bottom}> 
-                  {parent.isExpandable ? expandable : null}
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-        ))}
-        {renderLogoutBtn()}
-      </View>
-    );
-  }
-
-  function renderFilteredItemsDrawer() {
-    return (
-      <View>
-        <TouchableOpacity
-          onPress={() => toggleMainDrawer()}
-          style={styles.backButtonRow}>
-          <Icon name={"keyboard-return"} color={'#6e822b'} size ={25} />
-          <Text style={[styles.backButtonText, styles.title]}>{'BACK'}</Text>
-        </TouchableOpacity>
-        {filteredItems.routes.map((route) => {
-          return (
-            <TouchableOpacity
-              key={route.routeName}
-              testID={route.routeName}
-              onPress={() =>
-                props.navigation.navigate(route.nav, {
-                  screen: route.routeName,
-                })
-              }
-              style={styles.item}>
-              <Text style={styles.title}>{route.title}</Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-    );
-  }
-
-  function renderLogoutBtn() {
-    return (
-      <View>
-          <View style={styles.otherLinks}>
-            <View>
-              <TouchableHighlight onPress={() => goToGallery()}>
-                <Text style={styles.titleSmall}>
-                  Gallery
-                </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToClassifieds()}>
-              <Text style={styles.titleSmall}>
-              Classifieds
-              </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToSponsored()}>
-              <Text style={styles.titleSmall}>
-              Sponsored
-              </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToAdvertise()}>
-              <Text style={styles.titleSmall}>
-              Advertise
-              </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToPrivacy()}>
-              <Text style={styles.titleSmall}>
-              Privacy Statement
-              </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToTerms()}>
-              <Text style={styles.titleSmall}>
-              Terms and Conditions
-              </Text>
-              </TouchableHighlight>
-            </View>
-          </View>
-          <View style={styles.divider}>
-          <Text style={styles.titleLeft}>Related Sites</Text>
-          <OtherSites></OtherSites>
-          </View>
-          <View style={styles.padding}>
-          <SocialContent></SocialContent>
-          </View>
-      </View>
-    );
-  }
-
   return (
     <ScrollView style={styles.drawerContainer}>
       <SafeAreaView style={styles.container}>
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={data}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'News' : 'News'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        <AccordionListItem title={'News'}>
+        <FlatList
+        scrollEnabled={false}
+        data={data}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={Comment}setIsFocus
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'Comment' : 'Comment'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        </AccordionListItem>
+        <AccordionListItem title={'Comment'}>
+        <FlatList
+        scrollEnabled={false}
+        data={Comment}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={Life}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'Life' : 'Life'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        </AccordionListItem>
+        <AccordionListItem title={'Life'}>
+        <FlatList
+        scrollEnabled={false}
+        data={Life}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={Clinical}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'Clinical' : 'Clinical'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        </AccordionListItem>
+        <AccordionListItem title={'Clinical'}>
+        <FlatList
+        scrollEnabled={false}
+        data={Clinical}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={team}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'News Team' : 'News Team'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        </AccordionListItem>
+        <AccordionListItem title={'Team'}>
+        <FlatList
+        scrollEnabled={false}
+        data={team}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={soc}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'Societies' : 'Societies'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        </AccordionListItem>
+        <AccordionListItem title={'Society'}>
+        <FlatList
+        scrollEnabled={false}
+        data={soc}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={links}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'Quick Links' : 'Quick Links'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        </AccordionListItem>
+        <AccordionListItem title={'Quick Links'}>
+        <FlatList
+        scrollEnabled={false}
+        data={links}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
+        </AccordionListItem>
       </SafeAreaView>
-      {/* <SafeAreaView
-        style={styles.container}
-        forceInset={{top: 'always', horizontal: 'never'}}>
-        <View style={styles.centered}>
-
-        </View>
-        {mainDrawer ? renderMainDrawer() : renderFilteredItemsDrawer()}
-      </SafeAreaView> */}
       <View>
           <View style={styles.otherLinks}>
             <View>
@@ -459,7 +290,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     width:'100%',
     height: '100%',
-    zIndex: 155555000,
+    zIndex: 100,
     minWidth:10
   },
   container: {

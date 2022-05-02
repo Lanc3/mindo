@@ -1,9 +1,12 @@
 import React, {useState, useRef, useEffect} from 'react';
-import { View, Text ,StyleSheet,ScrollView,SafeAreaView,TouchableOpacity} from 'react-native'
+import { View, Text,FlatList ,StyleSheet,ScrollView,SafeAreaView,TouchableOpacity} from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 import { SocialContent } from './SocialContent';
 import Svg, { Path } from "react-native-svg";
-export const Footer = ({navi}) => {
+import { FontAwesome } from '@expo/vector-icons';
+import { AdBlock } from './AdBlock';
+import AccordionListItem from './AccordionListItem';
+export const Footer = ({navi,refS}) => {
 
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
@@ -72,165 +75,144 @@ export const Footer = ({navi}) => {
   const goToLink =(value) => {
     navi.navigate('MainDrawer',{screen :value});
   };
-
+  const onPressTouch = () => {
+    refS.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  }
+  const ad = `<!-- - LDB Mobile Public [iframe] -->
+  <script type="text/javascript">
+  var rnd = window.rnd || Math.floor(Math.random()*10e6);
+  var pid542406 = window.pid542406 || rnd;
+  var plc542406 = window.plc542406 || 0;
+  var abkw = window.abkw || '';
+  var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=300x90;setID=542406;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid542406+';place='+(plc542406++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
+  document.write('<ifr'+'ame src="'+absrc+'" width="300" height="90" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
+  </script>
+  <noscript>
+  <iframe src="https://servedbyadbutler.com/adserve/;ID=183389;size=300x90;setID=542406;type=iframe" width="300" height="90" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
+  <a href="https://servedbyadbutler.com/go2/;ID=183389;size=300x90;setID=542406" target="_blank"><img src="https://servedbyadbutler.com/adserve/;ID=183389;size=300x90;setID=542406;type=img;click=CLICK_MACRO_PLACEHOLDER" width="300" height="90"></a>
+  </iframe>
+  </noscript>`
+  
   return (
     <View style={styles.stat}>
+      <AdBlock htmlData={ad}/>
       <ScrollView style={styles.drawerContainer}>
       <SafeAreaView style={styles.container}>
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={data}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'News' : 'News'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+      <AccordionListItem title={'News'}>
+        <FlatList
+        scrollEnabled={false}
+        data={data}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={Comment}setIsFocus
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'Comment' : 'Comment'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        </AccordionListItem>
+        <AccordionListItem title={'Comment'}>
+        <FlatList
+        scrollEnabled={false}
+        data={Comment}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={Life}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'Life' : 'Life'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        </AccordionListItem>
+        <AccordionListItem title={'Life'}>
+        <FlatList
+        scrollEnabled={false}
+        data={Life}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={Clinical}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'Clinical' : 'Clinical'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        </AccordionListItem>
+        <AccordionListItem title={'Clinical'}>
+        <FlatList
+        scrollEnabled={false}
+        data={Clinical}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={team}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'News Team' : 'News Team'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        </AccordionListItem>
+        <AccordionListItem title={'Team'}>
+        <FlatList
+        scrollEnabled={false}
+        data={team}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={soc}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'Societies' : 'Societies'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        </AccordionListItem>
+        <AccordionListItem title={'Society'}>
+        <FlatList
+        scrollEnabled={false}
+        data={soc}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
-        <Dropdown
-          style={[styles.dropdown, isFocus ]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          containerStyle={styles.selectedTextStyle}
-          selectedStyle={styles.selectedTextStyle}
-          data={links}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'Quick Links' : 'Quick Links'}
-          value={'value'}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
-            goToLink(item.value)
-          }}
+        </AccordionListItem>
+        <AccordionListItem title={'Quick Links'}>
+        <FlatList
+        scrollEnabled={false}
+        data={links}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
         />
+        </AccordionListItem>
       </SafeAreaView>
       <View style={styles.footerStyle}>
       <View style={styles.header}>
@@ -305,7 +287,10 @@ export const Footer = ({navi}) => {
         <Text style={styles.footerText}>Built by Aaron Keating</Text>
       <SocialContent/>
       </View>
-
+      <TouchableOpacity style={styles.backToTop} onPress={onPressTouch}>
+      <FontAwesome  name="chevron-up" size={13} color="#6e822b" backgroundColor="#000" >
+                </FontAwesome>
+      </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -479,6 +464,10 @@ footerText:{
 },
 stat:{
   paddingTop:10
+},
+backToTop:{
+  paddingTop:50,
+  alignSelf:'center'
 }
   });
 
