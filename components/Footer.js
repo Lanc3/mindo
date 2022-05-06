@@ -4,7 +4,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { SocialContent } from './SocialContent';
 import Svg, { Path } from "react-native-svg";
 import { FontAwesome } from '@expo/vector-icons';
-import { AdBlock } from './AdBlock';
+import { AdManager } from './AdManager';
 import AccordionListItem from './AccordionListItem';
 export const Footer = ({navi,refS}) => {
 
@@ -98,7 +98,7 @@ export const Footer = ({navi,refS}) => {
   
   return (
     <View style={styles.stat}>
-      <AdBlock htmlData={ad}/>
+      <AdManager selectedAd={"LDB_MOBILE_PUBLIC"} sizeType={"SMALL"}/>
       <ScrollView style={styles.drawerContainer}>
       <SafeAreaView style={styles.container}>
       <AccordionListItem title={'News'}>

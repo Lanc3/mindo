@@ -13,6 +13,7 @@ import LoadingView from "../components/LoadingView";
 import { AdBlock } from "../components/AdBlock";
 import { AdBlockBig } from "../components/AdBlockBig";
 import { useSelector } from 'react-redux'
+import { AdManager } from "../components/AdManager";
 
 const HomeScreen = (props) => {
     //const [getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor] = useResults();
@@ -136,7 +137,7 @@ const HomeScreen = (props) => {
         <ScrollView style={styles.container}  ref={scrollRef}>
       {team.length > 0 ? (
         <View>
-        <AdBlock htmlData={ad}/>
+        <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
       <Carousel
         style='slide'
         items={sliderData}

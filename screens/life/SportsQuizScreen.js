@@ -1,10 +1,11 @@
-import React,{useEffect,useState,useCallback} from "react";
-import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
+import React,{useEffect,useState,useCallback,useRef} from "react";
+import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
 import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/useResults'
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
 import LoadingView from "../../components/LoadingView";
+import { AdManager } from "../../components/AdManager";
 
 const SportsQuizScreen = ({navigation}) => {
     const [data, setData] = useState([]);
@@ -13,6 +14,7 @@ const SportsQuizScreen = ({navigation}) => {
     const [totalPages, setTotalPages] = useState(0);
     const [title,setTitle] = useState("Sports Quiz");
     const [slug,setSlug] = useState("sports-quiz");
+    const scrollRef = useRef();
 
     const nextpage = () =>{
       if(page <= totalPages)
@@ -23,6 +25,7 @@ const SportsQuizScreen = ({navigation}) => {
       setPage(prevPage => prevPage - 1)
     }
     const getContent = useCallback(async() =>{
+      setLoading(0.25);
         try{
           setLoading(0.5);
             const response = await getCategoyIdBySlug(slug);
@@ -31,6 +34,7 @@ const SportsQuizScreen = ({navigation}) => {
             const total = await fetchApiData(slug);//getting total pages per slug
             setTotalPages(total)
             setData(json);
+            setLoading(1);
         }catch(error){
             console.log(error)
         }finally{
@@ -44,7 +48,7 @@ const SportsQuizScreen = ({navigation}) => {
       }, [getContent]);
 
     return(
-        <View style={{ flex: 1, paddingTop: 5 }}>
+        <ScrollView style={{ flex: 1 }} ref={scrollRef}>
       {data.length > 0 ? (
         <View>
         <FlatList
@@ -63,13 +67,20 @@ const SportsQuizScreen = ({navigation}) => {
               <Text style={styles.nextGreen}>  Next</Text>
             </TouchableOpacity>
           </View>
-            <Footer navi={navigation}/>
+          <Footer navi={navigation} refS={scrollRef}/>
             </View>
           }
           data={data}
           keyExtractor={item => ""+item.date+item.id.toString()}
-          renderItem={({ item }) => (
-                <ShortCard props title={item["title"]["rendered"].toString()}
+          renderItem={({ item, index })=>{
+            if(index === 3){
+                return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+            }
+            else if(index === 7){
+              return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+            }
+            return(
+              <ShortCard props title={item["title"]["rendered"].toString()}
                 excerpt = {item["excerpt"]["rendered"].toString()}
                 date = {item["date"].toString()}
                 mediaID = {item["featured_media"]}
@@ -78,14 +89,16 @@ const SportsQuizScreen = ({navigation}) => {
                 navi = {navigation}
                 nameSlug={title}
                 />
-
-            )}
+            )
+        }}
           />
           </View>
           ) : (
-          <LoadingView loading={1}/>
+            <View style={{}}>
+                <LoadingView loadingProgress={loading}/>
+            </View>
           )}
-        </View>
+        </ScrollView>
       );
     };
 

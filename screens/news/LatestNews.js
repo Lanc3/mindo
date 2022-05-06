@@ -1,19 +1,20 @@
-import React,{useEffect,useState,useCallback} from "react";
-import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
+import React,{useEffect,useState,useCallback,useRef} from "react";
+import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
 import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/useResults'
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
 import LoadingView from "../../components/LoadingView";
-import { AdBlockBig } from "../../components/AdBlockBig";
+import { AdManager } from "../../components/AdManager";
 
-const Investigations = ({navigation}) => {
+const LatestNews = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [title,setTitle] = useState("Latest News");
     const [slug,setSlug] = useState("latest-news");
+    const scrollRef = useRef();
 
     const nextpage = () =>{
       if(page <= totalPages)
@@ -24,6 +25,7 @@ const Investigations = ({navigation}) => {
       setPage(prevPage => prevPage - 1)
     }
     const getContent = useCallback(async() =>{
+      setLoading(0.25);
         try{
           setLoading(0.5);
             const response = await getCategoyIdBySlug(slug);
@@ -32,6 +34,7 @@ const Investigations = ({navigation}) => {
             const total = await fetchApiData(slug);//getting total pages per slug
             setTotalPages(total)
             setData(json);
+            setLoading(1);
         }catch(error){
             console.log(error)
         }finally{
@@ -45,7 +48,7 @@ const Investigations = ({navigation}) => {
       }, [getContent]);
 
     return(
-        <View style={{ flex: 1, paddingTop: 5 }}>
+        <ScrollView style={{ flex: 1 }} ref={scrollRef}>
       {data.length > 0 ? (
         <View>
         <FlatList
@@ -64,14 +67,17 @@ const Investigations = ({navigation}) => {
               <Text style={styles.nextGreen}>  Next</Text>
             </TouchableOpacity>
           </View>
-            <Footer navi={navigation}/>
+          <Footer navi={navigation} refS={scrollRef}/>
             </View>
           }
           data={data}
           keyExtractor={item => ""+item.date+item.id.toString()}
           renderItem={({ item, index })=>{
             if(index === 3){
-                return(<AdBlockBig/>)
+                return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+            }
+            else if(index === 7){
+              return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
             }
             return(
               <ShortCard props title={item["title"]["rendered"].toString()}
@@ -88,13 +94,15 @@ const Investigations = ({navigation}) => {
           />
           </View>
           ) : (
-          <LoadingView loading={1}/>
+            <View style={{}}>
+                <LoadingView loadingProgress={loading}/>
+            </View>
           )}
-        </View>
+        </ScrollView>
       );
     };
 
-export default Investigations;
+export default LatestNews;
 
 const styles = StyleSheet.create({
     container:{

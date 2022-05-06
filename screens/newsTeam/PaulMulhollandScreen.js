@@ -1,18 +1,21 @@
-import React,{useEffect,useState,useCallback} from "react";
-import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import {getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../../hooks/useResults'
+import React,{useEffect,useState,useCallback,useRef} from "react";
+import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
+import {getPostByAuthorId,getTotalPostByAuthor,fetchApiData} from '../../hooks/useResults'
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
+import LoadingView from "../../components/LoadingView";
+import { AdManager } from "../../components/AdManager";
 
-const CatherineReillyScreen = ({navigation}) => {
+
+const PaulMulhollandScreen = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [title,setTitle] = useState("Paul Mulholland");
     const [authorID,setAuthorID] = useState(3249);
-
+    const scrollRef = useRef();
     const nextpage = () =>{
       if(page <= totalPages)
       setPage(prevPage => prevPage + 1)
@@ -22,26 +25,29 @@ const CatherineReillyScreen = ({navigation}) => {
       setPage(prevPage => prevPage - 1)
     }
     const getContent = useCallback(async() =>{
+      setLoading(0.25);
         try{
             const response = await getPostByAuthorId(authorID);
             const total = await getTotalPostByAuthor(authorID);//getting total pages per slug
+            setLoading(0.50);
             setTotalPages(total)
+            setLoading(0.75);
             setData(response);
+            setLoading(1);
         }catch(error){
             console.log(error)
         }finally{
-            setLoading(false);
+          setLoading(1);
         };
 
     },[page]);
 
      useEffect(() => {
-      getPostByAuthorId(3)
       getContent();
       }, [getContent]);
 
     return(
-        <View style={{ flex: 1, paddingTop: 5 }}>
+      <ScrollView style={{ flex: 1 }} ref={scrollRef}>
       {data.length > 0 ? (
         <View>
         <FlatList
@@ -60,13 +66,20 @@ const CatherineReillyScreen = ({navigation}) => {
               <Text style={styles.nextGreen}>  Next</Text>
             </TouchableOpacity>
           </View>
-            <Footer navi={navigation}/>
+          <Footer navi={navigation} refS={scrollRef}/>
             </View>
           }
           data={data}
           keyExtractor={item => ""+item.date+item.id.toString()}
-          renderItem={({ item }) => (
-                <ShortCard props title={item["title"]["rendered"].toString()}
+          renderItem={({ item, index })=>{
+            if(index === 3){
+                return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+            }
+            else if(index === 7){
+              return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+            }
+            return(
+              <ShortCard props title={item["title"]["rendered"].toString()}
                 excerpt = {item["excerpt"]["rendered"].toString()}
                 date = {item["date"].toString()}
                 mediaID = {item["featured_media"]}
@@ -75,28 +88,26 @@ const CatherineReillyScreen = ({navigation}) => {
                 navi = {navigation}
                 nameSlug={title}
                 />
-
-            )}
+            )
+        }}
           />
           </View>
           ) : (
-          <View>
-            <Image style={styles.image} source={require("../../assets/images/logo.png" )}/>
-            <Text style={styles.pageTitle}>Loading...</Text>
-          </View>
+            <View style={{}}>
+                <LoadingView loadingProgress={loading}/>
+            </View>
           )}
-        </View>
+        </ScrollView>
       );
     };
 
-export default CatherineReillyScreen;
+export default PaulMulhollandScreen;
 
 const styles = StyleSheet.create({
     container:{
         flex: 1,
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'#FFFFFF'
     },
     pageTitle:{
         fontSize:26,
