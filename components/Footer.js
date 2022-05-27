@@ -133,22 +133,6 @@ export const Footer = ({navi,refS}) => {
       }}
         />
         </AccordionListItem>
-        <AccordionListItem title={'Life'}>
-        <FlatList
-        scrollEnabled={false}
-        data={Life}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
         <AccordionListItem title={'Clinical'}>
         <FlatList
         scrollEnabled={false}
@@ -165,7 +149,24 @@ export const Footer = ({navi,refS}) => {
       }}
         />
         </AccordionListItem>
-        <AccordionListItem title={'Team'}>
+        <AccordionListItem title={'Life'}>
+        <FlatList
+        scrollEnabled={false}
+        data={Life}
+        keyExtractor={item => item.label}
+        renderItem={({ item, index })=>{
+          return(
+            <View style={styles.item}>
+              <TouchableOpacity onPress={() => goToLink(item.value)}>
+              <Text style={styles.titleSmall}>{item.label}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+      }}
+        />
+        </AccordionListItem>
+        
+        <AccordionListItem title={'News Team'}>
         <FlatList
         scrollEnabled={false}
         data={team}
@@ -181,7 +182,7 @@ export const Footer = ({navi,refS}) => {
       }}
         />
         </AccordionListItem>
-        <AccordionListItem title={'Society'}>
+        <AccordionListItem title={'Societies'}>
         <FlatList
         scrollEnabled={false}
         data={soc}

@@ -7,13 +7,13 @@ import useResults from '../hooks/useResults';
 import { WebView } from 'react-native-webview';
 import WebRender from "./WebRender";
 import { useNavigation } from '@react-navigation/native';
-import {getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
+import {getCategoyIdBySlug,getAuthorName,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
 
 
-export function ShortCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug}) {
+export function ShortCard({navi,props,title,excerpt,date,mediaID,totalData,authorId,nameSlug}) {
     //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser] = useResults();
     const [imageData, setImageData] = useState("../assets/images/splash.png");
-    const [name, setName] = useState([]);
+    const [name, setName] = useState({firstName:"Mindo",lastName:""});
 
 
 const getMedia = async() =>{
@@ -25,12 +25,27 @@ const getMedia = async() =>{
     }finally{
     };
 }
-
-
-const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" }
-    return new Date(dateString).toLocaleDateString(undefined, options)
+const returnAutorName = async(id) =>{
+    try{
+        const name = await getAuthorName(id.toString()); 
+        if(name.firstName === false){
+ 
+            setName({firstName:"Mindo",lastName:""})
+        }
+        else {
+            setName(name)
+        }
+        if(name === null || name === 'undefined'){
+            setName({firstName:"Mindo",lastName:""})
+        }
+        
+    }catch(error){
+        console.log(error)
+    }finally{
+    };
 }
+
+
 function convertDateToEnglish(date){
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var date = new Date(date);
@@ -41,12 +56,13 @@ function convertDateToEnglish(date){
   }
 useEffect(() => {
     getMedia();
+    returnAutorName(authorId);
   }, []);
   const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                onPress={() => navi.navigate("FullArticleScreen",{title:title,date:date,imageData:imageData,htmlData:totalData})}
+                onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:name,title:title,date:date,imageData:imageData,htmlData:totalData})}
             >
                 <View style={styles.shortContainer}>
                     <View style={styles.imageContainer}>
@@ -57,7 +73,7 @@ useEffect(() => {
                     <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
                     <View style={styles.footer}>
                         <Text>By </Text>
-                        <Text style={{color:'black'}}>Mindo</Text>
+                        <Text style={{color:'black'}}>{name.firstName} {name.lastName}</Text>
                         <Text> - </Text>
                         <Text >{convertDateToEnglish(date)}</Text>
                     </View>
@@ -71,7 +87,9 @@ const styles = StyleSheet.create({
     container:{
         backgroundColor:'#fff',
         paddingTop:10,
-        paddingBottom:10
+        paddingBottom:10,
+        borderBottomColor:'#eaeaea',
+        borderBottomWidth:1,
     },
     spacer:{
         padding:10

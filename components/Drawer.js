@@ -49,25 +49,12 @@ export default function Drawer({navi}) {
         else{
           setIsLoggedIn(false);
         }
-        console.log(isLoggedIn);
+        
       } catch (error) {
         // Error retrieving data
       }
     };
-    const logOut = async () => {
-      try {
-        await AsyncStorage.removeItem('userProfile');
-      } catch (exception) {
-        console.log('Error deleting data', exception);
-      }finally{
-        console.log("logout");
-        try{
-          navi.navigate("SignInScreen");
-        }catch{
-          console.log("error");
-        }
-      }
-    };
+    
     const onPressSports = () => {
       navi.navigate('MainDrawer',{screen :'SportsQuiz'});
       onPressOpen();
@@ -77,12 +64,14 @@ export default function Drawer({navi}) {
       onPressOpen();
     };
     const onPressLogIn = () => {
-      console.log("log in");
+      
       navi.navigate('SignInScreen');
       //onPressOpen();
     };
 
-    const onPressSignUp = () => {console.log("sign up");}
+    const onPressSignUp = () => {
+      navi.navigate('SignInScreen');
+    }
 
     const onPressOpen =()=>{
         if(!toggle)

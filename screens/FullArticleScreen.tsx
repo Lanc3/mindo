@@ -1,25 +1,27 @@
-import React,{ useState ,useEffect} from "react";
-import { WebView } from 'react-native-webview';
+import React,{ useState ,useEffect,useRef} from "react";
 import { StyleSheet,View,Text,Share,Image,SafeAreaView,TouchableOpacity, ScrollView } from 'react-native';
-import Constants from 'expo-constants';
 import { Dimensions } from 'react-native';
-import WebRender from '../components/WebRender';
-import { useRoute } from '@react-navigation/native';
 import ContentRender from '../components/ContentRender';
 import Footer from '../components/Footer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AdManager } from "../components/AdManager";
+import { FontAwesome } from '@expo/vector-icons';
+import * as Linking from 'expo-linking';
 
 export default function FullArticleScreen({navigation,props,route}) {
-  const {htmlData,imageData,title,date} = route.params;
+  const {nameSlug,authorName,htmlData,imageData,title,date} = route.params;
+  const [name,setName] = useState(authorName)
+  const scrollRef = useRef();
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" }
     return new Date(dateString).toLocaleDateString(undefined, options)
 }
 const [isFreeAccount, setIsFreeAccount] = useState(true);
 const [articlesLeft, setArticlesLeft] = useState(0);
+const [autor,setAuthor] = useState("Mindo");
 const onPressLogIn = () => {
-  console.log('log in');
-  navigation.navigate('SignInScreen');
+
+  //navigation.navigate('SignInScreen');
   //onPressOpen();
 };
 const retrieveData = async () => {
@@ -63,14 +65,15 @@ const retrieveData = async () => {
 useEffect(() => {
   retrieveData();
 }, []);
-function convertDateToEnglish(date){
+const convertDateToEnglish = (date) => {
+  
   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  var date = new Date(date);
-  var month = months[date.getMonth()];
-  var day = date.getDate();
-  var year = date.getFullYear();
+  var d = new Date(date.replace(" ","T"))
+  var month = months[d.getMonth()];
+  var day = d.getDate();
+  var year = d.getFullYear();
   return day + " " + month + ", " + year;
-}
+} 
 const onShare = async () => {
   try {
     const result = await Share.share({
@@ -91,23 +94,41 @@ const onShare = async () => {
 };
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView}  ref={scrollRef}>
+      <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
+      <Text style={styles.greenTitle}>{nameSlug}</Text>
       <Text style={styles.title} numberOfLines={3}>{title}</Text>
       <View style={styles.subTitle}>
-        <Text> Date - </Text>
+      <Text style={{paddingLeft:10}}>By </Text>
+      <Text style={{color:'black'}}>{authorName.firstName} {authorName.lastName} - </Text>
         <Text>{convertDateToEnglish(date)}</Text>
       </View>
       <View>
-      
-      <TouchableOpacity style={styles.shareButton} onPress={onShare}>
-                <Text style={styles.shareText}>Share</Text>
-      </TouchableOpacity>
       </View>
       <View style={styles.imageContainer}>
       <Image style={styles.image} source={{ uri: ""+imageData }}/>
+      <View style={styles.shareButton}>
+      <Text style={{color:'#eaeaea',padding:5}}>Share to:</Text>
+      <View style={styles.spacer}>
+                <FontAwesome.Button  name="twitter"size={18} color="#000" backgroundColor="#fff" onPress={onShare}>
+                </FontAwesome.Button>
+            </View>
+            <View style={styles.spacer}>
+                <FontAwesome.Button  name="facebook-square" size={18} color="#000" backgroundColor="#fff" onPress={onShare}>
+                </FontAwesome.Button>
+            </View>
+            <View style={styles.spacer}>
+                <FontAwesome.Button  name="linkedin-square" size={18} color="#000" backgroundColor="#fff" onPress={onShare}>
+                </FontAwesome.Button>
+            </View>
+            <View style={styles.spacer}>
+                <FontAwesome.Button  name="instagram" size={18} color="#000" backgroundColor="#fff" onPress={onShare}>
+                </FontAwesome.Button>
+            </View>
+      </View>
       </View>
       <ContentRender htmlData={htmlData} newHeight={1800}/>
-      <Footer />
+      <Footer navi={navigation} refS={scrollRef}/>
       </ScrollView>
       
     </SafeAreaView>
@@ -146,19 +167,22 @@ const styles = StyleSheet.create({
       marginHorizontal: 0,
     },
     shareButton:{
-      backgroundColor:'#6e822b',
-      borderRadius:10,
-      padding:10,
-      marginTop:10,
-      marginBottom:10,
-      marginLeft:10,
-      marginRight:10,
-      color:'#fff',
+      flex:1,
+      flexDirection:'row',
+      justifyContent:'flex-start'
     },
     shareText:{
       color:'#fff',
       fontSize:20,
       fontWeight:'bold',
       textAlign:'center',
+    },
+    greenTitle:{
+      color:'#6e822b',
+      paddingTop:10,
+      paddingLeft:10,
+  },
+    spacer:{
+        
     }
   });

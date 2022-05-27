@@ -4,7 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import AccordionListItem from "./AccordionListItem";
 import { List } from 'react-native-paper';
 import { ScrollView } from "react-native-gesture-handler";
+import { useNavigation } from '@react-navigation/native';
 const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
+  const navigation = useNavigation();
   const retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem('userProfile');
@@ -20,6 +22,17 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
     }
   };
 
+  const logOut = async () => {
+    closeDrawer();
+    try {
+      await AsyncStorage.removeItem('userProfile');
+    } catch (exception) {
+      console.log('Error deleting data', exception);
+    }finally{
+      callParentScreenFunction("SignInScreen");
+    }
+  };
+
   const [isFreeAccount, setIsFreeAccount] = useState(true);
   const [articlesLeft, setArticlesLeft] = useState(0);
 
@@ -28,7 +41,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
   });
 
     return (
-     <View style={styles.safeAreaView}>
+     <ScrollView style={styles.safeAreaView}>
         {isFreeAccount ? (
         <ScrollView style={styles.safeAreaView}>
         <View style={styles.header}>
@@ -40,7 +53,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
           </TouchableOpacity>
         </View>
         <View >
-          <TouchableOpacity style={styles.drawerButton} onPress={() => callParentScreenFunction("SignInScreen")}>
+          <TouchableOpacity style={styles.drawerButton} onPress={() => {closeDrawer();callParentScreenFunction("SignInScreen")}}>
             <Text style={styles.text_footer}>Log In</Text>
           </TouchableOpacity>
 
@@ -114,19 +127,22 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
             <Text style={styles.DrawerTitle}>
               {isFreeAccount? "Member Log In" : "Premium Account"}
             </Text>
+            <TouchableOpacity onPress={() => closeDrawer()}>
+            <Text style={styles.link}>X</Text>
+          </TouchableOpacity>
           </View>
           <View >
             <TouchableOpacity style={styles.drawerButton} onPress={() => callParentScreenFunction("SportsQuiz")}>
-              <Text style={styles.text_footer}>Sports Quiz</Text>
+              <Text style={styles.text_footer}>Update Journal</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.drawerButton} onPress={() => callParentScreenFunction("ECopy")}>
-              <Text style={styles.text_footer}>E-Copy</Text>
+              <Text style={styles.text_footer}>eCopy</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.drawerButton} onPress={() => callParentScreenFunction("SignInScreen")}>
-              <Text style={styles.text_footer}>Log In</Text>
+            <TouchableOpacity style={styles.drawerButton} onPress={() => callParentScreenFunction("SportsQuiz")}>
+              <Text style={styles.text_footer}>Sports Quiz</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.drawerButton} onPress={() => callParentScreenFunction("SignUpScreen")}>
-              <Text style={styles.text_footer}>Sign Up</Text>
+            <TouchableOpacity style={styles.drawerButton} onPress={() => logOut()}>
+              <Text style={styles.text_footer}>Log Out</Text>
             </TouchableOpacity>
           </View>
           <View>
@@ -136,7 +152,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
         </View>
         </View>
       )}
-     </View>
+     </ScrollView>
     )
   }
 
@@ -169,8 +185,8 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
       fontSize: 14
     },
     outlinks: {
-      padding: 10,
-      color: "#444",
+      padding: 5,
+      color: "#fff",
       fontSize: 14
     },
     outlinksContainer: {
@@ -209,12 +225,12 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
     },
       plus:{
         flex:1,
-          color: "#00e5bf",
+          color: "#6E822B",
            fontSize: 50,
        },
        drawerButtonLogOut:{
         marginTop:100,
-        backgroundColor:'#6e822b',
+        backgroundColor:'#6E822B',
         margin:5,
         borderRadius:4,
        },
@@ -243,6 +259,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
         color: "#6e822b",
         fontFamily: "serif",
         fontSize: 25,
+        paddingLeft:10,
       },
       DrawerTitleContainer: {
         flexDirection: "row",

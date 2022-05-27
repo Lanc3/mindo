@@ -289,7 +289,7 @@ const SignInScreen = ({navigation}) => {
                     autoCapitalize="none"
                     onChangeText={(password) => setPassword(password)}
                     value={password}
-                    secureTextEntry={true}
+                    secureTextEntry={data.secureTextEntry}
                 />
                 <TouchableOpacity
                     onPress={updateSecureTextEntry}
@@ -414,7 +414,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     logo: {
+        flex:1,
+        justifyContent:'center',
         width: width_logo,
-        height: height_logo
-    }
+        height: height_logo,
+        margin:20,
+        padding:20,
+    },
   });

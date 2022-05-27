@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './state/store';
 import React, { useEffect } from 'react';
-import {StyleSheet, BackHandler, Alert} from 'react-native';
+import {StyleSheet, BackHandler, Platform} from 'react-native';
 import {NavigationContainer,} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -54,27 +54,7 @@ import IICNINAScreen from './screens/societies/IICNINAScreen';
 import IESScreen from './screens/societies/IESScreen';
 import ICSScreen from './screens/societies/ICSScreen';
 import GalleriesScreen from './screens/galleries/GalleriesScreen';
-import ConsultingRoomsScreen from './screens/classifieds/ConsultingRoomsScreen';
-import DermatologyScreen from './screens/classifieds/DermatologyScreen';
-import DoctorWantedScreen from './screens/classifieds/DoctorWantedScreen';
-import DoctorAvailableScreen from './screens/classifieds/DoctorAvailableScreen';
-import FlatsToLetScreen from './screens/classifieds/FlatsToLetScreen';
-import GolfAndSportsScreen from './screens/classifieds/GolfAndSportsScreen';
-import HolidayResortsScreen from './screens/classifieds/HolidayResortsScreen';
-import InternationalJobsScreen from './screens/classifieds/InternationalJobsScreen';
-import LanguagesScreen from './screens/classifieds/LanguagesScreen';
-import LocumAvailableScreen from './screens/classifieds/LocumAvailableScreen';
-import LocumRequiredScreen from './screens/classifieds/LocumRequiredScreen';
-import MedicalEquipmentScreen from './screens/classifieds/MedicalEquipmentScreen';
-import MedicalPracticeScreen from './screens/classifieds/MedicalPracticeScreen';
-import MedicalSecretaryScreen from './screens/classifieds/MedicalSecretaryScreen';
-import MiscellaneousScreen from './screens/classifieds/MiscellaneousScreen';
-import PartnershipAvailable from './screens/classifieds/PartnershipAvailableScreen';
-import PracticeNurseScreen from './screens/classifieds/PracticeNurseScreen';
-import PropertyScreen from './screens/classifieds/PropertyScreen';
-import TrainingScreen from './screens/classifieds/TrainingScreen';
-import VolunterringScreen from './screens/classifieds/VolunterringScreen';
-import EventsScreen from './screens/classifieds/EventsScreen';
+import LogOut from './screens/LogOut';
 import HomeScreen from './screens/HomeScreen';
 import FullArticleScreen from './screens/FullArticleScreen';
 import CatherineReillyScreen from './screens/newsTeam/CatherineReillyScreen';
@@ -87,10 +67,13 @@ import DrGabrielleScreen from './screens/comments/DrGabrielleScreen';
 import FoodAndDrink from './screens/life/FoodAndDrink';
 import IOSScreen from './screens/societies/IOSScreen';
 import ECopy from './screens/life/ECopy';
+import SearchScreen from './screens/SearchScreen';
+import ClassifiedsScreen from './screens/classifieds/Classifieds';
+import Terms from './screens/terms/Terms';
+import PrivacyScreen from './screens/privacy/PrivacyScreen';
 const Drawer = createDrawerNavigator();
 
 function MainDrawerNavigation() {
-  
   return (
     <Drawer.Navigator
     screenOptions={{
@@ -98,12 +81,15 @@ function MainDrawerNavigation() {
         backgroundColor: '#c6cbef',
         width: '100%',
       },
-      
     }}
       initialRouteName="FirstRunScreen"
       drawerContent={(props) => (
         <CustomDrawerContent drawerItems={drawerItemsMain} {...props} />
       )}><Drawer.Screen name="ECopy" component={ECopy} options={{headerShown:false}}/>
+      <Drawer.Screen name="Terms" component={Terms} options={{headerShown:false}}/>
+      <Drawer.Screen name="PrivacyScreen" component={PrivacyScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="ClassifiedsScreen" component={ClassifiedsScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="SearchScreen" component={SearchScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="BreakingNews" component={BreakingNews} options={{headerShown:false}}/>
       <Drawer.Screen name="IOSScreen" component={IOSScreen} options={{headerShown:false}}/>
@@ -148,27 +134,6 @@ function MainDrawerNavigation() {
       <Drawer.Screen name="IES" component={IESScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="ICS" component={ICSScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="GalleriesScreen" component={GalleriesScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="ConsultingRooms" component={ConsultingRoomsScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="Dermatology" component={DermatologyScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="DoctorsWanted" component={DoctorWantedScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="DoctorAvailable" component={DoctorAvailableScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="FlatsToLet" component={FlatsToLetScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="GolfAndSports" component={GolfAndSportsScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="HolidayResorts" component={HolidayResortsScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="InternationalJobs" component={InternationalJobsScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="Languages" component={LanguagesScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="LocumAvailable" component={LocumAvailableScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="LocumRequired" component={LocumRequiredScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="MedicalEquipment" component={MedicalEquipmentScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="MedicalPractice" component={MedicalPracticeScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="MedicalSecretary" component={MedicalSecretaryScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="Miscellaneous" component={MiscellaneousScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="PartnershipAvailable" component={PartnershipAvailable} options={{headerShown:false}}/>
-      <Drawer.Screen name="PracticeNurse" component={PracticeNurseScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="Property" component={PropertyScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="Training" component={TrainingScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="Volunterring" component={VolunterringScreen} options={{headerShown:false}}/>
-      <Drawer.Screen name="Events" component={EventsScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="FullArticleScreen" component={FullArticleScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="SignInScreenlogout" component={SignInScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="CatherineReilly" component={CatherineReillyScreen} options={{headerShown:false}}/>
@@ -177,6 +142,7 @@ function MainDrawerNavigation() {
       <Drawer.Screen name="PriscillaLynch" component={PriscillaLynchScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="SponsoredScreen" component={SponsoredScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="AdvertiseScreen" component={AdvertiseScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="LogOut" component={LogOut} options={{headerShown:false}}/>
     </Drawer.Navigator>
   );
 }
@@ -201,6 +167,9 @@ export default function App() {
       initialRouteName="FirstRunScreen"
         screenOptions={{
           headerMode: 'float',
+          animationTypeForReplace: 'pop',
+          animationEnabled:
+          Platform.OS == 'android' ? false : false,
           headerTintColor: '#404554',
           headerTitleStyle: {
             fontWeight: 'bold',

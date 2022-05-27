@@ -28,20 +28,6 @@ const HomeScreen = (props) => {
     const [loading, setLoading] = useState(0);
     const scrollRef = useRef();
 
-    const ad = `<!-- - LDB Mobile Public [iframe] -->
-    <script type="text/javascript">
-    var rnd = window.rnd || Math.floor(Math.random()*10e6);
-    var pid542406 = window.pid542406 || rnd;
-    var plc542406 = window.plc542406 || 0;
-    var abkw = window.abkw || '';
-    var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=300x90;setID=542406;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid542406+';place='+(plc542406++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
-    document.write('<ifr'+'ame src="'+absrc+'" width="300" height="90" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
-    </script>
-    <noscript>
-    <iframe src="https://servedbyadbutler.com/adserve/;ID=183389;size=300x90;setID=542406;type=iframe" width="300" height="90" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
-    <a href="https://servedbyadbutler.com/go2/;ID=183389;size=300x90;setID=542406" target="_blank"><img src="https://servedbyadbutler.com/adserve/;ID=183389;size=300x90;setID=542406;type=img;click=CLICK_MACRO_PLACEHOLDER" width="300" height="90"></a>
-    </iframe>
-    </noscript>`;
     const article = useSelector( state => state.lastArticle);
     const checkIfTwoDatesAreEqual = (date1, date2) => {
         if (date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate()) {
@@ -61,7 +47,7 @@ const HomeScreen = (props) => {
           console.log(isUpToDate)
         }
         try{
-            console.log(69)
+      
             const json = JSON.parse(await getPostsByCategory(69,1));
             const sliderData = await json.slice(0,2);
             setSliderData(sliderData);
@@ -72,7 +58,7 @@ const HomeScreen = (props) => {
           setLoading(0.25);
           try{
 
-            console.log(56)
+         
             const json = JSON.parse(await getPostsByCategory(56,1));
             setComments(json);
         }catch(error){
@@ -80,7 +66,7 @@ const HomeScreen = (props) => {
         }finally{
           setLoading(0.5);
           try{
-            console.log(37)
+            
             const json = JSON.parse(await getPostsByCategory(37,1));
             const feature = await json.slice(0,2);
             setTotalData(feature);
@@ -90,7 +76,7 @@ const HomeScreen = (props) => {
         }finally{
           setLoading(1);
           try{
-            console.log(26)
+            
             const json = JSON.parse(await getPostsByCategory(26,1));
             setTeam(json);
         }catch(error){
@@ -98,13 +84,14 @@ const HomeScreen = (props) => {
         }finally{
           setLoading(1);
           try{
-            console.log(70)
+            
             const json = JSON.parse(await getPostsByCategory(70,1));
             setClinical(json);
         }catch(error){
             console.log(error)
         }finally{
           setLoading(1);
+          console.log(latestNews)
           try {
             await AsyncStorage.setItem(
               'Articles',
@@ -150,7 +137,7 @@ const HomeScreen = (props) => {
       <View style={styles.divider}/>
       <View style={styles.topSmallNav}>
                   <View style={styles.titleContainer}>
-                    <Text style={styles.titleStyle}>Comments</Text>
+                    <Text style={styles.titleStyle}>Comment</Text>
                   </View>
                   <TouchableOpacity onPress={()=>{props.navigation.navigate('MainDrawer',{screen :'Editorial'});}}>
                       <View style={styles.veiwContainer}>
@@ -187,7 +174,7 @@ const HomeScreen = (props) => {
       />
       <ArticleList navigation={props.navigation} list={feature} slugName={"news-features"} titleName={"News Features"} showAmount={3} pageRouteName={"NewsFeatures"}/>
       <View style={styles.divider}/>
-      <AdBlock htmlData={ad}/>
+   
       <View style={styles.divider}/>
       <View style={styles.topSmallNav}>
                   <View style={styles.titleContainer}>

@@ -11,7 +11,7 @@ import * as Notifications from 'expo-notifications';
 import {postToken} from '../hooks/useResults';
 
 
-const FirstRunScreen = ({navigation}) => {
+const LogOut = ({navigation}) => {
     const { colors } = useTheme();
     const [token,setToken] = useState({expoPushToken:''});
     const registerForPushNotificationsAsync = async () => {
@@ -201,7 +201,7 @@ const FirstRunScreen = ({navigation}) => {
       );
 };
 
-export default FirstRunScreen;
+export default LogOut;
 
 const {height,width} = Dimensions.get("screen");
 const height_logo = height * 0.28;

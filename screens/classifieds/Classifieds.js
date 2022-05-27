@@ -7,13 +7,13 @@ import { Header } from "../../components/Header";
 import LoadingView from "../../components/LoadingView";
 import { AdManager } from "../../components/AdManager";
 
-const ISGScreen = ({navigation}) => {
+const ClassifiedsScreen = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    const [title,setTitle] = useState("The Irish Society of Gastoenterology");
-    const [slug,setSlug] = useState("isg");
+    const [title,setTitle] = useState("Classifieds");
+    const [slug,setSlug] = useState("classifieds");
     const scrollRef = useRef();
 
     const nextpage = () =>{
@@ -102,7 +102,7 @@ const ISGScreen = ({navigation}) => {
       );
     };
 
-export default ISGScreen;
+export default ClassifiedsScreen;
 
 const styles = StyleSheet.create({
     container:{

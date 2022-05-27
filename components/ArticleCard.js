@@ -7,12 +7,12 @@ import useResults from '../hooks/useResults';
 import { WebView } from 'react-native-webview';
 import WebRender from "./WebRender";
 import { useNavigation } from '@react-navigation/native';
-import {getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
+import {getCategoyIdBySlug,getAuthorName,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
 
-export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug}) {
+export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug,authorId}) {
     //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser] = useResults();
     const [imageData, setImageData] = useState("../assets/images/splash.png");
-    const [name, setName] = useState([]);
+    const [name, setName] = useState({firstName:"Mindoww",lastName:""});
 
 
 const getMedia = async() =>{
@@ -25,11 +25,21 @@ const getMedia = async() =>{
     };
 }
 
-const getAuthorName = async() =>{
+const returnAutorName = async(id) =>{
+    console.log(id)
     try{
-        const name = await getUser(1);
-        console.log(name)
-        setName(name)
+        const name = await getAuthorName(id.toString()); 
+        if(name.firstName === false){
+ 
+            setName({firstName:"Mindo",lastName:""})
+        }
+        else {
+            setName(name)
+        }
+        if(name === null || name === 'undefined'){
+            setName({firstName:"Mindow",lastName:""})
+        }
+        
     }catch(error){
         console.log(error)
     }finally{
@@ -49,19 +59,20 @@ const formatDate = (dateString) => {
 }
 useEffect(() => {
     getMedia();
+    returnAutorName(authorId);
   }, []);
   const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                onPress={() => navi.navigate("FullArticleScreen",{title:title,date:date,imageData:imageData,htmlData:totalData})}
+                onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:name,title:title,date:date,imageData:imageData,htmlData:totalData})}
             >
                 <Image style ={styles.image}source={{ uri: imageData }}/>
                 <Text style={styles.greenTitle}>{nameSlug}</Text>
                 <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
                 <View style={styles.footer}>
                     <Text style={{paddingLeft:10}}>By </Text>
-                    <Text style={{color:'black'}}>Mindo</Text>
+                    <Text style={{color:'black'}}>{name.firstName} {name.lastName}</Text>
                     <Text> - </Text>
                     <Text >{convertDateToEnglish(date)}</Text>
                 </View>

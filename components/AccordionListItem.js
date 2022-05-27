@@ -84,8 +84,7 @@ const styles = StyleSheet.create({
       borderColor: '#6c757d',
     },
     bodyContainer: {
-      padding: 1,
-      paddingLeft: 1,
+      paddingLeft: 15,
       position: 'absolute',
       bottom: 0,
     },
@@ -96,5 +95,6 @@ const styles = StyleSheet.create({
         fontSize:26,
         fontFamily:'sans-serif',
         fontWeight:"400",
+        paddingLeft:10
   }
  });

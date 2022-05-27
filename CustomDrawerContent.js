@@ -10,13 +10,12 @@ import {
   TouchableHighlight,
   FlatList,
 } from 'react-native';
-import Svg, { Path } from "react-native-svg";
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { OtherSites } from './components/OtherSites';
 import { SocialContent } from './components/SocialContent';
 import AccordionListItem from './components/AccordionListItem';
-import { Dropdown } from 'react-native-element-dropdown';
+
+import SearchBar from './components/SearchBar';
 
 function CustomDrawerContent(props) {
   const [mainDrawer, setMainDrawer] = useState(true);
@@ -34,7 +33,6 @@ function CustomDrawerContent(props) {
   ];
   const Comment = [
     { label: 'Editorial', value: 'Editorial' },
-    { label: 'Medico-Legal', value: 'MedicoLegal' },
     { label: 'Dr Paddy Barrett', value: 'DrPaddy' },
     { label: 'Dr Neasa Conneally', value: 'DrNeasa' },
     { label: 'Dr Gabrielle Colleran', value: 'DrGabrielleScreen' },
@@ -45,6 +43,7 @@ function CustomDrawerContent(props) {
     { label: 'Prof Seamus O’Mahony', value: 'ProfSeamus' },
     { label: 'Dr Christine O’Malley', value: 'DrChristine' },
     { label: 'George Winter', value: 'GeorgeWinter' },
+    { label: 'Medico-Legal', value: 'MedicoLegal' },
   ];
   const Life = [
     { label: 'Cartoon', value: 'Cartoon' },
@@ -96,7 +95,7 @@ function CustomDrawerContent(props) {
     props.navigation.navigate('MainDrawer',{screen :'GalleriesScreen'});
 };
 const goToClassifieds =() => {
-  props.navigation.navigate('MainDrawer',{screen :'GalleriesScreen'});
+  props.navigation.navigate('MainDrawer',{screen :'ClassifiedsScreen'});
 };
 const goToSponsored =(value) => {
   props.navigation.navigate('MainDrawer',{screen :'SponsoredScreen'});
@@ -105,11 +104,14 @@ const goToAdvertise =() => {
   props.navigation.navigate('MainDrawer',{screen :'AdvertiseScreen'});
 };
 const goToPrivacy =() => {
-  props.navigation.navigate('MainDrawer',{screen :'GalleriesScreen'});
+  props.navigation.navigate('MainDrawer',{screen :'PrivacyScreen'});
 };
 const goToTerms =() => {
-  props.navigation.navigate('MainDrawer',{screen :'GalleriesScreen'});
+  props.navigation.navigate('MainDrawer',{screen :'Terms'});
 };
+const goToLogin = () =>{
+  props.navigation.navigate('SignInScreen')
+}
 
   return (
     <ScrollView style={styles.drawerContainer}>
@@ -146,22 +148,6 @@ const goToTerms =() => {
       }}
         />
         </AccordionListItem>
-        <AccordionListItem title={'Life'}>
-        <FlatList
-        scrollEnabled={false}
-        data={Life}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
         <AccordionListItem title={'Clinical'}>
         <FlatList
         scrollEnabled={false}
@@ -178,10 +164,10 @@ const goToTerms =() => {
       }}
         />
         </AccordionListItem>
-        <AccordionListItem title={'Team'}>
+        <AccordionListItem title={'Life'}>
         <FlatList
         scrollEnabled={false}
-        data={team}
+        data={Life}
         keyExtractor={item => item.label}
         renderItem={({ item, index })=>{
           return(
@@ -194,7 +180,7 @@ const goToTerms =() => {
       }}
         />
         </AccordionListItem>
-        <AccordionListItem title={'Society'}>
+        <AccordionListItem title={'Societies'}>
         <FlatList
         scrollEnabled={false}
         data={soc}
@@ -210,10 +196,10 @@ const goToTerms =() => {
       }}
         />
         </AccordionListItem>
-        <AccordionListItem title={'Quick Links'}>
+        <AccordionListItem title={'News Team'}>
         <FlatList
         scrollEnabled={false}
-        data={links}
+        data={team}
         keyExtractor={item => item.label}
         renderItem={({ item, index })=>{
           return(
@@ -226,10 +212,16 @@ const goToTerms =() => {
       }}
         />
         </AccordionListItem>
+        <SearchBar navi={props.navigation}/>
       </SafeAreaView>
       <View>
           <View style={styles.otherLinks}>
             <View>
+            <TouchableHighlight onPress={() => goToLogin()}>
+                <Text style={styles.titleSmall}>
+                  Login
+                </Text>
+              </TouchableHighlight>
               <TouchableHighlight onPress={() => goToGallery()}>
                 <Text style={styles.titleSmall}>
                   Gallery
@@ -326,13 +318,12 @@ const styles = StyleSheet.create({
     paddingTop:50,
   },
   titleSmall: {
-    margin: 1,
     color: '#F0F0F0',
-    textAlign: 'left',
     fontSize:16,
     fontFamily:'sans-serif',
     fontWeight:"400",
     paddingTop:10,
+    paddingLeft:10,
   },
   backButtonRow: {
     flexDirection: 'row',
@@ -374,7 +365,8 @@ const styles = StyleSheet.create({
     paddingBottom:20
   },
   otherLinks:{
-    paddingTop:40
+    paddingTop:40,
+    marginLeft:5
   },
   containers: {
     backgroundColor: 'black',
@@ -428,6 +420,9 @@ const styles = StyleSheet.create({
   itemStyle:{
     backgroundColor:'black',
     color:'white'
+  },
+  item:{
+  
   }
 });
 

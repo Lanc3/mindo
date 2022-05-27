@@ -1,18 +1,21 @@
 import React,{useEffect,useState,useCallback,useRef} from "react";
-import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
+import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
+import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/useResults'
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
-import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/useResults'
+import LoadingView from "../../components/LoadingView";
+import { AdManager } from "../../components/AdManager";
 
-const SponsoredScreen = ({navigation}) => {
+const ClassifiedsScreen = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [title,setTitle] = useState("Sponsored");
     const [slug,setSlug] = useState("sponsored-content");
     const scrollRef = useRef();
+
     const nextpage = () =>{
       if(page <= totalPages)
       setPage(prevPage => prevPage + 1)
@@ -22,19 +25,22 @@ const SponsoredScreen = ({navigation}) => {
       setPage(prevPage => prevPage - 1)
     }
     const getContent = useCallback(async() =>{
+      setLoading(0.25);
         try{
+          setLoading(0.5);
             const response = await getCategoyIdBySlug(slug);
             const id = await response;
             const json = JSON.parse(await getPostsByCategory(id,page));
             const total = await fetchApiData(slug);//getting total pages per slug
             setTotalPages(total)
             setData(json);
+            setLoading(1);
         }catch(error){
             console.log(error)
         }finally{
-            setLoading(false);
+            setLoading(1);
         };
-
+        setLoading(1);
     },[page]);
 
      useEffect(() => {
@@ -42,7 +48,7 @@ const SponsoredScreen = ({navigation}) => {
       }, [getContent]);
 
     return(
-        <ScrollView ref={scrollRef} style={{ flex: 1, paddingTop: 5 }}>
+        <ScrollView style={{ flex: 1 }} ref={scrollRef}>
       {data.length > 0 ? (
         <View>
         <FlatList
@@ -61,13 +67,20 @@ const SponsoredScreen = ({navigation}) => {
               <Text style={styles.nextGreen}>  Next</Text>
             </TouchableOpacity>
           </View>
-            <Footer navi={navigation} refS={scrollRef}/>
+          <Footer navi={navigation} refS={scrollRef}/>
             </View>
           }
           data={data}
           keyExtractor={item => ""+item.date+item.id.toString()}
-          renderItem={({ item }) => (
-                <ShortCard props title={item["title"]["rendered"].toString()}
+          renderItem={({ item, index })=>{
+            if(index === 3){
+                return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+            }
+            else if(index === 7){
+              return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+            }
+            return(
+              <ShortCard props title={item["title"]["rendered"].toString()}
                 excerpt = {item["excerpt"]["rendered"].toString()}
                 date = {item["date"].toString()}
                 mediaID = {item["featured_media"]}
@@ -76,28 +89,26 @@ const SponsoredScreen = ({navigation}) => {
                 navi = {navigation}
                 nameSlug={title}
                 />
-
-            )}
+            )
+        }}
           />
           </View>
           ) : (
-          <View>
-            <Image style={styles.image} source={require("../../assets/images/logo.png" )}/>
-            <Text style={styles.pageTitle}>Loading...</Text>
-          </View>
+            <View style={{}}>
+                <LoadingView loadingProgress={loading}/>
+            </View>
           )}
         </ScrollView>
       );
     };
 
-export default SponsoredScreen;
+export default ClassifiedsScreen;
 
 const styles = StyleSheet.create({
     container:{
         flex: 1,
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'#FFFFFF'
     },
     pageTitle:{
         fontSize:26,
