@@ -26,7 +26,6 @@ const getMedia = async() =>{
 }
 
 const returnAutorName = async(id) =>{
-    console.log(id)
     try{
         const name = await getAuthorName(id.toString()); 
         if(name.firstName === false){

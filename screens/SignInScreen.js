@@ -9,6 +9,10 @@ import Feather from '@expo/vector-icons//Feather';
 import Svg, { Path } from "react-native-svg";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginUrl } from '../constants/Const';
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import {postToken} from '../hooks/useResults';
+
 
 const SignInScreen = ({navigation}) => {
     const [isLoading, setIsLoading] = useState(true); //true when the app is loading
@@ -19,6 +23,39 @@ const SignInScreen = ({navigation}) => {
   const [error, setError] = useState("Enter Details"); //Error texts from the app or serve
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [token,setToken] = useState({expoPushToken:''});
+
+  const registerForPushNotificationsAsync = async () => {
+    if (Device.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      const token = (await Notifications.getExpoPushTokenAsync()).data;
+      setToken({ expoPushToken: token });
+      try {
+        await AsyncStorage.setItem(
+          'expoToken',
+          JSON.stringify({
+            expoPushToken: token,
+          })
+        );
+      } catch {
+        setError('Error storing data on device');
+      }
+      postToken(token);
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
+
+   
+    };
 
   const wrongDetails = () =>
     Alert.alert('Error', error, [
@@ -67,6 +104,7 @@ const SignInScreen = ({navigation}) => {
             setIsLogged(true);
             setUserProfile(json);
             setUserToken(json.token);
+            registerForPushNotificationsAsync();
             try{
                 navigation.navigate('MainDrawer',{screen :'Home'});
             }
@@ -80,7 +118,6 @@ const SignInScreen = ({navigation}) => {
           }
           setloggingIn(false);
         } catch (error) {
-          console.error(error);
           setError('Error connecting to server');
           wrongDetails();
           setloggingIn(false);

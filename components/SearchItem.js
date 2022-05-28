@@ -12,7 +12,6 @@ export const SearchItem = ({title,itemDate,htmlData,author}) => {
 
 
 const goToArticle = () => {
-  console.log("se",articleDate)
   navigation.navigate("FullArticleScreen",{title:title,date:articleDate,imageData:null,htmlData:htmlData})
 }
 const getAuthor = async() =>{

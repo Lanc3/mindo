@@ -1,13 +1,15 @@
-import React,{ useState ,useEffect} from "react";
+import React,{ useState ,useEffect,useCallback} from "react";
 import { StyleSheet,SafeAreaView,TouchableOpacity, Text, View, Switch } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AccordionListItem from "./AccordionListItem";
 import { List } from 'react-native-paper';
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from '@react-navigation/native';
+import { removeToken } from "../hooks/useResults";
 const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
   const navigation = useNavigation();
-  const retrieveData = async () => {
+  const [token,setToken] = useState({expoPushToken:''});
+  const retrieveData = useCallback(async () => {
     try {
       const value = await AsyncStorage.getItem('userProfile');
       if (value !== null) {
@@ -20,7 +22,18 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
     } catch (error) {
       // Error retrieving data
     }
-  };
+    try {
+      const value = await AsyncStorage.getItem('expoToken');
+      if (value !== null) {
+        removeToken(JSON.parse(value).expoPushToken);
+      }
+      else{
+        console.log("No data found");
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  },[]);
 
   const logOut = async () => {
     closeDrawer();
@@ -29,6 +42,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
     } catch (exception) {
       console.log('Error deleting data', exception);
     }finally{
+
       callParentScreenFunction("SignInScreen");
     }
   };
@@ -38,7 +52,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
 
   useEffect (() => {
     retrieveData();
-  });
+  },[retrieveData]);
 
     return (
      <ScrollView style={styles.safeAreaView}>

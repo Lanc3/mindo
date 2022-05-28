@@ -49,11 +49,17 @@ export const getAllArticles = async() => {
 export const postToken = async(token) => {
     try{
       const response = await fetch(`https://dev.medicalindependent.ie/wp-json/mindo/v1/register_device/?expo_push_id=${token}`);
-      const json = await response.json();
-      return json;
     }catch(error){
       console.log(error);
     }
+}
+
+export const removeToken = async(token) => {
+  try{
+    const response = await fetch(`https://dev.medicalindependent.ie/wp-json/mindo/v1/deregister_device/?expo_push_id=${token}`);
+  }catch(error){
+    console.log(error);
+  }
 }
 
 export const getPostsByCategory = async(categoryID,pageNumber) => {

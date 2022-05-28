@@ -38,16 +38,6 @@ const HomeScreen = (props) => {
 
     const getContent = useCallback(async() =>{
         try{
-          const response = await getLastPost();
-          checkIfTwoDatesAreEqual(new Date(article.date),new Date(response.date)) ? setIsUpToDate(true) : setIsUpToDate(false);
-        }catch(error){
-
-        }
-        finally{
-          console.log(isUpToDate)
-        }
-        try{
-      
             const json = JSON.parse(await getPostsByCategory(69,1));
             const sliderData = await json.slice(0,2);
             setSliderData(sliderData);
@@ -57,8 +47,6 @@ const HomeScreen = (props) => {
         }finally{
           setLoading(0.25);
           try{
-
-         
             const json = JSON.parse(await getPostsByCategory(56,1));
             setComments(json);
         }catch(error){
@@ -66,7 +54,6 @@ const HomeScreen = (props) => {
         }finally{
           setLoading(0.5);
           try{
-            
             const json = JSON.parse(await getPostsByCategory(37,1));
             const feature = await json.slice(0,2);
             setTotalData(feature);
@@ -76,7 +63,6 @@ const HomeScreen = (props) => {
         }finally{
           setLoading(1);
           try{
-            
             const json = JSON.parse(await getPostsByCategory(26,1));
             setTeam(json);
         }catch(error){
@@ -84,14 +70,12 @@ const HomeScreen = (props) => {
         }finally{
           setLoading(1);
           try{
-            
             const json = JSON.parse(await getPostsByCategory(70,1));
             setClinical(json);
         }catch(error){
             console.log(error)
         }finally{
           setLoading(1);
-          console.log(latestNews)
           try {
             await AsyncStorage.setItem(
               'Articles',

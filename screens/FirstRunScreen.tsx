@@ -6,53 +6,17 @@ import * as Animatable from 'react-native-animatable';
 import MaterialIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Svg, { Path } from "react-native-svg";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Device from 'expo-device';
-import * as Notifications from 'expo-notifications';
-import {postToken} from '../hooks/useResults';
 
 
 const FirstRunScreen = ({navigation}) => {
     const { colors } = useTheme();
-    const [token,setToken] = useState({expoPushToken:''});
-    const registerForPushNotificationsAsync = async () => {
-      console.log("Hit")
-      if (Device.isDevice) {
-        const { status: existingStatus } = await Notifications.getPermissionsAsync();
-        let finalStatus = existingStatus;
-        if (existingStatus !== 'granted') {
-          const { status } = await Notifications.requestPermissionsAsync();
-          finalStatus = status;
-        }
-        if (finalStatus !== 'granted') {
-          alert('Failed to get push token for push notification!');
-          return;
-        }
-        const token = (await Notifications.getExpoPushTokenAsync()).data;
-        setToken({ expoPushToken: token });
-        postToken(token);
-        console.log("d",token);
-      } else {
-        alert('Must use physical device for Push Notifications');
-      }
-
-      if (Platform.OS === 'android') {
-        Notifications.setNotificationChannelAsync('default', {
-          name: 'default',
-          importance: Notifications.AndroidImportance.MAX,
-          vibrationPattern: [0, 250, 250, 250],
-          lightColor: '#FF231F7C',
-        });
-      }
-      };
-
     const _retrieveData = async () => {
         try {
           const value = await AsyncStorage.getItem('userProfile');
           if (value === null) {
-            registerForPushNotificationsAsync();
           }
           else{
-            registerForPushNotificationsAsync();
+
             navigation.navigate('MainDrawer',{screen :'Home'});
           }
         } catch (error) {
