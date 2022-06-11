@@ -10,14 +10,14 @@ export const Slide = (props: any) => {
 
   return (
     <View style={styles.slide}>
-      <ArticleCard props title={item["title"]["rendered"].toString()}
-                excerpt = {item["excerpt"]["rendered"].toString()}
-                date = {item["date"].toString()}
-                mediaID = {item["featured_media"]}
-                totalData = {item["content"]["rendered"]}
-                authorId = {item["author"]}
+      <ArticleCard props title={item.title}
+                excerpt = {item.excerpt}
+                date = {item.date}
+                mediaID = {item.media}
+                totalData = {item.content}
+                authorId = {item.author}
                 navi = {navigation}
-                nameSlug = {nameSlug}
+                nameSlug={nameSlug}
                 />
     </View>
   );

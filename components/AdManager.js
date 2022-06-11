@@ -96,7 +96,7 @@ const sizeType = props.sizeType;
         <View style={styles.container}>
             {sizeType === 'BIG' ?
             <View style={styles.containerBig}>
-            <View style={styles.image}>
+            <View style={styles.bigImage}>
                 <WebRender htmlData={getAd(selectedAd)}/>
             </View>
             </View>
@@ -114,24 +114,21 @@ const sizeType = props.sizeType;
 const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     container:{
-        width:300,
-        maxWidth:windowWidth,
-        paddingHorizontal:20
-    },
-    containerBig:{
+        width:windowWidth,
         flex:1,
         justifyContent:'center',
-        alignItems:'center',
+        alignItems:'center'
+    },
+    containerBig:{
         width:300,
-        maxWidth:windowWidth,
         height:250,
     },
     image:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-        alignContent:'center',
         width:300,
-        maxWidth:windowWidth,
     },
+    bigImage:{
+        flex:1,
+
+        width:300,
+    }
 })

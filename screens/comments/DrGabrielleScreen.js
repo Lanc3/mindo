@@ -1,6 +1,6 @@
 import React,{useEffect,useState,useCallback,useRef} from "react";
 import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/useResults'
+import {getCategoyIdBySlug,getPostsByCategory,newGetPostsByCatSlug} from '../../hooks/useResults'
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
@@ -28,13 +28,10 @@ const DrGabrielleScreen = ({navigation}) => {
       setLoading(0.25);
         try{
           setLoading(0.5);
-            const response = await getCategoyIdBySlug(slug);
-            const id = await response;
-            const json = JSON.parse(await getPostsByCategory(id,page));
-            const total = await fetchApiData(slug);//getting total pages per slug
-            setTotalPages(total)
-            setData(json);
-            setLoading(1);
+          const response = await newGetPostsByCatSlug(slug,10,page);
+          setTotalPages(Math.ceil(response.totalPosts/10));
+          setData(response.posts);
+          setLoading(1);
         }catch(error){
             console.log(error)
         }finally{
@@ -48,7 +45,7 @@ const DrGabrielleScreen = ({navigation}) => {
       }, [getContent]);
 
     return(
-        <ScrollView style={{ flex: 1 }} ref={scrollRef}>
+        <View style={{ flex: 1 }} ref={scrollRef}>
       {data.length > 0 ? (
         <View>
         <FlatList
@@ -71,7 +68,8 @@ const DrGabrielleScreen = ({navigation}) => {
             </View>
           }
           data={data}
-          keyExtractor={item => ""+item.date+item.id.toString()}
+          listKey={(item, index) => `D_key${index.toString()}`}
+          keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
             if(index === 3){
                 return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
@@ -80,14 +78,14 @@ const DrGabrielleScreen = ({navigation}) => {
               return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
             }
             return(
-              <ShortCard props title={item["title"]["rendered"].toString()}
-                excerpt = {item["excerpt"]["rendered"].toString()}
-                date = {item["date"].toString()}
-                mediaID = {item["featured_media"]}
-                totalData = {item["content"]["rendered"]}
-                authorId = {item["author"]}
+              <ShortCard props title={item.title.toString()}
+                excerpt = {item.excerpt.toString()}
+                date = {item.date.toString()}
+                mediaID = {item.media.toString()}
+                totalData = {item.content}
+                authorId = {item.author}
                 navi = {navigation}
-                nameSlug={title}
+                nameSlug={item.categoryName}
                 />
             )
         }}
@@ -98,7 +96,7 @@ const DrGabrielleScreen = ({navigation}) => {
                 <LoadingView loadingProgress={loading}/>
             </View>
           )}
-        </ScrollView>
+        </View>
       );
     };
 

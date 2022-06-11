@@ -6,6 +6,7 @@ import Svg, { Path } from "react-native-svg";
 import { FontAwesome } from '@expo/vector-icons';
 import { AdManager } from './AdManager';
 import AccordionListItem from './AccordionListItem';
+import MostReadSection from './MostReadSection';
 export const Footer = ({navi,refS}) => {
 
   const [value, setValue] = useState(null);
@@ -99,6 +100,7 @@ export const Footer = ({navi,refS}) => {
   return (
     <View style={styles.stat}>
       <AdManager selectedAd={"LDB_MOBILE_PUBLIC"} sizeType={"SMALL"}/>
+      <MostReadSection navigation={navi} showAmount={4} pageRouteName={"MostReadScreen"}/>
       <ScrollView style={styles.drawerContainer}>
       <SafeAreaView style={styles.container}>
       <AccordionListItem title={'News'}>

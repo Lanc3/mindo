@@ -1,5 +1,5 @@
 import React ,{useState}from "react";
-import { StyleSheet,ActivityIndicator, TextInput, View, Keyboard, Button } from "react-native";
+import { StyleSheet,ActivityIndicator, TextInput, View, TouchableOpacity, Button } from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
 import {searchArticles} from '../hooks/useResults'
 import { useNavigation } from '@react-navigation/native';
@@ -9,25 +9,21 @@ const SearchBar = ({navi}) => {
     const [data,setData] = useState([]);
     const [isLoading,setLoading] = useState(false);
     const navigation = useNavigation();
-    const callAPI = async()=>{
+    const callAPI = async(phrase)=>{
       setLoading(true);
-      let test
       try{
-          const response = await searchArticles(searchPhrase);
-
-          test = response;
-          setData(response);
+          const response = await searchArticles(phrase,25,1);
+          setData(response.posts);
       }catch(error){
           console.log(error)
       }finally{
         setLoading(false)
-        navigation.navigate('SearchScreen',{search_term:searchPhrase,listData:test});
+        navigation.navigate('SearchScreen',{search_term:phrase,listData:data});
       };
     }
 
   return (
     <View style={styles.container}>
-      
       <View
         style={
           clicked
@@ -44,7 +40,7 @@ const SearchBar = ({navi}) => {
           placeholderTextColor="#404040"
           value={searchPhrase}
           onChangeText={setSearchPhrase}
-          onSubmitEditing={callAPI}
+          onSubmitEditing={() =>{callAPI(searchPhrase)}}
           onFocus={() => {
             setClicked(true);
           }}
@@ -54,12 +50,15 @@ const SearchBar = ({navi}) => {
           <ActivityIndicator size="small" color="#6e822b" />
         </View>
       ):(
+        <TouchableOpacity
+                onPress={() => {callAPI(searchPhrase)}}
+            >
         <Feather
           name="search"
           size={20}
           color="white"
           style={{ marginLeft: 1 }}
-        />)}
+        /></TouchableOpacity>)}
         {/* cross Icon, depending on whether the search bar is clicked or not */}
         {clicked && (
           <Entypo name="cross" size={20} color="black" style={{ padding: 1 }} onPress={() => {

@@ -71,6 +71,8 @@ import SearchScreen from './screens/SearchScreen';
 import ClassifiedsScreen from './screens/classifieds/Classifieds';
 import Terms from './screens/terms/Terms';
 import PrivacyScreen from './screens/privacy/PrivacyScreen';
+import {CounterContextProvider,useCounter} from './components/GlobalContext';
+import MostReadScreen from './screens/MostRead/MostReadScreen';
 const Drawer = createDrawerNavigator();
 
 function MainDrawerNavigation() {
@@ -83,9 +85,9 @@ function MainDrawerNavigation() {
       },
     }}
       initialRouteName="FirstRunScreen"
-      drawerContent={(props) => (
-        <CustomDrawerContent drawerItems={drawerItemsMain} {...props} />
-      )}><Drawer.Screen name="ECopy" component={ECopy} options={{headerShown:false}}/>
+      drawerContent={(props) => (<CustomDrawerContent drawerItems={drawerItemsMain} {...props} />)}>
+      <Drawer.Screen name="MostReadScreen" component={MostReadScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="ECopy" component={ECopy} options={{headerShown:false}}/>
       <Drawer.Screen name="Terms" component={Terms} options={{headerShown:false}}/>
       <Drawer.Screen name="PrivacyScreen" component={PrivacyScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="ClassifiedsScreen" component={ClassifiedsScreen} options={{headerShown:false}}/>
@@ -160,8 +162,7 @@ export default function App() {
     return () => backHandler.remove();
   }, []);
   return (
-    <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
+    <CounterContextProvider>
         <NavigationContainer>
       <Stack.Navigator
       initialRouteName="FirstRunScreen"
@@ -184,8 +185,8 @@ export default function App() {
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
-        </PersistGate>
-    </Provider>
+    </CounterContextProvider>
+
   );
 }
 

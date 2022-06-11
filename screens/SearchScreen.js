@@ -1,40 +1,68 @@
 import React,{useEffect,useState,useCallback,useRef} from "react";
 import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import SearchItem from "../components/SearchItem";
 import Footer from "../components/Footer";
+import { ShortCard } from "../components/ShortCard";
+import { Header } from "../components/Header";
+import LoadingView from "../components/LoadingView";
 import { AdManager } from "../components/AdManager";
-const SearchScreen = ({navigation,props,route}) => {
-  const {search_term,listData} = route.params;
+import { useNavigation } from '@react-navigation/native';
+
+const SearchScreen = ({props,route}) => {
+    const {search_term,listData} = route.params;
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
+    const [title,setTitle] = useState("Most Read");
+    const navigation = useNavigation();
     const scrollRef = useRef();
+    console.log(listData)
 
     return(
+        <View style={{ flex: 1 }} ref={scrollRef}>
+      {listData? (
+        <View>
         <FlatList
           ListHeaderComponent={
-            <View>
-              <AdManager selectedAd={"LDB_MOBILE_PUBLIC"} sizeType={"SMALL"}/>
-              <View style={styles.titleContainer}>
+            <View style={styles.titleContainer}>
                 <Text style={styles.pageTitle}>Search Results For: </Text>
                 <Text style={styles.nextGreen}>{search_term}</Text>
               </View>
-              
-            </View>
-
-        }
+          }
           ListFooterComponent={
-            <View>
+          <View>
           <Footer navi={navigation} refS={scrollRef}/>
-            </View>
+          </View>
           }
           data={listData}
-          keyExtractor={item => ""+item.ID}
+          listKey={(item, index) => `D_key${index.toString()}`}
+          keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
- 
+            if(index === 3){
+                return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+            }
+            else if(index === 7){
+              return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+            }
             return(
-              
-              <SearchItem title={item.post_title.toString()} itemDate={item.post_date_gmt.toString()} htmlData={item.post_content.toString()} author={item.post_author.toString()}/>
+              <ShortCard props title={item.title.toString()}
+                excerpt = {item.excerpt.toString()}
+                date = {item.date.toString()}
+                mediaID = {item.media.toString()}
+                totalData = {item.content}
+                authorId = {item.author}
+                navi = {navigation}
+                nameSlug={item.categoryName}
+                />
             )
         }}
           />
+          </View>
+          ) : (
+            <View style={{}}>
+                <LoadingView loadingProgress={loading}/>
+            </View>
+          )}
+        </View>
       );
     };
 
@@ -47,7 +75,6 @@ const styles = StyleSheet.create({
         justifyContent:'center',
     },
     pageTitle:{
-      paddingTop:10,
         fontSize:26,
         fontFamily:'sans-serif',
         fontWeight:"bold",
@@ -66,16 +93,20 @@ const styles = StyleSheet.create({
       fontSize:16
     },
     nextGreen:{
-      paddingTop:10,
+      fontSize:16,
+      color:'#6e822b',
+    },
+    nextGreen:{
+      paddingTop:5,
       fontSize:26,
         fontFamily:'sans-serif',
         fontWeight:"bold",
-        margin:5,
       color:'#6e822b',
-    },
-    titleContainer:{
+      },
+      titleContainer:{
       flex:1,
       flexDirection:'row',
       justifyContent:'center',
-    }
+      }
 });
+

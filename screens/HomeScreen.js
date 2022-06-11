@@ -14,6 +14,7 @@ import { AdBlock } from "../components/AdBlock";
 import { AdBlockBig } from "../components/AdBlockBig";
 import { useSelector } from 'react-redux'
 import { AdManager } from "../components/AdManager";
+import MostReadSection from "../components/MostReadSection";
 
 const HomeScreen = (props) => {
     //const [getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor] = useResults();
@@ -28,7 +29,6 @@ const HomeScreen = (props) => {
     const [loading, setLoading] = useState(0);
     const scrollRef = useRef();
 
-    const article = useSelector( state => state.lastArticle);
     const checkIfTwoDatesAreEqual = (date1, date2) => {
         if (date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate()) {
             return true;
@@ -106,7 +106,9 @@ const HomeScreen = (props) => {
 
     return(
         <ScrollView style={styles.container}  ref={scrollRef}>
-      {team.length > 0 ? (
+        <MostReadSection navigation={props.navigation} showAmount={5} pageRouteName={"MostReadScreen"}/>
+        <ArticleList navigation={props.navigation} slugName={"latest-news"}  titleName={"Latest News"} showAmount={5} pageRouteName={"LatestNews"}/>
+      {/* {team.length > 0 ? (
         <View>
         <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
       <Carousel
@@ -205,7 +207,7 @@ const HomeScreen = (props) => {
     )}
     <TouchableOpacity onPress={() => reference._root.scrollToPosition(0, 0)}>
         <Text style={{color:'white'}}>Back to top</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </ScrollView>
     );
 };

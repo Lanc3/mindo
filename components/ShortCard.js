@@ -12,38 +12,6 @@ import {getCategoyIdBySlug,getAuthorName,getPostsByCategory,getMediaAPI,fetchApi
 
 export function ShortCard({navi,props,title,excerpt,date,mediaID,totalData,authorId,nameSlug}) {
     //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser] = useResults();
-    const [imageData, setImageData] = useState("../assets/images/splash.png");
-    const [name, setName] = useState({firstName:"Mindo",lastName:""});
-
-
-const getMedia = async() =>{
-    try{
-        const image = await getMediaAPI(mediaID);
-        setImageData(image)
-    }catch(error){
-        console.log(error)
-    }finally{
-    };
-}
-const returnAutorName = async(id) =>{
-    try{
-        const name = await getAuthorName(id.toString()); 
-        if(name.firstName === false){
- 
-            setName({firstName:"Mindo",lastName:""})
-        }
-        else {
-            setName(name)
-        }
-        if(name === null || name === 'undefined'){
-            setName({firstName:"Mindo",lastName:""})
-        }
-        
-    }catch(error){
-        console.log(error)
-    }finally{
-    };
-}
 
 
 function convertDateToEnglish(date){
@@ -55,25 +23,24 @@ function convertDateToEnglish(date){
     return day + " " + month + ", " + year;
   }
 useEffect(() => {
-    getMedia();
-    returnAutorName(authorId);
+
   }, []);
   const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:name,title:title,date:date,imageData:imageData,htmlData:totalData})}
+                onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:authorId,title:title,date:date,imageData:mediaID,htmlData:totalData})}
             >
                 <View style={styles.shortContainer}>
                     <View style={styles.imageContainer}>
-                        <Image style ={styles.image}source={{ uri: imageData }}/>
+                    <Image style={styles.image} source={{ uri: ""+mediaID }}/>
                     </View>
                     <View style={styles.contentContainer}>
                     <Text style={styles.greenTitle}>{nameSlug}</Text>
                     <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
                     <View style={styles.footer}>
                         <Text>By </Text>
-                        <Text style={{color:'black'}}>{name.firstName} {name.lastName}</Text>
+                        <Text style={{color:'black'}}>{authorId}</Text>
                         <Text> - </Text>
                         <Text >{convertDateToEnglish(date)}</Text>
                     </View>

@@ -1,6 +1,6 @@
 import React,{useEffect,useState,useCallback,useRef} from "react";
 import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import {getPostByAuthorId,getTotalPostByAuthor,fetchApiData} from '../../hooks/useResults'
+import {getPostByAuthorId,getTotalPostByAuthor,newGetPostsByAuthor} from '../../hooks/useResults'
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
@@ -11,6 +11,7 @@ import { AdManager } from "../../components/AdManager";
 const PriscillaLynchScreen = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(0);
     const [title,setTitle] = useState("Priscilla Lynch");
     const [authorID,setAuthorID] = useState(4002);
@@ -26,19 +27,18 @@ const PriscillaLynchScreen = ({navigation}) => {
     const getContent = useCallback(async() =>{
       setLoading(0.25);
         try{
-            const response = await getPostByAuthorId(authorID);
-            const total = await getTotalPostByAuthor(authorID);//getting total pages per slug
-            setLoading(0.50);
-            setTotalPages(total)
-            setLoading(0.75);
-            setData(response);
-            setLoading(1);
+          setLoading(0.5);
+          const response = await newGetPostsByAuthor(authorID,10,page);
+          console.log(response)
+          setTotalPages(Math.ceil(response.totalPosts/10));
+          setData(response.posts);
+          setLoading(1);
         }catch(error){
             console.log(error)
         }finally{
-          setLoading(1);
+            setLoading(1);
         };
-
+        setLoading(1);
     },[page]);
 
      useEffect(() => {
@@ -46,8 +46,8 @@ const PriscillaLynchScreen = ({navigation}) => {
       }, [getContent]);
 
     return(
-      <ScrollView style={{ flex: 1 }} ref={scrollRef}>
-      {data.length > 0 ? (
+        <View style={{ flex: 1 }} ref={scrollRef}>
+      {data ? (
         <View>
         <FlatList
           ListHeaderComponent={<Header title={title} navigation={navigation} data={data}></Header>}
@@ -69,7 +69,8 @@ const PriscillaLynchScreen = ({navigation}) => {
             </View>
           }
           data={data}
-          keyExtractor={item => ""+item.date+item.id.toString()}
+          listKey={(item, index) => `D_key${index.toString()}`}
+          keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
             if(index === 3){
                 return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
@@ -78,14 +79,14 @@ const PriscillaLynchScreen = ({navigation}) => {
               return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
             }
             return(
-              <ShortCard props title={item["title"]["rendered"].toString()}
-                excerpt = {item["excerpt"]["rendered"].toString()}
-                date = {item["date"].toString()}
-                mediaID = {item["featured_media"]}
-                totalData = {item["content"]["rendered"]}
-                authorId = {item["author"]}
+              <ShortCard props title={item.title.toString()}
+                excerpt = {item.excerpt.toString()}
+                date = {item.date.toString()}
+                mediaID = {item.media.toString()}
+                totalData = {item.content}
+                authorId = {item.author}
                 navi = {navigation}
-                nameSlug={title}
+                nameSlug={item.categoryName}
                 />
             )
         }}
@@ -96,10 +97,9 @@ const PriscillaLynchScreen = ({navigation}) => {
                 <LoadingView loadingProgress={loading}/>
             </View>
           )}
-        </ScrollView>
+        </View>
       );
     };
-
 export default PriscillaLynchScreen;
 
 const styles = StyleSheet.create({

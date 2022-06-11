@@ -87,7 +87,7 @@ const ClassifiedsScreen = ({navigation}) => {
                 totalData = {item["content"]["rendered"]}
                 authorId = {item["author"]}
                 navi = {navigation}
-                nameSlug={title}
+                nameSlug={item.categoryName}
                 />
             )
         }}

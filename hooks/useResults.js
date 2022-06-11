@@ -10,9 +10,9 @@ export const getMediaAPI = async(id) => {
 
     }
 }
-export const searchArticles = async(search_term) =>{
+export const searchArticles = async(search_term,amount,paged) =>{
   try {
-    const response =  await fetch(`https://dev.medicalindependent.ie/wp-json/search/v1/getposts/?search_term=${search_term}`);
+    const response =  await fetch(`https://medicalindependent.ie/wp-json/mindo/v1/search/?search_term=${search_term}&amount=${amount}&paged=${paged}`);
     const json = await response.json();
     return json;
 } catch (error) {
@@ -24,7 +24,7 @@ finally{
 
 export const getAuthorName = async(id) =>{
   try {
-    const response =  await fetch(`https://dev.medicalindependent.ie/wp-json/search/v1/getauthor/?author_id=${id}`);
+    const response =  await fetch(`https://medicalindependent.ie/wp-json/search/v1/getauthor/?author_id=${id}`);
     const json = await response.json();
     return json;
   }
@@ -48,7 +48,7 @@ export const getAllArticles = async() => {
 
 export const postToken = async(token) => {
     try{
-      const response = await fetch(`https://dev.medicalindependent.ie/wp-json/mindo/v1/register_device/?expo_push_id=${token}`);
+      const response = await fetch(`https://medicalindependent.ie/wp-json/mindo/v1/register_device/?expo_push_id=${token}`);
     }catch(error){
       console.log(error);
     }
@@ -56,7 +56,37 @@ export const postToken = async(token) => {
 
 export const removeToken = async(token) => {
   try{
-    const response = await fetch(`https://dev.medicalindependent.ie/wp-json/mindo/v1/deregister_device/?expo_push_id=${token}`);
+    const response = await fetch(`https://medicalindependent.ie/wp-json/mindo/v1/deregister_device/?expo_push_id=${token}`);
+  }catch(error){
+    console.log(error);
+  }
+}
+
+export const newGetPostsByCatSlug = async(slug,amount,paged) => {
+  try{
+    const response = await fetch(`https://medicalindependent.ie/wp-json/mindo/v1/category-posts/?slug=${slug}&amount=${amount}&paged=${paged}`);
+    const json = await response.json();
+    return json;
+  }catch(error){
+    console.log(error);
+  }
+}
+
+export const newGetPostsByAuthor = async(id,amount,paged) => {
+  try{
+    const response = await fetch(`https://medicalindependent.ie/wp-json/mindo/v1/author-posts/?author_id=${id}&amount=${amount}&paged=${paged}`);
+    const json = await response.json();
+    return json;
+  }catch(error){
+    console.log(error);
+  }
+}
+
+export const newGetMostReadPosts = async(amount,paged) => {
+  try{
+    const response = await fetch(`https://medicalindependent.ie/wp-json/mindo/v1/most-read-posts/?amount=${amount}&paged=${paged}`);
+    const json = await response.json();
+    return json;
   }catch(error){
     console.log(error);
   }

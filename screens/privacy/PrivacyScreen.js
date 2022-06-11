@@ -48,57 +48,9 @@ const PrivacyScreen = ({navigation}) => {
       }, [getContent]);
 
     return(
-        <ScrollView style={{ flex: 1 }} ref={scrollRef}>
-      {data.length > 0 ? (
-        <View>
-        <FlatList
-          ListHeaderComponent={<Header title={title} navigation={navigation} data={data}></Header>}
-          ListFooterComponent={
-            <View>
-            <View style={styles.pageNav}>
-            {page > 1 ?
-            <TouchableOpacity onPress={()=> perviouspage()}>
-            <Text style={styles.nextGreen}>Previous  </Text>
-          </TouchableOpacity> : null}
-
-          <Text style={styles.next}> {page} ...  </Text>
-          <Text style={styles.next}>{totalPages}</Text>
-            <TouchableOpacity onPress={()=> nextpage()}>
-              <Text style={styles.nextGreen}>  Next</Text>
-            </TouchableOpacity>
-          </View>
-          <Footer navi={navigation} refS={scrollRef}/>
-            </View>
-          }
-          data={data}
-          keyExtractor={item => ""+item.date+item.id.toString()}
-          renderItem={({ item, index })=>{
-            if(index === 3){
-                return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
-            }
-            else if(index === 7){
-              return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
-            }
-            return(
-              <ShortCard props title={item["title"]["rendered"].toString()}
-                excerpt = {item["excerpt"]["rendered"].toString()}
-                date = {item["date"].toString()}
-                mediaID = {item["featured_media"]}
-                totalData = {item["content"]["rendered"]}
-                authorId = {item["author"]}
-                navi = {navigation}
-                nameSlug={title}
-                />
-            )
-        }}
-          />
-          </View>
-          ) : (
-            <View style={{}}>
-                <LoadingView loadingProgress={loading}/>
-            </View>
-          )}
-        </ScrollView>
+        <View style={{ flex: 1 }} ref={scrollRef}>
+        <Footer navi={navigation} refS={scrollRef}/>
+        </View>
       );
     };
 

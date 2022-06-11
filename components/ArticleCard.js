@@ -10,40 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import {getCategoyIdBySlug,getAuthorName,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
 
 export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug,authorId}) {
-    //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData,getUser] = useResults();
-    const [imageData, setImageData] = useState("../assets/images/splash.png");
-    const [name, setName] = useState({firstName:"Mindoww",lastName:""});
 
-
-const getMedia = async() =>{
-    try{
-        const image = await getMediaAPI(mediaID);
-        setImageData(image)
-    }catch(error){
-        console.log(error)
-    }finally{
-    };
-}
-
-const returnAutorName = async(id) =>{
-    try{
-        const name = await getAuthorName(id.toString()); 
-        if(name.firstName === false){
- 
-            setName({firstName:"Mindo",lastName:""})
-        }
-        else {
-            setName(name)
-        }
-        if(name === null || name === 'undefined'){
-            setName({firstName:"Mindow",lastName:""})
-        }
-        
-    }catch(error){
-        console.log(error)
-    }finally{
-    };
-}
 function convertDateToEnglish(date){
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var date = new Date(date);
@@ -52,26 +19,21 @@ function convertDateToEnglish(date){
     var year = date.getFullYear();
     return day + " " + month + ", " + year;
 }
-const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "String", day: "numeric" }
-    return new Date(dateString).toLocaleDateString(undefined, options)
-}
+
 useEffect(() => {
-    getMedia();
-    returnAutorName(authorId);
   }, []);
   const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:name,title:title,date:date,imageData:imageData,htmlData:totalData})}
+                onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:authorId,title:title,date:date,imageData:mediaID,htmlData:totalData})}
             >
-                <Image style ={styles.image}source={{ uri: imageData }}/>
+                <Image style={styles.image} source={{ uri: ""+mediaID }}/>
                 <Text style={styles.greenTitle}>{nameSlug}</Text>
                 <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
                 <View style={styles.footer}>
                     <Text style={{paddingLeft:10}}>By </Text>
-                    <Text style={{color:'black'}}>{name.firstName} {name.lastName}</Text>
+                    <Text style={{color:'black'}}>{authorId}</Text>
                     <Text> - </Text>
                     <Text >{convertDateToEnglish(date)}</Text>
                 </View>

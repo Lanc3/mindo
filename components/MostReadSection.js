@@ -1,25 +1,23 @@
 import React,{useEffect,useState,useCallback} from "react";
 import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
 import { ShortCard } from "./ShortCard";
-import {getCategoyIdBySlug,getFirstPostSet,newGetPostsByCatSlug,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
+import {newGetMostReadPosts} from '../hooks/useResults'
 import LoadingView from '../components/LoadingView';
 import { AdManager } from "./AdManager";
 
-const ArticleList = ({navigation, slugName,list,titleName,showAmount,pageRouteName}) => {
+const MostReadSection = ({navigation,showAmount,pageRouteName}) => {
     //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    const [title,setTitle] = useState(titleName);
-    const [slug,setSlug] = useState(slugName);
-    const [isdata,setisdata] = useState(false);
+    const [title,setTitle] = useState('Most Read');
 
  const getContent = useCallback(async() =>{
       setLoading(0.25);
         try{
           setLoading(0.5);
-          const response = await newGetPostsByCatSlug(slug,showAmount,page);
+          const response = await newGetMostReadPosts(showAmount,page);
           setTotalPages(Math.ceil(response.totalPosts/10));
           setData(response.posts);
           setLoading(1);
@@ -41,10 +39,10 @@ const ArticleList = ({navigation, slugName,list,titleName,showAmount,pageRouteNa
         <View>
         <FlatList
         scrollEnabled={false}
-          ListHeaderComponent={
+        ListHeaderComponent={
               <View style={styles.topSmallNav}>
                   <View style={styles.titleContainer}>
-                    <Text style={styles.titleStyle}>{titleName}</Text>
+                    <Text style={styles.titleStyle}>Most Read</Text>
                   </View>
                   <TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :pageRouteName});}}>
                       <View style={styles.veiwContainer}>
@@ -53,16 +51,14 @@ const ArticleList = ({navigation, slugName,list,titleName,showAmount,pageRouteNa
                   </TouchableOpacity>
               </View>
           }
+          ListFooterComponent={
+            <AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>
+          }
           data={data}
           listKey={(item, index) => `D_key${index.toString()}`}
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
-            if(index === 3){
-                return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
-            }
-            else if(index === 7){
-              return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
-            }
+
             return(
               <ShortCard props title={item.title.toString()}
                 excerpt = {item.excerpt.toString()}
@@ -86,7 +82,7 @@ const ArticleList = ({navigation, slugName,list,titleName,showAmount,pageRouteNa
       );
     };
 
-export default ArticleList;
+export default MostReadSection;
 
 const styles = StyleSheet.create({
     container:{

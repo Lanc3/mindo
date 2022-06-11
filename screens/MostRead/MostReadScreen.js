@@ -1,19 +1,19 @@
 import React,{useEffect,useState,useCallback,useRef} from "react";
 import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import {getCategoyIdBySlug,getPostsByCategory,newGetPostsByCatSlug} from '../../hooks/useResults'
+import {getCategoyIdBySlug,getPostsByCategory,newGetMostReadPosts} from '../../hooks/useResults'
 import { Footer } from "../../components/Footer";
 import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
 import LoadingView from "../../components/LoadingView";
 import { AdManager } from "../../components/AdManager";
 
-const Cartoon = ({navigation}) => {
+const MostReadScreen = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    const [title,setTitle] = useState("Cartoon");
-    const [slug,setSlug] = useState("cartoon");
+    const [title,setTitle] = useState("Most Read");
+
     const scrollRef = useRef();
 
     const nextpage = () =>{
@@ -28,7 +28,7 @@ const Cartoon = ({navigation}) => {
       setLoading(0.25);
         try{
           setLoading(0.5);
-          const response = await newGetPostsByCatSlug(slug,10,page);
+          const response = await newGetMostReadPosts(10,page);
           setTotalPages(Math.ceil(response.totalPosts/10));
           setData(response.posts);
           setLoading(1);
@@ -100,7 +100,7 @@ const Cartoon = ({navigation}) => {
       );
     };
 
-export default Cartoon;
+export default MostReadScreen;
 
 const styles = StyleSheet.create({
     container:{

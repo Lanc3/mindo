@@ -10,15 +10,14 @@ export const Stat = (props: any) => {
 
   return (
     <View style={styles.slide}>
-     <ShortCard title={item["title"]["rendered"].toString()}
-                excerpt = {item["excerpt"]["rendered"].toString()}
-                date = {item["date"].toString()}
-                mediaID = {item["featured_media"]}
-                totalData = {item["content"]["rendered"]}
-                authorId = {item["author"]}
+                   <ShortCard props title={item.title.toString()}
+                excerpt = {item.excerpt.toString()}
+                date = {item.date.toString()}
+                mediaID = {item.media.toString()}
+                totalData = {item.content}
+                authorId = {item.author}
                 navi = {navigation}
                 nameSlug={nameSlug}
-                articleTitle={articleTitle}
                 />
     </View>
   );

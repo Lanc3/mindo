@@ -3,7 +3,6 @@ import { View, Text,Dimensions,StyleSheet,Platform,TouchableOpacity,Alert,Status
 import * as Animatable from 'react-native-animatable';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from 'react-native-paper';
-import { AuthContext } from "../components/Context";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Feather from '@expo/vector-icons//Feather';
 import Svg, { Path } from "react-native-svg";
@@ -53,8 +52,6 @@ const SignInScreen = ({navigation}) => {
     } else {
       alert('Must use physical device for Push Notifications');
     }
-
-   
     };
 
   const wrongDetails = () =>

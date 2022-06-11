@@ -41,12 +41,7 @@ const FirstRunScreen = ({navigation}) => {
           console.log('Error storing data on device');
 
         }finally{
-          try{
-            navigation.navigate('MainDrawer',{screen :'Home'});
-          }
-          catch{
-            console.log('Error navigating to Home');
-          }
+          navigation.navigate('MainDrawer',{screen :'Home'});
         }
       };
 
