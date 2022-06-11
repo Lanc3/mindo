@@ -73,6 +73,7 @@ import Terms from './screens/terms/Terms';
 import PrivacyScreen from './screens/privacy/PrivacyScreen';
 import {CounterContextProvider,useCounter} from './components/GlobalContext';
 import MostReadScreen from './screens/MostRead/MostReadScreen';
+import AboutScreen from './screens/About/AboutScreen';
 const Drawer = createDrawerNavigator();
 
 function MainDrawerNavigation() {
@@ -86,6 +87,7 @@ function MainDrawerNavigation() {
     }}
       initialRouteName="FirstRunScreen"
       drawerContent={(props) => (<CustomDrawerContent drawerItems={drawerItemsMain} {...props} />)}>
+        <Drawer.Screen name="AboutScreen" component={AboutScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="MostReadScreen" component={MostReadScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="ECopy" component={ECopy} options={{headerShown:false}}/>
       <Drawer.Screen name="Terms" component={Terms} options={{headerShown:false}}/>

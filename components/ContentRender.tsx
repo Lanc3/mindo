@@ -11,7 +11,6 @@ export default function ContentRender({htmlData,newHeight}) {
 
   return (
     <View style={{paddingTop:80,padding:10}}>
-
      <HTMLView
         value={htmlData}
         stylesheet={styles}

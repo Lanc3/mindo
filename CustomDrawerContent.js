@@ -112,6 +112,9 @@ const goToTerms =() => {
 const goToLogin = () =>{
   props.navigation.navigate('SignInScreen')
 }
+const goToAbout = () =>{
+  props.navigation.navigate('MainDrawer',{screen :'AboutScreen'})
+}
 
   return (
     <ScrollView style={styles.drawerContainer}>
@@ -222,15 +225,10 @@ const goToLogin = () =>{
                   Login
                 </Text>
               </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToGallery()}>
+              <TouchableHighlight onPress={() => goToAbout()}>
                 <Text style={styles.titleSmall}>
-                  Gallery
+                  About Mindo
                 </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToClassifieds()}>
-              <Text style={styles.titleSmall}>
-              Classifieds
-              </Text>
               </TouchableHighlight>
               <TouchableHighlight onPress={() => goToSponsored()}>
               <Text style={styles.titleSmall}>
@@ -240,6 +238,11 @@ const goToLogin = () =>{
               <TouchableHighlight onPress={() => goToAdvertise()}>
               <Text style={styles.titleSmall}>
               Advertise
+              </Text>
+              </TouchableHighlight>
+              <TouchableHighlight onPress={() => goToClassifieds()}>
+              <Text style={styles.titleSmall}>
+              Classifieds
               </Text>
               </TouchableHighlight>
               <TouchableHighlight onPress={() => goToPrivacy()}>

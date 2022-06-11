@@ -7,11 +7,10 @@ import { Header } from "../../components/Header";
 import LoadingView from "../../components/LoadingView";
 import ContentRender from "../../components/ContentRender";
 
-const AdvertiseScreen = ({navigation}) => {
+const AboutScreen = ({navigation}) => {
     const htmlData =
-    `<div class="">
-    <h1 class="main-title-text">About Mindo</h1>
-<h3 id="about-us">Mindo</h3>
+    `<h1 class="main-title-text">About Mindo</h1><h3 id="about-us">Mindo</h3>
+
 <p>Mindo (medicalindependent.ie) is Ireland’s only investigative medical news website for doctors, healthcare professionals and anyone with an interest in health issues.</p>
 <p>Established in 2010, along with its sister publication The Medical Independent, our stated aim is to investigate and analyse the major issues affecting healthcare and the medical profession in Ireland. The Medical Independent has won a number of awards for its investigative journalism, and its stories are frequently picked up by national digital, broadcast and print media.</p>
 <p>The Medical Independent is published by GreenCross Publishing. GreenCross Publishing is a healthcare publisher specialising in news gathering, clinical journals and educational websites aimed at Irish healthcare professionals.</p>
@@ -19,11 +18,10 @@ const AdvertiseScreen = ({navigation}) => {
 <p>Ireland’s only investigative and breaking news source for healthcare and the medical profession in Ireland. Follow us on twitter @med-indonews</p>
 <p>Along with The Medical Independent, GreenCross also runs Medi-learning, Irish Pharmacist, DocCPD, NurseCPD, Pharmacist CPD, Nursing In General Practice and Update.</p>
 <h4 id="contact-details"><strong><a href="https://www.medicalindependent.ie/contact-us/">Contact Details</a></strong></h4>
+
 <p><strong>Address:</strong> Top Floor, 111 Rathmines Road Lr, Dublin 6</p>
 <p><strong>Tel:</strong> 353 (01) 441 0024</p>
-<p><a href="http://greencrosspublishing.ie/">GreenCross Publishing</a> is owned by Graham Cooke.</p>
-</div>
-  `
+<p><a href="http://greencrosspublishing.ie/">GreenCross Publishing</a> is owned by Graham Cooke.</p>`
     const scrollRef = useRef();
 
 
@@ -35,7 +33,7 @@ const AdvertiseScreen = ({navigation}) => {
       );
     };
 
-export default AdvertiseScreen;
+export default AboutScreen;
 
 const styles = StyleSheet.create({
     container:{
