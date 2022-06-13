@@ -99,7 +99,7 @@ export default function Drawer({navi}) {
     }, []);
 
   return (
-      <View >
+      <ScrollView >
 <TouchableOpacity style={styles.testingBounds} onPress={onPressOpen}>
         <Svg
           width={50}
@@ -127,7 +127,7 @@ export default function Drawer({navi}) {
       >
         <SideMenu callParentScreenFunction={onPressSignUp} closeDrawer={onPressOpen} />
       </Modal>
-    </View>
+    </ScrollView>
   );
 };
 

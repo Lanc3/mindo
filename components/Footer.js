@@ -7,6 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { AdManager } from './AdManager';
 import AccordionListItem from './AccordionListItem';
 import MostReadSection from './MostReadSection';
+import { Linking } from 'react-native';
 export const Footer = ({navi,refS}) => {
 
   const [value, setValue] = useState(null);
@@ -69,13 +70,16 @@ export const Footer = ({navi,refS}) => {
     { label: 'IOS', value: 'IOSScreen' },
   ];
   const links = [
-    { label: 'About Us', value: 'CatherineReilly' },
-    { label: 'Privacy Policy', value: 'DavidLynch' },
-    { label: 'Terms & Conditions', value: 'PaulMulholland' },
+    { label: 'About Us', value: 'AboutScreen' },
+    { label: 'Privacy Policy', value: 'PrivacyScreen' },
+    { label: 'Terms & Conditions', value: 'Terms' },
   ];
   const goToLink =(value) => {
     navi.navigate('MainDrawer',{screen :value});
   };
+  const openURL = (url) =>{
+    Linking.openURL(url)
+  }
   const onPressTouch = () => {
     refS.current?.scrollTo({
       y: 0,
@@ -288,6 +292,9 @@ export const Footer = ({navi,refS}) => {
         <Text style={styles.footerText}>© The Medical Independent 2022. All rights reserved.
         </Text>
         <Text style={styles.footerText}>Built by Aaron Keating</Text>
+        <TouchableOpacity onPress={() => openURL("https://www.medicalindependent.ie/about-us/")}>
+          <Text style={{color:'#6E822B'}}>www.medicalindependent.ie</Text>
+          </TouchableOpacity>
       <SocialContent/>
       </View>
       <TouchableOpacity style={styles.backToTop} onPress={onPressTouch}>

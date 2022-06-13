@@ -6,8 +6,9 @@ import Footer from "../components/Footer";
 import Svg, { Path } from "react-native-svg";
 import { ECopy } from "../components/ECopy";
 import ArticleList from "../components/ArticleList";
+import SingleArticle from "../components/SingleArticle";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getCategoyIdBySlug,getLastPost,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
+import {newGetPostsByCatSlug} from '../hooks/useResults'
 import WebRender from "../components/WebRender";
 import LoadingView from "../components/LoadingView";
 import { AdBlock } from "../components/AdBlock";
@@ -22,9 +23,9 @@ const HomeScreen = (props) => {
     const [isUpToDate, setIsUpToDate] = useState(false);
     const [comments, setComments] = useState([]);
     const [feature, setFeature] = useState([]);
-    const [team, setTeam] = useState([]);
+    const [cartoon, setCartoon] = useState([]);
     const [sliderData, setSliderData] = useState([]);
-    const [totalData, setTotalData] = useState([]);
+    const [motoring, setMotoring] = useState([]);
     const [clinical, setClinical] = useState([]);
     const [loading, setLoading] = useState(0);
     const scrollRef = useRef();
@@ -37,68 +38,23 @@ const HomeScreen = (props) => {
     }
 
     const getContent = useCallback(async() =>{
-        try{
-            const json = JSON.parse(await getPostsByCategory(69,1));
-            const sliderData = await json.slice(0,2);
-            setSliderData(sliderData);
-            setlatestNews(json);
-        }catch(error){
-            console.log(error)
-        }finally{
-          setLoading(0.25);
-          try{
-            const json = JSON.parse(await getPostsByCategory(56,1));
-            setComments(json);
-        }catch(error){
-            console.log(error)
-        }finally{
-          setLoading(0.5);
-          try{
-            const json = JSON.parse(await getPostsByCategory(37,1));
-            const feature = await json.slice(0,2);
-            setTotalData(feature);
-            setFeature(json);
-        }catch(error){
-            console.log(error)
-        }finally{
-          setLoading(1);
-          try{
-            const json = JSON.parse(await getPostsByCategory(26,1));
-            setTeam(json);
-        }catch(error){
-            console.log(error)
-        }finally{
-          setLoading(1);
-          try{
-            const json = JSON.parse(await getPostsByCategory(70,1));
-            setClinical(json);
-        }catch(error){
-            console.log(error)
-        }finally{
-          setLoading(1);
-          try {
-            await AsyncStorage.setItem(
-              'Articles',
-              JSON.stringify({
-                latestNews: latestNews,
-                breakingNews:team,
-                comments:comments,
-                feature:feature,
-                clinical:clinical,
-              })
-            );
-          } catch {
-            console.log('Error storing data on device');
-          }finally{
-          setLoading(1);
-          }
-        };
-        };
-        };
-        };
-      };
-
-    },[]);
+      await newGetPostsByCatSlug("latest-news",2,1).then((response)=>{
+        setSliderData(response.posts);
+      }).then(()=>{
+         newGetPostsByCatSlug("clinical-news",2,1).then((response)=>{
+          setClinical(response.posts);
+        }).then(()=>{
+          newGetPostsByCatSlug("motoring",1,1).then((response)=>{
+            setMotoring(response.posts);
+         })
+         .then(()=>{
+          newGetPostsByCatSlug("cartoon",1,1).then((response)=>{
+            setCartoon(response.posts);
+         })
+      });
+    });
+  });
+  },[]);
 
     useEffect(() => {
       getContent();
@@ -106,8 +62,42 @@ const HomeScreen = (props) => {
 
     return(
         <ScrollView style={styles.container}  ref={scrollRef}>
-        <MostReadSection navigation={props.navigation} showAmount={5} pageRouteName={"MostReadScreen"}/>
+        <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
+        <Carousel
+        style='slide'
+        items={sliderData}
+        navigation={props.navigation}
+        nameSlug={"Latest News"}
+        />
         <ArticleList navigation={props.navigation} slugName={"latest-news"}  titleName={"Latest News"} showAmount={5} pageRouteName={"LatestNews"}/>
+        <View style={styles.divider}/>
+        <ArticleList navigation={props.navigation} slugName={"breaking-news"}  titleName={"Breaking News"} showAmount={3} pageRouteName={"BreakingNews"}/>
+        <View style={styles.divider}/>
+        <Carousel
+        style='slide'
+        items={clinical}
+        navigation={props.navigation}
+        nameSlug={"Clinical News"}
+        />
+        <Carousel
+        style='single'
+        items={motoring}
+        navigation={props.navigation}
+        nameSlug={"Motoring"}
+        />
+        <Carousel
+        style='single'
+        items={cartoon}
+        navigation={props.navigation}
+        nameSlug={"Cartoon"}
+        />
+        <SingleArticle navigation={props.navigation} slugName={"book-review"}  titleName={"Book Review"} showAmount={1} pageRouteName={"BookReview"}/>
+        <SingleArticle navigation={props.navigation} slugName={"the-dorsal-view"}  titleName={"The Dorsal View "} showAmount={1} pageRouteName={"TheDorsalView"}/>
+        <SingleArticle navigation={props.navigation} slugName={"food-and-drink"}  titleName={"Food and Drink"} showAmount={1} pageRouteName={"FoodAndDrink"}/>
+        <SingleArticle navigation={props.navigation} slugName={"sport"}  titleName={"Sport"} showAmount={1} pageRouteName={"Sport"}/>
+        
+        <ArticleList navigation={props.navigation} slugName={"clinical-news"}  titleName={"Clinical News"} showAmount={3} pageRouteName={"ClinicalNews"}/>
+        
       {/* {team.length > 0 ? (
         <View>
         <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>

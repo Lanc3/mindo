@@ -5,7 +5,7 @@ import {getCategoyIdBySlug,getFirstPostSet,newGetPostsByCatSlug,getMediaAPI,fetc
 import LoadingView from '../components/LoadingView';
 import { AdManager } from "./AdManager";
 
-const ArticleList = ({navigation, slugName,list,titleName,showAmount,pageRouteName}) => {
+const SingleArticle = ({navigation, slugName,list,titleName,showAmount,pageRouteName}) => {
     //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
@@ -41,18 +41,7 @@ const ArticleList = ({navigation, slugName,list,titleName,showAmount,pageRouteNa
         <View>
         <FlatList
         scrollEnabled={false}
-          ListHeaderComponent={
-              <View style={styles.topSmallNav}>
-                  <View style={styles.titleContainer}>
-                    <Text style={styles.titleStyle}>{titleName}</Text>
-                  </View>
-                  <TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :pageRouteName});}}>
-                      <View style={styles.veiwContainer}>
-                        <Text style={styles.viewAll}>View All</Text>
-                      </View>
-                  </TouchableOpacity>
-              </View>
-          }
+          
           data={data}
           listKey={(item, index) => `D_key${index.toString()}`}
           keyExtractor={(item, index) => `_key${index.toString()}`}
@@ -86,7 +75,7 @@ const ArticleList = ({navigation, slugName,list,titleName,showAmount,pageRouteNa
       );
     };
 
-export default ArticleList;
+export default SingleArticle;
 
 const styles = StyleSheet.create({
     container:{

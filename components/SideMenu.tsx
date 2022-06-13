@@ -6,6 +6,7 @@ import { List } from 'react-native-paper';
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from '@react-navigation/native';
 import { removeToken } from "../hooks/useResults";
+import {Linking} from 'react-native';
 const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
   const navigation = useNavigation();
   const [token,setToken] = useState({expoPushToken:''});
@@ -35,6 +36,14 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
     }
   },[]);
 
+  const openPhone = (phoneNumber) =>{
+    Linking.openURL(`tel:${phoneNumber}`)
+  }
+
+  const openURL = (url) =>{
+    Linking.openURL(url)
+  }
+
   const logOut = async () => {
     closeDrawer();
     try {
@@ -56,8 +65,10 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
 
     return (
      <ScrollView style={styles.safeAreaView}>
+      <SafeAreaView >
         {isFreeAccount ? (
-        <ScrollView style={styles.safeAreaView}>
+        <View style={styles.safeAreaView}>
+
         <View style={styles.header}>
           <Text style={styles.DrawerTitle}>
             {isFreeAccount? "Member Log In" : "Premium Account"}
@@ -78,63 +89,52 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
           <Text style={styles.outlinks}>Lost Your Password</Text>
           </View>
         <View>
-        <AccordionListItem title={'Sign Up'}>
-          <View style={{padding:15}}>
-            <Text style={styles.text_footer_small}>Sign up now for ease of access to The Medical Independent, Ireland’s most frequently published medical newspaper, delivering award-winning news and investigative reporting.
-            </Text>
-            <List.Item
-              title="First Item"
-              description="&#9679; receive the eCopy two days prior to the printed edition."
-              descriptionStyle={styles.listItem}
-          />
-          <List.Item
-              title="First Item"
-              description="&#9679; can partake in our online MCQs."
-              descriptionStyle={styles.listItem}
-          />
-          <List.Item
-              title="First Item"
-              description="&#9679; can enter our online sports quiz."
-              descriptionStyle={styles.listItem}
-          />
+        <AccordionListItem title={'Publisher Information'}>
+          <View style={{padding:15,minWidth:'100%',paddingLeft:2}}>
+          <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>GreenCross Publications Ltd is owned by </Text>
+          <Text style={{color:'#6E822B'}}>Graham Cooke.</Text>
           </View>
-          <TouchableOpacity style={styles.drawerButton} onPress={() => callParentScreenFunction("SignUpScreen")}>
-              <Text style={styles.text_footer}>Sign Up</Text>
-            </TouchableOpacity>
+          <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>Med iLearning Ltd(Mindo) is owned by </Text>
+          <Text style={{color:'#6E822B'}}>Graham Cooke.</Text>
+          </View>
+          <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>Call us at: </Text>
+          <TouchableOpacity onPress={() => openPhone(353014410024)}>
+            <Text style={{color:'#6E822B'}}>353 (01) 441 0024</Text>
+          </TouchableOpacity>
+          </View>
+          <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>Visit GreenCross </Text>
+          <TouchableOpacity onPress={() => openURL("http://www.greencrosspublishing.ie")}>
+          <Text style={{color:'#6E822B'}}>www.greencrosspublishing.ie</Text>
+          </TouchableOpacity>
+          </View>
+          <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>Visit Medical Independent </Text>
+          <TouchableOpacity onPress={() => openURL("https://www.medicalindependent.ie/about-us/")}>
+          <Text style={{color:'#6E822B'}}>www.medicalindependent.ie</Text>
+          </TouchableOpacity>
+          </View>
+          </View>
           </AccordionListItem>
-          <AccordionListItem title={'About Us'}>
+          <AccordionListItem title={'Privacy Policy'}>
             <View style={{padding:15}}>
-              <Text style={styles.aboutUsTitle}>
-              Medicalindependent.ie is Ireland's only investigative medical news website for doctors, healthcare professionals and anyone with an interest in health issues.
-                </Text>
-            </View>
-          <View style={{padding:15}}>
-            <Text style={styles.text_footer_small}>Established in 2010, along with its sister publication The Medical Independent, our stated aim is to investigate and analyse the major issues affecting healthcare and the medical profession in Ireland. The Medical Independent has won a number of awards for its investigative journalism, and its stories are frequently picked up by national digital, broadcast and print media. The Medical Independent is published by GreenCross Publishing.
-            </Text>
-            <List.Item
-              title="First Item"
-              description="Address: Top Floor, 111 Rathmines Road Lr, Dublin 6 "
-              descriptionStyle={styles.listItem}
-          />
-          <List.Item
-              title="First Item"
-              description="Tel: 353 (01) 441 0024 "
-              descriptionStyle={styles.listItem}
-          />
-          <List.Item
-              title="First Item"
-              description="GreenCross Publishing is owned by Graham Cooke. "
-              descriptionStyle={styles.listItem}
-          />
+            <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>This app stores your contact information : </Text>
+          <Text style={{color:'#6E822B'}}>email</Text>
+          </View>
+          <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>See Full Privacy Policy </Text>
+          <TouchableOpacity onPress={() => openURL("https://www.medicalindependent.ie/privacy-statement/")}>
+          <Text style={{color:'#6E822B'}}>Here</Text>
+          </TouchableOpacity>
+          </View>
           </View>
           </AccordionListItem>
         </View>
-        <View>
-        <Text style={styles.DrawerTitle}>
-            {isFreeAccount? "Free Articles Left" : "Premium Account"}: {articlesLeft}
-          </Text>
-        </View>
-      </ScrollView>
+      </View>
       ) : (
         <View style={styles.safeAreaView}>
           <View style={styles.header}>
@@ -159,13 +159,9 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
               <Text style={styles.text_footer}>Log Out</Text>
             </TouchableOpacity>
           </View>
-          <View>
-        <Text style={styles.DrawerTitle}>
-            {isFreeAccount? "Free Articles Left" : "Premium Account"}: {articlesLeft}
-          </Text>
-        </View>
         </View>
       )}
+      </SafeAreaView>
      </ScrollView>
     )
   }
@@ -174,7 +170,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
     safeAreaView: {
       flex: 1,
       backgroundColor: "#000",
-      top:50
+      paddingTop:50
       
     },
     aboutUsTitle: {

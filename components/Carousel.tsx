@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, ScrollView, Text } from 'react-native'
-import Slide from './Slide'
-import Stat from './Stat'
+import Slide from './Slide';
+import Stat from './Stat';
+import Single from './Single';
 import { StyleSheet } from 'react-native'
 
 export const Carousel = (props: any) => {
@@ -49,6 +50,20 @@ export const Carousel = (props: any) => {
       </Text>
     );
   }
+  const renderBullets =(style)=>{
+    if(style === 'slide')
+    {
+      return (<View style={styles.bullets}>{bullets}</View>)
+    }
+    if(style === 'single')
+    {
+      return (<View></View>)
+    }
+    if(style === 'stat')
+    {
+      return (<View style={styles.statBullets}>{bullets}</View>)
+    }
+  }
   const slideBulets = <View style={styles.bullets}>{bullets}</View>;
   const statBullets = <View style={styles.statBullets}>{bullets}</View>;
   return (
@@ -79,6 +94,17 @@ export const Carousel = (props: any) => {
                 pageRouteName = {pageRouteName}
                 />
               );
+              case 'single':
+              return (
+                <Single
+                key={index}
+                item={item}
+                navigation={navigation}
+                nameSlug = {nameSlug}
+                articleTitle = {nameSlug}
+                pageRouteName = {pageRouteName}
+                />
+              );
             default:
               return (
                 <Slide
@@ -91,7 +117,7 @@ export const Carousel = (props: any) => {
           }
         })}
       </ScrollView>
-      {style === "stats" ? statBullets : slideBulets}
+      {renderBullets(style)}
     </View>
   )
 }

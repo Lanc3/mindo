@@ -14,7 +14,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { OtherSites } from './components/OtherSites';
 import { SocialContent } from './components/SocialContent';
 import AccordionListItem from './components/AccordionListItem';
-
+import { Linking } from 'react-native';
 import SearchBar from './components/SearchBar';
 
 function CustomDrawerContent(props) {
@@ -22,6 +22,13 @@ function CustomDrawerContent(props) {
   const [filteredItems, setFilteredItems] = useState([]);
   const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
+    const openPhone = (phoneNumber) =>{
+      Linking.openURL(`tel:${phoneNumber}`)
+    }
+  
+    const openURL = (url) =>{
+      Linking.openURL(url)
+    }
   const data = [
     { label: 'Latest News', value: 'LatestNews' },
     { label: 'Breaking News', value: 'BreakingNews' },
@@ -215,6 +222,36 @@ const goToAbout = () =>{
       }}
         />
         </AccordionListItem>
+        <AccordionListItem title={'Contact Us'}>
+          <View style={{minWidth:'100%',paddingLeft:2}}>
+          <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>GreenCross Publications Ltd is owned by </Text>
+          <Text style={{color:'#6E822B'}}>Graham Cooke.</Text>
+          </View>
+          <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>Med iLearning Ltd(Mindo) is owned by </Text>
+          <Text style={{color:'#6E822B'}}>Graham Cooke.</Text>
+          </View>
+          <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>Call us at: </Text>
+          <TouchableOpacity onPress={() => openPhone(353014410024)}>
+            <Text style={{color:'#6E822B'}}>353 (01) 441 0024</Text>
+          </TouchableOpacity>
+          </View>
+          <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>Visit GreenCross </Text>
+          <TouchableOpacity onPress={() => openURL("http://www.greencrosspublishing.ie")}>
+          <Text style={{color:'#6E822B'}}>www.greencrosspublishing.ie</Text>
+          </TouchableOpacity>
+          </View>
+          <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>Visit Medical Independent </Text>
+          <TouchableOpacity onPress={() => openURL("https://www.medicalindependent.ie/about-us/")}>
+          <Text style={{color:'#6E822B'}}>www.medicalindependent.ie</Text>
+          </TouchableOpacity>
+          </View>
+          </View>
+          </AccordionListItem>
         <SearchBar navi={props.navigation}/>
       </SafeAreaView>
       <View>
@@ -280,6 +317,17 @@ const styles = StyleSheet.create({
   logo: {
     width: 100,
     height: 75,
+  },
+  listItem:{
+    color:'#fff'
+  },
+  outlinksContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 15,
+    marginBottom: 10,
+    color: "#444",
+    fontSize: 14
   },
   drawerContainer: {
     backgroundColor: '#000',

@@ -9,7 +9,7 @@ import WebRender from "./WebRender";
 import { useNavigation } from '@react-navigation/native';
 import {getCategoyIdBySlug,getAuthorName,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
 
-export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug,authorId}) {
+export function SingleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug,authorId}) {
 
 function convertDateToEnglish(date){
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -37,6 +37,7 @@ useEffect(() => {
                     <Text> - </Text>
                     <Text >{convertDateToEnglish(date)}</Text>
                 </View>
+                <Text style={styles.textStyle} numberOfLines={3}>{excerpt}</Text>
             </TouchableOpacity>
         </View>
     );
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         flex:1,
-        paddingBottom:0
+        paddingBottom:50,
     },
     spacer:{
         padding:10
@@ -72,7 +73,11 @@ const styles = StyleSheet.create({
         fontSize:17,
         fontWeight:'bold',
         justifyContent:'flex-start',
-        height:50
+        
+    },
+    textStyle:{
+    fontSize:15,
+    paddingHorizontal:10,
     },
     surface: {
         elevation: 1,
