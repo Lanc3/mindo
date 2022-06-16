@@ -83,7 +83,7 @@ export const Carousel = (props: any) => {
       >
         {items.map((item: any, index: number) => {
           switch (style) {
-            case 'stats':
+            case 'stat':
               return (
                 <Stat
                 key={index}

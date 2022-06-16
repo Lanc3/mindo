@@ -17,7 +17,7 @@ export const Stat = (props: any) => {
                 totalData = {item.content}
                 authorId = {item.author}
                 navi = {navigation}
-                nameSlug={nameSlug}
+                nameSlug={item.categoryName}
                 />
     </View>
   );
@@ -25,8 +25,7 @@ export const Stat = (props: any) => {
 const styles = StyleSheet.create({
     slide: {
       flex:1,
-      justifyContent:'flex-start',
-      height:150
+      height:130
     },
     slideText: {
       width: '100%',

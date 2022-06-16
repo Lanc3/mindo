@@ -72,13 +72,13 @@ const onShare = async () => {
     <SafeAreaView style={styles.container}>
       <Modal isVisible={popUpState}>
   <Modal.Container>
-    <Modal.Header title="Article Limit Reached" />
+    <Modal.Header style={{color:'white'}} title="Article Limit Reached" />
     <Modal.Body>
-      <Text style={styles.text}>You have 1 Free article Left</Text>
-      <Text style={styles.text}>You must log in after this.</Text>
+      <Text style={{color:'white'}}>You have 0 Free article Left</Text>
+      <Text style={{color:'white'}}>You must log in to continue reading</Text>
       </Modal.Body>
     <Modal.Footer>
-      <Button title="I agree" onPress={handleModal} />
+      <Button title="Log in" color='#000' onPress={handleModal} />
     </Modal.Footer>
   </Modal.Container>
 </Modal>

@@ -27,7 +27,7 @@ const HomeScreen = (props) => {
     const [sliderData, setSliderData] = useState([]);
     const [motoring, setMotoring] = useState([]);
     const [clinical, setClinical] = useState([]);
-    const [loading, setLoading] = useState(0);
+    const [isLoaded, setIsLoading] = useState(false);
     const scrollRef = useRef();
 
     const checkIfTwoDatesAreEqual = (date1, date2) => {
@@ -38,22 +38,25 @@ const HomeScreen = (props) => {
     }
 
     const getContent = useCallback(async() =>{
-      await newGetPostsByCatSlug("latest-news",2,1).then((response)=>{
-        setSliderData(response.posts);
-      }).then(()=>{
-         newGetPostsByCatSlug("clinical-news",2,1).then((response)=>{
-          setClinical(response.posts);
-        }).then(()=>{
-          newGetPostsByCatSlug("motoring",1,1).then((response)=>{
-            setMotoring(response.posts);
-         })
-         .then(()=>{
-          newGetPostsByCatSlug("cartoon",1,1).then((response)=>{
-            setCartoon(response.posts);
-         })
-      });
-    });
-  });
+
+      try{
+        const results = await Promise.all([
+          newGetPostsByCatSlug("latest-news",2,1),
+          newGetPostsByCatSlug("clinical-news",2,1),
+          newGetPostsByCatSlug("motoring",1,1),
+          newGetPostsByCatSlug("cartoon",1,1),
+          newGetPostsByCatSlug("comment",5,1),
+        ])
+        const finalData = await Promise.all(results.map(result => result.posts));
+        setSliderData(finalData[0]);
+        setClinical(finalData[1]);
+        setMotoring(finalData[2]);
+        setCartoon(finalData[3]);
+        setComments(finalData[4]);
+        setIsLoading(true)
+      }catch(error){
+        console.log(error);
+      }
   },[]);
 
     useEffect(() => {
@@ -62,6 +65,8 @@ const HomeScreen = (props) => {
 
     return(
         <ScrollView style={styles.container}  ref={scrollRef}>
+        {isLoaded ? (
+        <View>
         <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
         <Carousel
         style='slide'
@@ -73,6 +78,12 @@ const HomeScreen = (props) => {
         <View style={styles.divider}/>
         <ArticleList navigation={props.navigation} slugName={"breaking-news"}  titleName={"Breaking News"} showAmount={3} pageRouteName={"BreakingNews"}/>
         <View style={styles.divider}/>
+        <Carousel
+        style='stat'
+        items={comments}
+        navigation={props.navigation}
+        nameSlug={"Comment"}
+        />
         <Carousel
         style='slide'
         items={clinical}
@@ -95,109 +106,13 @@ const HomeScreen = (props) => {
         <SingleArticle navigation={props.navigation} slugName={"the-dorsal-view"}  titleName={"The Dorsal View "} showAmount={1} pageRouteName={"TheDorsalView"}/>
         <SingleArticle navigation={props.navigation} slugName={"food-and-drink"}  titleName={"Food and Drink"} showAmount={1} pageRouteName={"FoodAndDrink"}/>
         <SingleArticle navigation={props.navigation} slugName={"sport"}  titleName={"Sport"} showAmount={1} pageRouteName={"Sport"}/>
-        
         <ArticleList navigation={props.navigation} slugName={"clinical-news"}  titleName={"Clinical News"} showAmount={3} pageRouteName={"ClinicalNews"}/>
-        
-      {/* {team.length > 0 ? (
-        <View>
-        <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
-      <Carousel
-        style='slide'
-        items={sliderData}
-        navigation={props.navigation}
-        nameSlug={"Latest News"}
-      />
-      <ArticleList navigation={props.navigation} list={latestNews} slugName={"latest-news"}  titleName={"Latest News"} showAmount={5} pageRouteName={"LatestNews"}/>
-      <View style={styles.divider}/>
-      <ArticleList navigation={props.navigation} list={team} slugName="breaking-news" titleName={"Breaking News"} showAmount={3} pageRouteName={"BreakingNews"}/>
-      <View style={styles.divider}/>
-      <View style={styles.topSmallNav}>
-                  <View style={styles.titleContainer}>
-                    <Text style={styles.titleStyle}>Comment</Text>
-                  </View>
-                  <TouchableOpacity onPress={()=>{props.navigation.navigate('MainDrawer',{screen :'Editorial'});}}>
-                      <View style={styles.veiwContainer}>
-                        <Text style={styles.viewAll}>View All</Text>
-                      </View>
-                  </TouchableOpacity>
-              </View>
-      <Carousel
-        style='stats'
-        items={comments}
-        navigation={props.navigation}
-        nameSlug={"Comments"}
-        title={"Comment"}
-        pageRouteName={"Editorial"}
-      />
-      <AdBlockBig/>
-      <View style={styles.divider}/>
-      <ECopy></ECopy>
-      <View style={styles.divider}/>
-      <View style={styles.topSmallNav}>
-                  <View style={styles.titleContainer}>
-                    <Text style={styles.titleStyle}>News Features</Text>
-                  </View>
-                  <TouchableOpacity onPress={()=>{props.navigation.navigate('MainDrawer',{screen :'NewsFeatures'});}}>
-                      <View style={styles.veiwContainer}>
-                        <Text style={styles.viewAll}>View All</Text>
-                      </View>
-                  </TouchableOpacity>
-              </View>
-      <Carousel
-        style='slide'
-        items={totalData}
-        navigation={props.navigation}
-      />
-      <ArticleList navigation={props.navigation} list={feature} slugName={"news-features"} titleName={"News Features"} showAmount={3} pageRouteName={"NewsFeatures"}/>
-      <View style={styles.divider}/>
-   
-      <View style={styles.divider}/>
-      <View style={styles.topSmallNav}>
-                  <View style={styles.titleContainer}>
-                    <Text style={styles.titleStyle}>Clinical News</Text>
-                  </View>
-                  <TouchableOpacity onPress={()=>{props.navigation.navigate('MainDrawer',{screen :'ClinicalNews'});}}>
-                      <View style={styles.veiwContainer}>
-                        <Text style={styles.viewAll}>View All</Text>
-                      </View>
-                  </TouchableOpacity>
-              </View>
-      <Carousel
-        style='slide'
-        items={clinical}
-        navigation={props.navigation}
-      />
-      <ArticleList navigation={props.navigation} list={feature} slugName={"clinical-news"} titleName={"Clinical News"} showAmount={3} pageRouteName={"ClinicalNews"}/>
-      <View style={styles.divider}/>
-      <View style={styles.topSmallNav}>
-                  <View style={styles.titleContainer}>
-                    <Text style={styles.titleStyle}>Clinical News</Text>
-                  </View>
-                  <TouchableOpacity onPress={()=>{props.navigation.navigate('MainDrawer',{screen :'ClinicalNews'});}}>
-                      <View style={styles.veiwContainer}>
-                        <Text style={styles.viewAll}>View All</Text>
-                      </View>
-                  </TouchableOpacity>
-              </View>
-      <Carousel
-        style='slide'
-        items={totalData}
-        navigation={props.navigation}
-      />
-      <ArticleList navigation={props.navigation} list={feature} slugName={"life"} titleName={"Life"} showAmount={3} pageRouteName={"ClinicalNews"}/>
-      <View style={styles.divider}/>
-      <Footer navi={props.navigation} refS={scrollRef}/>
-
-      </View>
-      )
-    : (
+        <Footer navi={props.navigation} refS={scrollRef}/>
+        </View>
+        ) : (
       <View>
-        <LoadingView loadingProgress={loading}/>
-          </View>
-    )}
-    <TouchableOpacity onPress={() => reference._root.scrollToPosition(0, 0)}>
-        <Text style={{color:'white'}}>Back to top</Text>
-      </TouchableOpacity> */}
+        <LoadingView indeterminate={true}/>
+        </View>)}
     </ScrollView>
     );
 };
@@ -234,7 +149,8 @@ const styles = StyleSheet.create({
       borderBottomColor:'black',
       width:windowWidth-10,
       borderStyle:'solid',
-      marginLeft:5
+      marginLeft:5,
+      paddingVertical:2
     },
     topSmallNav:{
         flex:1,

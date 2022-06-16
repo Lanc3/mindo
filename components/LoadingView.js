@@ -2,11 +2,11 @@ import React ,{Component,useEffect, useState}from 'react';
 import { View, Text, Animated, Dimensions, TouchableOpacity,TouchableNativeFeedback, StyleSheet,ScrollView } from 'react-native'
 import Svg, { Path } from "react-native-svg";
 import * as Progress from 'react-native-progress';
-export default function LoadingView({loadingProgress}) {
+export default function LoadingView({loadingProgress,indeterminate}) {
 
   return (
     <View style={styles.loadingContainer}>
-        <Progress.Circle style={{position:'absolute',top:windowHeight/2-100}} size={180} progress={loadingProgress} color={'rgba(110, 130, 43, 1.0)'}/>
+        <Progress.Circle style={{position:'absolute',top:windowHeight/2-100}} indeterminate={true} size={180} progress={loadingProgress} color={'rgba(110, 130, 43, 1.0)'}/>
         <View style={styles.logoContainer}>
         <Svg
                             width={160}

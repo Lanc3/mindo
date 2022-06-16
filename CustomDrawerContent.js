@@ -122,6 +122,10 @@ const goToLogin = () =>{
 const goToAbout = () =>{
   props.navigation.navigate('MainDrawer',{screen :'AboutScreen'})
 }
+const openEmail = (address) =>{
+  Linking.openURL(`mailto:${address}`)
+}
+
 
   return (
     <ScrollView style={styles.drawerContainer}>
@@ -236,6 +240,12 @@ const goToAbout = () =>{
           <Text style={styles.listItem}>Call us at: </Text>
           <TouchableOpacity onPress={() => openPhone(353014410024)}>
             <Text style={{color:'#6E822B'}}>353 (01) 441 0024</Text>
+          </TouchableOpacity>
+          </View>
+          <View style={styles.outlinksContainer} >
+          <Text style={styles.listItem}>Email us at: </Text>
+          <TouchableOpacity onPress={() => openEmail("graham@greenx.ie")}>
+            <Text style={{color:'#6E822B'}}>graham@greenx.ie</Text>
           </TouchableOpacity>
           </View>
           <View style={styles.outlinksContainer} >
