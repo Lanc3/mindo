@@ -1,22 +1,13 @@
-import React,{useEffect,useState,useCallback,useRef} from "react";
-import { View, Text,Image,StyleSheet, TouchableOpacity, ScrollView ,Dimensions,Button} from "react-native";
-import Carousel from "../components/Carousel";
-import useResults from "../hooks/useResults";
-import Footer from "../components/Footer";
-import Svg, { Path } from "react-native-svg";
-import { ECopy } from "../components/ECopy";
-import ArticleList from "../components/ArticleList";
-import SingleArticle from "../components/SingleArticle";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {newGetPostsByCatSlug} from '../hooks/useResults'
-import WebRender from "../components/WebRender";
-import LoadingView from "../components/LoadingView";
-import { AdBlock } from "../components/AdBlock";
-import { AdBlockBig } from "../components/AdBlockBig";
-import { useSelector } from 'react-redux'
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Dimensions, SafeAreaView, StyleSheet, View } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 import { AdManager } from "../components/AdManager";
-import MostReadSection from "../components/MostReadSection";
-
+import ArticleList from "../components/ArticleList";
+import Carousel from "../components/Carousel";
+import Footer from "../components/Footer";
+import LoadingView from "../components/LoadingView";
+import SingleArticle from "../components/SingleArticle";
+import { newGetPostsByCatSlug } from '../hooks/useResults';
 const HomeScreen = (props) => {
     //const [getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor] = useResults();
     const [latestNews, setlatestNews] = useState([]);
@@ -29,15 +20,8 @@ const HomeScreen = (props) => {
     const [clinical, setClinical] = useState([]);
     const [isLoaded, setIsLoading] = useState(false);
     const scrollRef = useRef();
-
-    const checkIfTwoDatesAreEqual = (date1, date2) => {
-        if (date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate()) {
-            return true;
-        }
-        return false;
-    }
-
-    const getContent = useCallback(async() =>{
+    const homeItems=[];
+const getContent = useCallback(async() =>{
 
       try{
         const results = await Promise.all([
@@ -64,10 +48,13 @@ const HomeScreen = (props) => {
       }, [getContent]);
 
     return(
-        <ScrollView style={styles.container}  ref={scrollRef}>
+        <SafeAreaView style={styles.container}  ref={scrollRef}>
         {isLoaded ? (
-        <View>
-        <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
+        <SafeAreaView>
+        <FlatList
+        ListHeaderComponent={
+          <View>
+            <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
         <Carousel
         style='slide'
         items={sliderData}
@@ -107,13 +94,27 @@ const HomeScreen = (props) => {
         <SingleArticle navigation={props.navigation} slugName={"food-and-drink"}  titleName={"Food and Drink"} showAmount={1} pageRouteName={"FoodAndDrink"}/>
         <SingleArticle navigation={props.navigation} slugName={"sport"}  titleName={"Sport"} showAmount={1} pageRouteName={"Sport"}/>
         <ArticleList navigation={props.navigation} slugName={"clinical-news"}  titleName={"Clinical News"} showAmount={3} pageRouteName={"ClinicalNews"}/>
-        <Footer navi={props.navigation} refS={scrollRef}/>
-        </View>
+          </View>
+        }
+        ListFooterComponent={
+          <View>
+            <Footer navi={props.navigation} refS={scrollRef}/>
+          </View>
+        }
+        scrollEnabled={true}
+        data={homeItems}
+        listKey={(item, index) => `outer_key${index.toString()}`}
+        keyExtractor={(item, index) => `outer_key${index.toString()}`}
+        renderItem={({item,index})=>{
+          return(<View></View>)
+
+        }}/>
+        </SafeAreaView>
         ) : (
-      <View>
+      <SafeAreaView>
         <LoadingView indeterminate={true}/>
-        </View>)}
-    </ScrollView>
+        </SafeAreaView>)}
+    </SafeAreaView>
     );
 };
 

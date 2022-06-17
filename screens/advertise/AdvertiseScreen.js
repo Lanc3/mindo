@@ -1,37 +1,36 @@
-import React,{useEffect,useState,useCallback,useRef} from "react";
-import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/useResults'
-import { Footer } from "../../components/Footer";
-import { ShortCard } from "../../components/ShortCard";
-import { Header } from "../../components/Header";
-import LoadingView from "../../components/LoadingView";
+import React, { useRef } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
 import ContentRender from "../../components/ContentRender";
+import { Footer } from "../../components/Footer";
 
 const AdvertiseScreen = ({navigation}) => {
     const htmlData =
-    `<div class="">
-    <h1 class="main-title-text">About Mindo</h1>
-<h3 id="about-us">Mindo</h3>
-<p>Mindo (medicalindependent.ie) is Ireland’s only investigative medical news website for doctors, healthcare professionals and anyone with an interest in health issues.</p>
-<p>Established in 2010, along with its sister publication The Medical Independent, our stated aim is to investigate and analyse the major issues affecting healthcare and the medical profession in Ireland. The Medical Independent has won a number of awards for its investigative journalism, and its stories are frequently picked up by national digital, broadcast and print media.</p>
-<p>The Medical Independent is published by GreenCross Publishing. GreenCross Publishing is a healthcare publisher specialising in news gathering, clinical journals and educational websites aimed at Irish healthcare professionals.</p>
-<p>The Medical Independent is Ireland’s only investigative medical newspaper. Established in 2010, the publication, along with its sister website&nbsp;<a href="https://l.facebook.com/l.php?u=http%3A%2F%2Fwww.mindo.ie%2F%3Ffbclid%3DIwAR0mhAMIkAm03ozNirHpmSCjunwFCtX_d0AHG8AXJOtAUQPtNtz3se3CKJQ&amp;h=AT0vaECDlSzx5Gx7RdZ7q6R5A6joG7zDmu_EtS1NKMPK-3SCZ4JoQeAYOf4pLAU_EorP1EQxQvkZonlMhAIDRT2Az3bnqwDsWWuaK7BxpkpGZE0WeKwGamIg5LNeEGtk_UW_IUjy6MTLjxDZzn_6JPk" target="_blank" rel="noreferrer noopener">www.mindo.ie</a>, aims to investigate and analyse the major issues affecting healthcare and the medical profession in Ireland. </p>
-<p>Ireland’s only investigative and breaking news source for healthcare and the medical profession in Ireland. Follow us on twitter @med-indonews</p>
-<p>Along with The Medical Independent, GreenCross also runs Medi-learning, Irish Pharmacist, DocCPD, NurseCPD, Pharmacist CPD, Nursing In General Practice and Update.</p>
-<h4 id="contact-details"><strong><a href="https://www.medicalindependent.ie/contact-us/">Contact Details</a></strong></h4>
-<p><strong>Address:</strong> Top Floor, 111 Rathmines Road Lr, Dublin 6</p>
-<p><strong>Tel:</strong> 353 (01) 441 0024</p>
-<p><a href="http://greencrosspublishing.ie/">GreenCross Publishing</a> is owned by Graham Cooke.</p>
-</div>
+    `<h3>Contacts</h3>
+    
+<p>Below please find the advertising rates and mechanical data for <a href="http://greencrosspublishing.ie/">GreenCross Publishing’s</a> titles. If you have any questions regarding advertising, individual titles or if would like to find out about how we advertise, please contact:</p>
+<h5><strong>Print Advertising</strong> – <strong>Graham Cooke</strong></h5>
+<ul><li>Phone: 01 4410024</li><li>Mobile: 353 87 2222221</li><li>Email:&nbsp;<a href="mailto:graham@greenx.ie">graham@greenx.ie</a></li></ul>
+<p></p>
+<h5><strong>Digital Advertising</strong> – <strong>Gemma Tyrrell</strong></h5>
+<ul><li>Mobile: 353 87 7883624</li><li>Email:&nbsp;<a href="mailto:gemma@greenx.ie">gemma@greenx.ie</a></li></ul>
+<p></p>
+<h5><strong>Recruitment &amp; Classifieds</strong> – <strong>Louis O’Hegarty</strong></h5>
+<ul><li>Phone: 01 4410024</li><li>Email:&nbsp;<a href="mailto:louis@mindo.ie">louis@mindo.ie</a></li></ul>
+<p></p>
   `
     const scrollRef = useRef();
 
 
     return(
-        <ScrollView style={{ flex: 1 }} ref={scrollRef}>
-        <ContentRender htmlData={htmlData} newHeight={1800}/>
-        <Footer navi={navigation} refS={scrollRef}/>
-        </ScrollView>
+      <View style={{ flex: 1 }} ref={scrollRef}>
+      <FlatList
+        ListHeaderComponent={<ContentRender htmlData={htmlData} newHeight={1800}/>}
+        ListFooterComponent={<Footer navi={navigation} refS={scrollRef}/>}
+      data={[]}
+      listKey={(item, index) => `D_key${index.toString()}`}
+        keyExtractor={(item, index) => `_key${index.toString()}`}
+        renderItem={({ item, index })=>{}}/>
+      </View>
       );
     };
 

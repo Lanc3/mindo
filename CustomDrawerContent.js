@@ -1,98 +1,117 @@
-import React, {useState, useRef, useEffect} from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
-  Image,
-  TouchableHighlight,
-  FlatList,
-} from 'react-native';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import { OtherSites } from './components/OtherSites';
-import { SocialContent } from './components/SocialContent';
+import React, { useState } from 'react';
+import {
+  FlatList, Linking, SafeAreaView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View
+} from 'react-native';
 import AccordionListItem from './components/AccordionListItem';
-import { Linking } from 'react-native';
+import { OtherSites } from './components/OtherSites';
 import SearchBar from './components/SearchBar';
+import { SocialContent } from './components/SocialContent';
 
 function CustomDrawerContent(props) {
   const [mainDrawer, setMainDrawer] = useState(true);
   const [filteredItems, setFilteredItems] = useState([]);
   const [value, setValue] = useState(null);
-    const [isFocus, setIsFocus] = useState(false);
+  const [isFocus, setIsFocus] = useState(false);
+
+const menuData = [
+    {
+      title : "News",
+      data :
+      [
+        { label: 'Latest News', value: 'LatestNews' },
+        { label: 'Breaking News', value: 'BreakingNews' },
+        { label: 'News Features', value: 'NewsFeatures' },
+        { label: 'Investigations', value: 'Investigations' },
+        { label: 'Interviews', value: 'Interviews' },
+        { label: 'Photo News', value: 'PhotoNews' },
+        { label: 'Conference', value: 'Conference' },
+      ]
+    },
+    {
+      title : "Comment",
+      data :
+      [
+        { label: 'Editorial', value: 'Editorial' },
+        { label: 'Dr Paddy Barrett', value: 'DrPaddy' },
+        { label: 'Dr Neasa Conneally', value: 'DrNeasa' },
+        { label: 'Dr Gabrielle Colleran', value: 'DrGabrielleScreen' },
+        { label: 'Dr Michael Conroy', value: 'DrMichael' },
+        { label: 'Dr Lucia Gannon', value: 'DrLucia' },
+        { label: 'Dr Pat Harrold', value: 'DrPat' },
+        { label: 'Prof Brendan Kelly', value: 'ProfBrendan' },
+        { label: 'Prof Seamus O’Mahony', value: 'ProfSeamus' },
+        { label: 'Dr Christine O’Malley', value: 'DrChristine' },
+        { label: 'George Winter', value: 'GeorgeWinter' },
+        { label: 'Medico-Legal', value: 'MedicoLegal' },
+      ]
+    },
+    {
+      title : "Clinical",
+      data :
+      [
+        { label: 'Clinical News', value: 'ClinicalNews' },
+        { label: 'Case Studies', value: 'CaseStudies' },
+        { label: 'Research', value: 'Research' },
+        { label: 'Feature', value: 'Feature' },
+      ]
+    },
+    {
+      title : "Life",
+      data :
+      [
+        { label: 'Cartoon', value: 'Cartoon' },
+        { label: 'Book Review', value: 'BookReview' },
+        { label: 'Food and Drink', value: 'FoodAndDrink' },
+        { label: 'Motoring', value: 'Motoring' },
+        { label: 'Sport', value: 'Sport' },
+        { label: 'Finance', value: 'Finance' },
+        { label: 'The Gander', value: 'TheGander' },
+        { label: 'The Dorsal View', value: 'TheDorsalView' },
+      ]
+    },
+    {
+      title : "Societies",
+      data :
+      [
+        { label: 'ISR', value: 'ISR' },
+        { label: 'CPI', value: 'CPI' },
+        { label: 'ITS', value: 'ITS' },
+        { label: 'ISG', value: 'ISG' },
+        { label: 'ISMO', value: 'ISMO' },
+        { label: 'PCDSI', value: 'PCDSI' },
+        { label: 'IICN / INA', value: 'IICNINA' },
+        { label: 'IES', value: 'IES' },
+        { label: 'ICS', value: 'ICS' },
+        { label: 'IOS', value: 'IOSScreen' },
+      ]
+    },
+    {
+      title : "News Team",
+      data :
+      [
+        { label: 'Catherine Reilly', value: 'CatherineReilly' },
+        { label: 'David Lynch', value: 'DavidLynch' },
+        { label: 'Paul Mullholand', value: 'PaulMulholland' },
+        { label: 'Priscilla Lynch', value: 'PriscillaLynch' },
+      ]
+    },
+    {
+      title : "Contact Us",
+      data :
+      [
+        { label: 'About Us', value: 'CatherineReilly' },
+        { label: 'Privacy Policy', value: 'DavidLynch' },
+        { label: 'Terms & Conditions', value: 'PaulMulholland' },
+      ]
+    }
+];
     const openPhone = (phoneNumber) =>{
       Linking.openURL(`tel:${phoneNumber}`)
     }
-  
     const openURL = (url) =>{
       Linking.openURL(url)
     }
-  const data = [
-    { label: 'Latest News', value: 'LatestNews' },
-    { label: 'Breaking News', value: 'BreakingNews' },
-    { label: 'News Features', value: 'NewsFeatures' },
-    { label: 'Investigations', value: 'Investigations' },
-    { label: 'Interviews', value: 'Interviews' },
-    { label: 'Photo News', value: 'PhotoNews' },
-    { label: 'Conference', value: 'Conference' },
-  ];
-  const Comment = [
-    { label: 'Editorial', value: 'Editorial' },
-    { label: 'Dr Paddy Barrett', value: 'DrPaddy' },
-    { label: 'Dr Neasa Conneally', value: 'DrNeasa' },
-    { label: 'Dr Gabrielle Colleran', value: 'DrGabrielleScreen' },
-    { label: 'Dr Michael Conroy', value: 'DrMichael' },
-    { label: 'Dr Lucia Gannon', value: 'DrLucia' },
-    { label: 'Dr Pat Harrold', value: 'DrPat' },
-    { label: 'Prof Brendan Kelly', value: 'ProfBrendan' },
-    { label: 'Prof Seamus O’Mahony', value: 'ProfSeamus' },
-    { label: 'Dr Christine O’Malley', value: 'DrChristine' },
-    { label: 'George Winter', value: 'GeorgeWinter' },
-    { label: 'Medico-Legal', value: 'MedicoLegal' },
-  ];
-  const Life = [
-    { label: 'Cartoon', value: 'Cartoon' },
-    { label: 'Book Review', value: 'BookReview' },
-    { label: 'Food and Drink', value: 'FoodAndDrink' },
-    { label: 'Motoring', value: 'Motoring' },
-    { label: 'Sport', value: 'Sport' },
-    { label: 'Finance', value: 'Finance' },
-    { label: 'The Gander', value: 'TheGander' },
-    { label: 'The Dorsal View', value: 'TheDorsalView' },
-  ];
-  const Clinical = [
-    { label: 'Clinical News', value: 'ClinicalNews' },
-    { label: 'Case Studies', value: 'CaseStudies' },
-    { label: 'Research', value: 'Research' },
-    { label: 'Feature', value: 'Feature' },
-  ];
-  const team = [
-    { label: 'Catherine Reilly', value: 'CatherineReilly' },
-    { label: 'David Lynch', value: 'DavidLynch' },
-    { label: 'Paul Mullholand', value: 'PaulMulholland' },
-    { label: 'Priscilla Lynch', value: 'PriscillaLynch' },
-  ];
-  const soc = [
-    { label: 'ISR', value: 'ISR' },
-    { label: 'CPI', value: 'CPI' },
-    { label: 'ITS', value: 'ITS' },
-    { label: 'ISG', value: 'ISG' },
-    { label: 'ISMO', value: 'ISMO' },
-    { label: 'PCDSI', value: 'PCDSI' },
-    { label: 'IICN / INA', value: 'IICNINA' },
-    { label: 'IES', value: 'IES' },
-    { label: 'ICS', value: 'ICS' },
-    { label: 'IOS', value: 'IOSScreen' },
-  ];
-  const links = [
-    { label: 'About Us', value: 'CatherineReilly' },
-    { label: 'Privacy Policy', value: 'DavidLynch' },
-    { label: 'Terms & Conditions', value: 'PaulMulholland' },
-  ];
-
-
   const goToLink =(value) => {
     props.navigation.navigate('MainDrawer',{screen :value});
   };
@@ -128,145 +147,14 @@ const openEmail = (address) =>{
 
 
   return (
-    <ScrollView style={styles.drawerContainer}>
+    <View style={styles.drawerContainer}>
       <SafeAreaView style={styles.container}>
-        <AccordionListItem title={'News'}>
-        <FlatList
-        scrollEnabled={false}
-        data={data}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-        <AccordionListItem title={'Comment'}>
-        <FlatList
-        scrollEnabled={false}
-        data={Comment}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-        <AccordionListItem title={'Clinical'}>
-        <FlatList
-        scrollEnabled={false}
-        data={Clinical}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-        <AccordionListItem title={'Life'}>
-        <FlatList
-        scrollEnabled={false}
-        data={Life}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-        <AccordionListItem title={'Societies'}>
-        <FlatList
-        scrollEnabled={false}
-        data={soc}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-        <AccordionListItem title={'News Team'}>
-        <FlatList
-        scrollEnabled={false}
-        data={team}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-        <AccordionListItem title={'Contact Us'}>
-          <View style={{minWidth:'100%',paddingLeft:2}}>
-          <View style={styles.outlinksContainer} >
-          <Text style={styles.listItem}>GreenCross Publications Ltd is owned by </Text>
-          <Text style={{color:'#6E822B'}}>Graham Cooke.</Text>
-          </View>
-          <View style={styles.outlinksContainer} >
-          <Text style={styles.listItem}>Med iLearning Ltd(Mindo) is owned by </Text>
-          <Text style={{color:'#6E822B'}}>Graham Cooke.</Text>
-          </View>
-          <View style={styles.outlinksContainer} >
-          <Text style={styles.listItem}>Call us at: </Text>
-          <TouchableOpacity onPress={() => openPhone(353014410024)}>
-            <Text style={{color:'#6E822B'}}>353 (01) 441 0024</Text>
-          </TouchableOpacity>
-          </View>
-          <View style={styles.outlinksContainer} >
-          <Text style={styles.listItem}>Email us at: </Text>
-          <TouchableOpacity onPress={() => openEmail("graham@greenx.ie")}>
-            <Text style={{color:'#6E822B'}}>graham@greenx.ie</Text>
-          </TouchableOpacity>
-          </View>
-          <View style={styles.outlinksContainer} >
-          <Text style={styles.listItem}>Visit GreenCross </Text>
-          <TouchableOpacity onPress={() => openURL("http://www.greencrosspublishing.ie")}>
-          <Text style={{color:'#6E822B'}}>www.greencrosspublishing.ie</Text>
-          </TouchableOpacity>
-          </View>
-          <View style={styles.outlinksContainer} >
-          <Text style={styles.listItem}>Visit Medical Independent </Text>
-          <TouchableOpacity onPress={() => openURL("https://www.medicalindependent.ie/about-us/")}>
-          <Text style={{color:'#6E822B'}}>www.medicalindependent.ie</Text>
-          </TouchableOpacity>
-          </View>
-          </View>
-          </AccordionListItem>
-        <SearchBar navi={props.navigation}/>
-      </SafeAreaView>
-      <View>
+      <FlatList
+       ListFooterComponent={
+        <View>
           <View style={styles.otherLinks}>
             <View>
+            <SearchBar navi={props.navigation}/>
             <TouchableHighlight onPress={() => goToLogin()}>
                 <Text style={styles.titleSmall}>
                   Login
@@ -312,7 +200,38 @@ const openEmail = (address) =>{
           <SocialContent></SocialContent>
           </View>
       </View>
-    </ScrollView>
+          }
+      scrollEnabled={true}
+      data={menuData}
+      listKey={(item, index) => `outer_key${index.toString()}`}
+      keyExtractor={(item, index) => `outer_key${index.toString()}`}
+      renderItem={({item,index})=>{
+        return(
+          <AccordionListItem title={item.title}>
+          <FlatList
+          scrollEnabled={false}
+          data={item.data}
+          listKey={(item2, index) => `inner_key${index.toString()}`}
+          keyExtractor={(item2, index) => `inner_key${index.toString()}`}
+          renderItem={({ item, index })=>{
+            return(
+             <View style={styles.item}>
+               <TouchableOpacity onPress={() => goToLink(item.value)}>
+               <Text style={styles.titleSmall}>{item.label}</Text>
+               </TouchableOpacity>
+              </View>
+            )
+      }}
+        />
+          </AccordionListItem>
+        )
+      }}
+      />
+
+
+      </SafeAreaView>
+
+    </View>
   );
 }
 
@@ -347,8 +266,7 @@ const styles = StyleSheet.create({
     minWidth:10
   },
   container: {
-    flex: 1,
-    zIndex: 1000,
+
   },
   centered: {
     alignItems: 'center',

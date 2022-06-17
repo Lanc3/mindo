@@ -1,11 +1,10 @@
-import React,{ useState ,useEffect,useRef} from "react";
-import { StyleSheet,View,Text,Share,Image,SafeAreaView,Button, ScrollView } from 'react-native';
-import { Dimensions } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Dimensions, Image, SafeAreaView, Share, StyleSheet, Text, View } from 'react-native';
+import { AdManager } from "../components/AdManager";
 import ContentRender from '../components/ContentRender';
 import Footer from '../components/Footer';
-import { AdManager } from "../components/AdManager";
-import { FontAwesome } from '@expo/vector-icons';
-import {useCounter} from '../components/GlobalContext';
+import { useCounter } from '../components/GlobalContext';
 import { Modal } from "../components/Modal";
 export default function FullArticleScreen({navigation,props,route}) {
   const {nameSlug,authorName,htmlData,imageData,title,date} = route.params;
@@ -82,7 +81,7 @@ const onShare = async () => {
     </Modal.Footer>
   </Modal.Container>
 </Modal>
-      <ScrollView style={styles.scrollView}  ref={scrollRef}>
+      <View style={styles.scrollView}  ref={scrollRef}>
       <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
       <Text style={styles.greenTitle}>{nameSlug}</Text>
       <Text style={styles.title} numberOfLines={3}>{title}</Text>
@@ -117,7 +116,7 @@ const onShare = async () => {
       </View>
       <ContentRender htmlData={htmlData} newHeight={1800}/>
       <Footer navi={navigation} refS={scrollRef}/>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }

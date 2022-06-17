@@ -1,79 +1,106 @@
-import React, {useState, useRef, useEffect} from 'react';
-import { View, Text,FlatList ,StyleSheet,ScrollView,SafeAreaView,TouchableOpacity} from 'react-native'
-import { Dropdown } from 'react-native-element-dropdown';
-import { SocialContent } from './SocialContent';
-import Svg, { Path } from "react-native-svg";
 import { FontAwesome } from '@expo/vector-icons';
-import { AdManager } from './AdManager';
+import React, { useState } from 'react';
+import { FlatList, Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Svg, { Path } from "react-native-svg";
 import AccordionListItem from './AccordionListItem';
+import { AdManager } from './AdManager';
 import MostReadSection from './MostReadSection';
-import { Linking } from 'react-native';
+import { SocialContent } from './SocialContent';
 export const Footer = ({navi,refS}) => {
 
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
-  const data = [
-    { label: 'Latest News', value: 'LatestNews' },
-    { label: 'Breaking News', value: 'BreakingNews' },
-    { label: 'News Features', value: 'NewsFeatures' },
-    { label: 'Investigations', value: 'Investigations' },
-    { label: 'Interviews', value: 'Interviews' },
-    { label: 'Photo News', value: 'PhotoNews' },
-    { label: 'Conference', value: 'Conference' },
-  ];
-  const Comment = [
-    { label: 'Editorial', value: 'Editorial' },
-    { label: 'Medico-Legal', value: 'MedicoLegal' },
-    { label: 'Dr Paddy Barrett', value: 'DrPaddy' },
-    { label: 'Dr Neasa Conneally', value: 'DrNeasa' },
-    { label: 'Dr Gabrielle Colleran', value: 'DrGabrielleScreen' },
-    { label: 'Dr Michael Conroy', value: 'DrMichael' },
-    { label: 'Dr Lucia Gannon', value: 'DrLucia' },
-    { label: 'Dr Pat Harrold', value: 'DrPat' },
-    { label: 'Prof Brendan Kelly', value: 'ProfBrendan' },
-    { label: 'Prof Seamus O’Mahony', value: 'ProfSeamus' },
-    { label: 'Dr Christine O’Malley', value: 'DrChristine' },
-    { label: 'George Winter', value: 'GeorgeWinter' },
-  ];
-  const Life = [
-    { label: 'Cartoon', value: 'Cartoon' },
-    { label: 'Book Review', value: 'BookReview' },
-    { label: 'Food and Drink', value: 'FoodAndDrink' },
-    { label: 'Motoring', value: 'Motoring' },
-    { label: 'Sport', value: 'Sport' },
-    { label: 'Finance', value: 'Finance' },
-    { label: 'The Gander', value: 'TheGander' },
-    { label: 'The Dorsal View', value: 'TheDorsalView' },
-  ];
-  const Clinical = [
-    { label: 'Clinical News', value: 'ClinicalNews' },
-    { label: 'Case Studies', value: 'CaseStudies' },
-    { label: 'Research', value: 'Research' },
-    { label: 'Feature', value: 'Feature' },
-  ];
-  const team = [
-    { label: 'Catherine Reilly', value: 'CatherineReilly' },
-    { label: 'David Lynch', value: 'DavidLynch' },
-    { label: 'Paul Mullholand', value: 'PaulMulholland' },
-    { label: 'Priscilla Lynch', value: 'PriscillaLynch' },
-  ];
-  const soc = [
-    { label: 'ISR', value: 'ISR' },
-    { label: 'CPI', value: 'CPI' },
-    { label: 'ITS', value: 'ITS' },
-    { label: 'ISG', value: 'ISG' },
-    { label: 'ISMO', value: 'ISMO' },
-    { label: 'PCDSI', value: 'PCDSI' },
-    { label: 'IICN / INA', value: 'IICNINA' },
-    { label: 'IES', value: 'IES' },
-    { label: 'ICS', value: 'ICS' },
-    { label: 'IOS', value: 'IOSScreen' },
-  ];
-  const links = [
-    { label: 'About Us', value: 'AboutScreen' },
-    { label: 'Privacy Policy', value: 'PrivacyScreen' },
-    { label: 'Terms & Conditions', value: 'Terms' },
-  ];
+  const menuData = [
+    {
+      title : "News",
+      data :
+      [
+        { label: 'Latest News', value: 'LatestNews' },
+        { label: 'Breaking News', value: 'BreakingNews' },
+        { label: 'News Features', value: 'NewsFeatures' },
+        { label: 'Investigations', value: 'Investigations' },
+        { label: 'Interviews', value: 'Interviews' },
+        { label: 'Photo News', value: 'PhotoNews' },
+        { label: 'Conference', value: 'Conference' },
+      ]
+    },
+    {
+      title : "Comment",
+      data :
+      [
+        { label: 'Editorial', value: 'Editorial' },
+        { label: 'Dr Paddy Barrett', value: 'DrPaddy' },
+        { label: 'Dr Neasa Conneally', value: 'DrNeasa' },
+        { label: 'Dr Gabrielle Colleran', value: 'DrGabrielleScreen' },
+        { label: 'Dr Michael Conroy', value: 'DrMichael' },
+        { label: 'Dr Lucia Gannon', value: 'DrLucia' },
+        { label: 'Dr Pat Harrold', value: 'DrPat' },
+        { label: 'Prof Brendan Kelly', value: 'ProfBrendan' },
+        { label: 'Prof Seamus O’Mahony', value: 'ProfSeamus' },
+        { label: 'Dr Christine O’Malley', value: 'DrChristine' },
+        { label: 'George Winter', value: 'GeorgeWinter' },
+        { label: 'Medico-Legal', value: 'MedicoLegal' },
+      ]
+    },
+    {
+      title : "Clinical",
+      data :
+      [
+        { label: 'Clinical News', value: 'ClinicalNews' },
+        { label: 'Case Studies', value: 'CaseStudies' },
+        { label: 'Research', value: 'Research' },
+        { label: 'Feature', value: 'Feature' },
+      ]
+    },
+    {
+      title : "Life",
+      data :
+      [
+        { label: 'Cartoon', value: 'Cartoon' },
+        { label: 'Book Review', value: 'BookReview' },
+        { label: 'Food and Drink', value: 'FoodAndDrink' },
+        { label: 'Motoring', value: 'Motoring' },
+        { label: 'Sport', value: 'Sport' },
+        { label: 'Finance', value: 'Finance' },
+        { label: 'The Gander', value: 'TheGander' },
+        { label: 'The Dorsal View', value: 'TheDorsalView' },
+      ]
+    },
+    {
+      title : "Societies",
+      data :
+      [
+        { label: 'ISR', value: 'ISR' },
+        { label: 'CPI', value: 'CPI' },
+        { label: 'ITS', value: 'ITS' },
+        { label: 'ISG', value: 'ISG' },
+        { label: 'ISMO', value: 'ISMO' },
+        { label: 'PCDSI', value: 'PCDSI' },
+        { label: 'IICN / INA', value: 'IICNINA' },
+        { label: 'IES', value: 'IES' },
+        { label: 'ICS', value: 'ICS' },
+        { label: 'IOS', value: 'IOSScreen' },
+      ]
+    },
+    {
+      title : "News Team",
+      data :
+      [
+        { label: 'Catherine Reilly', value: 'CatherineReilly' },
+        { label: 'David Lynch', value: 'DavidLynch' },
+        { label: 'Paul Mullholand', value: 'PaulMulholland' },
+        { label: 'Priscilla Lynch', value: 'PriscillaLynch' },
+      ]
+    },
+    {
+      title : "Contact Us",
+      data :
+      [
+        { label: 'About Us', value: 'CatherineReilly' },
+        { label: 'Privacy Policy', value: 'DavidLynch' },
+        { label: 'Terms & Conditions', value: 'PaulMulholland' },
+      ]
+    }];
   const goToLink =(value) => {
     navi.navigate('MainDrawer',{screen :value});
   };
@@ -86,142 +113,20 @@ export const Footer = ({navi,refS}) => {
       animated: true,
     });
   }
-  const ad = `<!-- - LDB Mobile Public [iframe] -->
-  <script type="text/javascript">
-  var rnd = window.rnd || Math.floor(Math.random()*10e6);
-  var pid542406 = window.pid542406 || rnd;
-  var plc542406 = window.plc542406 || 0;
-  var abkw = window.abkw || '';
-  var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=300x90;setID=542406;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid542406+';place='+(plc542406++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
-  document.write('<ifr'+'ame src="'+absrc+'" width="300" height="90" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
-  </script>
-  <noscript>
-  <iframe src="https://servedbyadbutler.com/adserve/;ID=183389;size=300x90;setID=542406;type=iframe" width="300" height="90" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no">
-  <a href="https://servedbyadbutler.com/go2/;ID=183389;size=300x90;setID=542406" target="_blank"><img src="https://servedbyadbutler.com/adserve/;ID=183389;size=300x90;setID=542406;type=img;click=CLICK_MACRO_PLACEHOLDER" width="300" height="90"></a>
-  </iframe>
-  </noscript>`
-  
+
   return (
     <View style={styles.stat}>
-      <AdManager selectedAd={"LDB_MOBILE_PUBLIC"} sizeType={"SMALL"}/>
-      <MostReadSection navigation={navi} showAmount={4} pageRouteName={"MostReadScreen"}/>
-      <ScrollView style={styles.drawerContainer}>
+      <View style={styles.drawerContainer}>
       <SafeAreaView style={styles.container}>
-      <AccordionListItem title={'News'}>
-        <FlatList
-        scrollEnabled={false}
-        data={data}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-        <AccordionListItem title={'Comment'}>
-        <FlatList
-        scrollEnabled={false}
-        data={Comment}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-        <AccordionListItem title={'Clinical'}>
-        <FlatList
-        scrollEnabled={false}
-        data={Clinical}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-        <AccordionListItem title={'Life'}>
-        <FlatList
-        scrollEnabled={false}
-        data={Life}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-        
-        <AccordionListItem title={'News Team'}>
-        <FlatList
-        scrollEnabled={false}
-        data={team}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-        <AccordionListItem title={'Societies'}>
-        <FlatList
-        scrollEnabled={false}
-        data={soc}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-        <AccordionListItem title={'Quick Links'}>
-        <FlatList
-        scrollEnabled={false}
-        data={links}
-        keyExtractor={item => item.label}
-        renderItem={({ item, index })=>{
-          return(
-            <View style={styles.item}>
-              <TouchableOpacity onPress={() => goToLink(item.value)}>
-              <Text style={styles.titleSmall}>{item.label}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-      }}
-        />
-        </AccordionListItem>
-      </SafeAreaView>
-      <View style={styles.footerStyle}>
+      <FlatList
+       ListHeaderComponent={
+        <View style={{backgroundColor:'white'}}>
+          <AdManager selectedAd={"LDB_MOBILE_PUBLIC"} sizeType={"SMALL"}/>
+          <MostReadSection navigation={navi} showAmount={4} pageRouteName={"MostReadScreen"}/>
+        </View>
+      }
+      ListFooterComponent={
+        <View style={styles.footerStyle}>
       <View style={styles.header}>
         <TouchableOpacity
         >
@@ -296,12 +201,42 @@ export const Footer = ({navi,refS}) => {
           <Text style={{color:'#6E822B'}}>www.medicalindependent.ie</Text>
           </TouchableOpacity>
       <SocialContent/>
-      </View>
       <TouchableOpacity style={styles.backToTop} onPress={onPressTouch}>
       <FontAwesome  name="chevron-up" size={13} color="#6e822b" backgroundColor="#000" >
                 </FontAwesome>
       </TouchableOpacity>
-      </ScrollView>
+      </View>
+      }
+      scrollEnabled={true}
+      data={menuData}
+      listKey={(item, index) => `outer_key${index.toString()}`}
+      keyExtractor={(item, index) => `outer_key${index.toString()}`}
+      renderItem={({item,index})=>{
+        return(
+          <AccordionListItem title={item.title}>
+          <FlatList
+          scrollEnabled={false}
+          data={item.data}
+          listKey={(item2, index) => `inner_key${index.toString()}`}
+          keyExtractor={(item2, index) => `inner_key${index.toString()}`}
+          renderItem={({ item, index })=>{
+            return(
+             <View style={styles.item}>
+               <TouchableOpacity onPress={() => goToLink(item.value)}>
+               <Text style={styles.titleSmall}>{item.label}</Text>
+               </TouchableOpacity>
+              </View>
+            )
+      }}
+        />
+          </AccordionListItem>
+        )
+      }}
+      />
+      </SafeAreaView>
+
+      
+      </View>
     </View>
   );
 }

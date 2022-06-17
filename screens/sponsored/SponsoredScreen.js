@@ -1,13 +1,13 @@
-import React,{useEffect,useState,useCallback,useRef} from "react";
-import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/useResults'
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { AdManager } from "../../components/AdManager";
 import { Footer } from "../../components/Footer";
-import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
 import LoadingView from "../../components/LoadingView";
-import { AdManager } from "../../components/AdManager";
+import { ShortCard } from "../../components/ShortCard";
+import { newGetPostsByCatSlug } from '../../hooks/useResults';
 
-const ClassifiedsScreen = ({navigation}) => {
+const SponsoredScreen = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(0);
@@ -28,13 +28,10 @@ const ClassifiedsScreen = ({navigation}) => {
       setLoading(0.25);
         try{
           setLoading(0.5);
-            const response = await getCategoyIdBySlug(slug);
-            const id = await response;
-            const json = JSON.parse(await getPostsByCategory(id,page));
-            const total = await fetchApiData(slug);//getting total pages per slug
-            setTotalPages(total)
-            setData(json);
-            setLoading(1);
+          const response = await newGetPostsByCatSlug(slug,10,page);
+          setTotalPages(Math.ceil(response.totalPosts/10));
+          setData(response.posts);
+          setLoading(1);
         }catch(error){
             console.log(error)
         }finally{
@@ -48,7 +45,7 @@ const ClassifiedsScreen = ({navigation}) => {
       }, [getContent]);
 
     return(
-        <ScrollView style={{ flex: 1 }} ref={scrollRef}>
+        <View style={{ flex: 1 }} ref={scrollRef}>
       {data.length > 0 ? (
         <View>
         <FlatList
@@ -71,7 +68,8 @@ const ClassifiedsScreen = ({navigation}) => {
             </View>
           }
           data={data}
-          keyExtractor={item => ""+item.date+item.id.toString()}
+          listKey={(item, index) => `D_key${index.toString()}`}
+          keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
             if(index === 3){
                 return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
@@ -80,12 +78,12 @@ const ClassifiedsScreen = ({navigation}) => {
               return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
             }
             return(
-              <ShortCard props title={item["title"]["rendered"].toString()}
-                excerpt = {item["excerpt"]["rendered"].toString()}
-                date = {item["date"].toString()}
-                mediaID = {item["featured_media"]}
-                totalData = {item["content"]["rendered"]}
-                authorId = {item["author"]}
+              <ShortCard props title={item.title.toString()}
+                excerpt = {item.excerpt.toString()}
+                date = {item.date.toString()}
+                mediaID = {item.media.toString()}
+                totalData = {item.content}
+                authorId = {item.author}
                 navi = {navigation}
                 nameSlug={item.categoryName}
                 />
@@ -98,11 +96,11 @@ const ClassifiedsScreen = ({navigation}) => {
                 <LoadingView loadingProgress={loading}/>
             </View>
           )}
-        </ScrollView>
+        </View>
       );
     };
 
-export default ClassifiedsScreen;
+export default SponsoredScreen;
 
 const styles = StyleSheet.create({
     container:{

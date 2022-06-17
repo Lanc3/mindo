@@ -1,9 +1,8 @@
-import React from 'react'
-import { View, ScrollView, Text } from 'react-native'
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import Single from './Single';
 import Slide from './Slide';
 import Stat from './Stat';
-import Single from './Single';
-import { StyleSheet } from 'react-native'
 
 export const Carousel = (props: any) => {
 

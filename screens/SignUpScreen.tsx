@@ -1,20 +1,11 @@
+import Feather from '@expo/vector-icons//Feather';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { 
-    View, 
-    Text, 
-    Button, 
-    TouchableOpacity, 
-    Dimensions,
-    TextInput,
-    Platform,
-    StyleSheet,
-    ScrollView,
-    StatusBar
+import {
+    Dimensions, Platform, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { LinearGradient } from 'expo-linear-gradient';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import Feather from '@expo/vector-icons//Feather';
 import Svg, { Path } from "react-native-svg";
 
 const SignUpScreen = ({navigation}) => {
@@ -148,7 +139,7 @@ const SignUpScreen = ({navigation}) => {
             animation="fadeInUpBig"
             style={styles.footer}
         >
-            <ScrollView>
+            <View>
             <Text style={styles.text_footer}>Username</Text>
             <View style={styles.action}>
                 <FontAwesome 
@@ -283,7 +274,7 @@ const SignUpScreen = ({navigation}) => {
                     }]}>Sign In</Text>
                 </TouchableOpacity>
             </View>
-            </ScrollView>
+            </View>
         </Animatable.View>
       </View>
     );

@@ -1,11 +1,7 @@
-import React,{useEffect,useState,useCallback,useRef} from "react";
-import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import {getCategoyIdBySlug,getPostsByCategory,fetchApiData} from '../../hooks/useResults'
-import { Footer } from "../../components/Footer";
-import { ShortCard } from "../../components/ShortCard";
-import { Header } from "../../components/Header";
-import LoadingView from "../../components/LoadingView";
+import React, { useRef } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
 import ContentRender from "../../components/ContentRender";
+import { Footer } from "../../components/Footer";
 
 const PrivacyScreen = ({navigation}) => {
     const htmlData =
@@ -45,10 +41,15 @@ const PrivacyScreen = ({navigation}) => {
 
 
     return(
-        <ScrollView style={{ flex: 1 }} ref={scrollRef}>
-        <ContentRender htmlData={htmlData} newHeight={1800}/>
-        <Footer navi={navigation} refS={scrollRef}/>
-        </ScrollView>
+      <View style={{ flex: 1 }} ref={scrollRef}>
+      <FlatList
+        ListHeaderComponent={<ContentRender htmlData={htmlData} newHeight={1800}/>}
+        ListFooterComponent={<Footer navi={navigation} refS={scrollRef}/>}
+      data={[]}
+      listKey={(item, index) => `D_key${index.toString()}`}
+        keyExtractor={(item, index) => `_key${index.toString()}`}
+        renderItem={({ item, index })=>{}}/>
+      </View>
       );
     };
 

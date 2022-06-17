@@ -1,15 +1,9 @@
-import React ,{Component,useEffect, useState}from 'react';
-import { View, Text, Animated, Dimensions,Alert,TouchableNativeFeedback, StyleSheet,ScrollView,StatusBar,TextInput  } from 'react-native'
-import Svg, { Path } from "react-native-svg";
-import {TouchableOpacity} from 'react-native-gesture-handler'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { loginUrl } from '../constants/Const';
-import { useTheme } from 'react-native-paper';
-import * as Animatable from 'react-native-animatable';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import Feather from '@expo/vector-icons//Feather';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect, useState } from 'react';
+import { Alert, Animated, Dimensions, StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Modal from "react-native-modal";
+import Svg, { Path } from "react-native-svg";
 import SideMenu from './SideMenu';
 export default function Drawer({navi}) {
     const [drawerAnimation,setDrawerAnimation] = useState(new Animated.Value(50));
@@ -99,7 +93,7 @@ export default function Drawer({navi}) {
     }, []);
 
   return (
-      <ScrollView >
+      <View >
 <TouchableOpacity style={styles.testingBounds} onPress={onPressOpen}>
         <Svg
           width={50}
@@ -127,7 +121,7 @@ export default function Drawer({navi}) {
       >
         <SideMenu callParentScreenFunction={onPressSignUp} closeDrawer={onPressOpen} />
       </Modal>
-    </ScrollView>
+    </View>
   );
 };
 

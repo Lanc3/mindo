@@ -1,28 +1,27 @@
-import React,{useEffect,useState} from "react";
-import { View, Text,Platform,StyleSheet,Dimensions,StatusBar,TouchableOpacity } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
-import { useTheme } from '@react-navigation/native';
-import * as Animatable from 'react-native-animatable';
 import MaterialIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import Svg, { Path } from "react-native-svg";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LinearGradient } from 'expo-linear-gradient';
+import React, { useCallback, useEffect } from "react";
+import { Dimensions, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import * as Animatable from 'react-native-animatable';
+import Svg, { Path } from "react-native-svg";
 
 
 const FirstRunScreen = ({navigation}) => {
-    const { colors } = useTheme();
-    const _retrieveData = async () => {
-        try {
-          const value = await AsyncStorage.getItem('userProfile');
-          if (value === null) {
-          }
-          else{
 
-            navigation.navigate('MainDrawer',{screen :'Home'});
-          }
-        } catch (error) {
-          // Error retrieving data
-        }
-      };
+  const getContent = useCallback(async() =>{
+    try {
+      const value = await AsyncStorage.getItem('userProfile');
+      if (!value) {
+      }
+      else{
+        navigation.navigate('MainDrawer',{screen :'Home'});
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  },[]);
+
       const _storeData = async (value) => {
         try {
           await AsyncStorage.setItem(
@@ -45,15 +44,15 @@ const FirstRunScreen = ({navigation}) => {
         }
       };
 
-    useEffect(() => {
-        _retrieveData();
-      }, []);
 
+      useEffect(() => {
+        getContent();
+        }, [getContent]);
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#000' barStyle="light-content"/>
           <View style={styles.header}>
-          <Animatable.View 
+          <Animatable.View
             animation="bounceIn"
             style={styles.logo}
         >
@@ -121,7 +120,7 @@ const FirstRunScreen = ({navigation}) => {
                         </Svg>
         </Animatable.View>
           </View>
-          <Animatable.View 
+          <Animatable.View
               style={[styles.footer, {
                   backgroundColor: '#6e822b'
               }]}
@@ -151,7 +150,6 @@ const FirstRunScreen = ({navigation}) => {
                       style={styles.signIn}
                   >
                       <Text style={styles.textSign}>Continue with limited access</Text>
-   
                   </LinearGradient>
               </TouchableOpacity>
               </View>

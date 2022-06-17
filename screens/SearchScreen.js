@@ -1,11 +1,9 @@
-import React,{useEffect,useState,useCallback,useRef} from "react";
-import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import Footer from "../components/Footer";
-import { ShortCard } from "../components/ShortCard";
-import { Header } from "../components/Header";
-import LoadingView from "../components/LoadingView";
-import { AdManager } from "../components/AdManager";
 import { useNavigation } from '@react-navigation/native';
+import React, { useRef, useState } from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { AdManager } from "../components/AdManager";
+import LoadingView from "../components/LoadingView";
+import { ShortCard } from "../components/ShortCard";
 
 const SearchScreen = ({props,route}) => {
     const {search_term,listData} = route.params;
@@ -15,7 +13,6 @@ const SearchScreen = ({props,route}) => {
     const [title,setTitle] = useState("Most Read");
     const navigation = useNavigation();
     const scrollRef = useRef();
-    console.log(listData)
 
     return(
         <View style={{ flex: 1 }} ref={scrollRef}>
@@ -34,8 +31,8 @@ const SearchScreen = ({props,route}) => {
           </View>
           }
           data={listData}
-          listKey={(item, index) => `D_key${index.toString()}`}
-          keyExtractor={(item, index) => `_key${index.toString()}`}
+          listKey={(item, index) => `search_key${index.toString()}_${item.ID}`}
+          keyExtractor={(item, index) => `search_key${index.toString()}`}
           renderItem={({ item, index })=>{
             if(index === 3){
                 return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)

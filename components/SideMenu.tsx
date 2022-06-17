@@ -1,12 +1,9 @@
-import React,{ useState ,useEffect,useCallback} from "react";
-import { StyleSheet,SafeAreaView,TouchableOpacity, Text, View, Switch } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AccordionListItem from "./AccordionListItem";
-import { List } from 'react-native-paper';
-import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from "react";
+import { Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { removeToken } from "../hooks/useResults";
-import {Linking} from 'react-native';
+import AccordionListItem from "./AccordionListItem";
 const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
   const navigation = useNavigation();
   const [token,setToken] = useState({expoPushToken:''});
@@ -67,7 +64,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
   },[retrieveData]);
 
     return (
-     <ScrollView style={styles.safeAreaView}>
+     <View style={styles.safeAreaView}>
       <SafeAreaView >
         {isFreeAccount ? (
         <View style={styles.safeAreaView}>
@@ -171,7 +168,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
         </View>
       )}
       </SafeAreaView>
-     </ScrollView>
+     </View>
     )
   }
 
