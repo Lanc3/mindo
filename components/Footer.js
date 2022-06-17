@@ -279,7 +279,7 @@ title: {
   color: '#F0F0F0',
   textAlign: 'center',
   fontSize:26,
-  fontFamily:'sans-serif',
+  
   fontWeight:"400",
 },
 titleLeft: {
@@ -287,7 +287,7 @@ titleLeft: {
   color: '#F0F0F0',
   textAlign: 'left',
   fontSize:26,
-  fontFamily:'sans-serif',
+  
   fontWeight:"400",
   paddingTop:50,
 },
@@ -296,7 +296,7 @@ titleSmall: {
   color: '#F0F0F0',
   textAlign: 'left',
   fontSize:16,
-  fontFamily:'sans-serif',
+  
   fontWeight:"400",
   paddingTop:10,
 },
@@ -371,7 +371,7 @@ placeholderStyle: {
   color: '#F0F0F0',
   textAlign: 'left',
   fontSize:23,
-  fontFamily:'sans-serif',
+  
   fontWeight:"400",
   marginVertical:-10,
 },

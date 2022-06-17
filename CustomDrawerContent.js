@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
     color: '#F0F0F0',
     textAlign: 'center',
     fontSize:26,
-    fontFamily:'sans-serif',
+    
     fontWeight:"400",
   },
   titleLeft: {
@@ -292,14 +292,14 @@ const styles = StyleSheet.create({
     color: '#F0F0F0',
     textAlign: 'left',
     fontSize:26,
-    fontFamily:'sans-serif',
+    
     fontWeight:"400",
     paddingTop:50,
   },
   titleSmall: {
     color: '#F0F0F0',
     fontSize:16,
-    fontFamily:'sans-serif',
+    
     fontWeight:"400",
     paddingTop:10,
     paddingLeft:10,
@@ -376,7 +376,7 @@ const styles = StyleSheet.create({
     color: '#F0F0F0',
     textAlign: 'left',
     fontSize:23,
-    fontFamily:'sans-serif',
+    
     fontWeight:"400",
     marginVertical:-10,
   },

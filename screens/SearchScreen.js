@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
     pageTitle:{
         fontSize:26,
-        fontFamily:'sans-serif',
+        
         fontWeight:"bold",
         margin:5,
         alignSelf:'center'
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     nextGreen:{
       paddingTop:5,
       fontSize:26,
-        fontFamily:'sans-serif',
+        
         fontWeight:"bold",
       color:'#6e822b',
       },

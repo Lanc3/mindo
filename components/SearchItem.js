@@ -1,9 +1,7 @@
-import React, {useState, useRef, useEffect} from 'react';
-import { View, Text ,StyleSheet,ScrollView,SafeAreaView,TouchableOpacity} from 'react-native'
-import Carousel from './Carousel';
-import { AdManager } from './AdManager';
 import { useNavigation } from '@react-navigation/native';
-import {getCategoyIdBySlug,getAuthorName,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
+import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { getAuthorName } from '../hooks/useResults';
 
 export const SearchItem = ({title,itemDate,htmlData,author}) => {
   const navigation = useNavigation();
@@ -46,14 +44,14 @@ const getAuthor = async() =>{
  const styles = StyleSheet.create({
     pageTitle:{
         fontSize:26,
-        fontFamily:'sans-serif',
+        
         fontWeight:"bold",
         margin:5,
         alignSelf:'center'
     },
     title:{
         fontSize:20,
-        fontFamily:'sans-serif',
+        
         margin:5,
         alignSelf:'flex-start',
         color:'#000'

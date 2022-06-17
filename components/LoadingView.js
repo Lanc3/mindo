@@ -1,7 +1,7 @@
-import React ,{Component,useEffect, useState}from 'react';
-import { View, Text, Animated, Dimensions, TouchableOpacity,TouchableNativeFeedback, StyleSheet,ScrollView } from 'react-native'
-import Svg, { Path } from "react-native-svg";
+import React from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import * as Progress from 'react-native-progress';
+import Svg, { Path } from "react-native-svg";
 export default function LoadingView({loadingProgress,indeterminate}) {
 
   return (
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
     pageTitle:{
         fontSize:26,
-        fontFamily:'sans-serif',
+        
         fontWeight:"bold",
         alignSelf:'center',
         color:'#fff'

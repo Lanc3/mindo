@@ -44,7 +44,8 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "superagent": "^7.1.1",
-    "wpapi": "^2.0.0-alpha.1"
+    "wpapi": "^2.0.0-alpha.1",
+    "expo-font": "~10.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

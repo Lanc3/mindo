@@ -1,9 +1,9 @@
-import React,{useEffect,useState,useCallback} from "react";
-import { Image,TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import { ShortCard } from "./ShortCard";
-import {newGetMostReadPosts} from '../hooks/useResults'
+import React, { useCallback, useEffect, useState } from "react";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import LoadingView from '../components/LoadingView';
+import { newGetMostReadPosts } from '../hooks/useResults';
 import { AdManager } from "./AdManager";
+import { ShortCard } from "./ShortCard";
 
 const MostReadSection = ({navigation,showAmount,pageRouteName}) => {
     //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
     pageTitle:{
         fontSize:26,
-        fontFamily:'sans-serif',
+        
         fontWeight:"bold",
         margin:5,
         alignSelf:'center'

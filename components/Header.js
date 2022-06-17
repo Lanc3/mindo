@@ -1,7 +1,7 @@
-import React, {useState, useRef, useEffect} from 'react';
-import { View, Text ,StyleSheet,ScrollView,SafeAreaView,TouchableOpacity} from 'react-native'
-import Carousel from './Carousel';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { AdManager } from './AdManager';
+import Carousel from './Carousel';
 export const Header = ({title,navigation,data}) => {
 
 
@@ -22,7 +22,7 @@ export const Header = ({title,navigation,data}) => {
  const styles = StyleSheet.create({
     pageTitle:{
         fontSize:26,
-        fontFamily:'sans-serif',
+        
         fontWeight:"bold",
         margin:5,
         alignSelf:'center'

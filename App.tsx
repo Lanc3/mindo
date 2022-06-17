@@ -150,11 +150,13 @@ function MainDrawerNavigation() {
 const Stack = createStackNavigator();
 
 export default function App() {
+
   useEffect(() => {
+
     const backAction = () => {
       return true;
     };
-
+   
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
 
     return () => backHandler.remove();
@@ -184,8 +186,7 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
     </CounterContextProvider>
-
-  );
+  )
 }
 
 const styles = StyleSheet.create({

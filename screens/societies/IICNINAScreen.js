@@ -1,11 +1,11 @@
-import React,{useEffect,useState,useCallback,useRef} from "react";
-import { TouchableOpacity, Text,ScrollView,StyleSheet, View, FlatList} from "react-native";
-import {getCategoyIdBySlug,getPostsByCategory,newGetPostsByCatSlug} from '../../hooks/useResults'
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { AdManager } from "../../components/AdManager";
 import { Footer } from "../../components/Footer";
-import { ShortCard } from "../../components/ShortCard";
 import { Header } from "../../components/Header";
 import LoadingView from "../../components/LoadingView";
-import { AdManager } from "../../components/AdManager";
+import { ShortCard } from "../../components/ShortCard";
+import { newGetPostsByCatSlug } from '../../hooks/useResults';
 
 const IICNINAScreen = ({navigation}) => {
     const [data, setData] = useState([]);
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     },
     pageTitle:{
         fontSize:26,
-        fontFamily:'sans-serif',
+        
         fontWeight:"bold",
         margin:5,
         alignSelf:'center'

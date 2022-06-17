@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     },
     pageTitle:{
         fontSize:26,
-        fontFamily:'sans-serif',
+        
         fontWeight:"bold",
         margin:5,
         alignSelf:'center'

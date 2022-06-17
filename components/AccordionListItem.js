@@ -1,13 +1,10 @@
-import React, { useState, useRef } from 'react';
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  StyleSheet,
-  Animated,
-  Easing,
-} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import React, { useRef, useState } from 'react';
+import {
+    Animated,
+    Easing, StyleSheet, Text,
+    TouchableWithoutFeedback, View
+} from 'react-native';
 
 const AccordionListItem = ({ title, children }) => {
   const [open, setOpen] = useState(false);
@@ -93,7 +90,7 @@ const styles = StyleSheet.create({
         color: '#F0F0F0',
         textAlign: 'center',
         fontSize:26,
-        fontFamily:'sans-serif',
+        
         fontWeight:"400",
         paddingLeft:10
   }
