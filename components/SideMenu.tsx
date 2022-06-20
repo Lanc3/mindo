@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from "react";
 import { Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView } from 'react-native-gesture-handler';
 import { removeToken } from "../hooks/useResults";
 import AccordionListItem from "./AccordionListItem";
 const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
@@ -64,7 +65,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
   },[retrieveData]);
 
     return (
-     <View style={styles.safeAreaView}>
+     <ScrollView style={styles.safeAreaView}>
       <SafeAreaView >
         {isFreeAccount ? (
         <View style={styles.safeAreaView}>
@@ -168,7 +169,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
         </View>
       )}
       </SafeAreaView>
-     </View>
+     </ScrollView>
     )
   }
 

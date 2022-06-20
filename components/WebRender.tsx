@@ -1,8 +1,6 @@
 import * as React from 'react';
+import { Dimensions, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
-import { Dimensions } from 'react-native';
 
 
 export default function WebRender({htmlData}) {
@@ -10,7 +8,7 @@ export default function WebRender({htmlData}) {
     <WebView
       style={styles.container}
       originWhitelist={['*']}
-      source={{ html: '<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body>'+htmlData+'</body></html>' }}
+      source={{ html: '<html><head><base target="_blank"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body>'+htmlData+'</body></html>' }}
     />
   );
 }

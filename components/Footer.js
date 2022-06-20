@@ -1,5 +1,5 @@
 import { FontAwesome } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FlatList, Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from "react-native-svg";
 import AccordionListItem from './AccordionListItem';
@@ -9,7 +9,8 @@ import { SocialContent } from './SocialContent';
 export const Footer = ({navi,refS}) => {
 
   const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
+  const [ref, setRef] = useState(null);
+  const refContainer = useRef();
   const menuData = [
     {
       title : "News",
@@ -108,17 +109,20 @@ export const Footer = ({navi,refS}) => {
     Linking.openURL(url)
   }
   const onPressTouch = () => {
-    refS.current?.scrollTo({
-      y: 0,
-      animated: true,
-    });
+    if(refContainer.current){
+      refContainer.current?.scrollTo({
+        y: 0,
+        animated: true,
+      });
   }
-
+}
+  
   return (
     <View style={styles.stat}>
       <View style={styles.drawerContainer}>
       <SafeAreaView style={styles.container}>
       <FlatList
+      ref={refContainer}
        ListHeaderComponent={
         <View style={{backgroundColor:'white'}}>
           <AdManager selectedAd={"LDB_MOBILE_PUBLIC"} sizeType={"SMALL"}/>
@@ -201,7 +205,7 @@ export const Footer = ({navi,refS}) => {
           <Text style={{color:'#6E822B'}}>www.medicalindependent.ie</Text>
           </TouchableOpacity>
       <SocialContent/>
-      <TouchableOpacity style={styles.backToTop} onPress={onPressTouch}>
+      <TouchableOpacity style={styles.backToTop} >
       <FontAwesome  name="chevron-up" size={13} color="#6e822b" backgroundColor="#000" >
                 </FontAwesome>
       </TouchableOpacity>
