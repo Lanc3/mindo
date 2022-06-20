@@ -8,7 +8,7 @@ export default function WebRender({htmlData}) {
     <WebView
       style={styles.container}
       originWhitelist={['*']}
-      source={{ html: '<html><head><base target="_blank"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body>'+htmlData+'</body></html>' }}
+      source={{ html: '<html><head><base target="_top"></head><body>'+htmlData+'</body></html>' }}
     />
   );
 }
