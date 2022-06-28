@@ -1,17 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AdManager } from "../../components/AdManager";
-import { EcopyShortCard } from "../../components/EcopyShortCard";
-import Footer from "../../components/Footer";
+import { Footer } from "../../components/Footer";
+import { Header } from "../../components/Header";
 import LoadingView from "../../components/LoadingView";
+import { ShortCard } from "../../components/ShortCard";
 import { newGetPostsByCatSlug } from '../../hooks/useResults';
-const ECopy = ({navigation}) => {
+
+const UpdateJournal = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    const [title,setTitle] = useState("E-Copy");
-    const [slug,setSlug] = useState("ecopy");
+    const [title,setTitle] = useState("Update Journal");
+    const [slug,setSlug] = useState("update-journal");
     const scrollRef = useRef();
 
     const nextpage = () =>{
@@ -47,6 +49,7 @@ const ECopy = ({navigation}) => {
       {data.length > 0 ? (
         <View>
         <FlatList
+          ListHeaderComponent={<Header title={title} navigation={navigation} data={data}></Header>}
           ListFooterComponent={
             <View>
             <View style={styles.pageNav}>
@@ -74,7 +77,8 @@ const ECopy = ({navigation}) => {
             else if(index === 7){
               return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
             }
-            return(    <EcopyShortCard props title={item.title.toString()}
+            return(
+              <ShortCard props title={item.title.toString()}
                 excerpt = {item.excerpt.toString()}
                 date = {item.date.toString()}
                 mediaID = {item.media.toString()}
@@ -95,8 +99,7 @@ const ECopy = ({navigation}) => {
         </View>
       );
     };
-
-export default ECopy;
+export default UpdateJournal;
 
 const styles = StyleSheet.create({
     container:{

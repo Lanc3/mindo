@@ -1,6 +1,6 @@
 {
   "name": "mindo",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -17,6 +17,7 @@
     "@react-navigation/stack": "^6.0.11",
     "expo": "~43.0.2",
     "expo-device": "~4.0.3",
+    "expo-font": "~10.0.3",
     "expo-linear-gradient": "^10.0.3",
     "expo-linking": "^2.4.2",
     "expo-notifications": "~0.13.3",
@@ -35,6 +36,7 @@
     "react-native-modal": "^12.1.0",
     "react-native-paper": "^4.10.1",
     "react-native-progress": "^5.0.0",
+    "react-native-render-html": "^6.3.4",
     "react-native-side-drawer": "^2.0.0",
     "react-native-svg": "^12.1.1",
     "react-native-text-size": "^4.0.0-rc.1",
@@ -44,8 +46,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "superagent": "^7.1.1",
-    "wpapi": "^2.0.0-alpha.1",
-    "expo-font": "~10.0.3"
+    "wpapi": "^2.0.0-alpha.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

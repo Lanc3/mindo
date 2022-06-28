@@ -3,14 +3,14 @@ import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-export function ShortCard({navi,props,title,excerpt,date,mediaID,totalData,authorId,nameSlug}) {
+export function EcopyShortCard({navi,props,title,excerpt,date,mediaID,totalData,authorId,nameSlug}) {
 
 
   const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <TouchableOpacity
-                onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:authorId,title:title,date:date,imageData:mediaID,htmlData:totalData})}
+                onPress={() => navi.navigate("Ecopy-Reader",{content:{title:title,date:date,author:authorId,excerpt:excerpt,content:totalData}})}
             >
                 <View style={styles.shortContainer}>
                     <View style={styles.imageContainer}>

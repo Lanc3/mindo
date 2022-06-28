@@ -4,6 +4,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { AdManager } from "../components/AdManager";
 import ArticleList from "../components/ArticleList";
 import Carousel from "../components/Carousel";
+import { ECopy } from "../components/ECopy";
 import Footer from "../components/Footer";
 import LoadingView from "../components/LoadingView";
 import SingleArticle from "../components/SingleArticle";
@@ -54,7 +55,7 @@ const getContent = useCallback(async() =>{
         <FlatList
         ListHeaderComponent={
           <View>
-            <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
+            <AdManager selectedAd={"LDB_MOBILE_PRIVATE"} sizeType={"SMALL"}/>
         <Carousel
         style='slide'
         items={sliderData}
@@ -71,6 +72,7 @@ const getContent = useCallback(async() =>{
         navigation={props.navigation}
         nameSlug={"Comment"}
         />
+        <ECopy navigation={props.navigation}/>
         <Carousel
         style='slide'
         items={clinical}

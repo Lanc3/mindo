@@ -29,7 +29,7 @@ const PriscillaLynchScreen = ({navigation}) => {
         try{
           setLoading(0.5);
           const response = await newGetPostsByAuthor(authorID,10,page);
-          console.log(response)
+    
           setTotalPages(Math.ceil(response.totalPosts/10));
           setData(response.posts);
           setLoading(1);

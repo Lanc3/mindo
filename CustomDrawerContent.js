@@ -100,9 +100,9 @@ const menuData = [
       title : "Contact Us",
       data :
       [
-        { label: 'About Us', value: 'CatherineReilly' },
-        { label: 'Privacy Policy', value: 'DavidLynch' },
-        { label: 'Terms & Conditions', value: 'PaulMulholland' },
+        { label: 'About Us', value: 'AboutScreen' },
+        { label: 'Privacy Policy', value: 'PrivacyScreen' },
+        { label: 'Terms & Conditions', value: 'Terms' },
       ]
     }
 ];

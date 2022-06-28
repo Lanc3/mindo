@@ -27,6 +27,7 @@ import GeorgeWinterScreen from './screens/comments/GeorgeWinterScreen';
 import MedicoLegal from './screens/comments/MedicoLegal';
 import ProfBrendanScreen from './screens/comments/ProfBrendanScreen';
 import ProfSeamusScreen from './screens/comments/ProfSeamusScreen';
+import EcopyReader from './screens/EcopyReader/EcopyReader';
 import FirstRunScreen from './screens/FirstRunScreen';
 import FullArticleScreen from './screens/FullArticleScreen';
 import GalleriesScreen from './screens/galleries/GalleriesScreen';
@@ -70,6 +71,7 @@ import ITSScreen from './screens/societies/ITSScreen';
 import PCDSIScreen from './screens/societies/PCDSIScreen';
 import SponsoredScreen from './screens/sponsored/SponsoredScreen';
 import Terms from './screens/terms/Terms';
+import UpdateJournal from './screens/UpdateJournal/UpdateJournal';
 const Drawer = createDrawerNavigator();
 
 function MainDrawerNavigation() {
@@ -77,13 +79,15 @@ function MainDrawerNavigation() {
     <Drawer.Navigator
     screenOptions={{
       drawerStyle: {
-        backgroundColor: '#c6cbef',
+        backgroundColor: '#000',
         width: '100%',
       },
     }}
       initialRouteName="FirstRunScreen"
       drawerContent={(props) => (<CustomDrawerContent drawerItems={drawerItemsMain} {...props} />)}>
         <Drawer.Screen name="AboutScreen" component={AboutScreen} options={{headerShown:false}}/>
+        <Drawer.Screen name="Ecopy-Reader" component={EcopyReader} options={{headerShown:false}}/>
+        <Drawer.Screen name="UpdateJournal" component={UpdateJournal} options={{headerShown:false}}/>
       <Drawer.Screen name="MostReadScreen" component={MostReadScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="ECopy" component={ECopy} options={{headerShown:false}}/>
       <Drawer.Screen name="Terms" component={Terms} options={{headerShown:false}}/>
@@ -171,7 +175,7 @@ export default function App() {
           animationTypeForReplace: 'pop',
           animationEnabled:
           Platform.OS == 'android' ? false : false,
-          headerTintColor: '#404554',
+          headerTintColor: '#000',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
@@ -192,7 +196,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
   },

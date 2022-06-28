@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from "react";
 import { Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
-import { removeToken } from "../hooks/useResults";
 import AccordionListItem from "./AccordionListItem";
 const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
   const navigation = useNavigation();
@@ -16,22 +15,12 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
         setArticlesLeft(JSON.parse(value).freeArticle);
       }
       else{
-        console.log("No data found");
+        console.log("No Account data found");
       }
     } catch (error) {
       // Error retrieving data
     }
-    try {
-      const value = await AsyncStorage.getItem('expoToken');
-      if (value !== null) {
-        removeToken(JSON.parse(value).expoPushToken);
-      }
-      else{
-        console.log("No data found");
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
+
   },[]);
 
   const openPhone = (phoneNumber) =>{
@@ -153,13 +142,13 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
           </TouchableOpacity>
           </View>
           <View >
-            <TouchableOpacity style={styles.drawerButton} onPress={() => callParentScreenFunction("SportsQuiz")}>
+            <TouchableOpacity style={styles.drawerButton} onPress={() => {closeDrawer();navigation.navigate("UpdateJournal")}}>
               <Text style={styles.text_footer}>Update Journal</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.drawerButton} onPress={() => callParentScreenFunction("ECopy")}>
+            <TouchableOpacity style={styles.drawerButton} onPress={() => {closeDrawer();navigation.navigate("ECopy")}}>
               <Text style={styles.text_footer}>eCopy</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.drawerButton} onPress={() => callParentScreenFunction("SportsQuiz")}>
+            <TouchableOpacity style={styles.drawerButton} onPress={() => {closeDrawer();navigation.navigate("SportsQuiz")}}>
               <Text style={styles.text_footer}>Sports Quiz</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.drawerButton} onPress={() => logOut()}>
@@ -177,8 +166,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
     safeAreaView: {
       flex: 1,
       backgroundColor: "#000",
-      paddingTop:50
-      
+      paddingTop:60
     },
     aboutUsTitle: {
       fontSize: 20,

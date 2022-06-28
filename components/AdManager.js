@@ -1,5 +1,5 @@
-import React from 'react';
-import { View,StyleSheet,Text,Image ,Dimensions} from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import WebRender from './WebRender';
 
 const adTypes = {LDB_MOBILE_PRIVATE:`<!-- - LDB Mobile Private [iframe] -->
@@ -92,6 +92,23 @@ document.write('<ifr'+'ame src="'+absrc+'" width="300" height="250" marginwidth=
 export function AdManager(props) {
 const selectedAd = props.selectedAd;
 const sizeType = props.sizeType;
+const [isFreeAccount, setIsFreeAccount] = useState(true);
+const retrieveData = useCallback(async () => {
+    try {
+      const value = await AsyncStorage.getItem('userProfile');
+      if (value !== null) {
+        setIsFreeAccount(JSON.parse(value).freeAccount);
+      }
+      else{
+        console.log("No adManager data found");
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+},[]);
+useEffect (() => {
+    retrieveData();
+  },[retrieveData]);
     return (
         <View style={styles.container}>
             {sizeType === 'BIG' ?
@@ -120,15 +137,14 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     containerBig:{
-        width:300,
-        height:250,
+        width:310,
+        height:260,
     },
     image:{
-        width:300,
+        width:310,
     },
     bigImage:{
         flex:1,
-
-        width:300,
+        width:310,
     }
 })

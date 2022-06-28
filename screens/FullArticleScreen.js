@@ -6,25 +6,13 @@ import ContentRender from '../components/ContentRender';
 import Footer from '../components/Footer';
 import { useCounter } from '../components/GlobalContext';
 import { Modal } from "../components/Modal";
+
 export default function FullArticleScreen({navigation,props,route}) {
-  const {nameSlug,authorName,htmlData,imageData,title,date} = route.params;
-  const [name,setName] = useState(authorName)
-  const scrollRef = useRef();
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" }
-    return new Date(dateString).toLocaleDateString(undefined, options)
-}
+const {nameSlug,authorName,htmlData,imageData,title,date} = route.params;
+const scrollRef = useRef();
 const [popUpState, setPopUpState] = useState(false);
 const handleModal = () => setPopUpState(() => !popUpState);
-const [articlesLeft, setArticlesLeft] = useState(0);
-const [autor,setAuthor] = useState("Mindo");
-
 const { count, increment, decrement } = useCounter();
-const onPressLogIn = () => {
-
-  //navigation.navigate('SignInScreen');
-  //onPressOpen();
-};
 const retrieveData = async () => {
   decrement();
   if(count === 1){
@@ -40,15 +28,6 @@ const retrieveData = async () => {
 useEffect(() => {
   retrieveData();
 }, [title]);
-const convertDateToEnglish = (date) => {
-  
-  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  var d = new Date(date.replace(" ","T"))
-  var month = months[d.getMonth()];
-  var day = d.getDate();
-  var year = d.getFullYear();
-  return day + " " + month + ", " + year;
-} 
 const onShare = async () => {
   try {
     const result = await Share.share({
@@ -67,6 +46,7 @@ const onShare = async () => {
     alert(error.message);
   }
 };
+
   return (
     <SafeAreaView style={styles.container}>
       <Modal isVisible={popUpState}>
@@ -90,7 +70,7 @@ const onShare = async () => {
       <View style={styles.subTitle}>
       <Text style={{paddingLeft:10}}>By </Text>
       <Text style={{color:'black'}}>{authorName} - </Text>
-        <Text>{convertDateToEnglish(date)}</Text>
+        <Text>{date}</Text>
       </View>
       <View>
       </View>
@@ -155,10 +135,8 @@ const styles = StyleSheet.create({
       width: windowWidth,
       height:300,
       resizeMode: 'contain',
-      
     },
     imageContainer:{
-     
     },
     scrollView: {
       marginHorizontal: 0,
@@ -180,6 +158,5 @@ const styles = StyleSheet.create({
       paddingLeft:10,
   },
     spacer:{
-        
     }
   });
