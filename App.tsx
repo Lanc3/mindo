@@ -2,7 +2,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
-import { BackHandler, Platform, StyleSheet } from 'react-native';
+import { BackHandler, Platform, StatusBar, StyleSheet } from 'react-native';
 import 'react-native-gesture-handler';
 import { CounterContextProvider } from './components/GlobalContext';
 import CustomDrawerContent from './CustomDrawerContent.js';
@@ -168,6 +168,7 @@ export default function App() {
   return (
     <CounterContextProvider>
         <NavigationContainer>
+        <StatusBar barStyle='light-content' backgroundColor='#1a1a1a'/>);
       <Stack.Navigator
       initialRouteName="FirstRunScreen"
         screenOptions={{
