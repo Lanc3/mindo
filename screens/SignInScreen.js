@@ -1,16 +1,24 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { View, Text,Dimensions,StyleSheet,Platform,TouchableOpacity,Alert,StatusBar,TextInput } from "react-native";
-import * as Animatable from 'react-native-animatable';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useTheme } from 'react-native-paper';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Feather from '@expo/vector-icons//Feather';
-import Svg, { Path } from "react-native-svg";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { loginUrl } from '../constants/Const';
 import * as Device from 'expo-device';
+import { LinearGradient } from 'expo-linear-gradient';
 import * as Notifications from 'expo-notifications';
-import {postToken} from '../hooks/useResults';
+import React, { useState } from 'react';
+import { Alert, Dimensions, Platform, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import * as Animatable from 'react-native-animatable';
+import { useTheme } from 'react-native-paper';
+import Svg, { Path } from "react-native-svg";
+import { loginUrl } from '../constants/Const';
+import { postToken } from '../hooks/useResults';
+
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: false,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+    }),
+  });
 
 
 const SignInScreen = ({navigation}) => {
@@ -48,10 +56,18 @@ const SignInScreen = ({navigation}) => {
       } catch {
         setError('Error storing data on device');
       }
-      postToken(token);
     } else {
       alert('Must use physical device for Push Notifications');
     }
+    if (Platform.OS === 'android') {
+        Notifications.setNotificationChannelAsync('default', {
+          name: 'default',
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: '#FF231F7C',
+        });
+      }
+      postToken(token);
     };
 
   const wrongDetails = () =>

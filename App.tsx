@@ -160,7 +160,6 @@ export default function App() {
     const backAction = () => {
       return true;
     };
-   
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
 
     return () => backHandler.remove();
@@ -168,7 +167,7 @@ export default function App() {
   return (
     <CounterContextProvider>
         <NavigationContainer>
-        <StatusBar barStyle='light-content' backgroundColor='#1a1a1a'/>);
+        <StatusBar barStyle='dark-content' backgroundColor='#1a1a1a'/>
       <Stack.Navigator
       initialRouteName="FirstRunScreen"
         screenOptions={{
