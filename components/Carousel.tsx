@@ -80,13 +80,14 @@ export const Carousel = (props: any) => {
         pagingEnabled
         decelerationRate="fast"
       >
-        {items.map((item: any, index: number) => {
+        {items.map((item: any, index: number,elements:Array<any>) => {
           switch (style) {
             case 'stat':
               return (
                 <Stat
                 key={index}
-                item={item}
+                item={items[index ]}
+                nextItem={items[index+1]}
                 navigation={navigation}
                 nameSlug = {nameSlug}
                 articleTitle = {nameSlug}
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     shadowColor: '#fcfcfc',
     shadowOpacity: 1,
     marginTop: 0,
-    marginBottom:10,
+    marginBottom:0,
     shadowOffset: {
       width: 0,
       height: 5

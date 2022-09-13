@@ -139,7 +139,7 @@ const goToLogin = () =>{
   props.navigation.navigate('SignInScreen')
 }
 const goToAbout = () =>{
-  props.navigation.navigate('MainDrawer',{screen :'AboutScreen'})
+  props.navigation.navigate('MainDrawer',{screen :'Terms'})
 }
 const openEmail = (address) =>{
   Linking.openURL(`mailto:${address}`)

@@ -1,9 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from "react";
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { WebView } from 'react-native-webview';
 
-export function SingleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug,authorId}) {
+export function HalfCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug,authorId}) {
 
 function convertDateToEnglish(date){
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -22,32 +21,44 @@ useEffect(() => {
             <TouchableOpacity
                 onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:authorId,title:title,date:date,imageData:mediaID,htmlData:totalData})}
             >
-                <Image style={styles.image} source={{ uri: ""+mediaID }}/>
-                <Text style={styles.greenTitle}>{nameSlug}</Text>
-                <WebView
-                    style={styles.titleStyle}
-                    source={{ html: '<html><head></head><meta name="viewport" content="width=device-width,initial-scale=1.0"><body className="font-weight: bold"><p class="font-weight: bold">'+title+'</p></body></html>' }}
-                    />
-                <View style={styles.footer}>
-                    <Text style={{paddingLeft:10}}>By </Text>
-                    <Text style={{fontWeight:'bold', color:'black'}}>{authorId}</Text>
+            <View style={styles.halfText}>
+            <Image style={styles.image} source={{ uri: ""+mediaID }}/>
+            <View style={styles.textContainer}>
+            <Text style={styles.greenTitle}>{nameSlug}</Text>
+            <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
+            <Text style={{fontWeight:'bold', color:'black'}} >By - {authorId}</Text>
+            
                     <Text> - </Text>
                     <Text >{convertDateToEnglish(date)}</Text>
+            </View>
+            
+                <View style={styles.footer}>
+                    
                 </View>
-                <Text style={styles.textStyle} numberOfLines={3}>{excerpt}</Text>
+            </View>
+
+            <View style={styles.halfText}>
+           
+            </View>
+
             </TouchableOpacity>
         </View>
     );
 };
 const windowWidth = Dimensions.get('window').width;
+const halfWindowWidth = windowWidth/2;
 const styles = StyleSheet.create({
     container:{
         backgroundColor:'#fff',
-        flexDirection:'row',
-        justifyContent:'center',
-        alignItems:'center',
         flex:1,
-        paddingBottom:50,
+        flexDirection:"row"
+    },
+    halfText:{
+        flex: 1,
+        flexDirection:"row"
+    },
+    textContainer:{
+        width:halfWindowWidth
     },
     spacer:{
         padding:10
@@ -66,9 +77,9 @@ const styles = StyleSheet.create({
         paddingLeft:0,
     },
     titleStyle:{
-        paddingLeft:10,
-        fontSize:17,
-        fontWeight:'bold',
+        width:halfWindowWidth-40,
+        margin:2,
+        fontSize:15,
         justifyContent:'flex-start',
         
     },
@@ -110,19 +121,15 @@ const styles = StyleSheet.create({
         color:'#000'
     },
     image:{
-    width:windowWidth,
-    height:200,
-    resizeMode:'stretch'
+    width:halfWindowWidth/3,
+    height:100,
+    
     },
     greenTitle:{
         color:'#6e822b',
-        paddingTop:10,
-        paddingLeft:10,
+        margin:2
     },
     footer:{
-        flex:1,
-        flexDirection:'row',
-        height:20,
-        width:'100%'
+
     }
 })

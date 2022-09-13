@@ -1,5 +1,4 @@
-import React from 'react'
-import { View, Text ,StyleSheet,TouchableOpacity} from 'react-native'
+import { StyleSheet, View } from 'react-native';
 import { SingleCard } from './SingleCard';
 
 export const Single = (props: any) => {
@@ -17,7 +16,7 @@ export const Single = (props: any) => {
                 totalData = {item.content}
                 authorId = {item.author}
                 navi = {navigation}
-                nameSlug={nameSlug}
+                nameSlug={item.categoryName}
                 />
     </View>
   );
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
     slide: {
       flex:1,
       justifyContent:'flex-start',
-      height:380
+      height:280
     },
     slideText: {
       width: '100%',

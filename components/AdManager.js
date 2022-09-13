@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     },
     containerBig:{
         width:310,
-        height:260,
+        height:300,
     },
     image:{
         width:310,

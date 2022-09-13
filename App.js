@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { BackHandler, Platform, StatusBar, StyleSheet } from 'react-native';
 import 'react-native-gesture-handler';
 import { CounterContextProvider } from './components/GlobalContext';
@@ -56,6 +56,7 @@ import DavidLynchScreen from './screens/newsTeam/DavidLynchScreen';
 import PaulMulhollandScreen from './screens/newsTeam/PaulMulhollandScreen';
 import PriscillaLynchScreen from './screens/newsTeam/PriscillaLynchScreen';
 import PrivacyScreen from './screens/privacy/PrivacyScreen';
+import PushArticleScreen from './screens/PushArticleScreen';
 import SearchScreen from './screens/SearchScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
@@ -154,13 +155,16 @@ function MainDrawerNavigation() {
 const Stack = createStackNavigator();
 
 export default function App() {
-
   useEffect(() => {
-
     const backAction = () => {
+ 
       return true;
     };
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
 
     return () => backHandler.remove();
   }, []);
@@ -187,6 +191,7 @@ export default function App() {
         <Stack.Screen name="FirstRunScreen" component={FirstRunScreen} options={{headerShown:false}}/>
         <Stack.Screen name="SignInScreen" component={SignInScreen} options={{headerShown:false}}/>
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{headerShown:false}}/>
+        <Stack.Screen name="PushArticleScreen" component={PushArticleScreen} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
     </CounterContextProvider>

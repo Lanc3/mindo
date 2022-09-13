@@ -1,14 +1,25 @@
+import { useNavigation } from '@react-navigation/native';
+import * as Notifications from 'expo-notifications';
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Dimensions, SafeAreaView, StyleSheet, View } from "react-native";
+import { Dimensions, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { AdManager } from "../components/AdManager";
 import ArticleList from "../components/ArticleList";
 import Carousel from "../components/Carousel";
+import CategorySnap from '../components/CategorySnap';
 import { ECopy } from "../components/ECopy";
 import Footer from "../components/Footer";
 import LoadingView from "../components/LoadingView";
 import SingleArticle from "../components/SingleArticle";
 import { newGetPostsByCatSlug } from '../hooks/useResults';
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
 const HomeScreen = (props) => {
     //const [getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor] = useResults();
     const [latestNews, setlatestNews] = useState([]);
@@ -22,15 +33,34 @@ const HomeScreen = (props) => {
     const [isLoaded, setIsLoading] = useState(false);
     const scrollRef = useRef();
     const homeItems=[];
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+    const navigation = useNavigation();
+    useEffect(() => {
+      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+        setNotification(notification);
+      });
+      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+        const {categoryName,author,content,media,title,date} = response.notification.request.content.data;
+        navigation.navigate("FullArticleScreen",{nameSlug:categoryName,authorName:author,title:title,date:date,imageData:media,htmlData:content});
+      });
+
+      return () => {
+        Notifications.removeNotificationSubscription(notificationListener.current);
+        Notifications.removeNotificationSubscription(responseListener.current);
+      };
+    }, []);
 const getContent = useCallback(async() =>{
 
       try{
         const results = await Promise.all([
           newGetPostsByCatSlug("latest-news",2,1),
-          newGetPostsByCatSlug("clinical-news",2,1),
+          newGetPostsByCatSlug("clinical-news",4,1),
           newGetPostsByCatSlug("motoring",1,1),
           newGetPostsByCatSlug("cartoon",1,1),
           newGetPostsByCatSlug("comment",5,1),
+          newGetPostsByCatSlug("news-features",5,1),
         ])
         const finalData = await Promise.all(results.map(result => result.posts));
         setSliderData(finalData[0]);
@@ -38,6 +68,7 @@ const getContent = useCallback(async() =>{
         setMotoring(finalData[2]);
         setCartoon(finalData[3]);
         setComments(finalData[4]);
+        setFeature(finalData[5])
         setIsLoading(true)
       }catch(error){
         console.log(error);
@@ -66,16 +97,28 @@ const getContent = useCallback(async() =>{
         <View style={styles.divider}/>
         <ArticleList navigation={props.navigation} slugName={"breaking-news"}  titleName={"Breaking News"} showAmount={3} pageRouteName={"BreakingNews"}/>
         <View style={styles.divider}/>
-        <Carousel
-        style='stat'
-        items={comments}
-        navigation={props.navigation}
-        nameSlug={"Comment"}
-        />
+        <View style={styles.topSmallNav}>
+                  <View style={styles.titleContainer}>
+                    <Text style={styles.titleStyle}>Comments</Text>
+                  </View>
+                  <TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :"Editorial"});}}>
+                      <View style={styles.veiwContainer}>
+                        <Text style={styles.viewAll}>View All</Text>
+                      </View>
+                  </TouchableOpacity>
+        </View>
+        
+        <AdManager selectedAd={"MPU_PRIVATE"} sizeType={"BIG"}/>
+        <ArticleList navigation={props.navigation} slugName={"interviews"}  titleName={"Latest News"} showAmount={2} pageRouteName={"LatestNews"}/>
         <ECopy navigation={props.navigation}/>
+        
+       
+        <CategorySnap navigation={props.navigation} elements={feature} title={"News Feature"} route={"NewsFeatures"}/>
+        <CategorySnap navigation={props.navigation} elements={clinical} title={"Clinical News"} route={"NewsFeatures"}/>
+        
         <Carousel
-        style='slide'
-        items={clinical}
+        style='single'
+        items={feature}
         navigation={props.navigation}
         nameSlug={"Clinical News"}
         />
@@ -158,7 +201,8 @@ const styles = StyleSheet.create({
     topSmallNav:{
         flex:1,
         flexDirection:'row',
-        margin:10
+        marginTop:10,
+        marginBottom:10
     },
     viewAll:{
         color:'#6e822b',
@@ -184,4 +228,5 @@ const styles = StyleSheet.create({
         backgroundColor:'#000',
         height:'100%'
     },
+    
 });

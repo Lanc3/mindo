@@ -12,13 +12,7 @@ import Svg, { Path } from "react-native-svg";
 import { loginUrl } from '../constants/Const';
 import { postToken } from '../hooks/useResults';
 
-Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-      shouldShowAlert: false,
-      shouldPlaySound: true,
-      shouldSetBadge: false,
-    }),
-  });
+
 
 
 const SignInScreen = ({navigation}) => {
@@ -74,7 +68,7 @@ const SignInScreen = ({navigation}) => {
     Alert.alert('Error', error, [
       { text: 'OK', onPress: () => {} },
     ]);
-
+//must redo logic for this
     const doLogin = async (email, password) => {
         setloggingIn(true);
         setError(null);
