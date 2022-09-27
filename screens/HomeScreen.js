@@ -11,6 +11,7 @@ import { ECopy } from "../components/ECopy";
 import Footer from "../components/Footer";
 import LoadingView from "../components/LoadingView";
 import SingleArticle from "../components/SingleArticle";
+import UpdateJournalComponent from "../components/UpdateJournalComponent";
 import { newGetPostsByCatSlug } from '../hooks/useResults';
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -23,10 +24,11 @@ Notifications.setNotificationHandler({
 const HomeScreen = (props) => {
     //const [getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor] = useResults();
     const [latestNews, setlatestNews] = useState([]);
-    const [isUpToDate, setIsUpToDate] = useState(false);
+    const [subscriberOnly, setSubscriberOnly] = useState([]);
     const [comments, setComments] = useState([]);
     const [feature, setFeature] = useState([]);
     const [cartoon, setCartoon] = useState([]);
+    const [commercial,setCommercial] = useState([]);
     const [sliderData, setSliderData] = useState([]);
     const [motoring, setMotoring] = useState([]);
     const [clinical, setClinical] = useState([]);
@@ -59,8 +61,10 @@ const getContent = useCallback(async() =>{
           newGetPostsByCatSlug("clinical-news",4,1),
           newGetPostsByCatSlug("motoring",1,1),
           newGetPostsByCatSlug("cartoon",1,1),
-          newGetPostsByCatSlug("comment",5,1),
+          newGetPostsByCatSlug("comment",6,1),
           newGetPostsByCatSlug("news-features",5,1),
+          newGetPostsByCatSlug("commercial-feature",1,1),
+          newGetPostsByCatSlug("subscriber-only",3,1),
         ])
         const finalData = await Promise.all(results.map(result => result.posts));
         setSliderData(finalData[0]);
@@ -68,7 +72,9 @@ const getContent = useCallback(async() =>{
         setMotoring(finalData[2]);
         setCartoon(finalData[3]);
         setComments(finalData[4]);
-        setFeature(finalData[5])
+        setFeature(finalData[5]);
+        setCommercial(finalData[6]);
+        setSubscriberOnly(finalData[7]);
         setIsLoading(true)
       }catch(error){
         console.log(error);
@@ -107,21 +113,31 @@ const getContent = useCallback(async() =>{
                       </View>
                   </TouchableOpacity>
         </View>
-        
+        <Carousel
+        style='stat'
+        items={comments}
+        navigation={props.navigation}
+        nameSlug={"Clinical News"}
+        />
         <AdManager selectedAd={"MPU_PRIVATE"} sizeType={"BIG"}/>
         <ArticleList navigation={props.navigation} slugName={"interviews"}  titleName={"Latest News"} showAmount={2} pageRouteName={"LatestNews"}/>
         <ECopy navigation={props.navigation}/>
         
-       
+        
         <CategorySnap navigation={props.navigation} elements={feature} title={"News Feature"} route={"NewsFeatures"}/>
         <CategorySnap navigation={props.navigation} elements={clinical} title={"Clinical News"} route={"NewsFeatures"}/>
         
-        <Carousel
-        style='single'
-        items={feature}
-        navigation={props.navigation}
-        nameSlug={"Clinical News"}
-        />
+        <View style={styles.divider}/>
+        <View style={styles.topSmallNav}>
+                  <View style={styles.titleContainer}>
+                    <Text style={styles.titleStyle}>Life</Text>
+                  </View>
+                  <TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :"Life"});}}>
+                      <View style={styles.veiwContainer}>
+                        <Text style={styles.viewAll}>View All</Text>
+                      </View>
+                  </TouchableOpacity>
+        </View>
         <Carousel
         style='single'
         items={motoring}
@@ -138,7 +154,16 @@ const getContent = useCallback(async() =>{
         <SingleArticle navigation={props.navigation} slugName={"the-dorsal-view"}  titleName={"The Dorsal View "} showAmount={1} pageRouteName={"TheDorsalView"}/>
         <SingleArticle navigation={props.navigation} slugName={"food-and-drink"}  titleName={"Food and Drink"} showAmount={1} pageRouteName={"FoodAndDrink"}/>
         <SingleArticle navigation={props.navigation} slugName={"sport"}  titleName={"Sport"} showAmount={1} pageRouteName={"Sport"}/>
-        <ArticleList navigation={props.navigation} slugName={"clinical-news"}  titleName={"Clinical News"} showAmount={3} pageRouteName={"ClinicalNews"}/>
+        <View style={styles.divider}/>
+        <UpdateJournalComponent navigation={props.navigation}/>
+        <ArticleList navigation={props.navigation} slugName={"subscriber-only"}  titleName={"Subscriber Only Content"} showAmount={3} pageRouteName={"SubscriberOnly"}/>
+        <Carousel
+        style='single'
+        items={commercial}
+        navigation={props.navigation}
+        nameSlug={"Commercial Feature"}
+        />
+        {/* <ArticleList navigation={props.navigation} slugName={"clinical-news"}  titleName={"Clinical News"} showAmount={3} pageRouteName={"ClinicalNews"}/> */}
           </View>
         }
         ListFooterComponent={
@@ -147,6 +172,7 @@ const getContent = useCallback(async() =>{
           </View>
         }
         scrollEnabled={true}
+        
         data={homeItems}
         listKey={(item, index) => `outer_key${index.toString()}`}
         keyExtractor={(item, index) => `outer_key${index.toString()}`}

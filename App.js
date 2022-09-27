@@ -37,6 +37,7 @@ import Cartoon from './screens/life/Cartoon';
 import ECopy from './screens/life/ECopy';
 import FinanceScreen from './screens/life/FinanceScreen';
 import FoodAndDrink from './screens/life/FoodAndDrink';
+import Life from './screens/life/Life';
 import MotoringScreen from './screens/life/MotoringScreen';
 import SportScreen from './screens/life/SportScreen';
 import SportsQuizScreen from './screens/life/SportsQuizScreen';
@@ -71,8 +72,10 @@ import ISRScreen from './screens/societies/ISRScreen';
 import ITSScreen from './screens/societies/ITSScreen';
 import PCDSIScreen from './screens/societies/PCDSIScreen';
 import SponsoredScreen from './screens/sponsored/SponsoredScreen';
+import SubscriberOnly from './screens/SubscriberOnly/SubscriberOnly';
 import Terms from './screens/terms/Terms';
 import UpdateJournal from './screens/UpdateJournal/UpdateJournal';
+import UpdateJournalReader from './screens/UpdateJournalReader/UpdateJournalReader';
 const Drawer = createDrawerNavigator();
 
 function MainDrawerNavigation() {
@@ -87,8 +90,11 @@ function MainDrawerNavigation() {
       initialRouteName="FirstRunScreen"
       drawerContent={(props) => (<CustomDrawerContent drawerItems={drawerItemsMain} {...props} />)}>
         <Drawer.Screen name="AboutScreen" component={AboutScreen} options={{headerShown:false}}/>
+        <Drawer.Screen name="Life" component={Life} options={{headerShown:false}}/>
+        <Drawer.Screen name="SubscriberOnly" component={SubscriberOnly} options={{headerShown:false}}/>
         <Drawer.Screen name="Ecopy-Reader" component={EcopyReader} options={{headerShown:false}}/>
         <Drawer.Screen name="UpdateJournal" component={UpdateJournal} options={{headerShown:false}}/>
+        <Drawer.Screen name="UpdateJournalReader" component={UpdateJournalReader} options={{headerShown:false}}/>
       <Drawer.Screen name="MostReadScreen" component={MostReadScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="ECopy" component={ECopy} options={{headerShown:false}}/>
       <Drawer.Screen name="Terms" component={Terms} options={{headerShown:false}}/>

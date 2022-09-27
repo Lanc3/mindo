@@ -88,7 +88,7 @@ const SignInScreen = ({navigation}) => {
               await AsyncStorage.setItem(
                 'userProfile',
                 JSON.stringify({
-                  isLoggedIn: json.status,
+                  isLoggedIn: true,
                   authToken: json.token,
                   id: json.data.id,
                   name: json.data.user_login,
@@ -97,6 +97,7 @@ const SignInScreen = ({navigation}) => {
                   freeAccount: false,
                 })
               );
+              console.log("here",isLoggedIn)
             } catch {
               setError('Error storing data on device');
               wrongDetails();

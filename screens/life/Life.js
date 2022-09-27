@@ -7,13 +7,13 @@ import LoadingView from "../../components/LoadingView";
 import { ShortCard } from "../../components/ShortCard";
 import { newGetPostsByCatSlug } from '../../hooks/useResults';
 
-const BookReview = ({navigation}) => {
+const Life = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    const [title,setTitle] = useState("Book Review");
-    const [slug,setSlug] = useState("book-review");
+    const [title,setTitle] = useState("Life");
+    const [slug,setSlug] = useState("life");
     const scrollRef = useRef();
 
     const nextpage = () =>{
@@ -99,7 +99,7 @@ const BookReview = ({navigation}) => {
         </View>
       );
     };
-export default BookReview;
+export default Life;
 
 const styles = StyleSheet.create({
     container:{

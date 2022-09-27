@@ -27,7 +27,7 @@ const FirstRunScreen = ({navigation}) => {
           await AsyncStorage.setItem(
             'userProfile',
             JSON.stringify({
-              isLoggedIn: null,
+              isLoggedIn: false,
               authToken: null,
               id: null,
               name: null,

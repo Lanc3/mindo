@@ -41,14 +41,13 @@ const styles = StyleSheet.create({
     slide: {
       width:windowWidth/2,
       height:150,
-      paddingBottom:10
+      paddingBottom:15
     },
     halfContainer:{
       flex:1,
       flexDirection:"row",
     
       height:180,
-      paddingBottom:10
     }
   });
 export default Stat;

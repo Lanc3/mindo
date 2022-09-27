@@ -52,6 +52,7 @@ const ArticleList = ({navigation, slugName,list,titleName,showAmount,pageRouteNa
               </View>
           }
           data={data}
+          removeClippedSubviews={true}
           listKey={(item, index) => `D_key${index.toString()}`}
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{

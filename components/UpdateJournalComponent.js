@@ -1,17 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { WebView } from "react-native-webview";
 import { newGetPostsByCatSlug } from '../hooks/useResults';
-export function ECopy({navigation,props}) {
-    const [isFreeAccount, setIsFreeAccount] = useState(false);
+
+export default function UpdateJournalComponent({navigation,props}) {
+    const [isFreeAccount, setIsFreeAccount] = useState(true);
     const [data, setData] = useState({});
     const retrieveData = useCallback(async () => {
 
         try {
           const value = await AsyncStorage.getItem('userProfile');
           if (value !== null) {
-            setIsFreeAccount(JSON.parse(value).isLoggedIn);
-           console.log("test", JSON.parse(value).isLoggedIn)
+            setIsFreeAccount(JSON.parse(value).freeAccount);
+            
           }
           else{
             console.log("No ecopy data found");
@@ -19,7 +21,7 @@ export function ECopy({navigation,props}) {
         } catch (error) {
         }
         try{
-            const response = await newGetPostsByCatSlug("ecopy",1,1);
+            const response = await newGetPostsByCatSlug("update-journal",1,1);
             setData(response.posts[0]);
           }catch(error){
               console.log(error)
@@ -37,17 +39,18 @@ export function ECopy({navigation,props}) {
             </View>
             <View style={styles.textContainer}>
                 <Text style={styles.greenText}>ecopy</Text>
-                <Text style={styles.title}>{data.title}</Text>
-                {!isFreeAccount ?
+                <WebView
+                    
+                    source={{ html: '<html><head></head><meta name="viewport" content="width=device-width,initial-scale=1.0"><body class="">'+data.title+'</body></html>' }}
+                    />
                 <Text>You need to be logged in to access this content. Please login or sign up using the links below.</Text>
-                :<View></View>}
             </View>
         </View>
-        {!isFreeAccount ?
+        {isFreeAccount ?
         <TouchableOpacity style={styles.drawerButton} onPress={() => {navigation.navigate("SignInScreen")}}>
               <Text style={styles.text_footer}>Log In</Text>
             </TouchableOpacity> :
-            <TouchableOpacity style={styles.drawerButton} onPress={() => {navigation.navigate("Ecopy-Reader",{content:data})}}>
+            <TouchableOpacity style={styles.drawerButton} onPress={() => {navigation.navigate("UpdateJournalReader",{content:data})}}>
               <Text style={styles.text_footer}>Read</Text>
             </TouchableOpacity>}
         </View>
