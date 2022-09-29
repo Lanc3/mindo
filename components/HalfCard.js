@@ -77,11 +77,10 @@ const styles = StyleSheet.create({
         paddingLeft:0,
     },
     titleStyle:{
-        width:halfWindowWidth-40,
-        margin:2,
+        width:halfWindowWidth-60,
         fontSize:15,
         justifyContent:'flex-start',
-        
+        paddingRight:10
     },
     textStyle:{
     fontSize:15,
@@ -121,8 +120,9 @@ const styles = StyleSheet.create({
         color:'#000'
     },
     image:{
-    width:halfWindowWidth/3,
-    height:100,
+    width:50,
+    height:75,
+    margin:10
     
     },
     greenTitle:{

@@ -140,11 +140,13 @@ const styles = StyleSheet.create({
       width: 0,
       height: 5
     },
+    height:'auto'
   },
   scrollView: {
     display: 'flex',
     flexDirection: 'row',
-    overflow: 'hidden',
+    height:'auto',
+
   },
   bullets: {
     position: 'absolute',

@@ -1,8 +1,8 @@
-import React ,{useState}from "react";
-import { StyleSheet,ActivityIndicator, TextInput, View, TouchableOpacity, Button } from "react-native";
-import { Feather, Entypo } from "@expo/vector-icons";
-import {searchArticles} from '../hooks/useResults'
+import { Entypo, Feather } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
+import React, { useState } from "react";
+import { ActivityIndicator, StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { searchArticles } from '../hooks/useResults';
 const SearchBar = ({navi}) => {
     const [clicked,setClicked] = useState(false);
     const [searchPhrase,setSearchPhrase] = useState("");
@@ -37,7 +37,7 @@ const SearchBar = ({navi}) => {
         <TextInput
           style={styles.input}
           placeholder="Search Mindo"
-          placeholderTextColor="#404040"
+          placeholderTextColor="#6c757d"
           value={searchPhrase}
           onChangeText={setSearchPhrase}
           onSubmitEditing={() =>{callAPI(searchPhrase)}}
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     flexDirection: "row",
     width: "100%",
-    backgroundColor: "#000",
+    backgroundColor: "#181818",
     borderRadius: 15,
     alignItems: "center",
   },

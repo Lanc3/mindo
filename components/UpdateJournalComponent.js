@@ -40,10 +40,11 @@ export default function UpdateJournalComponent({navigation,props}) {
             <View style={styles.textContainer}>
                 <Text style={styles.greenText}>ecopy</Text>
                 <WebView
-                    
                     source={{ html: '<html><head></head><meta name="viewport" content="width=device-width,initial-scale=1.0"><body class="">'+data.title+'</body></html>' }}
                     />
+                 {isFreeAccount ?
                 <Text>You need to be logged in to access this content. Please login or sign up using the links below.</Text>
+                :<View></View>}
             </View>
         </View>
         {isFreeAccount ?

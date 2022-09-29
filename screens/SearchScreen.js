@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useRef, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { AdManager } from "../components/AdManager";
+import Footer from '../components/Footer';
 import LoadingView from "../components/LoadingView";
 import { ShortCard } from "../components/ShortCard";
 

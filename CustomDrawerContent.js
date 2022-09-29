@@ -139,7 +139,7 @@ const goToLogin = () =>{
   props.navigation.navigate('SignInScreen')
 }
 const goToAbout = () =>{
-  props.navigation.navigate('MainDrawer',{screen :'Terms'})
+  props.navigation.navigate('MainDrawer',{screen :'AboutScreen'})
 }
 const openEmail = (address) =>{
   Linking.openURL(`mailto:${address}`)
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     fontSize: 14
   },
   drawerContainer: {
-    backgroundColor: '#000',
+    backgroundColor: '#181818',
     width:'100%',
     height: '100%',
     zIndex: 100,

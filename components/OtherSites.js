@@ -1,7 +1,6 @@
-import React from 'react';
-import { View,StyleSheet,TouchableHighlight,Image ,Dimensions} from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
+import React from 'react';
+import { Dimensions, Image, StyleSheet, TouchableHighlight, View } from 'react-native';
 
 export function OtherSites(props) {
 
@@ -42,7 +41,8 @@ const styles = StyleSheet.create({
         flexDirection:'row',
 
         maxWidth:windowWidth,
-        paddingBottom:20
+        paddingBottom:20,
+        marginHorizontal:10
     },
     spacer:{
         padding:0

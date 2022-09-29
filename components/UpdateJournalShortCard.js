@@ -3,7 +3,7 @@ import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-export function EcopyShortCard({navi,props,title,excerpt,date,mediaID,totalData,authorId,nameSlug}) {
+export default function UpdateJournalShortCard({navi,props,title,excerpt,date,mediaID,totalData,authorId,nameSlug}) {
 
 
   const navigation = useNavigation();

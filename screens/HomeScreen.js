@@ -11,6 +11,7 @@ import { ECopy } from "../components/ECopy";
 import Footer from "../components/Footer";
 import LoadingView from "../components/LoadingView";
 import SingleArticle from "../components/SingleArticle";
+import TextList from '../components/TextList';
 import UpdateJournalComponent from "../components/UpdateJournalComponent";
 import { newGetPostsByCatSlug } from '../hooks/useResults';
 Notifications.setNotificationHandler({
@@ -122,11 +123,8 @@ const getContent = useCallback(async() =>{
         <AdManager selectedAd={"MPU_PRIVATE"} sizeType={"BIG"}/>
         <ArticleList navigation={props.navigation} slugName={"interviews"}  titleName={"Latest News"} showAmount={2} pageRouteName={"LatestNews"}/>
         <ECopy navigation={props.navigation}/>
-        
-        
         <CategorySnap navigation={props.navigation} elements={feature} title={"News Feature"} route={"NewsFeatures"}/>
         <CategorySnap navigation={props.navigation} elements={clinical} title={"Clinical News"} route={"NewsFeatures"}/>
-        
         <View style={styles.divider}/>
         <View style={styles.topSmallNav}>
                   <View style={styles.titleContainer}>
@@ -156,7 +154,7 @@ const getContent = useCallback(async() =>{
         <SingleArticle navigation={props.navigation} slugName={"sport"}  titleName={"Sport"} showAmount={1} pageRouteName={"Sport"}/>
         <View style={styles.divider}/>
         <UpdateJournalComponent navigation={props.navigation}/>
-        <ArticleList navigation={props.navigation} slugName={"subscriber-only"}  titleName={"Subscriber Only Content"} showAmount={3} pageRouteName={"SubscriberOnly"}/>
+        <TextList navigation={props.navigation} slugName={"subscriber-only"}  titleName={"Subscriber Only Content"} showAmount={3} pageRouteName={"SubscriberOnly"}/>
         <Carousel
         style='single'
         items={commercial}

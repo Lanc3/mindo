@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback, View
 } from 'react-native';
 
-const AccordionListItem = ({ title, children }) => {
+const AccordionListItemFooter = ({ title, children }) => {
   const [open, setOpen] = useState(false);
   const animatedController = useRef(new Animated.Value(0)).current;
   const [bodySectionHeight, setBodySectionHeight] = useState(100);
@@ -62,11 +62,11 @@ const AccordionListItem = ({ title, children }) => {
     </>
   );
 };
-export default AccordionListItem;
+export default AccordionListItemFooter;
 
 const styles = StyleSheet.create({
     bodyBackground: {
-        backgroundColor: '#181818',
+        backgroundColor: '#000',
       overflow: 'hidden',
     },
     titleContainer: {

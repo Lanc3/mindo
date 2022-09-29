@@ -2,7 +2,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import React, { useRef, useState } from 'react';
 import { FlatList, Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from "react-native-svg";
-import AccordionListItem from './AccordionListItem';
+import AccordionListItemFooter from './AccordionListItemFooter';
 import { AdManager } from './AdManager';
 import MostReadSection from './MostReadSection';
 import { SocialContent } from './SocialContent';
@@ -109,12 +109,7 @@ export const Footer = ({navi,refS}) => {
     Linking.openURL(url)
   }
   const onPressTouch = () => {
-    if(refContainer.current){
-      refContainer.current?.scrollTo({
-        y: 0,
-        animated: true,
-      });
-  }
+    refS.current.scrollTo(0);
 }
   
   return (
@@ -205,7 +200,7 @@ export const Footer = ({navi,refS}) => {
           <Text style={{color:'#6E822B'}}>www.medicalindependent.ie</Text>
           </TouchableOpacity>
       <SocialContent/>
-      <TouchableOpacity style={styles.backToTop} >
+      <TouchableOpacity style={styles.backToTop}>
       <FontAwesome  name="chevron-up" size={13} color="#6e822b" backgroundColor="#000" >
                 </FontAwesome>
       </TouchableOpacity>
@@ -217,7 +212,7 @@ export const Footer = ({navi,refS}) => {
       keyExtractor={(item, index) => `outer_key${index.toString()}`}
       renderItem={({item,index})=>{
         return(
-          <AccordionListItem title={item.title}>
+          <AccordionListItemFooter title={item.title}>
           <FlatList
           scrollEnabled={false}
           data={item.data}
@@ -233,7 +228,7 @@ export const Footer = ({navi,refS}) => {
             )
       }}
         />
-          </AccordionListItem>
+          </AccordionListItemFooter>
         )
       }}
       />

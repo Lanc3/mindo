@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     slide: {
       flex:1,
       justifyContent:'flex-start',
-      height:280
+      height:'auto'
     },
     slideText: {
       width: '100%',

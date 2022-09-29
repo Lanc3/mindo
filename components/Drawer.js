@@ -108,8 +108,12 @@ export default function Drawer({navi}) {
         </Svg>
         </TouchableOpacity>
         <Modal
+        theme={{
+     colors: {
+       backdrop: '#181818',
+     },
+   }}
         isVisible={toggle}
-        backdropOpacity={1}
         onBackdropPress={onPressOpen} // Android back press
         onSwipeComplete={onPressOpen} // Swipe to discard
         animationIn="slideInRight" // Has others, we want slide in from the left
@@ -130,7 +134,7 @@ const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   sideMenuStyle: {
     margin: 0,
-    top:-100,
+    top:0,
   },
     plus:{
       flex:1,

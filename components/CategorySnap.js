@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AdManager } from "./AdManager";
 import Carousel from "./Carousel";
-import { ShortCard } from "./ShortCard";
+import { TextCard } from "./TextCard";
 const CategorySnap = ({navigation, elements,title,route}) => {
 
 
@@ -11,7 +11,6 @@ const CategorySnap = ({navigation, elements,title,route}) => {
         <View style={{ flex: 1, paddingTop: 5 }}>
         <View style={styles.divider}></View>
                  <View style={styles.topSmallNav}>
-        
         <View style={styles.titleContainer}>
           <Text style={styles.titleStyle}>{title}</Text>
         </View>
@@ -27,7 +26,7 @@ const CategorySnap = ({navigation, elements,title,route}) => {
         navigation={navigation}
         nameSlug={"Comment"}
         />
-              <ShortCard props title={elements[1].title.toString()}
+              <TextCard props title={elements[1].title.toString()}
                 excerpt = {elements[1].excerpt.toString()}
                 date = {elements[1].date.toString()}
                 mediaID = {elements[1].media.toString()}
@@ -36,7 +35,7 @@ const CategorySnap = ({navigation, elements,title,route}) => {
                 navi = {navigation}
                 nameSlug={elements[1].categoryName}
                 />
-                <ShortCard props title={elements[2].title.toString()}
+                <TextCard props title={elements[2].title.toString()}
                 excerpt = {elements[2].excerpt.toString()}
                 date = {elements[2].date.toString()}
                 mediaID = {elements[2].media.toString()}
@@ -45,7 +44,7 @@ const CategorySnap = ({navigation, elements,title,route}) => {
                 navi = {navigation}
                 nameSlug={elements[2].categoryName}
                 />
-                <ShortCard props title={elements[3].title.toString()}
+                <TextCard props title={elements[3].title.toString()}
                 excerpt = {elements[3].excerpt.toString()}
                 date = {elements[3].date.toString()}
                 mediaID = {elements[3].media.toString()}

@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Text ,StyleSheet} from 'react-native'
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { ArticleCard } from './ArticleCard';
 
 export const Slide = (props: any) => {
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
       alignItems: 'flex-start',
       alignContent: 'center',
       justifyContent: 'center',
-      height: 300,
+      height: 'auto',
     },
     slideText: {
       width: '100%',

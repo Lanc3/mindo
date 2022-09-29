@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
 import AccordionListItem from "./AccordionListItem";
+import { SideMenuItem } from './SideMenuItem';
 const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
   const navigation = useNavigation();
   const [token,setToken] = useState({expoPushToken:''});
@@ -134,22 +135,23 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
       ) : (
         <View style={styles.safeAreaView}>
           <View style={styles.header}>
-            <Text style={styles.DrawerTitle}>
-              {isFreeAccount? "Member Log In" : "Premium Account"}
-            </Text>
+
             <TouchableOpacity onPress={() => closeDrawer()}>
             <Text style={styles.link}>X</Text>
           </TouchableOpacity>
           </View>
           <View >
-            <TouchableOpacity style={styles.drawerButton} onPress={() => {closeDrawer();navigation.navigate("UpdateJournal")}}>
-              <Text style={styles.text_footer}>Update Journal</Text>
+            <TouchableOpacity  onPress={() => {closeDrawer();navigation.navigate("SubscriberOnly")}}>
+              <SideMenuItem title={"Subscriber Only Articles"} subTitle={"Access subscriber only content"}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.drawerButton} onPress={() => {closeDrawer();navigation.navigate("ECopy")}}>
-              <Text style={styles.text_footer}>eCopy</Text>
+            <TouchableOpacity  onPress={() => {closeDrawer();navigation.navigate("ECopy")}}>
+            <SideMenuItem title={"eCopy Archive"} subTitle={"See our archive of digital editions of Mindo"}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.drawerButton} onPress={() => {closeDrawer();navigation.navigate("SportsQuiz")}}>
-              <Text style={styles.text_footer}>Sports Quiz</Text>
+            <TouchableOpacity  onPress={() => {closeDrawer();navigation.navigate("UpdateJournal")}}>
+              <SideMenuItem title={"Update Journal"} subTitle={"Clinical journal for healthcare specialists"}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {closeDrawer();navigation.navigate("SportsQuiz")}}>
+            <SideMenuItem title={"Sports Quiz"} subTitle={"Take our latest sports quiz"}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.drawerButton} onPress={() => logOut()}>
               <Text style={styles.text_footer}>Log Out</Text>
@@ -165,8 +167,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
   const styles = StyleSheet.create({
     safeAreaView: {
       flex: 1,
-      backgroundColor: "#000",
-      paddingTop:60
+      backgroundColor: "#181818",
     },
     aboutUsTitle: {
       fontSize: 20,
@@ -212,8 +213,8 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
       color: "#222"
     },
     link: {
-      padding: 5,
-      margin: 5,
+      flex:1,
+      margin:10,
       color:'white',
       fontSize: 17,
       fontWeight: "bold"
@@ -283,7 +284,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
       },
       header: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "flex-end",
     },
     footer: {
         flex: 3,

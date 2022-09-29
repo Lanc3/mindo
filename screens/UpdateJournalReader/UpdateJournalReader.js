@@ -5,6 +5,7 @@ import { AdManager } from '../../components/AdManager';
 import Footer from '../../components/Footer';
 import ISSUURenderer from '../../components/ISSUURenderer';
 import LoadingView from '../../components/LoadingView';
+import UpdateJournalShortCard from '../../components/UpdateJournalShortCard';
 import { newGetPostsByCatSlug } from '../../hooks/useResults';
 
 export default function UpdateJournalReader({navigation,props,route}) {
@@ -135,7 +136,7 @@ const onShare = async () => {
               return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
             }
             return(
-              <EcopyShortCard props title={item.title.toString()}
+              <UpdateJournalShortCard props title={item.title.toString()}
                 excerpt = {item.excerpt.toString()}
                 date = {item.date.toString()}
                 mediaID = {item.media.toString()}
