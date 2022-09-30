@@ -38,7 +38,7 @@ export default function UpdateJournalComponent({navigation,props}) {
             <Image style={styles.image} source={{ uri: ""+data.media }}/>
             </View>
             <View style={styles.textContainer}>
-                <Text style={styles.greenText}>ecopy</Text>
+                <Text style={styles.greenText}>Update Journal</Text>
                 <WebView
                     source={{ html: '<html><head></head><meta name="viewport" content="width=device-width,initial-scale=1.0"><body class="">'+data.title+'</body></html>' }}
                     />

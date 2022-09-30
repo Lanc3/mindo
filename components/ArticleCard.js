@@ -1,13 +1,6 @@
-import React,{useEffect,useState} from "react";
-import { View,StyleSheet,Text,Image,TouchableOpacity,Dimensions} from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import * as Linking from 'expo-linking';
-import { Avatar, Button, Card,Surface ,Title,IconButton, Paragraph,Divider } from 'react-native-paper';
-import useResults from '../hooks/useResults';
-import { WebView } from 'react-native-webview';
-import WebRender from "./WebRender";
 import { useNavigation } from '@react-navigation/native';
-import {getCategoyIdBySlug,getAuthorName,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor} from '../hooks/useResults'
+import React, { useEffect } from "react";
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug,authorId}) {
 
@@ -28,14 +21,14 @@ useEffect(() => {
             <TouchableOpacity
                 onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:authorId,title:title,date:date,imageData:mediaID,htmlData:totalData})}
             >
-                <Image style={styles.image} source={{ uri: ""+mediaID }}/>
+                <Image style={styles.image} source={{ uri:""+mediaID }}/>
                 <Text style={styles.greenTitle}>{nameSlug}</Text>
                 <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
                 <View style={styles.footer}>
                     <Text style={{paddingLeft:10}}>By </Text>
                     <Text style={{fontWeight:'bold', color:'black'}}>{authorId}</Text>
                     <Text> - </Text>
-                    <Text >{convertDateToEnglish(date)}</Text>
+                    <Text >{date}</Text>
                 </View>
             </TouchableOpacity>
         </View>

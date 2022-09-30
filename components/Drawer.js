@@ -119,7 +119,7 @@ export default function Drawer({navi}) {
         animationIn="slideInRight" // Has others, we want slide in from the left
         animationOut="slideOutRight" // When discarding the drawer
         swipeDirection="right" // Discard the drawer with swipe to left
-        useNativeDriver // Faster animation
+        // Faster animation
  // Allows swipe events to propagate to children components (eg a ScrollView inside a modal)
         style={styles.sideMenuStyle} // Needs to contain the width, 75% of screen width in our case
       >

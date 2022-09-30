@@ -26,14 +26,14 @@ const AccordionListItemFooter = ({ title, children }) => {
       Animated.timing(animatedController, {
         duration: 300,
         toValue: 0,
-        useNativeDriver:false,
+        useNativeDriver:true,
         easing: Easing.bezier(0.4, 0.0, 0.2, 1),
       }).start();
     } else {
       Animated.timing(animatedController, {
         duration: 300,
         toValue: 1,
-        useNativeDriver:false,
+        useNativeDriver:true,
         easing: Easing.bezier(0.4, 0.0, 0.2, 1),
       }).start();
     }

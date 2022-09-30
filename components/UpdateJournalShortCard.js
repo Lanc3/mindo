@@ -14,7 +14,7 @@ export default function UpdateJournalShortCard({navi,props,title,excerpt,date,me
             >
                 <View style={styles.shortContainer}>
                     <View style={styles.imageContainer}>
-                    <Image style={styles.image} source={{ uri: ""+mediaID }}/>
+                    <Image style={styles.image} source={{ uri:mediaID }}/>
                     </View>
                     <View style={styles.contentContainer}>
                     <Text style={styles.greenTitle}>{nameSlug}</Text>

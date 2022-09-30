@@ -35,7 +35,7 @@ const HomeScreen = (props) => {
     const [clinical, setClinical] = useState([]);
     const [isLoaded, setIsLoading] = useState(false);
     const scrollRef = useRef();
-    const homeItems=[];
+    const [homeItems, setHomeItems] = useState([]);
     const [notification, setNotification] = useState(false);
     const notificationListener = useRef();
     const responseListener = useRef();
@@ -54,6 +54,8 @@ const HomeScreen = (props) => {
         Notifications.removeNotificationSubscription(responseListener.current);
       };
     }, []);
+
+    
 const getContent = useCallback(async() =>{
 
       try{
@@ -76,10 +78,51 @@ const getContent = useCallback(async() =>{
         setFeature(finalData[5]);
         setCommercial(finalData[6]);
         setSubscriberOnly(finalData[7]);
-        setIsLoading(true)
+        
+        
       }catch(error){
         console.log(error);
       }
+      setHomeItems([{component:<AdManager selectedAd={"LDB_MOBILE_PRIVATE"} sizeType={"SMALL"}/>},
+                      {component:<View></View>},
+                      {component:<ArticleList navigation={props.navigation} slugName={"latest-news"}  titleName={"Latest News"} showAmount={5} pageRouteName={"LatestNews"}/>},
+                      {component:<View style={styles.divider}/>},
+                      {component:<ArticleList navigation={props.navigation} slugName={"breaking-news"}  titleName={"Breaking News"} showAmount={3} pageRouteName={"BreakingNews"}/>},
+                      {component:<View style={styles.divider}/>},
+                      {component:<View style={styles.topSmallNav}><View style={styles.titleContainer}><Text style={styles.titleStyle}>Comments</Text></View><TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :"Editorial"});}}><View style={styles.veiwContainer}><Text style={styles.viewAll}>View All</Text></View></TouchableOpacity></View>},
+                      {component:<Carousel style='stat' items={comments} navigation={props.navigation} nameSlug={"Clinical News"} />},
+                      {component:<AdManager selectedAd={"MPU_PRIVATE"} sizeType={"BIG"}/>},
+                      {component:<ArticleList navigation={props.navigation} slugName={"interviews"}  titleName={"Latest News"} showAmount={2} pageRouteName={"LatestNews"}/>},
+                      {component:<ECopy navigation={props.navigation}/>},
+                      {component:<View></View>},
+                      {component:<View></View>},
+                      {component:<View style={styles.topSmallNav}>
+                      <View style={styles.titleContainer}>
+                        <Text style={styles.titleStyle}>Life</Text>
+                      </View>
+                      <TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :"Life"});}}>
+                          <View style={styles.veiwContainer}>
+                            <Text style={styles.viewAll}>View All</Text>
+                          </View>
+                      </TouchableOpacity>
+            </View>},
+                      {component:<View></View>},
+                      {component:<View></View>},
+                      {component:<SingleArticle navigation={props.navigation} slugName={"book-review"}  titleName={"Book Review"} showAmount={1} pageRouteName={"BookReview"}/>},
+                      {component:<SingleArticle navigation={props.navigation} slugName={"the-dorsal-view"}  titleName={"The Dorsal View "} showAmount={1} pageRouteName={"TheDorsalView"}/>},
+                      {component:<SingleArticle navigation={props.navigation} slugName={"food-and-drink"}  titleName={"Food and Drink"} showAmount={1} pageRouteName={"FoodAndDrink"}/>},
+                      {component:<SingleArticle navigation={props.navigation} slugName={"sport"}  titleName={"Sport"} showAmount={1} pageRouteName={"Sport"}/>},
+                      {component:<View style={styles.divider}/>},
+                      {component:<UpdateJournalComponent navigation={props.navigation}/>},
+                      {component:<TextList navigation={props.navigation} slugName={"subscriber-only"}  titleName={"Subscriber Only Content"} showAmount={3} pageRouteName={"SubscriberOnly"}/>},
+                      {component:<Carousel
+                        style='single'
+                        items={commercial}
+                        navigation={props.navigation}
+                        nameSlug={"Commercial Feature"}
+                        />},
+      ])
+      setIsLoading(true)
   },[]);
 
     useEffect(() => {
@@ -93,74 +136,14 @@ const getContent = useCallback(async() =>{
         <FlatList
         ListHeaderComponent={
           <View>
-            <AdManager selectedAd={"LDB_MOBILE_PRIVATE"} sizeType={"SMALL"}/>
-        <Carousel
-        style='slide'
-        items={sliderData}
-        navigation={props.navigation}
-        nameSlug={"Latest News"}
-        />
-        <ArticleList navigation={props.navigation} slugName={"latest-news"}  titleName={"Latest News"} showAmount={5} pageRouteName={"LatestNews"}/>
-        <View style={styles.divider}/>
-        <ArticleList navigation={props.navigation} slugName={"breaking-news"}  titleName={"Breaking News"} showAmount={3} pageRouteName={"BreakingNews"}/>
-        <View style={styles.divider}/>
-        <View style={styles.topSmallNav}>
-                  <View style={styles.titleContainer}>
-                    <Text style={styles.titleStyle}>Comments</Text>
-                  </View>
-                  <TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :"Editorial"});}}>
-                      <View style={styles.veiwContainer}>
-                        <Text style={styles.viewAll}>View All</Text>
-                      </View>
-                  </TouchableOpacity>
-        </View>
-        <Carousel
-        style='stat'
-        items={comments}
-        navigation={props.navigation}
-        nameSlug={"Clinical News"}
-        />
-        <AdManager selectedAd={"MPU_PRIVATE"} sizeType={"BIG"}/>
-        <ArticleList navigation={props.navigation} slugName={"interviews"}  titleName={"Latest News"} showAmount={2} pageRouteName={"LatestNews"}/>
-        <ECopy navigation={props.navigation}/>
-        <CategorySnap navigation={props.navigation} elements={feature} title={"News Feature"} route={"NewsFeatures"}/>
-        <CategorySnap navigation={props.navigation} elements={clinical} title={"Clinical News"} route={"NewsFeatures"}/>
-        <View style={styles.divider}/>
-        <View style={styles.topSmallNav}>
-                  <View style={styles.titleContainer}>
-                    <Text style={styles.titleStyle}>Life</Text>
-                  </View>
-                  <TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :"Life"});}}>
-                      <View style={styles.veiwContainer}>
-                        <Text style={styles.viewAll}>View All</Text>
-                      </View>
-                  </TouchableOpacity>
-        </View>
-        <Carousel
-        style='single'
-        items={motoring}
-        navigation={props.navigation}
-        nameSlug={"Motoring"}
-        />
-        <Carousel
-        style='single'
-        items={cartoon}
-        navigation={props.navigation}
-        nameSlug={"Cartoon"}
-        />
-        <SingleArticle navigation={props.navigation} slugName={"book-review"}  titleName={"Book Review"} showAmount={1} pageRouteName={"BookReview"}/>
-        <SingleArticle navigation={props.navigation} slugName={"the-dorsal-view"}  titleName={"The Dorsal View "} showAmount={1} pageRouteName={"TheDorsalView"}/>
-        <SingleArticle navigation={props.navigation} slugName={"food-and-drink"}  titleName={"Food and Drink"} showAmount={1} pageRouteName={"FoodAndDrink"}/>
-        <SingleArticle navigation={props.navigation} slugName={"sport"}  titleName={"Sport"} showAmount={1} pageRouteName={"Sport"}/>
-        <View style={styles.divider}/>
-        <UpdateJournalComponent navigation={props.navigation}/>
-        <TextList navigation={props.navigation} slugName={"subscriber-only"}  titleName={"Subscriber Only Content"} showAmount={3} pageRouteName={"SubscriberOnly"}/>
-        <Carousel
-        style='single'
-        items={commercial}
-        navigation={props.navigation}
-        nameSlug={"Commercial Feature"}
-        />
+       {/* <CategorySnap navigation={props.navigation} elements={clinical} title={"Clinical News"} route={"NewsFeatures"}/>
+       <CategorySnap navigation={props.navigation} elements={feature} title={"News Feature"} route={"NewsFeatures"}/>
+         */}
+        
+        
+        
+        
+        
         {/* <ArticleList navigation={props.navigation} slugName={"clinical-news"}  titleName={"Clinical News"} showAmount={3} pageRouteName={"ClinicalNews"}/> */}
           </View>
         }
@@ -175,7 +158,26 @@ const getContent = useCallback(async() =>{
         listKey={(item, index) => `outer_key${index.toString()}`}
         keyExtractor={(item, index) => `outer_key${index.toString()}`}
         renderItem={({item,index})=>{
-          return(<View></View>)
+          if(index === 1){
+                 return(<Carousel style='slide' items={sliderData} navigation={props.navigation} nameSlug={"Latest News"}/>)
+             }
+             if(index === 11)
+             {
+              return (<CategorySnap navigation={props.navigation} elements={feature} title={"News Feature"} route={"NewsFeatures"}/>)
+             }
+             if(index === 12)
+             {
+              return (<CategorySnap navigation={props.navigation} elements={clinical} title={"Clinical News"} route={"NewsFeatures"}/>)
+             }
+             if(index === 14)
+             {
+              return (<Carousel style='single' items={motoring} navigation={props.navigation} nameSlug={"Motoring"} />)
+             }
+             if(index === 15)
+             {
+              return (<Carousel style='single' items={cartoon} navigation={props.navigation} nameSlug={"Cartoon"} />)
+             }
+          return(item.component)
 
         }}/>
         </SafeAreaView>

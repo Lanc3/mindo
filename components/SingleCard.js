@@ -24,7 +24,7 @@ document.body.appendChild(span);
             <TouchableOpacity
                 onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:authorId,title:title,date:date,imageData:mediaID,htmlData:totalData})}
             >
-                <Image style={styles.image} source={{ uri: ""+mediaID }}/>
+                <Image style={styles.image} source={{ uri:mediaID }}/>
                 <Text style={styles.greenTitle}>{nameSlug}</Text>
                 <WebView
                     style={styles.titleStyle}
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         fontSize:17,
         fontWeight:'bold',
         justifyContent:'flex-start',
-        height:50,
+        height:60,
         marginBottom:10
     },
     textStyle:{

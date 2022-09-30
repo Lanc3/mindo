@@ -78,7 +78,7 @@ export const Carousel = (props: any) => {
         }}
         scrollEventThrottle={200}
         pagingEnabled
-        decelerationRate="fast"
+        decelerationRate="normal"
       >
         {items.map((item: any, index: number,elements:Array<any>) => {
           switch (style) {

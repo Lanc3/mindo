@@ -22,7 +22,7 @@ useEffect(() => {
                 onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:authorId,title:title,date:date,imageData:mediaID,htmlData:totalData})}
             >
             <View style={styles.halfText}>
-            <Image style={styles.image} source={{ uri: ""+mediaID }}/>
+            <Image style={styles.image} source={{ uri:mediaID }}/>
             <View style={styles.textContainer}>
             <Text style={styles.greenTitle}>{nameSlug}</Text>
             <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
