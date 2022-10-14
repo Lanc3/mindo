@@ -4,7 +4,6 @@ import {
   FlatList, Linking, SafeAreaView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View
 } from 'react-native';
 import AccordionListItem from './components/AccordionListItem';
-import { OtherSites } from './components/OtherSites';
 import SearchBar from './components/SearchBar';
 import { SocialContent } from './components/SocialContent';
 
@@ -192,10 +191,7 @@ const openEmail = (address) =>{
               </TouchableHighlight>
             </View>
           </View>
-          <View style={styles.divider}>
-          <Text style={styles.titleLeft}>Related Sites</Text>
-          <OtherSites></OtherSites>
-          </View>
+          
           <View style={styles.padding}>
           <SocialContent></SocialContent>
           </View>
@@ -292,15 +288,15 @@ const styles = StyleSheet.create({
     color: '#F0F0F0',
     textAlign: 'left',
     fontSize:26,
-    
-    fontWeight:"400",
+    fontFamily: 'Merriweather_300Light',
+
     paddingTop:50,
   },
   titleSmall: {
     color: '#F0F0F0',
     fontSize:16,
-    
-    fontWeight:"400",
+    fontFamily: 'Lato_400Regular',
+
     paddingTop:10,
     paddingLeft:10,
   },

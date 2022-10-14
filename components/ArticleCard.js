@@ -4,15 +4,11 @@ import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'rea
 
 export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug,authorId}) {
 
-function convertDateToEnglish(date){
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var date = new Date(date);
-    var month = months[date.getMonth()];
-    var day = date.getDate();
-    var year = date.getFullYear();
-    return day + " " + month + ", " + year;
-}
 
+    const decodeString = (str) => {
+        return str.replace(/([,"'0-9\-.~!@#$%^&*()_+=–’`{}\[\]\|\\:;"<>\/?])+/g, '').replace(/^(-)+|(-)+$/g,'');
+    }
+    
 useEffect(() => {
   }, []);
   const navigation = useNavigation();
@@ -25,10 +21,13 @@ useEffect(() => {
                 <Text style={styles.greenTitle}>{nameSlug}</Text>
                 <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
                 <View style={styles.footer}>
-                    <Text style={{paddingLeft:10}}>By </Text>
-                    <Text style={{fontWeight:'bold', color:'black'}}>{authorId}</Text>
+                    <Text style={{paddingLeft:10,fontFamily: 'Lato_400Regular',
+        fontSize:13,}}>By </Text>
+                    <Text style={{fontFamily: 'Lato_400Regular',
+        fontSize:13, color:'black'}}>{authorId}</Text>
                     <Text> - </Text>
-                    <Text >{date}</Text>
+                    <Text style={{fontFamily: 'Lato_400Regular',
+        fontSize:13, color:'black'}} >{date}</Text>
                 </View>
             </TouchableOpacity>
         </View>
@@ -63,7 +62,7 @@ const styles = StyleSheet.create({
     titleStyle:{
         paddingLeft:10,
         fontSize:17,
-        fontWeight:'bold',
+        fontFamily: 'Merriweather_400Regular',
         justifyContent:'flex-start',
         height:50
     },
@@ -109,6 +108,8 @@ const styles = StyleSheet.create({
         color:'#6e822b',
         paddingTop:10,
         paddingLeft:10,
+        fontFamily: 'Lato_400Regular',
+        fontSize:13,
     },
     footer:{
         flex:1,

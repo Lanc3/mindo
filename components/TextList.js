@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import LoadingView from '../components/LoadingView';
 import { newGetPostsByCatSlug } from '../hooks/useResults';
 import { TextCard } from "./TextCard";
 
@@ -23,7 +22,7 @@ const TextList = ({navigation, slugName,list,titleName,showAmount,pageRouteName}
           setData(response.posts);
           setLoading(1);
         }catch(error){
-            console.log(error)
+            
         }finally{
             setLoading(1);
         };
@@ -77,7 +76,7 @@ const TextList = ({navigation, slugName,list,titleName,showAmount,pageRouteName}
           />
           ) : (
           <View>
-            <LoadingView loadingProgress={loading}/>
+            
           </View>
           )}
         </View>

@@ -1,22 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React from "react";
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { WebView } from 'react-native-webview';
-export function SingleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug,authorId}) {
+export function SingleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug,authorId,padding}) {
 
 
-const INJECTED_JAVASCRIPT = `(function() {
-    var span = document.createElement('p');
-
-// Set DOM property
-span.style.fontSize = '300%';
-span.style.fontWeight = 'bold';
-span.style.fontFamily = 'Merriweather';
-span.innerHTML ='${title}';
-
-// Add to document
-document.body.appendChild(span);
-})();`;
+    const decodeString = (str) => {
+        return str.replace(/([,"'0-9\-.~!@#$%^&*()_+=–’`{}\[\]\|\\:;"<>\/?])+/g, '').replace(/^(-)+|(-)+$/g,'');
+    }
 
   const navigation = useNavigation();
     return (
@@ -24,21 +14,19 @@ document.body.appendChild(span);
             <TouchableOpacity
                 onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:authorId,title:title,date:date,imageData:mediaID,htmlData:totalData})}
             >
-                <Image style={styles.image} source={{ uri:mediaID }}/>
+            <View style={{marginHorizontal:padding}}>
+            <Image style={{minWidth:'100%',height:200,resizeMode:'cover',}} source={{ uri:mediaID }}/>
+            </View>
+                
                 <Text style={styles.greenTitle}>{nameSlug}</Text>
-                <WebView
-                    style={styles.titleStyle}
-                    injectedJavaScript={INJECTED_JAVASCRIPT}
-                    />
+                <Text style={styles.titleStyle}>{decodeString(title)}</Text>
                 <View style={styles.footer}>
-                    <Text style={{paddingLeft:10}}>By </Text>
+                    <Text style={{paddingHorizontal:20}}>By </Text>
                     <Text style={{fontWeight:'bold', color:'black'}}>{authorId}</Text>
                     <Text> - </Text>
                     <Text >{date}</Text>
                 </View>
-                <View style={{margin:0}}>
-                <Text style={styles.textStyle} numberOfLines={3}>{excerpt}</Text>
-                </View>
+ 
 
             </TouchableOpacity>
         </View>
@@ -52,6 +40,8 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         flex:1,
+    },
+    imageContainer:{
     },
     spacer:{
         padding:10
@@ -70,12 +60,18 @@ const styles = StyleSheet.create({
         paddingLeft:0,
     },
     titleStyle:{
-        marginLeft:5,
-        fontSize:17,
-        fontWeight:'bold',
-        justifyContent:'flex-start',
-        height:60,
-        marginBottom:10
+
+        fontFamily: 'Merriweather_400Regular',
+        paddingHorizontal:20,
+        paddingBottom:10,
+        fontSize:24
+    },
+    greenTitle:{
+        color:'#6e822b',
+        paddingTop:10,
+        paddingHorizontal:20,
+        fontFamily: 'Lato_400Regular',
+        fontSize:13,
     },
     textStyle:{
     fontSize:15,
@@ -115,15 +111,11 @@ const styles = StyleSheet.create({
         color:'#000'
     },
     image:{
-    width:windowWidth,
-    height:190,
-    resizeMode:'stretch'
+    minWidth:'100%',
+    height:200,
+    resizeMode:'cover',
     },
-    greenTitle:{
-        color:'#6e822b',
-        paddingTop:10,
-        paddingLeft:10,
-    },
+    
     footer:{
         flex:1,
         flexDirection:'row',

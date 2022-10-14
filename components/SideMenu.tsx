@@ -16,7 +16,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
         setArticlesLeft(JSON.parse(value).freeArticle);
       }
       else{
-        console.log("No Account data found");
+       
       }
     } catch (error) {
       // Error retrieving data
@@ -150,9 +150,7 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
             <TouchableOpacity  onPress={() => {closeDrawer();navigation.navigate("UpdateJournal")}}>
               <SideMenuItem title={"Update Journal"} subTitle={"Clinical journal for healthcare specialists"}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {closeDrawer();navigation.navigate("SportsQuiz")}}>
-            <SideMenuItem title={"Sports Quiz"} subTitle={"Take our latest sports quiz"}/>
-            </TouchableOpacity>
+
             <TouchableOpacity style={styles.drawerButton} onPress={() => logOut()}>
               <Text style={styles.text_footer}>Log Out</Text>
             </TouchableOpacity>
@@ -216,13 +214,14 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
       flex:1,
       margin:10,
       color:'white',
-      fontSize: 17,
-      fontWeight: "bold"
+      fontSize: 20,
+      fontWeight: "bold",
+      paddingRight:12,
     },
     description: {
       fontSize: 13,
       color: "#555",
-      marginTop: 12,
+      marginTop: 15,
       marginBottom: 6
     },
     sideMenuStyle: {

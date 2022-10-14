@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ShortCard } from './ShortCard';
 import Single from './Single';
 import Slide from './Slide';
 import Stat from './Stat';
@@ -62,6 +63,10 @@ export const Carousel = (props: any) => {
     {
       return (<View style={styles.statBullets}>{bullets}</View>)
     }
+    if(style === 'short')
+    {
+      return (<View style={styles.statBullets}>{bullets}</View>)
+    }
   }
   const slideBulets = <View style={styles.bullets}>{bullets}</View>;
   const statBullets = <View style={styles.statBullets}>{bullets}</View>;
@@ -86,8 +91,8 @@ export const Carousel = (props: any) => {
               return (
                 <Stat
                 key={index}
-                item={items[index ]}
-                nextItem={items[index+1]}
+                item={item}
+            
                 navigation={navigation}
                 nameSlug = {nameSlug}
                 articleTitle = {nameSlug}
@@ -100,9 +105,18 @@ export const Carousel = (props: any) => {
                 key={index}
                 item={item}
                 navigation={navigation}
-                nameSlug = {nameSlug}
-                articleTitle = {nameSlug}
-                pageRouteName = {pageRouteName}
+                />
+              );
+              case 'short':
+              return (
+                <ShortCard props title={item.title.toString()}
+                excerpt = {item.excerpt.toString()}
+                date = {item.date.toString()}
+                mediaID = {item.media.toString()}
+                totalData = {item.content}
+                authorId = {item.author}
+                navi = {navigation}
+                nameSlug={item.categoryName}
                 />
               );
             default:
@@ -135,7 +149,8 @@ const styles = StyleSheet.create({
     shadowColor: '#fcfcfc',
     shadowOpacity: 1,
     marginTop: 0,
-    marginBottom:0,
+    marginBottom:10,
+    paddingBottom:10,
     shadowOffset: {
       width: 0,
       height: 5
@@ -165,7 +180,7 @@ const styles = StyleSheet.create({
   },
   statBullets: {
     position: 'absolute',
-    bottom: -25,
+    bottom: -15,
     left: 0,
     display: 'flex',
     justifyContent: 'flex-start',

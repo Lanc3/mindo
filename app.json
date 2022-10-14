@@ -1,8 +1,9 @@
 {
   "expo": {
+    "jsEngine": "hermes",
     "name": "mindo",
     "slug": "mindo",
-    "version": "1.0.31",
+    "version": "1.0.36",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "notification": {
@@ -34,7 +35,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.sirlanc3.mindo",
-      "versionCode": 31
+      "versionCode": 36
     },
     "web": {
       "favicon": "./assets/favicon.png"

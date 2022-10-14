@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { WebView } from 'react-native-webview';
-import { StyleSheet ,View,Dimensions} from 'react-native';
-import Constants from 'expo-constants';
-import rnTextSize, { TSFontSpecs } from 'react-native-text-size'
-import AutoHeightWebView from 'react-native-autoheight-webview'
-import HTMLView from 'react-native-htmlview'
+import React from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import HTMLView from 'react-native-htmlview';
 
 export default function ContentRender({htmlData,newHeight}) {
-
 
   return (
     <View style={{paddingTop:80,padding:10}}>
@@ -26,15 +21,27 @@ const styles = StyleSheet.create({
       width:windowWidth-40,
       color:'#000',
       marginBottom:10,
-      flexGrow:1
+      flexGrow:1,
+      fontFamily: 'Merriweather_400Regular',
     },
     a: {
  
       color: '#6e822b', // make links coloured pink
     },
+    figure:{
+      marginTop:-200,
+      flex:1,
+      justifyContent:'center',
+      width:windowWidth,
+      height:400,
+    },
     p:{
-      marginTop:-80,
+      marginTop:-120,
+      paddingTop:0,
       fontSize:18,
       color: '#000', // make links coloured pink
+      fontFamily: 'Lato_400Regular',
+      lineHeight:32,
+      letterSpacing:0.1
     }
   });

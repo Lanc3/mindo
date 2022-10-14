@@ -22,8 +22,7 @@ export const Header = ({title,navigation,data}) => {
  const styles = StyleSheet.create({
     pageTitle:{
         fontSize:26,
-        
-        fontWeight:"bold",
+        fontFamily:'Merriweather_700Bold',
         margin:5,
         alignSelf:'center'
     }

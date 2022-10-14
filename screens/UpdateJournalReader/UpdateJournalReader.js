@@ -35,7 +35,7 @@ export default function UpdateJournalReader({navigation,props,route}) {
         setData(response.posts);
         setLoading(1);
       }catch(error){
-          console.log(error)
+          
       }finally{
           setLoading(1);
       };

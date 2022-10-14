@@ -1,22 +1,25 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { newGetMostReadPosts } from '../hooks/useResults';
-import { AdManager } from "./AdManager";
+import { newGetPostsByCatSlug } from '../hooks/useResults';
 import { ShortCard } from "./ShortCard";
-
-const MostReadSection = ({navigation,showAmount,pageRouteName}) => {
+const SponsoredArticleList = ({navigation, slugName,list,titleName,showAmount,pageRouteName}) => {
     //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    const [title,setTitle] = useState('Most Read');
-
+    const [title,setTitle] = useState(titleName);
+    const [isLoggedIn,setIsLoggedIn] = useState(false);
+    const [slug,setSlug] = useState(slugName);
+    const [isdata,setisdata] = useState(false);
+    const isFocused = useIsFocused()
  const getContent = useCallback(async() =>{
       setLoading(0.25);
         try{
           setLoading(0.5);
-          const response = await newGetMostReadPosts(showAmount,page);
+          const response = await newGetPostsByCatSlug(slug,showAmount,page);
           setTotalPages(Math.ceil(response.totalPosts/10));
           setData(response.posts);
           setLoading(1);
@@ -31,17 +34,25 @@ const MostReadSection = ({navigation,showAmount,pageRouteName}) => {
      useEffect(() => {
       getContent();
       }, [getContent]);
-
-    return(
+      useEffect(() => {
+        (async () => {
+            const data = await AsyncStorage.getItem('userProfile');
+            if(data !== null)
+            setIsLoggedIn(JSON.parse(data).isLoggedIn);
+        })()
+    }, [isFocused]);
+    return(<View>
+      {isLoggedIn ?
         <View style={{ flex: 1, paddingTop: 5 }}>
       {data.length > 0 ? (
-        <View>
         <FlatList
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         scrollEnabled={false}
-        ListHeaderComponent={
+          ListHeaderComponent={
               <View style={styles.topSmallNav}>
                   <View style={styles.titleContainer}>
-                    <Text style={styles.titleStyle}>Most Read</Text>
+                    <Text style={styles.titleStyle}>{titleName}</Text>
                   </View>
                   <TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :pageRouteName});}}>
                       <View style={styles.veiwContainer}>
@@ -50,14 +61,17 @@ const MostReadSection = ({navigation,showAmount,pageRouteName}) => {
                   </TouchableOpacity>
               </View>
           }
-          ListFooterComponent={
-            <AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>
-          }
           data={data}
+          removeClippedSubviews={true}
           listKey={(item, index) => `D_key${index.toString()}`}
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
-
+            // if(index === 3){
+            //     return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+            // }
+            // else if(index === 7){
+            //   return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+            // }
             return(
               <ShortCard props title={item.title.toString()}
                 excerpt = {item.excerpt.toString()}
@@ -71,24 +85,23 @@ const MostReadSection = ({navigation,showAmount,pageRouteName}) => {
             )
         }}
           />
-          </View>
           ) : (
           <View>
             
           </View>
           )}
-        </View>
-      );
+        </View> : <View></View>}
+      </View>);
     };
 
-export default MostReadSection;
+export default SponsoredArticleList;
 
 const styles = StyleSheet.create({
     container:{
         flex: 1,
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'#FFFFFF'
+        backgroundColor:'#fff'
     },
     pageTitle:{
         fontSize:26,
@@ -109,18 +122,18 @@ const styles = StyleSheet.create({
       fontSize:16
     },
     nextGreen:{
+      fontSize:16,
       color:'#6e822b',
-        fontFamily: 'Lato_400Regular',
-        fontSize:13,
     },
     topSmallNav:{
         flex:1,
         flexDirection:'row',
+        paddingHorizontal:10
     },
     viewAll:{
-      color:'#6e822b',
-      fontFamily: 'Lato_400Regular',
-      fontSize:13,
+        color:'#6e822b',
+        fontFamily: 'Lato_400Regular',
+        fontSize:13,
     },
     veiwContainer:{
         flex:1,

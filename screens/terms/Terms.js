@@ -30,7 +30,7 @@ const Terms = ({navigation}) => {
 
 
     return(
-      <View style={{ flex: 1 }} ref={scrollRef}>
+      <View style={{ flex: 1 ,backgroundColor:"#fff"}} ref={scrollRef}>
       <FlatList
         ListHeaderComponent={<ContentRender htmlData={htmlData} newHeight={1800}/>}
         ListFooterComponent={<Footer navi={navigation} refS={scrollRef}/>}

@@ -1,11 +1,9 @@
-import { FontAwesome } from '@expo/vector-icons';
 import React, { useRef, useState } from 'react';
 import { FlatList, Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from "react-native-svg";
 import AccordionListItemFooter from './AccordionListItemFooter';
 import { AdManager } from './AdManager';
 import MostReadSection from './MostReadSection';
-import { SocialContent } from './SocialContent';
 export const Footer = ({navi,refS}) => {
 
   const [value, setValue] = useState(null);
@@ -196,14 +194,8 @@ export const Footer = ({navi,refS}) => {
         <Text style={styles.footerText}>© The Medical Independent 2022. All rights reserved.
         </Text>
         <Text style={styles.footerText}>Built by Aaron Keating</Text>
-        <TouchableOpacity onPress={() => openURL("https://www.medicalindependent.ie/about-us/")}>
-          <Text style={{color:'#6E822B'}}>www.medicalindependent.ie</Text>
-          </TouchableOpacity>
-      <SocialContent/>
-      <TouchableOpacity style={styles.backToTop}>
-      <FontAwesome  name="chevron-up" size={13} color="#6e822b" backgroundColor="#000" >
-                </FontAwesome>
-      </TouchableOpacity>
+        
+      
       </View>
       }
       scrollEnabled={true}
@@ -278,7 +270,7 @@ title: {
   color: '#F0F0F0',
   textAlign: 'center',
   fontSize:26,
-  
+  fontFamily: 'Merriweather_400Regular',
   fontWeight:"400",
 },
 titleLeft: {
@@ -286,7 +278,7 @@ titleLeft: {
   color: '#F0F0F0',
   textAlign: 'left',
   fontSize:26,
-  
+  fontFamily: 'Merriweather_300Light',
   fontWeight:"400",
   paddingTop:50,
 },
@@ -295,7 +287,7 @@ titleSmall: {
   color: '#F0F0F0',
   textAlign: 'left',
   fontSize:16,
-  
+  fontFamily: 'Lato_400Regular',
   fontWeight:"400",
   paddingTop:10,
 },

@@ -4,15 +4,15 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Dimensions, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { AdManager } from "../components/AdManager";
-import ArticleList from "../components/ArticleList";
+import ArticleListPreload from "../components/ArticleListPreload";
 import Carousel from "../components/Carousel";
 import CategorySnap from '../components/CategorySnap';
 import { ECopy } from "../components/ECopy";
 import Footer from "../components/Footer";
 import LoadingView from "../components/LoadingView";
+import Single from '../components/Single';
 import SingleArticle from "../components/SingleArticle";
-import TextList from '../components/TextList';
-import UpdateJournalComponent from "../components/UpdateJournalComponent";
+import SponsoredArticleList from '../components/SponsoredArticleList';
 import { newGetPostsByCatSlug } from '../hooks/useResults';
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -33,8 +33,12 @@ const HomeScreen = (props) => {
     const [sliderData, setSliderData] = useState([]);
     const [motoring, setMotoring] = useState([]);
     const [clinical, setClinical] = useState([]);
+    const [breakingNews, setBreakingNews] = useState([]);
+    const [interviews, setInterviews] = useState([]);
+    const [sponsoredContent, setSponsoredContent] = useState([]);
     const [isLoaded, setIsLoading] = useState(false);
     const scrollRef = useRef();
+    const [bgcolor,setBGColor] = useState("#fff")
     const [homeItems, setHomeItems] = useState([]);
     const [notification, setNotification] = useState(false);
     const notificationListener = useRef();
@@ -55,12 +59,11 @@ const HomeScreen = (props) => {
       };
     }, []);
 
-    
 const getContent = useCallback(async() =>{
 
       try{
         const results = await Promise.all([
-          newGetPostsByCatSlug("latest-news",2,1),
+          newGetPostsByCatSlug("latest-news",5,1),
           newGetPostsByCatSlug("clinical-news",4,1),
           newGetPostsByCatSlug("motoring",1,1),
           newGetPostsByCatSlug("cartoon",1,1),
@@ -68,6 +71,9 @@ const getContent = useCallback(async() =>{
           newGetPostsByCatSlug("news-features",5,1),
           newGetPostsByCatSlug("commercial-feature",1,1),
           newGetPostsByCatSlug("subscriber-only",3,1),
+          newGetPostsByCatSlug("sponsored-content",3,1),
+          newGetPostsByCatSlug("breaking-news",5,1),
+          newGetPostsByCatSlug("interviews",5,1),
         ])
         const finalData = await Promise.all(results.map(result => result.posts));
         setSliderData(finalData[0]);
@@ -78,25 +84,30 @@ const getContent = useCallback(async() =>{
         setFeature(finalData[5]);
         setCommercial(finalData[6]);
         setSubscriberOnly(finalData[7]);
-        
-        
+        setSponsoredContent(finalData[8]);
+        setBreakingNews(finalData[9]);
+        setInterviews(finalData[10]);
       }catch(error){
-        console.log(error);
+        ;
       }
       setHomeItems([{component:<AdManager selectedAd={"LDB_MOBILE_PRIVATE"} sizeType={"SMALL"}/>},
                       {component:<View></View>},
-                      {component:<ArticleList navigation={props.navigation} slugName={"latest-news"}  titleName={"Latest News"} showAmount={5} pageRouteName={"LatestNews"}/>},
+                      {component:<View></View>},
                       {component:<View style={styles.divider}/>},
-                      {component:<ArticleList navigation={props.navigation} slugName={"breaking-news"}  titleName={"Breaking News"} showAmount={3} pageRouteName={"BreakingNews"}/>},
+                      {component:<View></View>},
                       {component:<View style={styles.divider}/>},
                       {component:<View style={styles.topSmallNav}><View style={styles.titleContainer}><Text style={styles.titleStyle}>Comments</Text></View><TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :"Editorial"});}}><View style={styles.veiwContainer}><Text style={styles.viewAll}>View All</Text></View></TouchableOpacity></View>},
-                      {component:<Carousel style='stat' items={comments} navigation={props.navigation} nameSlug={"Clinical News"} />},
+                      {component:<View></View>},
                       {component:<AdManager selectedAd={"MPU_PRIVATE"} sizeType={"BIG"}/>},
-                      {component:<ArticleList navigation={props.navigation} slugName={"interviews"}  titleName={"Latest News"} showAmount={2} pageRouteName={"LatestNews"}/>},
+                      {component:<View></View>},
                       {component:<ECopy navigation={props.navigation}/>},
                       {component:<View></View>},
                       {component:<View></View>},
-                      {component:<View style={styles.topSmallNav}>
+                      {component:<Single item={sponsoredContent[0]} navigation={props.navigation} padding={20}/>},
+                      {component:<View>
+                        <View style={styles.divider}></View>
+                        <View style={styles.topSmallNav}>
+                      
                       <View style={styles.titleContainer}>
                         <Text style={styles.titleStyle}>Life</Text>
                       </View>
@@ -105,7 +116,8 @@ const getContent = useCallback(async() =>{
                             <Text style={styles.viewAll}>View All</Text>
                           </View>
                       </TouchableOpacity>
-            </View>},
+            </View>
+                      </View>},
                       {component:<View></View>},
                       {component:<View></View>},
                       {component:<SingleArticle navigation={props.navigation} slugName={"book-review"}  titleName={"Book Review"} showAmount={1} pageRouteName={"BookReview"}/>},
@@ -113,14 +125,9 @@ const getContent = useCallback(async() =>{
                       {component:<SingleArticle navigation={props.navigation} slugName={"food-and-drink"}  titleName={"Food and Drink"} showAmount={1} pageRouteName={"FoodAndDrink"}/>},
                       {component:<SingleArticle navigation={props.navigation} slugName={"sport"}  titleName={"Sport"} showAmount={1} pageRouteName={"Sport"}/>},
                       {component:<View style={styles.divider}/>},
-                      {component:<UpdateJournalComponent navigation={props.navigation}/>},
-                      {component:<TextList navigation={props.navigation} slugName={"subscriber-only"}  titleName={"Subscriber Only Content"} showAmount={3} pageRouteName={"SubscriberOnly"}/>},
-                      {component:<Carousel
-                        style='single'
-                        items={commercial}
-                        navigation={props.navigation}
-                        nameSlug={"Commercial Feature"}
-                        />},
+                      {component:<View></View>},
+                      {component:<SponsoredArticleList navigation={props.navigation} slugName={"subscriber-only"}  titleName={"Subscriber Only Content"} showAmount={3} pageRouteName={"SubscriberOnly"}/>},
+                      {component:<View></View>},
       ])
       setIsLoading(true)
   },[]);
@@ -134,57 +141,64 @@ const getContent = useCallback(async() =>{
         {isLoaded ? (
         <SafeAreaView>
         <FlatList
-        ListHeaderComponent={
-          <View>
-       {/* <CategorySnap navigation={props.navigation} elements={clinical} title={"Clinical News"} route={"NewsFeatures"}/>
-       <CategorySnap navigation={props.navigation} elements={feature} title={"News Feature"} route={"NewsFeatures"}/>
-         */}
-        
-        
-        
-        
-        
-        {/* <ArticleList navigation={props.navigation} slugName={"clinical-news"}  titleName={"Clinical News"} showAmount={3} pageRouteName={"ClinicalNews"}/> */}
-          </View>
-        }
         ListFooterComponent={
           <View>
             <Footer navi={props.navigation} refS={scrollRef}/>
           </View>
         }
         scrollEnabled={true}
-        
         data={homeItems}
         listKey={(item, index) => `outer_key${index.toString()}`}
         keyExtractor={(item, index) => `outer_key${index.toString()}`}
         renderItem={({item,index})=>{
           if(index === 1){
-                 return(<Carousel style='slide' items={sliderData} navigation={props.navigation} nameSlug={"Latest News"}/>)
+                 return(<Single item={sliderData[0]} navigation={props.navigation} padding={0}/> )
+             }
+             if(index ===2)
+             {
+              return(<ArticleListPreload navigation={props.navigation} slugName={"latest-news"} data={sliderData} titleName={"Latest News"} showAmount={5} pageRouteName={"LatestNews"}/>)
+             }
+             if(index ===4)
+             {
+              return(<ArticleListPreload navigation={props.navigation} slugName={"breaking-news"} data={breakingNews}  titleName={"Breaking News"} showAmount={3} pageRouteName={"BreakingNews"}/>)
+             }
+             if(index ===9)
+             {
+              return(<ArticleListPreload navigation={props.navigation} slugName={"interviews"} data={interviews} titleName={"Latest News"} showAmount={2} pageRouteName={"LatestNews"}/>)
+             }
+             if(index ===7)
+             {
+              return(<Carousel style='stat' items={comments} navigation={props.navigation} nameSlug={"Comments"}/>)
              }
              if(index === 11)
              {
-              return (<CategorySnap navigation={props.navigation} elements={feature} title={"News Feature"} route={"NewsFeatures"}/>)
+              return (<CategorySnap navigation={props.navigation} elements={feature} title={"News Feature"} route={"NewsFeatures"} padding={20}/>)
              }
              if(index === 12)
              {
-              return (<CategorySnap navigation={props.navigation} elements={clinical} title={"Clinical News"} route={"NewsFeatures"}/>)
-             }
-             if(index === 14)
-             {
-              return (<Carousel style='single' items={motoring} navigation={props.navigation} nameSlug={"Motoring"} />)
+              return (<CategorySnap navigation={props.navigation} elements={clinical} title={"Clinical News"} route={"NewsFeatures"} padding={20}/>)
              }
              if(index === 15)
              {
-              return (<Carousel style='single' items={cartoon} navigation={props.navigation} nameSlug={"Cartoon"} />)
+              return (<Single item={motoring[0]} navigation={props.navigation} padding={20} />)
+             }
+             if(index === 16)
+             {
+              return (<Single item={cartoon[0]} navigation={props.navigation} padding={20} />)
+             }
+             if(index === 24)
+             {
+              return (<Single item={commercial[0]} navigation={props.navigation} padding={20}/>)
              }
           return(item.component)
 
         }}/>
         </SafeAreaView>
         ) : (
-      <SafeAreaView>
+          <View style={{}}>
         <LoadingView indeterminate={true}/>
-        </SafeAreaView>)}
+        </View>
+        )}
     </SafeAreaView>
     );
 };
@@ -193,8 +207,7 @@ export default HomeScreen;
 const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     container:{
-        flex: 1,
-        backgroundColor:'#fff'
+      backgroundColor:"#fff"
     },
     pageTitle:{
         fontSize:26,
@@ -219,16 +232,17 @@ const styles = StyleSheet.create({
       color:'black',
       borderBottomWidth:1,
       borderBottomColor:'black',
-      width:windowWidth-10,
+      width:'auto',
       borderStyle:'solid',
-      marginLeft:5,
-      paddingVertical:2
+      marginHorizontal:20,
+      
     },
     topSmallNav:{
         flex:1,
         flexDirection:'row',
         marginTop:10,
-        marginBottom:10
+        marginBottom:10,
+        marginHorizontal:10,
     },
     viewAll:{
         color:'#6e822b',
@@ -239,13 +253,13 @@ const styles = StyleSheet.create({
         paddingRight:10
     },
     titleStyle:{
+        paddingLeft:10,
+        fontFamily: 'Merriweather_700Bold',
         fontSize:16,
-        fontWeight:'bold',
-        paddingLeft:10
     },
     titleContainer:{
         flex:1,
-        justifyContent:'flex-start'
+        justifyContent:'flex-start',
     },
     loadingContainer:{
         flex:1,

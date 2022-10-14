@@ -3,13 +3,13 @@ import { SingleCard } from './SingleCard';
 
 export const Single = (props: any) => {
 
-  const { item } = props;
+  const { item ,padding} = props;
 
-  const {navigation, nameSlug,articleTitle,pageRouteName} = props;
+  const {navigation} = props;
 
   return (
     <View style={styles.slide}>
-                   <SingleCard props title={item.title.toString()}
+      {!item ? <View></View> : <SingleCard props title={item.title.toString()}
                 excerpt = {item.excerpt.toString()}
                 date = {item.date.toString()}
                 mediaID = {item.media.toString()}
@@ -17,7 +17,9 @@ export const Single = (props: any) => {
                 authorId = {item.author}
                 navi = {navigation}
                 nameSlug={item.categoryName}
-                />
+                padding={padding}
+                />}
+                   
     </View>
   );
 }
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
     slide: {
       flex:1,
       justifyContent:'flex-start',
-      height:'auto'
+      height:'auto',
     },
     slideText: {
       width: '100%',

@@ -1,39 +1,55 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
 import { AdManager } from "../components/AdManager";
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 import LoadingView from "../components/LoadingView";
-import { ShortCard } from "../components/ShortCard";
-
+import { ShortCard } from '../components/ShortCard';
+import { searchArticles } from '../hooks/useResults';
 const SearchScreen = ({props,route}) => {
     const {search_term,listData} = route.params;
     const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(0);
+    const [loading, setLoading] = useState(true);
     const [totalPages, setTotalPages] = useState(0);
     const [title,setTitle] = useState("Most Read");
     const navigation = useNavigation();
     const scrollRef = useRef();
+    const [data,setData] = useState([]);
 
-    return(
-        <View style={{ flex: 1 }} ref={scrollRef}>
-      {listData? (
-        <View>
+
+    const getContent = useCallback(async() =>{
+      setLoading(true);
+      try{
+          const response = await searchArticles(search_term,10,1);
+          setData(response.posts);
+          
+      }catch(error){
+          
+      }finally{
+        setLoading(false)
+      };
+    },[search_term]);
+
+     useEffect(() => {
+      getContent();
+      }, [getContent]);
+
+    return(<View>
+      {!loading ? (
+        <View style={{backgroundColor:"#fff"}} ref={scrollRef}>
         <FlatList
           ListHeaderComponent={
-            <View style={styles.titleContainer}>
-                <Text style={styles.pageTitle}>Search Results For: </Text>
-                <Text style={styles.nextGreen}>{search_term}</Text>
-              </View>
+            <Header title={search_term} navigation={navigation} data={data}></Header>
           }
           ListFooterComponent={
           <View>
           <Footer navi={navigation} refS={scrollRef}/>
           </View>
           }
-          data={listData}
-          listKey={(item, index) => `search_key${index.toString()}_${item.ID}`}
-          keyExtractor={(item, index) => `search_key${index.toString()}`}
+          data={data}
+          listKey={(item, index) => `D_key${index.toString()}`}
+          keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
             if(index === 3){
                 return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
@@ -54,14 +70,13 @@ const SearchScreen = ({props,route}) => {
             )
         }}
           />
-          </View>
-          ) : (
+        </View>
+        ) : (
             <View style={{}}>
                 <LoadingView loadingProgress={loading}/>
             </View>
           )}
-        </View>
-      );
+      </View>);
     };
 
 export default SearchScreen;

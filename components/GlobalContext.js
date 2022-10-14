@@ -1,6 +1,5 @@
-import React, { useContext, createContext, useState, useEffect } from 'react';
-import { View, Button, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const CounterContext = createContext(0);
 
@@ -9,7 +8,7 @@ const INITIAL_COUNT = 5;
 const CounterContextProvider = ({ children }) => {
   const [count, setCount] = useState(INITIAL_COUNT);
 
-  const increment = () => setCount((c) => c + 1);
+  const increment = (val) => setCount((c) => c + val);
   const decrement = () => setCount((c) => c - 1);
 
   useEffect(() => {
@@ -34,4 +33,4 @@ const CounterContextProvider = ({ children }) => {
   );
 };
 
-export {CounterContextProvider,useCounter};
+export { CounterContextProvider, useCounter };

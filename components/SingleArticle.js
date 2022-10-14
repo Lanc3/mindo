@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import LoadingView from '../components/LoadingView';
 import { newGetPostsByCatSlug } from '../hooks/useResults';
 import { ShortCard } from "./ShortCard";
 
@@ -8,35 +7,40 @@ const SingleArticle = ({navigation, slugName,list,titleName,showAmount,pageRoute
     //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(0);
+    const [loading, setLoading] = useState(true);
     const [totalPages, setTotalPages] = useState(0);
     const [title,setTitle] = useState(titleName);
     const [slug,setSlug] = useState(slugName);
     const [isdata,setisdata] = useState(false);
 
  const getContent = useCallback(async() =>{
-      setLoading(0.25);
+
         try{
-          setLoading(0.5);
           const response = await newGetPostsByCatSlug(slug,showAmount,page);
           setTotalPages(Math.ceil(response.totalPosts/10));
           setData(response.posts);
-          setLoading(1);
         }catch(error){
-            console.log(error)
-        }finally{
-            setLoading(1);
-        };
-        setLoading(1);
+            //
+        }
     },[page]);
 
+   
      useEffect(() => {
-      getContent();
+      let mounted = true;
+      getContent().then(()=>{
+        if (mounted) {
+          setLoading(false)
+      }
+      });
+
+      return function cleanup() {
+        mounted = false
+    }
       }, [getContent]);
 
     return(
         <View style={{ flex: 1, paddingTop: 5 }}>
-      {data.length > 0 ? (
+      {!loading ? (
         <View>
         <FlatList
         scrollEnabled={false}
@@ -67,7 +71,7 @@ const SingleArticle = ({navigation, slugName,list,titleName,showAmount,pageRoute
           </View>
           ) : (
           <View>
-            <LoadingView loadingProgress={loading}/>
+            
           </View>
           )}
         </View>

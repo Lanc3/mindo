@@ -100,7 +100,7 @@ const retrieveData = useCallback(async () => {
         setIsFreeAccount(JSON.parse(value).freeAccount);
       }
       else{
-        console.log("No adManager data found");
+       
       }
     } catch (error) {
       // Error retrieving data

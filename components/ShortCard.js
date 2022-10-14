@@ -1,35 +1,36 @@
 import { useNavigation } from '@react-navigation/native';
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { WebView } from 'react-native-webview';
 
 export function ShortCard({navi,props,title,excerpt,date,mediaID,totalData,authorId,nameSlug}) {
 
-
+ 
+    const decodeString = (str) => {
+        return str.replace(/([,"'0-9\-.~!@#$%^&*()_+=–’`{}\[\]\|\\:;"<>\/?])+/g, '').replace(/^(-)+|(-)+$/g,'');
+    }
   const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <TouchableOpacity
                 onPress={() => navi.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:authorId,title:title,date:date,imageData:mediaID,htmlData:totalData})}
             >
+            <View style={styles.separators}></View>
                 <View style={styles.shortContainer}>
                     <View style={styles.imageContainer}>
                     <Image style={styles.image} source={{ uri:mediaID }}/>
                     </View>
                     <View style={styles.contentContainer}>
                     <Text style={styles.greenTitle}>{nameSlug}</Text>
-                    <WebView
-                    style={styles.titleStyle}
-                    source={{ html: '<html><head></head><meta name="viewport" content="width=device-width,initial-scale=1.0"><body class="">'+title+'</body></html>' }}
-                    />
+                    <Text style={styles.titleStyle}>{decodeString(title)}</Text>
                     <View style={styles.footer}>
-                        <Text style={{fontWeight:'bold'}}>By - </Text>
-                        <Text style={{fontWeight:'bold',color:'black'}}>{authorId}</Text>
+                        <Text style={styles.by}>By - </Text>
+                        <Text style={styles.by}>{authorId}</Text>
                         <Text> - </Text>
                         
                     </View>
                     <Text >{date}</Text>
                     </View>
+                    
                 </View>
             </TouchableOpacity>
         </View>
@@ -40,8 +41,21 @@ const styles = StyleSheet.create({
         backgroundColor:'#fff',
         paddingTop:10,
         paddingBottom:10,
+        paddingHorizontal:10,
+       
+    },
+    separators:{
         borderBottomColor:'#eaeaea',
         borderBottomWidth:1,
+        marginRight:10,
+        marginLeft:10,
+        height:1
+    },
+    by:{
+        fontFamily: 'Lato_400Regular',
+        fontWeight:'bold',
+        fontSize:15,
+        color:'black'
     },
     spacer:{
         padding:10
@@ -60,13 +74,9 @@ const styles = StyleSheet.create({
         paddingLeft:0,
     },
     titleStyle:{
-        marginLeft:-9,
-        marginRight:10,
-        fontSize:15,
-        fontWeight:'bold',
-        justifyContent:'flex-start',
-        minHeight:47,
-        
+
+        fontFamily: 'Merriweather_300Light',
+        fontSize:15
     },
     surface: {
         elevation: 1,
@@ -108,7 +118,10 @@ const styles = StyleSheet.create({
     },
     greenTitle:{
         color:'#6e822b',
-        paddingTop:10
+        paddingTop:5,
+        fontFamily: 'Lato_400Regular',
+        fontSize:13,
+       
     },
     footer:{
         flex:1,

@@ -1275,6 +1275,21 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@expo-google-fonts/lato@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/lato/-/lato-0.2.2.tgz#777a757a74c03a2677ed33dacd7df61cd65b735e"
+  integrity sha512-axw+QWJYyDHuj/W0364OFRu5MyNEU332up1bE6o4K7fP0e0mSDgocof7Eip4AP65SmP8zsPIR0LtJezORnkDBw==
+
+"@expo-google-fonts/merriweather-sans@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/merriweather-sans/-/merriweather-sans-0.2.2.tgz#33e169c2523dd3cababa717d06f80beb21f8d2c8"
+  integrity sha512-eEOoj3lCQNgSEc+J1cIpSfj7158LIFEa/3Hz5WUkdx+OTe1D/7EIHfOsU9gBJgPYxNUM3H5mVe86Gb55UIUDWQ==
+
+"@expo-google-fonts/merriweather@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/merriweather/-/merriweather-0.2.2.tgz#b3fc5ab82ea4c6c90bf00c7fbf07e22522a38901"
+  integrity sha512-oCfupncn9Mj+Oq48LrM5KwkCV0KRfWbHyZJLFhJHJNDcnCvYDzZnwm/slJupBDhxEIpQIBflpXDL54AugvVOcg==
+
 "@expo/config-plugins@4.0.6":
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-4.0.6.tgz#ef52f0e4d96ddd52b4cd4cc8c6efbe3d9576c72d"

@@ -1,7 +1,20 @@
+import {
+  Merriweather_300Light,
+  Merriweather_300Light_Italic,
+  Merriweather_400Regular,
+  Merriweather_400Regular_Italic,
+  Merriweather_700Bold,
+  Merriweather_700Bold_Italic,
+  Merriweather_900Black,
+  Merriweather_900Black_Italic
+} from '@expo-google-fonts/merriweather';
+
+import { Lato_400Regular } from '@expo-google-fonts/lato';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React, { useEffect } from "react";
+import { useFonts } from 'expo-font';
+import React, { useEffect, useState } from "react";
 import { BackHandler, Platform, StatusBar, StyleSheet } from 'react-native';
 import 'react-native-gesture-handler';
 import { CounterContextProvider } from './components/GlobalContext';
@@ -76,6 +89,7 @@ import SubscriberOnly from './screens/SubscriberOnly/SubscriberOnly';
 import Terms from './screens/terms/Terms';
 import UpdateJournal from './screens/UpdateJournal/UpdateJournal';
 import UpdateJournalReader from './screens/UpdateJournalReader/UpdateJournalReader';
+
 const Drawer = createDrawerNavigator();
 
 function MainDrawerNavigation() {
@@ -161,19 +175,39 @@ function MainDrawerNavigation() {
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [IsReady, SetIsReady] = useState(false);
+  let [fontsLoaded] = useFonts({
+    Merriweather_300Light,
+    Merriweather_300Light_Italic,
+    Merriweather_400Regular,
+    Merriweather_400Regular_Italic,
+    Merriweather_700Bold,
+    Merriweather_700Bold_Italic,
+    Merriweather_900Black,
+    Merriweather_900Black_Italic,
+    Lato_400Regular,
+  });
+  
+
   useEffect(() => {
-    const backAction = () => {
  
+    const backAction = () => {
+
       return true;
     };
-
+  
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       backAction
     );
 
     return () => backHandler.remove();
-  }, []);
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+  else {
   return (
     <CounterContextProvider>
         <NavigationContainer>
@@ -202,6 +236,7 @@ export default function App() {
     </NavigationContainer>
     </CounterContextProvider>
   )
+}
 }
 
 const styles = StyleSheet.create({

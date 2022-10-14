@@ -26,14 +26,14 @@ const AccordionListItemFooter = ({ title, children }) => {
       Animated.timing(animatedController, {
         duration: 300,
         toValue: 0,
-        useNativeDriver:true,
+        useNativeDriver:false,
         easing: Easing.bezier(0.4, 0.0, 0.2, 1),
       }).start();
     } else {
       Animated.timing(animatedController, {
         duration: 300,
         toValue: 1,
-        useNativeDriver:true,
+        useNativeDriver:false,
         easing: Easing.bezier(0.4, 0.0, 0.2, 1),
       }).start();
     }
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         color: '#F0F0F0',
         textAlign: 'center',
         fontSize:26,
-        
+        fontFamily: 'Merriweather_300Light',
         fontWeight:"400",
         paddingLeft:0
   }

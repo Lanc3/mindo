@@ -7,6 +7,8 @@ const AdvertiseScreen = ({navigation}) => {
     const htmlData =
     `<h3>Contacts</h3>
     
+    
+    
 <p>Below please find the advertising rates and mechanical data for <a href="http://greencrosspublishing.ie/">GreenCross Publishing’s</a> titles. If you have any questions regarding advertising, individual titles or if would like to find out about how we advertise, please contact:</p>
 <h5><strong>Print Advertising</strong> – <strong>Graham Cooke</strong></h5>
 <ul><li>Phone: 01 4410024</li><li>Mobile: 353 87 2222221</li><li>Email:&nbsp;<a href="mailto:graham@greenx.ie">graham@greenx.ie</a></li></ul>
@@ -22,7 +24,7 @@ const AdvertiseScreen = ({navigation}) => {
 
 
     return(
-      <View style={{ flex: 1 }} ref={scrollRef}>
+      <View style={{ flex: 1,backgroundColor:"#fff" }} ref={scrollRef}>
       <FlatList
         ListHeaderComponent={<ContentRender htmlData={htmlData} newHeight={1800}/>}
         ListFooterComponent={<Footer navi={navigation} refS={scrollRef}/>}

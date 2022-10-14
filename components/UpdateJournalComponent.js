@@ -16,7 +16,7 @@ export default function UpdateJournalComponent({navigation,props}) {
             
           }
           else{
-            console.log("No ecopy data found");
+           
           }
         } catch (error) {
         }
@@ -24,7 +24,7 @@ export default function UpdateJournalComponent({navigation,props}) {
             const response = await newGetPostsByCatSlug("update-journal",1,1);
             setData(response.posts[0]);
           }catch(error){
-              console.log(error)
+              
           }
     },[]);
     useEffect (() => {

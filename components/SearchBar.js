@@ -2,7 +2,6 @@ import { Entypo, Feather } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from "react";
 import { ActivityIndicator, StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
-import { searchArticles } from '../hooks/useResults';
 const SearchBar = ({navi}) => {
     const [clicked,setClicked] = useState(false);
     const [searchPhrase,setSearchPhrase] = useState("");
@@ -10,16 +9,8 @@ const SearchBar = ({navi}) => {
     const [isLoading,setLoading] = useState(false);
     const navigation = useNavigation();
     const callAPI = async(phrase)=>{
-      setLoading(true);
-      try{
-          const response = await searchArticles(phrase,25,1);
-          setData(response.posts);
-      }catch(error){
-          console.log(error)
-      }finally{
-        setLoading(false)
-        navigation.navigate('SearchScreen',{search_term:phrase,listData:data});
-      };
+      navigation.navigate('SearchScreen',{search_term:phrase});
+      
     }
 
   return (
@@ -57,7 +48,7 @@ const SearchBar = ({navi}) => {
           name="search"
           size={20}
           color="white"
-          style={{ marginLeft: 1 }}
+          style={{ paddingRight:0 }}
         /></TouchableOpacity>)}
         {/* cross Icon, depending on whether the search bar is clicked or not */}
         {clicked && (
@@ -95,7 +86,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     width: "100%",
-    backgroundColor: "#000",
+    backgroundColor: "#181818",
     borderRadius: 15,
     alignItems: "center",
     justifyContent: "space-evenly",

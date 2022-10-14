@@ -1,4 +1,5 @@
 import { FontAwesome } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Dimensions, FlatList, Image, SafeAreaView, Share, StyleSheet, Text, View } from 'react-native';
 import { AdManager } from "../components/AdManager";
@@ -11,18 +12,37 @@ export default function FullArticleScreen({navigation,props,route}) {
 const {nameSlug,authorName,htmlData,imageData,title,date} = route.params;
 const scrollRef = useRef();
 const [popUpState, setPopUpState] = useState(false);
+const [isLoggedIn, setIsLoggedIn] = useState(false);
 const handleModal = () => setPopUpState(() => !popUpState);
 const { count, increment, decrement } = useCounter();
 const retrieveData = async () => {
-  decrement();
-  if(count === 1){
-    setPopUpState(true);
+  try {
+    const value = await AsyncStorage.getItem('userProfile');
+    if (value !== null) {
+      setIsLoggedIn(JSON.parse(value).isLoggedIn);
+    }
+    else{
+      
+    }
   }
-  else{
-    setPopUpState(false);
+  catch(error){
+    
   }
-  if(count === 0){
-    navigation.navigate('SignInScreen');
+  finally{
+    if(!isLoggedIn)
+    {
+      decrement();
+      if(count === 1){
+        setPopUpState(true);
+      }
+      else{
+        setPopUpState(false);
+      }
+      if(count <= 0){
+        increment(5)
+        navigation.navigate('SignInScreen');
+      }
+    }
   }
 };
 useEffect(() => {
@@ -57,7 +77,7 @@ const onShare = async () => {
       <Text style={{color:'white'}}>You must log in to continue reading</Text>
       </Modal.Body>
     <Modal.Footer>
-      <Button title="Log in" color='#000' onPress={handleModal} />
+      <Button title="Close" color='#000' onPress={handleModal} />
     </Modal.Footer>
   </Modal.Container>
 </Modal>
@@ -68,30 +88,30 @@ const onShare = async () => {
       <Text style={styles.greenTitle}>{nameSlug}</Text>
       <Text style={styles.title} numberOfLines={3}>{title}</Text>
       <View style={styles.subTitle}>
-      <Text style={{paddingLeft:10}}>By </Text>
-      <Text style={{color:'black'}}>{authorName} - </Text>
-        <Text>{date}</Text>
+      <Text style={{paddingLeft:10,color:'black',fontFamily: 'Lato_400Regular',fontWeight:'bold'}}>By </Text>
+      <Text style={{color:'black',fontFamily: 'Lato_400Regular',fontWeight:'bold'}}>{authorName} - </Text>
+        <Text style={{color:'black',fontFamily: 'Lato_400Regular',fontWeight:'bold'}}>{date}</Text>
       </View>
       <View>
       </View>
       <View style={styles.imageContainer}>
       <Image style={styles.image} source={{ uri: ""+imageData }}/>
       <View style={styles.shareButton}>
-      <Text style={{color:'#6e822b',padding:5}}>Share to:</Text>
+      
       <View style={styles.spacer}>
-                <FontAwesome.Button  name="twitter"size={18} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="twitter"size={32} color="#000" backgroundColor="#fff" onPress={onShare}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="facebook-square" size={18} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="facebook-square" size={32} color="#000" backgroundColor="#fff" onPress={onShare}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="linkedin-square" size={18} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="linkedin-square" size={32} color="#000" backgroundColor="#fff" onPress={onShare}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="instagram" size={18} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="instagram" size={32} color="#000" backgroundColor="#fff" onPress={onShare}>
                 </FontAwesome.Button>
             </View>
       </View>
@@ -114,22 +134,23 @@ const onShare = async () => {
 const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     container: {
-      fontSize:20,
+   
       height:100,
-      width:windowWidth,
+      width:'auto',
       flex: 1,
       color:'#000',
       backgroundColor:'#fff'
     },
     title:{
-      fontSize:25,
-      fontWeight:'bold',
+      fontFamily: 'Merriweather_400Regular',
+      fontSize:24,
       justifyContent:'center',
       padding:5,
     },
     subTitle:{
       flex:1,
       flexDirection:'row',
+      fontFamily: 'Lato_700Bold',
     },
     image:{
       width: windowWidth,
@@ -158,5 +179,6 @@ const styles = StyleSheet.create({
       paddingLeft:10,
   },
     spacer:{
+      margin:-5
     }
   });

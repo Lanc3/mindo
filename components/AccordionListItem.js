@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
         color: '#F0F0F0',
         textAlign: 'center',
         fontSize:26,
-        
-        fontWeight:"400",
+        fontFamily: 'Merriweather_300Light',
+
         paddingLeft:0
   }
  });

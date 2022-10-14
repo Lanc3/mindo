@@ -27,7 +27,7 @@ const getAuthor = async() =>{
     }
     
 }catch(error){
-    console.log(error)
+    
 }finally{
 };
 }

@@ -83,7 +83,6 @@ const SignInScreen = ({navigation}) => {
           });
           let json = await response.json();
           if (json.status != false) {
-            setError(null);
             try {
               await AsyncStorage.setItem(
                 'userProfile',
@@ -97,7 +96,6 @@ const SignInScreen = ({navigation}) => {
                   freeAccount: false,
                 })
               );
-              console.log("here",isLoggedIn)
             } catch {
               setError('Error storing data on device');
               wrongDetails();
@@ -117,7 +115,7 @@ const SignInScreen = ({navigation}) => {
                 navigation.navigate('MainDrawer',{screen :'Home'});
             }
             catch{
-                console.log("error")
+            
             }
           } else {
             setIsLogged(false);

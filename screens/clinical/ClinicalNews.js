@@ -34,7 +34,7 @@ const ClinicalNews = ({navigation}) => {
           setData(response.posts);
           setLoading(1);
         }catch(error){
-            console.log(error)
+            
         }finally{
             setLoading(1);
         };
@@ -46,7 +46,7 @@ const ClinicalNews = ({navigation}) => {
       }, [getContent]);
 
     return(
-        <View style={{ flex: 1 }} ref={scrollRef}>
+        <View style={{ flex: 1 ,backgroundColor:"#fff"}} ref={scrollRef}>
       {data.length > 0 ? (
         <View>
         <FlatList
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     pageTitle:{
         fontSize:26,
         
-        fontWeight:"bold",
+        fontFamily:'Merriweather_700Bold',
         margin:5,
         alignSelf:'center'
     },

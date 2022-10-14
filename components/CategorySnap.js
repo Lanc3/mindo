@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AdManager } from "./AdManager";
-import Carousel from "./Carousel";
-import { TextCard } from "./TextCard";
-const CategorySnap = ({navigation, elements,title,route}) => {
+import { ShortCard } from "./ShortCard";
+import Single from "./Single";
+const CategorySnap = ({navigation, elements,title,route,padding}) => {
 
 
 
@@ -20,13 +20,8 @@ const CategorySnap = ({navigation, elements,title,route}) => {
             </View>
         </TouchableOpacity>
 </View>
-<Carousel
-        style='single'
-        items={elements}
-        navigation={navigation}
-        nameSlug={"Comment"}
-        />
-              <TextCard props title={elements[1].title.toString()}
+<Single item={elements[0]} navigation={navigation} padding={padding}/>
+              <ShortCard props title={elements[1].title.toString()}
                 excerpt = {elements[1].excerpt.toString()}
                 date = {elements[1].date.toString()}
                 mediaID = {elements[1].media.toString()}
@@ -35,7 +30,7 @@ const CategorySnap = ({navigation, elements,title,route}) => {
                 navi = {navigation}
                 nameSlug={elements[1].categoryName}
                 />
-                <TextCard props title={elements[2].title.toString()}
+                <ShortCard props title={elements[2].title.toString()}
                 excerpt = {elements[2].excerpt.toString()}
                 date = {elements[2].date.toString()}
                 mediaID = {elements[2].media.toString()}
@@ -44,7 +39,7 @@ const CategorySnap = ({navigation, elements,title,route}) => {
                 navi = {navigation}
                 nameSlug={elements[2].categoryName}
                 />
-                <TextCard props title={elements[3].title.toString()}
+                <ShortCard props title={elements[3].title.toString()}
                 excerpt = {elements[3].excerpt.toString()}
                 date = {elements[3].date.toString()}
                 mediaID = {elements[3].media.toString()}
@@ -85,16 +80,19 @@ const styles = StyleSheet.create({
       fontSize:16
     },
     nextGreen:{
-      fontSize:16,
-      color:'#6e822b',
+      fontFamily: 'Lato_400Regular',
+      fontSize:13,
     },
     topSmallNav:{
         flex:1,
         flexDirection:'row',
-        paddingBottom:20
+        paddingBottom:20,
+        marginHorizontal:10,
     },
     viewAll:{
         color:'#6e822b',
+        fontFamily: 'Lato_400Regular',
+        fontSize:13,
     },
     veiwContainer:{
         flex:1,
@@ -102,8 +100,8 @@ const styles = StyleSheet.create({
         paddingRight:10
     },
     titleStyle:{
-        fontSize:16,
-        fontWeight:'bold',
+      fontFamily: 'Merriweather_700Bold',
+      fontSize:16,
         paddingLeft:10
     },
     titleContainer:{
@@ -117,7 +115,7 @@ const styles = StyleSheet.create({
       borderBottomWidth:1,
       borderBottomColor:'black',
       borderStyle:'solid',
-      marginLeft:5,
+      marginHorizontal:20,
       paddingVertical:2
     },
 });

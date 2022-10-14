@@ -33,7 +33,7 @@ const BreakingNews = ({navigation}) => {
           setData(response.posts);
           setLoading(1);
         }catch(error){
-            console.log(error)
+            
         }finally{
             setLoading(1);
         };
@@ -45,7 +45,7 @@ const BreakingNews = ({navigation}) => {
       }, [getContent]);
 
     return(
-        <View style={{ flex: 1 }} ref={scrollRef}>
+        <View style={{ flex: 1 ,backgroundColor:"#fff"}} ref={scrollRef}>
       {data.length > 0 ? (
         <View>
         <FlatList
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems:'center',
         justifyContent:'center',
+        backgroundColor:"#fff"
     },
     pageTitle:{
         fontSize:26,

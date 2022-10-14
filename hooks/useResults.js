@@ -16,7 +16,7 @@ export const searchArticles = async(search_term,amount,paged) =>{
     const json = await response.json();
     return json;
 } catch (error) {
-  console.log(error);
+  ;
 }
 finally{
 }
@@ -30,7 +30,7 @@ export const getAuthorName = async(id) =>{
   }
   catch (error)
   {
-    console.log(error);
+    ;
   }
 }
 
@@ -50,7 +50,7 @@ export const postToken = async(token) => {
     try{
       const response = await fetch(`https://medicalindependent.ie/wp-json/mindo/v1/register_device/?expo_push_id=${token}`);
     }catch(error){
-      console.log(error);
+      ;
     }
 }
 
@@ -58,7 +58,7 @@ export const removeToken = async(token) => {
   try{
     const response = await fetch(`https://medicalindependent.ie/wp-json/mindo/v1/deregister_device/?expo_push_id=${token}`);
   }catch(error){
-    console.log(error);
+    ;
   }
 }
 
@@ -68,7 +68,7 @@ export const newGetPostsByCatSlug = async(slug,amount,paged) => {
     const json = await response.json();
     return json;
   }catch(error){
-    console.log(error);
+    ;
   }
 }
 
@@ -78,7 +78,7 @@ export const newGetPostsByAuthor = async(id,amount,paged) => {
     const json = await response.json();
     return json;
   }catch(error){
-    console.log(error);
+    ;
   }
 }
 
@@ -88,7 +88,7 @@ export const newGetMostReadPosts = async(amount,paged) => {
     const json = await response.json();
     return json;
   }catch(error){
-    console.log(error);
+    ;
   }
 }
 
@@ -98,7 +98,7 @@ export const getPostsByCategory = async(categoryID,pageNumber) => {
         const posts = await JSON.stringify(response);
         return posts;
     }catch(error){
-        console.log("getPostsByCategory : "+error)
+       
     };
 };
 
@@ -107,7 +107,7 @@ export const getLatestPostsByCategory = async(categoryID) => {
       const response = await wp.posts().categories(categoryID).perPage(1);
       return response[0].date.toString();
   }catch(error){
-      console.log("getLatestPostsByCategory : "+error)
+     
   };
 };
 
@@ -116,7 +116,7 @@ export const getDescriptionByCategory = async(categoryID,pageNumber) => {
         const discription = await wp.categories().id(categoryID)
         return discription["description"];
     }catch(error){
-        console.log("getPostsByCategory : "+error)
+       
     };
 };
 
@@ -126,7 +126,7 @@ export const getCategoyIdBySlug = async(categorySlug) =>{
         const json = await response[0].id;
         return json;
     }catch (error){
-        console.log(error);
+        ;
     }
 
 };

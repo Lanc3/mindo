@@ -1,34 +1,33 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { newGetPostsByCatSlug } from '../hooks/useResults';
 export function ECopy({navigation,props}) {
     const [isFreeAccount, setIsFreeAccount] = useState(false);
     const [data, setData] = useState({});
+    const isFocused = useIsFocused()
+
     const retrieveData = useCallback(async () => {
 
-        try {
-          const value = await AsyncStorage.getItem('userProfile');
-          if (value !== null) {
-            setIsFreeAccount(JSON.parse(value).isLoggedIn);
-           console.log("test", JSON.parse(value).isLoggedIn)
-          }
-          else{
-            console.log("No ecopy data found");
-          }
-        } catch (error) {
-        }
         try{
             const response = await newGetPostsByCatSlug("ecopy",1,1);
             setData(response.posts[0]);
           }catch(error){
-              console.log(error)
+              
           }
     },[]);
     useEffect (() => {
         retrieveData();
       },[retrieveData]);
 
+      useEffect(() => {
+        (async () => {
+            const data = await AsyncStorage.getItem('userProfile');
+            if(data !== null)
+            setIsFreeAccount(JSON.parse(data).isLoggedIn);
+        })()
+    }, [isFocused]);
     return (
         <View>
         <View style={styles.container}>
@@ -40,7 +39,7 @@ export function ECopy({navigation,props}) {
                 <Text style={styles.title}>{data.title}</Text>
                 {!isFreeAccount ?
                 <Text>You need to be logged in to access this content. Please login or sign up using the links below.</Text>
-                :<View></View>}
+                :<View><Text>Read the latest Mindo eCopy right here.</Text></View>}
             </View>
         </View>
         {!isFreeAccount ?
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
         flex:1,
         flexDirection:'row',
 
-        maxWidth:windowWidth,
+        maxWidth:'auto',
         marginBottom:0,
         paddingTop:20,
     },
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
         padding:0
     },
     image:{
-      height:280,
+      height:200,
       width:180,
       resizeMode:'contain',
       flex:1
@@ -77,16 +76,18 @@ const styles = StyleSheet.create({
         padding:10
     },
     greenText:{
-        color:'#6e822b'
+        color:'#6e822b',
+        fontFamily: 'Lato_400Regular',
+        fontSize:13,
     },
     title:{
-        fontSize:16,
-        fontWeight:'bold'
+      fontFamily: 'Merriweather_400Regular',
+      fontSize:20,
     },
     text_footer: {
         color: '#fff',
-        fontSize: 17,
-        fontWeight:'bold',
+        fontFamily: 'Lato_400Regular',
+        fontSize:13,
     },
     textContainer:{
         flex:1,
@@ -96,10 +97,10 @@ const styles = StyleSheet.create({
     },
     drawerButton:{
         backgroundColor:'#6e822b',
-        padding:15,
+        padding:10,
         margin:10,
         borderRadius:4,
         alignItems:'center',
-        
+        marginHorizontal:20,
       }
 })
