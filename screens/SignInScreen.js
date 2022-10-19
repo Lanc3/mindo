@@ -5,7 +5,7 @@ import * as Device from 'expo-device';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Notifications from 'expo-notifications';
 import React, { useState } from 'react';
-import { Alert, Dimensions, Platform, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Alert, Dimensions, Platform, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import { useTheme } from 'react-native-paper';
 import Svg, { Path } from "react-native-svg";
@@ -24,9 +24,11 @@ const SignInScreen = ({navigation}) => {
   const [error, setError] = useState("Enter Details"); //Error texts from the app or serve
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [logInState,setLogInState] = useState(true)
   const [token,setToken] = useState({expoPushToken:''});
 
   const registerForPushNotificationsAsync = async () => {
+    let getToken;
     if (Device.isDevice) {
       const { status: existingStatus } = await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
@@ -38,13 +40,12 @@ const SignInScreen = ({navigation}) => {
         alert('Failed to get push token for push notification!');
         return;
       }
-      const token = (await Notifications.getExpoPushTokenAsync()).data;
-      setToken({ expoPushToken: token });
+      getToken = (await Notifications.getExpoPushTokenAsync()).data;
       try {
         await AsyncStorage.setItem(
           'expoToken',
           JSON.stringify({
-            expoPushToken: token,
+            expoPushToken: getToken,
           })
         );
       } catch {
@@ -61,74 +62,56 @@ const SignInScreen = ({navigation}) => {
           lightColor: '#FF231F7C',
         });
       }
-      postToken(token);
+      return getToken;
     };
 
-  const wrongDetails = () =>
-    Alert.alert('Error', error, [
+  const wrongDetails = (type) =>
+    Alert.alert(type, error, [
       { text: 'OK', onPress: () => {} },
     ]);
-//must redo logic for this
-    const doLogin = async (email, password) => {
-        setloggingIn(true);
+ const setItem =  async (key, value) =>{
+    try {
+        await AsyncStorage.setItem(key, JSON.stringify(value));
+        return true;
+    } catch (error) {
+        setError('AsyncStorage#setItem error: ' + error.message);
+        wrongDetails();
+    }
+}
+
+    const doAuth = async (email, password) => {
+        setLogInState(false);
         setError(null);
         let formData = new FormData();
         formData.append('type', 'login');
         formData.append('email', email);
         formData.append('password', password);
-        try {
-          let response = await fetch(loginUrl, {
-            method: 'POST',
-            body: formData,
-          });
-          let json = await response.json();
-          if (json.status != false) {
-            try {
-              await AsyncStorage.setItem(
-                'userProfile',
-                JSON.stringify({
-                  isLoggedIn: true,
-                  authToken: json.token,
-                  id: json.data.id,
-                  name: json.data.user_login,
-                  avatar: json.avatar,
-                  freeArticle: 5,
-                  freeAccount: false,
-                })
-              );
-            } catch {
-              setError('Error storing data on device');
-              wrongDetails();
-            }
-            setUserProfile({
-              isLoggedIn: json.status,
-              authToken: json.token,
-              id: json.data.id,
-              name: json.data.user_login,
-              avatar: json.avatar,
-            });
-            setIsLogged(true);
-            setUserProfile(json);
-            setUserToken(json.token);
-            registerForPushNotificationsAsync();
-            try{
-                navigation.navigate('MainDrawer',{screen :'Home'});
-            }
-            catch{
-            
-            }
-          } else {
-            setIsLogged(false);
-            setError('Login Failed, Invalid email or password');
-            wrongDetails();
-          }
-          setloggingIn(false);
-        } catch (error) {
-          setError('Error connecting to server');
-          wrongDetails();
-          setloggingIn(false);
+        const json = await fetch(loginUrl, {method: 'POST',body: formData}).then(response => response.json());
+        if (json.status != false)
+        {
+           const isSaved = setItem('userProfile',JSON.stringify({isLoggedIn: true,authToken: json.token,id: json.data.id,name: json.data.user_login,avatar: json.avatar,freeArticle: 5,freeAccount: false,}))
         }
-      };
+        else{
+            setLogInState(true);
+            setError('Please enter your details.');
+        }
+        let exit = false;
+        if (json.status != false)
+        {
+        const Expotoken = await registerForPushNotificationsAsync();
+        exit = await postToken(Expotoken);
+        }
+        if(!exit)
+        {
+            setError('Please enter your details.');
+            wrongDetails("Empty Fields");
+        }
+        if(exit === true && json.status != false)
+        {
+            setLogInState(true);
+            navigation.navigate('MainDrawer',{screen :'Home'})
+        }
+    }
 
     const [data, setData] = React.useState({
         username: '',
@@ -140,39 +123,6 @@ const SignInScreen = ({navigation}) => {
     });
 
     const { colors } = useTheme();
-    const textInputChange = (val) => {
-        if( val.trim().length >= 4 ) {
-            setData({
-                ...data,
-                username: val,
-                check_textInputChange: true,
-                isValidUser: true
-            });
-        } else {
-            setData({
-                ...data,
-                username: val,
-                check_textInputChange: false,
-                isValidUser: false
-            });
-        }
-    }
-
-    const handlePasswordChange = (val) => {
-        if( val.trim().length >= 8 ) {
-            setData({
-                ...data,
-                password: val,
-                isValidPassword: true
-            });
-        } else {
-            setData({
-                ...data,
-                password: val,
-                isValidPassword: false
-            });
-        }
-    }
 
     const updateSecureTextEntry = () => {
         setData({
@@ -180,21 +130,6 @@ const SignInScreen = ({navigation}) => {
             secureTextEntry: !data.secureTextEntry
         });
     }
-
-    const handleValidUser = (val) => {
-        if( val.trim().length >= 4 ) {
-            setData({
-                ...data,
-                isValidUser: true
-            });
-        } else {
-            setData({
-                ...data,
-                isValidUser: false
-            });
-        }
-    }
-
 
     return (
       <View style={styles.container}>
@@ -326,9 +261,7 @@ const SignInScreen = ({navigation}) => {
                     placeholder="Enter Your Password"
                     placeholderTextColor="#fff"
                     secureTextEntry={data.secureTextEntry ? true : false}
-                    style={[styles.textInput, {
-                        color: colors.text
-                    }]}
+                    style={[styles.textInput]}
                     autoCapitalize="none"
                     onChangeText={(password) => setPassword(password)}
                     value={password}
@@ -363,9 +296,10 @@ const SignInScreen = ({navigation}) => {
                 <Text style={{color: '#6e822b', marginTop:15}}>Forgot password?</Text>
             </TouchableOpacity>
             <View style={styles.button}>
+            {logInState ?
                 <TouchableOpacity
                     style={styles.signIn}
-                    onPress={() => doLogin(email, password)}
+                    onPress={() => doAuth(email, password)}
                 >
                 <LinearGradient
                     colors={['#000', '#000']}
@@ -376,8 +310,7 @@ const SignInScreen = ({navigation}) => {
                     }]}>Sign In</Text>
                 </LinearGradient>
                 </TouchableOpacity>
-
-
+             :<ActivityIndicator size="large" color="#000" />}
             </View>
         </Animatable.View>
       </View>
@@ -436,6 +369,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingTop:10,
         color: '#000',
+        backgroundColor:'#6e822b'
     },
     errorMsg: {
         color: '#FF0000',

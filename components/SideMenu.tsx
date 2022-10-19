@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from "react";
 import { Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
+import { removeToken } from '../hooks/useResults';
 import AccordionListItem from "./AccordionListItem";
 import { SideMenuItem } from './SideMenuItem';
 const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
@@ -37,13 +38,22 @@ const SideMenu = ({callParentScreenFunction,closeDrawer}) => {
 
   const logOut = async () => {
     closeDrawer();
+    let data;
     try {
       await AsyncStorage.removeItem('userProfile');
     } catch (exception) {
       console.log('Error deleting data', exception);
     }finally{
 
+      try {
+        data = await AsyncStorage.getItem('expoToken');
+    } catch (exception) {
+      console.log('Error deleting data', exception);
+    }finally{
+      const token = JSON.parse(data).expoPushToken;
+      removeToken(token)
       callParentScreenFunction("SignInScreen");
+    }
     }
   };
 
