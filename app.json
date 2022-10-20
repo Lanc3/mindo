@@ -25,7 +25,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sirlanc3.mindo"
+      "bundleIdentifier": "ie.medicalindependant.mindo"
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -34,7 +34,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.sirlanc3.mindo",
+      "package": "ie.medicalindependant.mindo",
       "versionCode": 41
     },
     "web": {
