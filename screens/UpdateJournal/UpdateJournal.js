@@ -1,12 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AdManager } from "../../components/AdManager";
-import { Footer } from "../../components/Footer";
-import { Header } from "../../components/Header";
+import Footer from "../../components/Footer";
 import LoadingView from "../../components/LoadingView";
-import { ShortCard } from "../../components/ShortCard";
+import { UpdateJournalShortCard } from "../../components/UpdateJournalShortCard";
 import { newGetPostsByCatSlug } from '../../hooks/useResults';
-
 const UpdateJournal = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
@@ -49,7 +47,6 @@ const UpdateJournal = ({navigation}) => {
       {data.length > 0 ? (
         <View>
         <FlatList
-          ListHeaderComponent={<Header title={title} navigation={navigation} data={data}></Header>}
           ListFooterComponent={
             <View>
             <View style={styles.pageNav}>
@@ -77,8 +74,7 @@ const UpdateJournal = ({navigation}) => {
             else if(index === 7){
               return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
             }
-            return(
-              <ShortCard props title={item.title.toString()}
+            return(    <UpdateJournalShortCard props title={item.title.toString()}
                 excerpt = {item.excerpt.toString()}
                 date = {item.date.toString()}
                 mediaID = {item.media.toString()}
@@ -99,6 +95,7 @@ const UpdateJournal = ({navigation}) => {
         </View>
       );
     };
+
 export default UpdateJournal;
 
 const styles = StyleSheet.create({

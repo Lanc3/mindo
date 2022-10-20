@@ -68,7 +68,7 @@ const onShare = async () => {
 };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} overScrollMode="never" removeClippedSubviews={true}>
       <Modal isVisible={popUpState}>
   <Modal.Container>
     <Modal.Header style={{color:'white'}} title="Article Limit Reached" />
@@ -82,9 +82,11 @@ const onShare = async () => {
   </Modal.Container>
 </Modal>
 <FlatList
+overScrollMode="never"
+      removeClippedSubviews={true}
         ListHeaderComponent={
-          <View style={styles.scrollView}  ref={scrollRef}>
-      <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
+          <View style={styles.scrollView} overScrollMode="never" removeClippedSubviews={true}>
+      <AdManager selectedAd={"LDB_MOBILE_PRIVATE"} sizeType={"SMALL"}/>
       <Text style={styles.greenTitle}>{nameSlug}</Text>
       <Text style={styles.title} numberOfLines={3}>{title}</Text>
       <View style={styles.subTitle}>

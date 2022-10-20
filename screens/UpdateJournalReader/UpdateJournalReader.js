@@ -2,13 +2,16 @@ import { FontAwesome } from '@expo/vector-icons';
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Dimensions, FlatList, SafeAreaView, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { AdManager } from '../../components/AdManager';
+import { EcopyShortCard } from '../../components/EcopyShortCard';
 import Footer from '../../components/Footer';
 import ISSUURenderer from '../../components/ISSUURenderer';
 import LoadingView from '../../components/LoadingView';
-import UpdateJournalShortCard from '../../components/UpdateJournalShortCard';
 import { newGetPostsByCatSlug } from '../../hooks/useResults';
 
 export default function UpdateJournalReader({navigation,props,route}) {
+  const decodeString = (str) => {
+    return str.replace(/([,"'0-9\-.~!@#$%^&*()_+=–’`{}\[\]\|\\:;"<>\/?])+/g, '').replace(/^(-)+|(-)+$/g,'');
+}
   const {content} = route.params;
   const scrollRef = useRef();
   const [data, setData] = useState([]);
@@ -16,7 +19,7 @@ export default function UpdateJournalReader({navigation,props,route}) {
   const [loading, setLoading] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [title,setTitle] = useState("Update Journal");
-  const [slug,setSlug] = useState("update-journal");
+    const [slug,setSlug] = useState("update-journal");
 
   const nextpage = () =>{
     if(page <= totalPages)
@@ -71,7 +74,7 @@ const onShare = async () => {
           <View style={styles.scrollView}  ref={scrollRef}>
       <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
       <Text style={styles.greenTitle}>Update Journal</Text>
-      <Text style={styles.title} numberOfLines={3}>{content.title}</Text>
+      <Text style={styles.titleStyle}>{decodeString(content.title)}</Text>
       <View style={styles.subTitle}>
       <Text style={{paddingLeft:10}}>By </Text>
       <Text style={{color:'black'}}>{content.author} - </Text>
@@ -82,21 +85,21 @@ const onShare = async () => {
       <View style={styles.imageContainer}>
      
       <View style={styles.shareButton}>
-      <Text style={{color:'#6e822b',padding:5}}>Share to:</Text>
+      
       <View style={styles.spacer}>
-                <FontAwesome.Button  name="twitter"size={18} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="twitter"size={32} color="#000" backgroundColor="#fff" onPress={onShare}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="facebook-square" size={18} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="facebook-square" size={32} color="#000" backgroundColor="#fff" onPress={onShare}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="linkedin-square" size={18} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="linkedin-square" size={32} color="#000" backgroundColor="#fff" onPress={onShare}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="instagram" size={18} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="instagram" size={32} color="#000" backgroundColor="#fff" onPress={onShare}>
                 </FontAwesome.Button>
             </View>
       </View>
@@ -136,7 +139,7 @@ const onShare = async () => {
               return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
             }
             return(
-              <UpdateJournalShortCard props title={item.title.toString()}
+              <EcopyShortCard props title={item.title.toString()}
                 excerpt = {item.excerpt.toString()}
                 date = {item.date.toString()}
                 mediaID = {item.media.toString()}
@@ -217,5 +220,11 @@ const styles = StyleSheet.create({
   nextGreen:{
     fontSize:16,
     color:'#6e822b',
+  },
+  titleStyle:{
+    fontFamily: 'Merriweather_400Regular',
+      fontSize:24,
+      justifyContent:'center',
+      paddingLeft:10,
   }
   });

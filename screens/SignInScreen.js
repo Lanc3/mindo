@@ -89,7 +89,23 @@ const SignInScreen = ({navigation}) => {
         const json = await fetch(loginUrl, {method: 'POST',body: formData}).then(response => response.json());
         if (json.status != false)
         {
-           const isSaved = setItem('userProfile',JSON.stringify({isLoggedIn: true,authToken: json.token,id: json.data.id,name: json.data.user_login,avatar: json.avatar,freeArticle: 5,freeAccount: false,}))
+          try {
+              await AsyncStorage.setItem(
+                'userProfile',
+                JSON.stringify({
+                  isLoggedIn: true,
+                  authToken: json.token,
+                  id: json.data.id,
+                  name: json.data.user_login,
+                  avatar: json.avatar,
+                  freeArticle: 5,
+                  freeAccount: false,
+                })
+              );
+            } catch {
+              setError('Error storing data on device');
+              wrongDetails();
+            }
         }
         else{
             setLogInState(true);

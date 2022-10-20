@@ -28,6 +28,7 @@ export function ECopy({navigation,props}) {
             setIsFreeAccount(JSON.parse(data).isLoggedIn);
         })()
     }, [isFocused]);
+    
     return (
         <View>
         <View style={styles.container}>

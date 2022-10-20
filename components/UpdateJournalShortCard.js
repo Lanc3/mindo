@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { WebView } from 'react-native-webview';
 
-export default function UpdateJournalShortCard({navi,props,title,excerpt,date,mediaID,totalData,authorId,nameSlug}) {
+export function UpdateJournalShortCard({navi,props,title,excerpt,date,mediaID,totalData,authorId,nameSlug}) {
 
-
+    const decodeString = (str) => {
+        return str.replace(/([,"'0-9\-.~!@#$%^&*()_+=–’`{}\[\]\|\\:;"<>\/?])+/g, '').replace(/^(-)+|(-)+$/g,'');
+    }
   const navigation = useNavigation();
     return (
         <View style={styles.container}>
@@ -18,10 +19,7 @@ export default function UpdateJournalShortCard({navi,props,title,excerpt,date,me
                     </View>
                     <View style={styles.contentContainer}>
                     <Text style={styles.greenTitle}>{nameSlug}</Text>
-                    <WebView
-                    style={styles.titleStyle}
-                    source={{ html: '<html><head></head><meta name="viewport" content="width=device-width,initial-scale=1.0"><body class="">'+title+'</body></html>' }}
-                    />
+                    <Text style={styles.titleStyle}>{decodeString(title)}</Text>
                     <View style={styles.footer}>
                         <Text style={{fontWeight:'bold'}}>By - </Text>
                         <Text style={{fontWeight:'bold',color:'black'}}>{authorId}</Text>
@@ -59,12 +57,8 @@ const styles = StyleSheet.create({
         paddingLeft:0,
     },
     titleStyle:{
-        marginLeft:-9,
-        marginRight:10,
-        fontSize:15,
-        fontWeight:'bold',
-        justifyContent:'flex-start',
-        minHeight:47,
+        fontFamily: 'Merriweather_300Light',
+        fontSize:15
         
     },
     surface: {

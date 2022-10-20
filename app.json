@@ -3,7 +3,7 @@
     "jsEngine": "hermes",
     "name": "mindo",
     "slug": "mindo",
-    "version": "1.0.41",
+    "version": "1.0.42",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "notification": {
@@ -34,8 +34,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "ie.medicalindependant.mindo",
-      "versionCode": 41
+      "package": "com.sirlanc3.mindo",
+      "versionCode": 42
     },
     "web": {
       "favicon": "./assets/favicon.png"

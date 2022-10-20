@@ -1,14 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { FlatList, Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from "react-native-svg";
 import AccordionListItemFooter from './AccordionListItemFooter';
-import { AdManager } from './AdManager';
 import MostReadSection from './MostReadSection';
 export const Footer = ({navi,refS}) => {
 
-  const [value, setValue] = useState(null);
-  const [ref, setRef] = useState(null);
-  const refContainer = useRef();
+
   const menuData = [
     {
       title : "News",
@@ -106,19 +103,15 @@ export const Footer = ({navi,refS}) => {
   const openURL = (url) =>{
     Linking.openURL(url)
   }
-  const onPressTouch = () => {
-    refS.current.scrollTo(0);
-}
+
   
   return (
-    <View style={styles.stat}>
-      <View style={styles.drawerContainer}>
-      <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.stat} overScrollMode="never" removeClippedSubviews={true}>
+      <SafeAreaView style={styles.drawerContainer} overScrollMode="never" removeClippedSubviews={true}>
+      <SafeAreaView style={styles.container} overScrollMode="never" removeClippedSubviews={true}>
       <FlatList
-      ref={refContainer}
-       ListHeaderComponent={
+      ListHeaderComponent={
         <View style={{backgroundColor:'white'}}>
-          <AdManager selectedAd={"LDB_MOBILE_PUBLIC"} sizeType={"SMALL"}/>
           <MostReadSection navigation={navi} showAmount={4} pageRouteName={"MostReadScreen"}/>
         </View>
       }
@@ -198,6 +191,8 @@ export const Footer = ({navi,refS}) => {
       
       </View>
       }
+      overScrollMode="never"
+      removeClippedSubviews={true}
       scrollEnabled={true}
       data={menuData}
       listKey={(item, index) => `outer_key${index.toString()}`}
@@ -225,10 +220,8 @@ export const Footer = ({navi,refS}) => {
       }}
       />
       </SafeAreaView>
-
-      
-      </View>
-    </View>
+      </SafeAreaView>
+    </SafeAreaView>
   );
 }
  const styles = StyleSheet.create({

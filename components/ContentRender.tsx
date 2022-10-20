@@ -3,7 +3,6 @@ import { Dimensions, StyleSheet, View } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 
 export default function ContentRender({htmlData,newHeight}) {
-
   return (
     <View style={{paddingTop:80,padding:10}}>
      <HTMLView
@@ -29,11 +28,12 @@ const styles = StyleSheet.create({
       color: '#6e822b', // make links coloured pink
     },
     figure:{
-      marginTop:-200,
+      marginTop:-120,
       flex:1,
       justifyContent:'center',
       width:windowWidth,
-      height:400,
+      height:windowWidth,
+      marginBottom:-100
     },
     p:{
       marginTop:-120,
@@ -43,5 +43,25 @@ const styles = StyleSheet.create({
       fontFamily: 'Lato_400Regular',
       lineHeight:32,
       letterSpacing:0.1
+    },
+    div:{
+      flex:1,
+      marginTop:-160,
+      width:windowWidth,
+      height:windowWidth,
+      justifyContent:'center',
+      alignSelf:'center',
+      alignItems:'center',
+      marginBottom:0
+    },
+    ul:{
+      flex:1,
+      marginBottom:100,
+      marginTop:-120,
+    },
+    figcaption:{
+      flex:1,
+      top:0,
+      width:windowWidth
     }
   });
