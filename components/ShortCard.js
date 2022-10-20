@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     separators:{
         borderBottomColor:'#eaeaea',
         borderBottomWidth:1,
-        marginRight:10,
+        marginRight:20,
         marginLeft:10,
         height:1
     },

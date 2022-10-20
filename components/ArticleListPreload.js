@@ -33,6 +33,7 @@ const ArticleListPreload = ({navigation, slugName,data,titleName,showAmount,page
             // else if(index === 7){
             //   return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
             // }
+            if(index > 0)
             return(
               <ShortCard props title={item.title.toString()}
                 excerpt = {item.excerpt.toString()}

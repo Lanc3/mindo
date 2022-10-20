@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
       color:'#6e822b',
       fontFamily: 'Lato_400Regular',
       fontSize:13,
+      paddingRight:20
     },
     veiwContainer:{
         flex:1,
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     titleStyle:{
       fontFamily: 'Merriweather_700Bold',
       fontSize:16,
-        paddingLeft:10
+        paddingLeft:20
     },
     titleContainer:{
         flex:1,

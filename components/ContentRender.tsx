@@ -4,7 +4,7 @@ import HTMLView from 'react-native-htmlview';
 
 export default function ContentRender({htmlData,newHeight}) {
   return (
-    <View style={{paddingTop:80,padding:10}}>
+    <View style={{paddingTop:80,padding:20}}>
      <HTMLView
         value={htmlData}
         stylesheet={styles}

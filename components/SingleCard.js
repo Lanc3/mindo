@@ -21,7 +21,7 @@ export function SingleCard({navi,props,title,excerpt,date,mediaID,totalData,name
                 <Text style={styles.greenTitle}>{nameSlug}</Text>
                 <Text style={styles.titleStyle}>{decodeString(title)}</Text>
                 <View style={styles.footer}>
-                    <Text style={{paddingHorizontal:20}}>By </Text>
+                    <Text style={{paddingLeft:20}}>By </Text>
                     <Text style={{fontWeight:'bold', color:'black'}}>{authorId}</Text>
                     <Text> - </Text>
                     <Text >{date}</Text>

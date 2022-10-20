@@ -72,8 +72,8 @@ const getContent = useCallback(async() =>{
           newGetPostsByCatSlug("commercial-feature",1,1),
           newGetPostsByCatSlug("subscriber-only",3,1),
           newGetPostsByCatSlug("sponsored-content",3,1),
-          newGetPostsByCatSlug("breaking-news",5,1),
-          newGetPostsByCatSlug("interviews",5,1),
+          newGetPostsByCatSlug("breaking-news",4,1),
+          newGetPostsByCatSlug("interviews",4,1),
         ])
         const finalData = await Promise.all(results.map(result => result.posts));
         setSliderData(finalData[0]);
@@ -127,6 +127,7 @@ const getContent = useCallback(async() =>{
                       {component:<View style={styles.divider}/>},
                       {component:<View></View>},
                       {component:<SponsoredArticleList navigation={props.navigation} slugName={"subscriber-only"}  titleName={"Subscriber Only Content"} showAmount={3} pageRouteName={"SubscriberOnly"}/>},
+                      {component:<Text style={{height:20}}></Text>},
                       {component:<View></View>},
       ])
       setIsLoading(true)
@@ -186,7 +187,7 @@ const getContent = useCallback(async() =>{
              {
               return (<Single item={cartoon[0]} navigation={props.navigation} padding={20} />)
              }
-             if(index === 24)
+             if(index === 25)
              {
               return (<Single item={commercial[0]} navigation={props.navigation} padding={20}/>)
              }

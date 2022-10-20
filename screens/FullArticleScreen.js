@@ -101,19 +101,19 @@ overScrollMode="never"
       <View style={styles.shareButton}>
       
       <View style={styles.spacer}>
-                <FontAwesome.Button  name="twitter"size={32} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="twitter"size={28} color="#000" backgroundColor="#fff" onPress={onShare}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="facebook-square" size={32} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="facebook-square" size={28} color="#000" backgroundColor="#fff" onPress={onShare}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="linkedin-square" size={32} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="linkedin-square" size={28} color="#000" backgroundColor="#fff" onPress={onShare}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="instagram" size={32} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="instagram" size={28} color="#000" backgroundColor="#fff" onPress={onShare}>
                 </FontAwesome.Button>
             </View>
       </View>
@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
       fontSize:24,
       justifyContent:'center',
       padding:5,
+      marginLeft:5
     },
     subTitle:{
       flex:1,
@@ -167,7 +168,9 @@ const styles = StyleSheet.create({
     shareButton:{
       flex:1,
       flexDirection:'row',
-      justifyContent:'flex-start'
+      justifyContent:'flex-start',
+      paddingBottom:20,
+      marginLeft:20
     },
     shareText:{
       color:'#fff',
