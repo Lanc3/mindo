@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import * as Notifications from 'expo-notifications';
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Dimensions, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { BackHandler, Dimensions, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { AdManager } from "../components/AdManager";
 import ArticleListPreload from "../components/ArticleListPreload";
@@ -44,12 +44,30 @@ const HomeScreen = (props) => {
     const notificationListener = useRef();
     const responseListener = useRef();
     const navigation = useNavigation();
+
+
+  useEffect(() => {
+ 
+    const backAction = () => {
+
+      navigation.navigate('MainDrawer',{screen :'Home'});
+    };
+  
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  });
+
     useEffect(() => {
       notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
         setNotification(notification);
       });
       responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
         const {categoryName,author,content,media,title,date} = response.notification.request.content.data;
+        console.log(response.notification.request.content.data)
         navigation.navigate("FullArticleScreen",{nameSlug:categoryName,authorName:author,title:title,date:date,imageData:media,htmlData:content});
       });
 
@@ -96,7 +114,7 @@ const getContent = useCallback(async() =>{
                       {component:<View style={styles.divider}/>},
                       {component:<View></View>},
                       {component:<View style={styles.divider}/>},
-                      {component:<View style={styles.topSmallNav}><View style={styles.titleContainer}><Text style={styles.titleStyle}>Comments</Text></View><TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :"Editorial"});}}><View style={styles.veiwContainer}><Text style={styles.viewAll}>View All</Text></View></TouchableOpacity></View>},
+                      {component:<View style={styles.topSmallNav}><View style={styles.titleContainer}><Text style={styles.titleStyle}>Comment</Text></View><TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :"Editorial"});}}><View style={styles.veiwContainer}><Text style={styles.viewAll}>View All</Text></View></TouchableOpacity></View>},
                       {component:<View></View>},
                       {component:<AdManager selectedAd={"MPU_PRIVATE"} sizeType={"BIG"}/>},
                       {component:<View></View>},
@@ -173,7 +191,7 @@ const getContent = useCallback(async() =>{
              }
              if(index === 11)
              {
-              return (<CategorySnap navigation={props.navigation} elements={feature} title={"News Feature"} route={"NewsFeatures"} padding={20}/>)
+              return (<CategorySnap navigation={props.navigation} elements={feature} title={"News Features"} route={"NewsFeatures"} padding={20}/>)
              }
              if(index === 12)
              {

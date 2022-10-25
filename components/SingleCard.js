@@ -1,13 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
+import he from 'he';
 import React from "react";
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export function SingleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug,authorId,padding}) {
 
 
-    const decodeString = (str) => {
-        return str.replace(/([,"'0-9\-.~!@#$%^&*()_+=–’`{}\[\]\|\\:;"<>\/?])+/g, '').replace(/^(-)+|(-)+$/g,'');
-    }
-
+ 
   const navigation = useNavigation();
     return (
         <View style={styles.container}>
@@ -19,7 +17,7 @@ export function SingleCard({navi,props,title,excerpt,date,mediaID,totalData,name
             </View>
                 
                 <Text style={styles.greenTitle}>{nameSlug}</Text>
-                <Text style={styles.titleStyle}>{decodeString(title)}</Text>
+                <Text style={styles.titleStyle}>{he.decode(title)}</Text>
                 <View style={styles.footer}>
                     <Text style={{paddingLeft:20}}>By </Text>
                     <Text style={{fontWeight:'bold', color:'black'}}>{authorId}</Text>

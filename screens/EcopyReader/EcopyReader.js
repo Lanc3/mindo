@@ -1,4 +1,5 @@
 import { FontAwesome } from '@expo/vector-icons';
+import he from 'he';
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Dimensions, FlatList, SafeAreaView, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { AdManager } from '../../components/AdManager';
@@ -7,11 +8,8 @@ import Footer from '../../components/Footer';
 import ISSUURenderer from '../../components/ISSUURenderer';
 import LoadingView from '../../components/LoadingView';
 import { newGetPostsByCatSlug } from '../../hooks/useResults';
-
 export default function EcopyReader({navigation,props,route}) {
-  const decodeString = (str) => {
-    return str.replace(/([,"'0-9\-.~!@#$%^&*()_+=–’`{}\[\]\|\\:;"<>\/?])+/g, '').replace(/^(-)+|(-)+$/g,'');
-}
+
   const {content} = route.params;
   const scrollRef = useRef();
   const [data, setData] = useState([]);
@@ -74,7 +72,7 @@ const onShare = async () => {
           <View style={styles.scrollView}  ref={scrollRef}>
       <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
       <Text style={styles.greenTitle}>Ecopy</Text>
-      <Text style={styles.titleStyle}>{decodeString(content.title)}</Text>
+      <Text style={styles.titleStyle}>{he.decode(title)}</Text>
       <View style={styles.subTitle}>
       <Text style={{paddingLeft:10}}>By </Text>
       <Text style={{color:'black'}}>{content.author} - </Text>

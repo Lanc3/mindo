@@ -3,7 +3,7 @@
     "jsEngine": "hermes",
     "name": "mindo",
     "slug": "mindo",
-    "version": "1.0.43",
+    "version": "1.0.44",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "notification": {
@@ -35,7 +35,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.sirlanc3.mindo",
-      "versionCode": 43
+      "versionCode": 44
     },
     "web": {
       "favicon": "./assets/favicon.png"

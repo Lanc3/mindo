@@ -1,12 +1,15 @@
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export const Stat = (props: any) => {
 
   const { item,nextItem } = props;
 
-  const {navigation,articleTitle,pageRouteName} = props;
+  const {navigation,nameSlug,articleTitle,pageRouteName} = props;
   return (
     <View style={styles.halfContainer}>
-      <View style={styles.slide}>
+     <TouchableOpacity
+                onPress={() => navigation.navigate("FullArticleScreen",{nameSlug:nameSlug,authorName:item.author,title:item.title.toString(),date:item.date,imageData:item.media.toString() ,htmlData:item.content})}
+            >
+<View style={styles.slide}>
       <View style={styles.shortContainer}>
                     <View style={styles.imageContainer}>
                     <Image style={styles.image} source={{ uri:item.media.toString() }}/>
@@ -23,6 +26,8 @@ export const Stat = (props: any) => {
                     
                 </View>
       </View>
+            </TouchableOpacity>
+      
     </View>
   );
 }

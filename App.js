@@ -1,3 +1,4 @@
+import { Lato_400Regular } from '@expo-google-fonts/lato';
 import {
   Merriweather_300Light,
   Merriweather_300Light_Italic,
@@ -8,8 +9,6 @@ import {
   Merriweather_900Black,
   Merriweather_900Black_Italic
 } from '@expo-google-fonts/merriweather';
-
-import { Lato_400Regular } from '@expo-google-fonts/lato';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -21,6 +20,8 @@ import { CounterContextProvider } from './components/GlobalContext';
 import CustomDrawerContent from './CustomDrawerContent.js';
 import CustomHeader from './CustomHeader';
 import { drawerItemsMain } from './DrawerItemsMain';
+import * as RootNavigation from './RootNavigation';
+import { navigationRef } from './RootNavigation';
 import AboutScreen from './screens/About/AboutScreen';
 import AdvertiseScreen from './screens/advertise/AdvertiseScreen';
 import ClassifiedsScreen from './screens/classifieds/Classifieds';
@@ -89,7 +90,6 @@ import SubscriberOnly from './screens/SubscriberOnly/SubscriberOnly';
 import Terms from './screens/terms/Terms';
 import UpdateJournal from './screens/UpdateJournal/UpdateJournal';
 import UpdateJournalReader from './screens/UpdateJournalReader/UpdateJournalReader';
-
 const Drawer = createDrawerNavigator();
 
 function MainDrawerNavigation() {
@@ -176,6 +176,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
   const [IsReady, SetIsReady] = useState(false);
+ 
   let [fontsLoaded] = useFonts({
     Merriweather_300Light,
     Merriweather_300Light_Italic,
@@ -193,6 +194,7 @@ export default function App() {
  
     const backAction = () => {
 
+      RootNavigation.navigate('Home');
       return true;
     };
   
@@ -210,7 +212,7 @@ export default function App() {
   else {
   return (
     <CounterContextProvider>
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
         <StatusBar barStyle='dark-content' backgroundColor='#1a1a1a'/>
       <Stack.Navigator
       initialRouteName="FirstRunScreen"

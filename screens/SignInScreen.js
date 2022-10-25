@@ -25,9 +25,10 @@ const SignInScreen = ({navigation}) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [logInState,setLogInState] = useState(true)
-  const [token,setToken] = useState({expoPushToken:''});
-
+  const [exit,setExit] = useState(false);
+  const [displayText,setDisplayText] = useState(" ");
   const registerForPushNotificationsAsync = async () => {
+    setDisplayText("Registering device");
     let getToken;
     if (Device.isDevice) {
       const { status: existingStatus } = await Notifications.getPermissionsAsync();
@@ -80,6 +81,8 @@ const SignInScreen = ({navigation}) => {
 }
 
     const doAuth = async (email, password) => {
+        setDisplayText("Connecting to server.")
+        setExit(false);
         setLogInState(false);
         setError(null);
         let formData = new FormData();
@@ -89,7 +92,9 @@ const SignInScreen = ({navigation}) => {
         const json = await fetch(loginUrl, {method: 'POST',body: formData}).then(response => response.json());
         if (json.status != false)
         {
+            setDisplayText("Saving credentials")
           try {
+            setDisplayText("Saving credentials")
               await AsyncStorage.setItem(
                 'userProfile',
                 JSON.stringify({
@@ -106,27 +111,29 @@ const SignInScreen = ({navigation}) => {
               setError('Error storing data on device');
               wrongDetails();
             }
+            finally{
+                const Expotoken = await registerForPushNotificationsAsync();
+                setDisplayText("Registering for push notification")
+                const status = await postToken(Expotoken);
+                setExit(status);
+                setDisplayText("Finishing");
+                if(status)
+                {
+                    setLogInState(true);
+                    navigation.navigate('MainDrawer',{screen :'Home'});
+                }
+            }
         }
         else{
             setLogInState(true);
             setError('Please enter your details.');
         }
-        let exit = false;
+        
         if (json.status != false)
         {
-        const Expotoken = await registerForPushNotificationsAsync();
-        exit = await postToken(Expotoken);
+        
         }
-        if(!exit)
-        {
-            setError('Please enter your details.');
-            wrongDetails("Empty Fields");
-        }
-        if(exit === true && json.status != false)
-        {
-            setLogInState(true);
-            navigation.navigate('MainDrawer',{screen :'Home'})
-        }
+        
     }
 
     const [data, setData] = React.useState({
@@ -326,7 +333,9 @@ const SignInScreen = ({navigation}) => {
                     }]}>Sign In</Text>
                 </LinearGradient>
                 </TouchableOpacity>
-             :<ActivityIndicator size="large" color="#000" />}
+             :<View><ActivityIndicator size="large" color="#000" />
+                    <Text>{displayText}</Text>
+             </View>}
             </View>
         </Animatable.View>
       </View>

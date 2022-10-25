@@ -95,15 +95,7 @@ const menuData = [
         { label: 'Priscilla Lynch', value: 'PriscillaLynch' },
       ]
     },
-    {
-      title : "Contact Us",
-      data :
-      [
-        { label: 'About Us', value: 'AboutScreen' },
-        { label: 'Privacy Policy', value: 'PrivacyScreen' },
-        { label: 'Terms & Conditions', value: 'Terms' },
-      ]
-    }
+
 ];
     const openPhone = (phoneNumber) =>{
       Linking.openURL(`tel:${phoneNumber}`)

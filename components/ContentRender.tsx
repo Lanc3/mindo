@@ -28,12 +28,16 @@ const styles = StyleSheet.create({
       color: '#6e822b', // make links coloured pink
     },
     figure:{
-      marginTop:-120,
+      marginTop:-140,
       flex:1,
       justifyContent:'center',
-      width:windowWidth,
+      width:'100%',
       height:windowWidth,
-      marginBottom:-100
+      
+    },
+    img:{
+      width:'100%',
+      height:windowWidth,
     },
     p:{
       marginTop:-120,
@@ -45,13 +49,9 @@ const styles = StyleSheet.create({
       letterSpacing:0.1
     },
     div:{
-      flex:1,
       marginTop:-160,
-      width:windowWidth,
+      width:'100%',
       height:windowWidth,
-      justifyContent:'center',
-      alignSelf:'center',
-      alignItems:'center',
       marginBottom:0
     },
     ul:{

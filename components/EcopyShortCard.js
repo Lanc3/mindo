@@ -1,12 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
+import he from 'he';
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
 export function EcopyShortCard({navi,props,title,excerpt,date,mediaID,totalData,authorId,nameSlug}) {
 
-    const decodeString = (str) => {
-        return str.replace(/([,"'0-9\-.~!@#$%^&*()_+=–’`{}\[\]\|\\:;"<>\/?])+/g, '').replace(/^(-)+|(-)+$/g,'');
-    }
+
   const navigation = useNavigation();
     return (
         <View style={styles.container}>
@@ -19,7 +17,7 @@ export function EcopyShortCard({navi,props,title,excerpt,date,mediaID,totalData,
                     </View>
                     <View style={styles.contentContainer}>
                     <Text style={styles.greenTitle}>{nameSlug}</Text>
-                    <Text style={styles.titleStyle}>{decodeString(title)}</Text>
+                    <Text style={styles.titleStyle}>{he.decode(title)}</Text>
                     <View style={styles.footer}>
                         <Text style={{fontWeight:'bold'}}>By - </Text>
                         <Text style={{fontWeight:'bold',color:'black'}}>{authorId}</Text>

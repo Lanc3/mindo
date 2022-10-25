@@ -1,14 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
+import he from 'he';
 import React, { useEffect } from "react";
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
 export function ArticleCard({navi,props,title,excerpt,date,mediaID,totalData,nameSlug,authorId}) {
 
 
-    const decodeString = (str) => {
-        return str.replace(/([,"'0-9\-.~!@#$%^&*()_+=–’`{}\[\]\|\\:;"<>\/?])+/g, '').replace(/^(-)+|(-)+$/g,'');
-    }
-    
+
 useEffect(() => {
   }, []);
   const navigation = useNavigation();
@@ -19,7 +16,7 @@ useEffect(() => {
             >
                 <Image style={styles.image} source={{ uri:""+mediaID }}/>
                 <Text style={styles.greenTitle}>{nameSlug}</Text>
-                <Text style={styles.titleStyle} numberOfLines={3}>{title}</Text>
+                <Text style={styles.titleStyle}>{he.decode(title)}</Text>
                 <View style={styles.footer}>
                     <Text style={{paddingLeft:10,fontFamily: 'Lato_400Regular',
         fontSize:13,}}>By </Text>

@@ -1,20 +1,30 @@
 import { FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from "@react-navigation/native";
+import he from 'he';
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Dimensions, FlatList, Image, SafeAreaView, Share, StyleSheet, Text, View } from 'react-native';
+import { Button, Dimensions, FlatList, Image, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
 import { AdManager } from "../components/AdManager";
 import ContentRender from '../components/ContentRender';
 import Footer from '../components/Footer';
 import { useCounter } from '../components/GlobalContext';
 import { Modal } from "../components/Modal";
-
 export default function FullArticleScreen({navigation,props,route}) {
 const {nameSlug,authorName,htmlData,imageData,title,date} = route.params;
 const scrollRef = useRef();
+const scrollViewRef = useRef();
 const [popUpState, setPopUpState] = useState(false);
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 const handleModal = () => setPopUpState(() => !popUpState);
 const { count, increment, decrement } = useCounter();
+
+const isFocused = useIsFocused();
+useEffect(() => {
+    if (isFocused) {
+        scrollViewRef.current?.scrollTo({x: 5, y: 5, animated: true})
+    }
+}, [isFocused]);
+
 const retrieveData = async () => {
   try {
     const value = await AsyncStorage.getItem('userProfile');
@@ -68,7 +78,7 @@ const onShare = async () => {
 };
 
   return (
-    <SafeAreaView style={styles.container} overScrollMode="never" removeClippedSubviews={true}>
+    <ScrollView ref={scrollViewRef} style={styles.container} overScrollMode="never" removeClippedSubviews={true}>
       <Modal isVisible={popUpState}>
   <Modal.Container>
     <Modal.Header style={{color:'white'}} title="Article Limit Reached" />
@@ -88,7 +98,7 @@ overScrollMode="never"
           <View style={styles.scrollView} overScrollMode="never" removeClippedSubviews={true}>
       <AdManager selectedAd={"LDB_MOBILE_PRIVATE"} sizeType={"SMALL"}/>
       <Text style={styles.greenTitle}>{nameSlug}</Text>
-      <Text style={styles.title} numberOfLines={3}>{title}</Text>
+      <Text style={styles.title} numberOfLines={3}>{he.decode(title)}</Text>
       <View style={styles.subTitle}>
       <Text style={{paddingLeft:10,color:'black',fontFamily: 'Lato_400Regular',fontWeight:'bold'}}>By </Text>
       <Text style={{color:'black',fontFamily: 'Lato_400Regular',fontWeight:'bold'}}>{authorName} - </Text>
@@ -130,7 +140,7 @@ overScrollMode="never"
       listKey={(item, index) => `D_key${index.toString()}`}
         keyExtractor={(item, index) => `_key${index.toString()}`}
         renderItem={({ item, index })=>{}}/>
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 const windowWidth = Dimensions.get('window').width;
