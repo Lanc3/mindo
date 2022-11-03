@@ -6,7 +6,7 @@ import { newGetPostsByCatSlug } from '../hooks/useResults';
 export function ECopy({navigation,props}) {
     const [isFreeAccount, setIsFreeAccount] = useState(false);
     const [data, setData] = useState({});
-    const isFocused = useIsFocused()
+    const isFocused = useIsFocused();
 
     const retrieveData = useCallback(async () => {
 

@@ -1,114 +1,95 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import WebRender from './WebRender';
-
-const adTypes = {LDB_MOBILE_PRIVATE:`<!-- - LDB Mobile Private [iframe] -->
-<script type="text/javascript">
-var rnd = window.rnd || Math.floor(Math.random()*10e6);
-var pid542405 = window.pid542405 || rnd;
-var plc542405 = window.plc542405 || 0;
-var abkw = window.abkw || '';
-var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=300x90;setID=542405;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid542405+';place='+(plc542405++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
-document.write('<ifr'+'ame src="'+absrc+'" width="300" height="90" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
-</script>`,
-LDB_MOBILE_PUBLIC:`<!-- - LDB Mobile Public [iframe] -->
-<script type="text/javascript">
-var rnd = window.rnd || Math.floor(Math.random()*10e6);
-var pid542406 = window.pid542406 || rnd;
-var plc542406 = window.plc542406 || 0;
-var abkw = window.abkw || '';
-var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=300x90;setID=542406;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid542406+';place='+(plc542406++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
-document.write('<ifr'+'ame src="'+absrc+'" width="300" height="90" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
-</script>`,
-MPU_PRIVATE:`<!-- - MPU Private [iframe] -->
-<script type="text/javascript">
-var rnd = window.rnd || Math.floor(Math.random()*10e6);
-var pid542368 = window.pid542368 || rnd;
-var plc542368 = window.plc542368 || 0;
-var abkw = window.abkw || '';
-var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=300x250;setID=542368;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid542368+';place='+(plc542368++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
-document.write('<ifr'+'ame src="'+absrc+'" width="300" height="250" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
-</script>`,
-MPU_PUBLIC:`<!-- - MPU Public [iframe] -->
-<script type="text/javascript">
-var rnd = window.rnd || Math.floor(Math.random()*10e6);
-var pid542369 = window.pid542369 || rnd;
-var plc542369 = window.plc542369 || 0;
-var abkw = window.abkw || '';
-var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=300x250;setID=542369;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid542369+';place='+(plc542369++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
-document.write('<ifr'+'ame src="'+absrc+'" width="300" height="250" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
-</script>`,
-CPI_LDB:`<!-- CPI LDB Private [iframe] -->
-<script type="text/javascript">
-var rnd = window.rnd || Math.floor(Math.random()*10e6);
-var pid547129 = window.pid547129 || rnd;
-var plc547129 = window.plc547129 || 0;
-var abkw = window.abkw || '';
-var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=728x90;setID=547129;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid547129+';place='+(plc547129++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
-document.write('<ifr'+'ame src="'+absrc+'" width="728" height="90" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
-</script>`,
-CPI_MPU:`<!-- CPI MPU Private [iframe] -->
-<script type="text/javascript">
-var rnd = window.rnd || Math.floor(Math.random()*10e6);
-var pid547130 = window.pid547130 || rnd;
-var plc547130 = window.plc547130 || 0;
-var abkw = window.abkw || '';
-var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=300x250;setID=547130;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid547130+';place='+(plc547130++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
-document.write('<ifr'+'ame src="'+absrc+'" width="300" height="250" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
-</script>`,
-ICS_LDB:`<!-- ICS LDB Mobile [iframe] -->
-<script type="text/javascript">
-var rnd = window.rnd || Math.floor(Math.random()*10e6);
-var pid552026 = window.pid552026 || rnd;
-var plc552026 = window.plc552026 || 0;
-var abkw = window.abkw || '';
-var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=300x160;setID=552026;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid552026+';place='+(plc552026++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
-document.write('<ifr'+'ame src="'+absrc+'" width="300" height="160" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
-</script>`,
-ICS_MPU:`<!-- ICS MPU [iframe] -->
-<script type="text/javascript">
-var rnd = window.rnd || Math.floor(Math.random()*10e6);
-var pid545734 = window.pid545734 || rnd;
-var plc545734 = window.plc545734 || 0;
-var abkw = window.abkw || '';
-var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=300x250;setID=545734;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid545734+';place='+(plc545734++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
-document.write('<ifr'+'ame src="'+absrc+'" width="300" height="250" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
-</script>`
-}
-
-const getAd = (adType) => {
-    return adTypes[adType];
-}
-const LDB_MOBILE_PUBLIC = `<!-- ICS MPU [iframe] -->
-<script type="text/javascript">
-var rnd = window.rnd || Math.floor(Math.random()*10e6);
-var pid545734 = window.pid545734 || rnd;
-var plc545734 = window.plc545734 || 0;
-var abkw = window.abkw || '';
-var absrc = 'https://servedbyadbutler.com/adserve/;ID=183389;size=300x250;setID=545734;type=iframe;sw='+screen.width+';sh='+screen.height+';spr='+window.devicePixelRatio+';kw='+abkw+';pid='+pid545734+';place='+(plc545734++)+';rnd='+rnd+';click=CLICK_MACRO_PLACEHOLDER';
-document.write('<ifr'+'ame src="'+absrc+'" width="300" height="250" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></ifr'+'ame>');
-</script>`
+const ads = [
+        {
+            name:"LDB_MOBILE",
+            private_script:`<!-- - LDB Mobile Private [async] -->
+            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+            <script type="text/javascript">
+            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+            var abkw = window.abkw || '';
+            var plc542405 = window.plc542405 || 0;
+            document.write('<'+'div id="placement_542405_'+plc542405+'"></'+'div>');
+            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542405, [300,90], 'placement_542405_'+opt.place, opt); }, opt: { place: plc542405++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+            </script>`,
+            public_script:`<!-- - LDB Mobile Public [async] -->
+            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+            <script type="text/javascript">
+            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+            var abkw = window.abkw || '';
+            var plc542406 = window.plc542406 || 0;
+            document.write('<'+'div id="placement_542406_'+plc542406+'"></'+'div>');
+            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542406, [300,90], 'placement_542406_'+opt.place, opt); }, opt: { place: plc542406++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+            </script>`
+        },
+        {
+            name:"MPU",
+            private_script:`<!-- - MPU Private [async] -->
+            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+            <script type="text/javascript">
+            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+            var abkw = window.abkw || '';
+            var plc542368 = window.plc542368 || 0;
+            document.write('<'+'div id="placement_542368_'+plc542368+'"></'+'div>');
+            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542368, [300,250], 'placement_542368_'+opt.place, opt); }, opt: { place: plc542368++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+            </script>`,
+            public_script:`<!-- - MPU Public [async] -->
+            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+            <script type="text/javascript">
+            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+            var abkw = window.abkw || '';
+            var plc542369 = window.plc542369 || 0;
+            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
+            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+            </script>`
+        },
+    ];
 
 export function AdManager(props) {
-const selectedAd = props.selectedAd;
-const sizeType = props.sizeType;
-const [isFreeAccount, setIsFreeAccount] = useState(true);
-const retrieveData = useCallback(async () => {
+    const isFocused = useIsFocused();
+    const selectedAd = props.selectedAd;
+    const sizeType = props.sizeType;
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const getAd = (adZone) => {
+        var __FOUND = ads.find(function(ad, index) {
+            if(ad.name === adZone)
+               return true;
+        });
+        if(typeof __FOUND !== 'undefined'){
+            if(isLoggedIn)
+            {
+                return __FOUND.private_script;
+            }
+            else{
+                return __FOUND.public_script;
+            }
+        }
+    }
+    const retrieveData = useCallback(async () => {
     try {
       const value = await AsyncStorage.getItem('userProfile');
       if (value !== null) {
-        setIsFreeAccount(JSON.parse(value).freeAccount);
+        setIsLoggedIn(JSON.parse(value).freeAccount);
       }
       else{
-       
+
       }
     } catch (error) {
       // Error retrieving data
     }
 },[]);
-useEffect (() => {
-    retrieveData();
-  },[retrieveData]);
+useEffect(() => { 
+    (async () => {
+        const data = await AsyncStorage.getItem('userProfile');
+        if(data !== null)
+        setIsLoggedIn(JSON.parse(data).isLoggedIn);
+    })()
+}, [isFocused]);
+
     return (
         <View style={styles.container}>
             {sizeType === 'BIG' ?
@@ -124,7 +105,7 @@ useEffect (() => {
             </View>
             </View>
             }
-            </View>
+        </View>
     );
 };
 

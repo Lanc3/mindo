@@ -13,6 +13,7 @@ const ISRScreen = ({navigation}) => {
     const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [title,setTitle] = useState("Irish Society of Rheumatology");
+    const [blurb,setBlurb] = useState("The Irish Society for Rheumatology (ISR) is an organisation of about 150 members with specialist training in Rheumatology. Some are Consultants (i.e. trained medical specialists), others are trainees, with some members being scientists and researchers. The Society includes those who are based in the Republic of Ireland, Northern Ireland, the rest of the UK and some from further afield.");
     const [slug,setSlug] = useState("isr");
     const scrollRef = useRef();
 
@@ -49,7 +50,7 @@ const ISRScreen = ({navigation}) => {
       {data.length > 0 ? (
         <View>
         <FlatList
-          ListHeaderComponent={<Header title={title} navigation={navigation} data={data}></Header>}
+          ListHeaderComponent={<Header title={title} blurb={blurb} navigation={navigation} data={data}></Header>}
           ListFooterComponent={
             <View>
             <View style={styles.pageNav}>
@@ -72,10 +73,10 @@ const ISRScreen = ({navigation}) => {
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
             if(index === 3){
-                return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+                return(<AdManager selectedAd={"MPU"} sizeType={"BIG"}/>)
             }
             else if(index === 7){
-              return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+              return(<AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>)
             }
             return(
               <ShortCard props title={item.title.toString()}

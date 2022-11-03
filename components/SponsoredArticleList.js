@@ -66,12 +66,7 @@ const SponsoredArticleList = ({navigation, slugName,list,titleName,showAmount,pa
           listKey={(item, index) => `D_key${index.toString()}`}
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
-            // if(index === 3){
-            //     return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
-            // }
-            // else if(index === 7){
-            //   return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
-            // }
+
             return(
               <ShortCard props title={item.title.toString()}
                 excerpt = {item.excerpt.toString()}

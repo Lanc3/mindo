@@ -83,6 +83,7 @@ export const Footer = ({navi,refS}) => {
       data :
       [
         { label: 'Catherine Reilly', value: 'CatherineReilly' },
+        { label: 'Niamh Quinlan', value: 'NiamhQuinlan' },
         { label: 'David Lynch', value: 'DavidLynch' },
         { label: 'Paul Mullholand', value: 'PaulMulholland' },
         { label: 'Priscilla Lynch', value: 'PriscillaLynch' },

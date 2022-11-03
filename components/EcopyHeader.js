@@ -7,7 +7,7 @@ export const EcopyHeader = ({title,navigation,data}) => {
 
   return (
     <View style={styles.stat}>
-      <AdManager selectedAd={"LDB_MOBILE_PUBLIC"} sizeType={"SMALL"}/>
+      <AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>
       {title != null ?<Text style={styles.pageTitle}>{title}</Text>:null}
           <Carousel
         style='slide'

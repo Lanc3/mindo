@@ -4,7 +4,9 @@ import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export function ShortCard({navi,props,title,excerpt,date,mediaID,totalData,authorId,nameSlug}) {
 
- 
+    const decodeString = (str) => {
+        return str.replace(/(&nbsp;|<([^>]+)>)/ig, '').replace(/^(-)+|(-)+$/g,'');
+    }
 
   const navigation = useNavigation();
     return (
@@ -19,7 +21,7 @@ export function ShortCard({navi,props,title,excerpt,date,mediaID,totalData,autho
                     </View>
                     <View style={styles.contentContainer}>
                     <Text style={styles.greenTitle}>{nameSlug}</Text>
-                    <Text style={styles.titleStyle}>{he.decode(title)}</Text>
+                    <Text style={styles.titleStyle}>{he.decode(decodeString(title))}</Text>
                     <View style={styles.footer}>
                         <Text style={styles.by}>By - </Text>
                         <Text style={styles.by}>{authorId}</Text>

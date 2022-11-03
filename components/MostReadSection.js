@@ -51,7 +51,7 @@ const MostReadSection = ({navigation,showAmount,pageRouteName}) => {
               </View>
           }
           ListFooterComponent={
-            <AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>
+            <AdManager selectedAd={"MPU"} sizeType={"BIG"}/>
           }
           data={data}
           listKey={(item, index) => `D_key${index.toString()}`}

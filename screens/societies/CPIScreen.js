@@ -13,6 +13,7 @@ const CPIScreen = ({navigation}) => {
     const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [title,setTitle] = useState("College of Psychiatrists of Ireland");
+    const [blurb,setBlurb] = useState("");
     const [slug,setSlug] = useState("cpi");
     const scrollRef = useRef();
 
@@ -31,6 +32,7 @@ const CPIScreen = ({navigation}) => {
           const response = await newGetPostsByCatSlug(slug,10,page);
           setTotalPages(Math.ceil(response.totalPosts/10));
           setData(response.posts);
+          setBlurb(response.posts[0].categoryDescription)
           setLoading(1);
         }catch(error){
             
@@ -49,7 +51,7 @@ const CPIScreen = ({navigation}) => {
       {data.length > 0 ? (
         <View>
         <FlatList
-          ListHeaderComponent={<Header title={title} navigation={navigation} data={data}></Header>}
+          ListHeaderComponent={<Header title={title} blurb={blurb} navigation={navigation} data={data}></Header>}
           ListFooterComponent={
             <View>
             <View style={styles.pageNav}>
@@ -72,10 +74,10 @@ const CPIScreen = ({navigation}) => {
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
             if(index === 3){
-                return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+                return(<AdManager selectedAd={"MPU"} sizeType={"BIG"}/>)
             }
             else if(index === 7){
-              return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+              return(<AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>)
             }
             return(
               <ShortCard props title={item.title.toString()}

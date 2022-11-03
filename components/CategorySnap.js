@@ -6,7 +6,6 @@ import Single from "./Single";
 const CategorySnap = ({navigation, elements,title,route,padding}) => {
 
 
-
     return(
         <View style={{ flex: 1, paddingTop: 5 }}>
         <View style={styles.divider}></View>
@@ -48,7 +47,7 @@ const CategorySnap = ({navigation, elements,title,route,padding}) => {
                 navi = {navigation}
                 nameSlug={elements[3].categoryName}
                 />
-                <AdManager selectedAd={"LDB_MOBILE_PRIVATE"} sizeType={"SMALL"}/>
+                <AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>
         </View>
       );
     };

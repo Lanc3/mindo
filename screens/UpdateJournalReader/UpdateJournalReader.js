@@ -131,10 +131,10 @@ const onShare = async () => {
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
             if(index === 3){
-                return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+                return(<AdManager selectedAd={"MPU"} sizeType={"BIG"}/>)
             }
             else if(index === 7){
-              return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
+              return(<AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>)
             }
             return(
               <EcopyShortCard props title={item.title.toString()}

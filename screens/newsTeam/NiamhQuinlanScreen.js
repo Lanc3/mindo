@@ -5,17 +5,17 @@ import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import LoadingView from "../../components/LoadingView";
 import { ShortCard } from "../../components/ShortCard";
-import { newGetPostsByCatSlug } from '../../hooks/useResults';
+import { newGetPostsByAuthor } from '../../hooks/useResults';
 
-const Investigations = ({navigation}) => {
+
+const NiamhQuinlanScreen = ({navigation}) => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    const [title,setTitle] = useState("Investigations");
-    const [slug,setSlug] = useState("investigations");;
+    const [title,setTitle] = useState("Niamh Quinlan");
+    const [authorID,setAuthorID]= useState(15486);
     const scrollRef = useRef();
-
     const nextpage = () =>{
       if(page <= totalPages)
       setPage(prevPage => prevPage + 1)
@@ -28,7 +28,7 @@ const Investigations = ({navigation}) => {
       setLoading(0.25);
         try{
           setLoading(0.5);
-          const response = await newGetPostsByCatSlug(slug,10,page);
+          const response = await newGetPostsByAuthor(authorID,10,page);
           setTotalPages(Math.ceil(response.totalPosts/10));
           setData(response.posts);
           setLoading(1);
@@ -45,8 +45,8 @@ const Investigations = ({navigation}) => {
       }, [getContent]);
 
     return(
-        <View style={{ flex: 1 ,backgroundColor:"#fff"}} ref={scrollRef}>
-      {data.length > 0 ? (
+        <View style={{ flex: 1,backgroundColor:"#fff" }} ref={scrollRef}>
+      {data ? (
         <View>
         <FlatList
           ListHeaderComponent={<Header title={title} navigation={navigation} data={data}></Header>}
@@ -99,14 +99,14 @@ const Investigations = ({navigation}) => {
         </View>
       );
     };
-
-export default Investigations;
+export default NiamhQuinlanScreen;
 
 const styles = StyleSheet.create({
     container:{
         flex: 1,
         alignItems:'center',
         justifyContent:'center',
+        backgroundColor:'white',
     },
     pageTitle:{
         fontSize:26,

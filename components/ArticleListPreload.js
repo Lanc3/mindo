@@ -27,12 +27,6 @@ const ArticleListPreload = ({navigation, slugName,data,titleName,showAmount,page
           listKey={(item, index) => `D_key${index.toString()}`}
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
-            // if(index === 3){
-            //     return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
-            // }
-            // else if(index === 7){
-            //   return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
-            // }
             if(index > 0)
             return(
               <ShortCard props title={item.title.toString()}

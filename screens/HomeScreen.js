@@ -67,7 +67,7 @@ const HomeScreen = (props) => {
       });
       responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
         const {categoryName,author,content,media,title,date} = response.notification.request.content.data;
-        console.log(response.notification.request.content.data)
+        //console.log(response.notification.request.content.data)
         navigation.navigate("FullArticleScreen",{nameSlug:categoryName,authorName:author,title:title,date:date,imageData:media,htmlData:content});
       });
 
@@ -108,7 +108,7 @@ const getContent = useCallback(async() =>{
       }catch(error){
         ;
       }
-      setHomeItems([{component:<AdManager selectedAd={"LDB_MOBILE_PRIVATE"} sizeType={"SMALL"}/>},
+      setHomeItems([{component:<AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>},
                       {component:<View></View>},
                       {component:<View></View>},
                       {component:<View style={styles.divider}/>},
@@ -116,7 +116,7 @@ const getContent = useCallback(async() =>{
                       {component:<View style={styles.divider}/>},
                       {component:<View style={styles.topSmallNav}><View style={styles.titleContainer}><Text style={styles.titleStyle}>Comment</Text></View><TouchableOpacity onPress={()=>{navigation.navigate('MainDrawer',{screen :"Editorial"});}}><View style={styles.veiwContainer}><Text style={styles.viewAll}>View All</Text></View></TouchableOpacity></View>},
                       {component:<View></View>},
-                      {component:<AdManager selectedAd={"MPU_PRIVATE"} sizeType={"BIG"}/>},
+                      {component:<AdManager selectedAd={"MPU"} sizeType={"BIG"}/>},
                       {component:<View></View>},
                       {component:<ECopy navigation={props.navigation}/>},
                       {component:<View></View>},

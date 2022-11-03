@@ -17,14 +17,18 @@ const [popUpState, setPopUpState] = useState(false);
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 const handleModal = () => setPopUpState(() => !popUpState);
 const { count, increment, decrement } = useCounter();
-
+const decodeString = (str) => {
+  return str.replace(/(&nbsp;|<([^>]+)>)/ig, '').replace(/^(-)+|(-)+$/g,'');
+}
 const isFocused = useIsFocused();
 useEffect(() => {
     if (isFocused) {
-        scrollViewRef.current?.scrollTo({x: 5, y: 5, animated: true})
+        scrollViewRef.current?.scrollTo({x: 5, y: 5, animated: false})
     }
 }, [isFocused]);
-
+useEffect(() => {
+  scrollViewRef.current?.scrollTo({x: 5, y: 5, animated: false})
+}, [title]);
 const retrieveData = async () => {
   try {
     const value = await AsyncStorage.getItem('userProfile');
@@ -96,9 +100,9 @@ overScrollMode="never"
       removeClippedSubviews={true}
         ListHeaderComponent={
           <View style={styles.scrollView} overScrollMode="never" removeClippedSubviews={true}>
-      <AdManager selectedAd={"LDB_MOBILE_PRIVATE"} sizeType={"SMALL"}/>
+      <AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>
       <Text style={styles.greenTitle}>{nameSlug}</Text>
-      <Text style={styles.title} numberOfLines={3}>{he.decode(title)}</Text>
+      <Text style={styles.title} numberOfLines={3}>{he.decode(decodeString(title))}</Text>
       <View style={styles.subTitle}>
       <Text style={{paddingLeft:10,color:'black',fontFamily: 'Lato_400Regular',fontWeight:'bold'}}>By </Text>
       <Text style={{color:'black',fontFamily: 'Lato_400Regular',fontWeight:'bold'}}>{authorName} - </Text>
@@ -111,19 +115,19 @@ overScrollMode="never"
       <View style={styles.shareButton}>
       
       <View style={styles.spacer}>
-                <FontAwesome.Button  name="twitter"size={28} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="twitter"size={28} color="#000" backgroundColor='transparent' onPress={onShare}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="facebook-square" size={28} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="facebook-square" size={28} color="#000" backgroundColor='transparent' onPress={onShare}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="linkedin-square" size={28} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="linkedin-square" size={28} color="#000" backgroundColor='transparent' onPress={onShare}>
                 </FontAwesome.Button>
             </View>
             <View style={styles.spacer}>
-                <FontAwesome.Button  name="instagram" size={28} color="#000" backgroundColor="#fff" onPress={onShare}>
+                <FontAwesome.Button  name="instagram" size={28} color="#000" backgroundColor='transparent' onPress={onShare}>
                 </FontAwesome.Button>
             </View>
       </View>

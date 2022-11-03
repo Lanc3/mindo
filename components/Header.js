@@ -1,20 +1,21 @@
+import he from 'he';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { AdManager } from './AdManager';
 import Carousel from './Carousel';
-export const Header = ({title,navigation,data}) => {
-
+export const Header = ({title,blurb,navigation,data}) => {
+ 
 
   return (
     <View style={styles.stat}>
-      <AdManager selectedAd={"LDB_MOBILE_PUBLIC"} sizeType={"SMALL"}/>
-      {title != null ?<Text style={styles.pageTitle}>{title}</Text>:null}
-        
+      <AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>
+      {title != null ?<Text style={styles.pageTitle}>{he.decode(title)}</Text>:null}
+      {blurb != null ?<Text style={styles.pageBlurb}>{blurb}</Text>:null}
           <Carousel
         style='slide'
         items={data}
         navigation={navigation}
-        nameSlug={title}
+        nameSlug={he.decode(title)}
       />
     </View>
   );
@@ -23,9 +24,17 @@ export const Header = ({title,navigation,data}) => {
     pageTitle:{
         fontSize:26,
         fontFamily:'Merriweather_700Bold',
-        margin:5,
-        alignSelf:'center'
-    }
+        alignSelf:'center',
+        textAlign:'center'
+    },
+    pageBlurb:{
+      fontSize:14,
+      fontFamily:'Lato_400Regular',
+      margin:5,
+      paddingBottom:20,
+      alignSelf:'center',
+      textAlign:'center'
+  }
   });
 
 export default Header;

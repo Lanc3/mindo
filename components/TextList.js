@@ -55,12 +55,7 @@ const TextList = ({navigation, slugName,list,titleName,showAmount,pageRouteName}
           listKey={(item, index) => `D_key${index.toString()}`}
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
-            // if(index === 3){
-            //     return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
-            // }
-            // else if(index === 7){
-            //   return(<AdManager selectedAd={"MPU_PUBLIC"} sizeType={"BIG"}/>)
-            // }
+
             return(
               <TextCard props title={item.title.toString()}
                 excerpt = {item.excerpt.toString()}

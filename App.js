@@ -68,6 +68,7 @@ import NewsFeatures from './screens/news/NewsFeatures';
 import PhotoNews from './screens/news/PhotoNews';
 import CatherineReillyScreen from './screens/newsTeam/CatherineReillyScreen';
 import DavidLynchScreen from './screens/newsTeam/DavidLynchScreen';
+import NiamhQuinlanScreen from './screens/newsTeam/NiamhQuinlanScreen';
 import PaulMulhollandScreen from './screens/newsTeam/PaulMulhollandScreen';
 import PriscillaLynchScreen from './screens/newsTeam/PriscillaLynchScreen';
 import PrivacyScreen from './screens/privacy/PrivacyScreen';
@@ -162,6 +163,7 @@ function MainDrawerNavigation() {
       <Drawer.Screen name="FullArticleScreen" component={FullArticleScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="SignInScreenlogout" component={SignInScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="CatherineReilly" component={CatherineReillyScreen} options={{headerShown:false}}/>
+      <Drawer.Screen name="NiamhQuinlan" component={NiamhQuinlanScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="DavidLynch" component={DavidLynchScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="PaulMulholland" component={PaulMulhollandScreen} options={{headerShown:false}}/>
       <Drawer.Screen name="PriscillaLynch" component={PriscillaLynchScreen} options={{headerShown:false}}/>
