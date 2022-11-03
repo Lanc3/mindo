@@ -1,4 +1,4 @@
-import { Lato_400Regular } from '@expo-google-fonts/lato';
+import { Lato_400Regular, Lato_700Bold } from '@expo-google-fonts/lato';
 import {
   Merriweather_300Light,
   Merriweather_300Light_Italic,
@@ -189,6 +189,7 @@ export default function App() {
     Merriweather_900Black,
     Merriweather_900Black_Italic,
     Lato_400Regular,
+    Lato_700Bold
   });
   
 

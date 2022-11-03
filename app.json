@@ -6,7 +6,6 @@
     "version": "1.0.45",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "sdkVersion": "44.0.0",
     "plugins": [
       [
         "expo-build-properties",
@@ -45,12 +44,12 @@
     },
     "android": {
       "googleServicesFile": "./google-services.json",
-      "useNextNotificationsApi":true,
+      "useNextNotificationsApi": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.sirlanc3.mindo",
+      "package": "ie.medicalindependant.mindo",
       "versionCode": 45
     },
     "web": {

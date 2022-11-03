@@ -7,7 +7,7 @@ export default function WebRender({htmlData}) {
   const [webview,setWebview] = useState({});
   return (
     <WebView
-      ref={(ref) =>{setWebview(ref)}}
+      
       style={styles.container}
       setSupportMultipleWindows={true}
       allowsLinkPreview={false}
