@@ -138,7 +138,7 @@ overScrollMode="never"
         ListFooterComponent={
         <View>
           <ContentRender htmlData={htmlData} newHeight={1800}/>
-          <Footer navi={navigation} refS={scrollRef}/>
+          <Footer navi={navigation} refS={scrollRef} adSelected="MPU"/>
         </View>}
       data={[]}
       listKey={(item, index) => `D_key${index.toString()}`}

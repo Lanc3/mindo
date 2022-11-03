@@ -61,7 +61,7 @@ const ECopy = ({navigation}) => {
               <Text style={styles.nextGreen}>  Next</Text>
             </TouchableOpacity>
           </View>
-          <Footer navi={navigation} refS={scrollRef}/>
+          <Footer navi={navigation} refS={scrollRef} adSelected="MPU"/>
             </View>
           }
           data={data}

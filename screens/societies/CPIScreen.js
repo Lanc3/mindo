@@ -51,7 +51,7 @@ const CPIScreen = ({navigation}) => {
       {data.length > 0 ? (
         <View>
         <FlatList
-          ListHeaderComponent={<Header title={title} blurb={blurb} navigation={navigation} data={data}></Header>}
+          ListHeaderComponent={<Header title={title} blurb={blurb} adType={"CPI_LBD"} navigation={navigation} data={data}></Header>}
           ListFooterComponent={
             <View>
             <View style={styles.pageNav}>
@@ -66,7 +66,7 @@ const CPIScreen = ({navigation}) => {
               <Text style={styles.nextGreen}>  Next</Text>
             </TouchableOpacity>
           </View>
-          <Footer navi={navigation} refS={scrollRef}/>
+          <Footer navi={navigation} refS={scrollRef} adSelected="CPI_MPU"/>
             </View>
           }
           data={data}
@@ -74,10 +74,10 @@ const CPIScreen = ({navigation}) => {
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
             if(index === 3){
-                return(<AdManager selectedAd={"MPU"} sizeType={"BIG"}/>)
+                return(<AdManager selectedAd={"CPI_MPU"} sizeType={"BIG"}/>)
             }
             else if(index === 7){
-              return(<AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>)
+              return(<AdManager selectedAd={"CPI_LBD"} sizeType={"SMALL"}/>)
             }
             return(
               <ShortCard props title={item.title.toString()}

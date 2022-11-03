@@ -49,7 +49,7 @@ const SponsoredScreen = ({navigation}) => {
       {data.length > 0 ? (
         <View>
         <FlatList
-          ListHeaderComponent={<Header title={title} navigation={navigation} data={data}></Header>}
+          ListHeaderComponent={<Header title={title} adType={"SPONSORED_LDB"} navigation={navigation} data={data}></Header>}
           ListFooterComponent={
             <View>
             <View style={styles.pageNav}>
@@ -64,7 +64,7 @@ const SponsoredScreen = ({navigation}) => {
               <Text style={styles.nextGreen}>  Next</Text>
             </TouchableOpacity>
           </View>
-          <Footer navi={navigation} refS={scrollRef}/>
+          <Footer navi={navigation} refS={scrollRef} adSelected="SPONSORED_MPU"/>
             </View>
           }
           data={data}
@@ -72,10 +72,10 @@ const SponsoredScreen = ({navigation}) => {
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
             if(index === 3){
-                return(<AdManager selectedAd={"MPU"} sizeType={"BIG"}/>)
+                return(<AdManager selectedAd={"SPONSORED_MPU"} sizeType={"BIG"}/>)
             }
             else if(index === 7){
-              return(<AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>)
+              return(<AdManager selectedAd={"SPONSORED_LDB"} sizeType={"SMALL"}/>)
             }
             return(
               <ShortCard props title={item.title.toString()}

@@ -14,6 +14,7 @@ const IICNINAScreen = ({navigation}) => {
     const [totalPages, setTotalPages] = useState(0);
     const [title,setTitle] = useState("Irish Institute of Neurological Science");
     const [slug,setSlug] = useState("iicn-ina");
+    const [blurb,setBlurb] = useState("");
     const scrollRef = useRef();
 
     const nextpage = () =>{
@@ -31,6 +32,7 @@ const IICNINAScreen = ({navigation}) => {
           const response = await newGetPostsByCatSlug(slug,10,page);
           setTotalPages(Math.ceil(response.totalPosts/10));
           setData(response.posts);
+          setBlurb(response.posts[0].categoryDescription)
           setLoading(1);
         }catch(error){
             
@@ -49,7 +51,7 @@ const IICNINAScreen = ({navigation}) => {
       {data.length > 0 ? (
         <View>
         <FlatList
-          ListHeaderComponent={<Header title={title} navigation={navigation} data={data}></Header>}
+          ListHeaderComponent={<Header title={title} blurb={blurb} adType={"IICNINA_LBD"} navigation={navigation} data={data}></Header>}
           ListFooterComponent={
             <View>
             <View style={styles.pageNav}>
@@ -64,7 +66,7 @@ const IICNINAScreen = ({navigation}) => {
               <Text style={styles.nextGreen}>  Next</Text>
             </TouchableOpacity>
           </View>
-          <Footer navi={navigation} refS={scrollRef}/>
+          <Footer navi={navigation} refS={scrollRef} adSelected="IICNINA_MPU"/>
             </View>
           }
           data={data}
@@ -72,10 +74,10 @@ const IICNINAScreen = ({navigation}) => {
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
             if(index === 3){
-                return(<AdManager selectedAd={"MPU"} sizeType={"BIG"}/>)
+                return(<AdManager selectedAd={"IICNINA_MPU"} sizeType={"BIG"}/>)
             }
             else if(index === 7){
-              return(<AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>)
+              return(<AdManager selectedAd={"IICNINA_LBD"} sizeType={"SMALL"}/>)
             }
             return(
               <ShortCard props title={item.title.toString()}

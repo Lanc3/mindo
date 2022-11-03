@@ -4,14 +4,14 @@ import { newGetMostReadPosts } from '../hooks/useResults';
 import { AdManager } from "./AdManager";
 import { ShortCard } from "./ShortCard";
 
-const MostReadSection = ({navigation,showAmount,pageRouteName}) => {
+const MostReadSection = ({navigation,showAmount,pageRouteName,mostReadAD}) => {
     //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    const [title,setTitle] = useState('Most Read');
-
+    const [title,setTitle] = useState(mostReadAD);
+   
  const getContent = useCallback(async() =>{
       setLoading(0.25);
         try{
@@ -51,7 +51,7 @@ const MostReadSection = ({navigation,showAmount,pageRouteName}) => {
               </View>
           }
           ListFooterComponent={
-            <AdManager selectedAd={"MPU"} sizeType={"BIG"}/>
+            <AdManager selectedAd={mostReadAD} sizeType={"BIG"}/>
           }
           data={data}
           listKey={(item, index) => `D_key${index.toString()}`}

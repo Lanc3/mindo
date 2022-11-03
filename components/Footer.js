@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from "react";
 import { FlatList, Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from "react-native-svg";
 import AccordionListItemFooter from './AccordionListItemFooter';
 import MostReadSection from './MostReadSection';
-export const Footer = ({navi,refS}) => {
-
+export const Footer = (props) => {
+  const [ad, setAd] = useState(props.adSelected);
+  const selectedAd = props.adSelected;
 
   const menuData = [
     {
@@ -99,13 +100,11 @@ export const Footer = ({navi,refS}) => {
       ]
     }];
   const goToLink =(value) => {
-    navi.navigate('MainDrawer',{screen :value});
+    props.navi.navigate('MainDrawer',{screen :value});
   };
   const openURL = (url) =>{
     Linking.openURL(url)
   }
-
-  
   return (
     <SafeAreaView style={styles.stat} overScrollMode="never" removeClippedSubviews={true}>
       <SafeAreaView style={styles.drawerContainer} overScrollMode="never" removeClippedSubviews={true}>
@@ -113,7 +112,7 @@ export const Footer = ({navi,refS}) => {
       <FlatList
       ListHeaderComponent={
         <View style={{backgroundColor:'white'}}>
-          <MostReadSection navigation={navi} showAmount={4} pageRouteName={"MostReadScreen"}/>
+          <MostReadSection navigation={props.navi} showAmount={4} mostReadAD={selectedAd} pageRouteName={"MostReadScreen"}/>
         </View>
       }
       ListFooterComponent={
@@ -188,8 +187,6 @@ export const Footer = ({navi,refS}) => {
         <Text style={styles.footerText}>© The Medical Independent 2022. All rights reserved.
         </Text>
         <Text style={styles.footerText}>Built by Aaron Keating</Text>
-        
-      
       </View>
       }
       overScrollMode="never"

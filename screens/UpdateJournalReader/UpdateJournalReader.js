@@ -155,7 +155,7 @@ const onShare = async () => {
                 <LoadingView loadingProgress={loading}/>
             </View>
           )}
-          <Footer navi={navigation} refS={scrollRef}/>
+          <Footer navi={navigation} refS={scrollRef} adSelected="MPU"/>
         </View>}
       data={[]}
       listKey={(item, index) => `D_key${index.toString()}`}

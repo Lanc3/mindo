@@ -27,7 +27,7 @@ const AdvertiseScreen = ({navigation}) => {
       <View style={{ flex: 1,backgroundColor:"#fff" }} ref={scrollRef}>
       <FlatList
         ListHeaderComponent={<ContentRender htmlData={htmlData} newHeight={1800}/>}
-        ListFooterComponent={<Footer navi={navigation} refS={scrollRef}/>}
+        ListFooterComponent={<Footer navi={navigation} refS={scrollRef} adSelected="MPU"/>}
       data={[]}
       listKey={(item, index) => `D_key${index.toString()}`}
         keyExtractor={(item, index) => `_key${index.toString()}`}

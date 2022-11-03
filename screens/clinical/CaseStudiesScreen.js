@@ -50,7 +50,7 @@ const CaseStudiesScreen = ({navigation}) => {
       {data.length > 0 ? (
         <View>
         <FlatList
-          ListHeaderComponent={<Header title={title} navigation={navigation} data={data}></Header>}
+          ListHeaderComponent={<Header title={title} adType={"LDB_MOBILE"} navigation={navigation} data={data}></Header>}
           ListFooterComponent={
             <View>
             <View style={styles.pageNav}>
@@ -65,7 +65,7 @@ const CaseStudiesScreen = ({navigation}) => {
               <Text style={styles.nextGreen}>  Next</Text>
             </TouchableOpacity>
           </View>
-          <Footer navi={navigation} refS={scrollRef}/>
+          <Footer navi={navigation} refS={scrollRef} adSelected="MPU"/>
             </View>
           }
           data={data}

@@ -75,7 +75,7 @@ const onShare = async () => {
         ListFooterComponent={
         <View>
           <ContentRender htmlData={content} newHeight={1800}/>
-          <Footer navi={navigation} refS={scrollRef}/>
+          <Footer navi={navigation} refS={scrollRef} adSelected="MPU"/>
         </View>}
       data={[]}
       listKey={(item, index) => `D_key${index.toString()}`}

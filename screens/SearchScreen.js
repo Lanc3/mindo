@@ -40,11 +40,11 @@ const SearchScreen = ({props,route}) => {
         <View style={{backgroundColor:"#fff"}} ref={scrollRef}>
         <FlatList
           ListHeaderComponent={
-            <Header title={search_term} navigation={navigation} data={data}></Header>
+            <Header title={title} adType={"LDB_MOBILE"} adType={"LDB_MOBILE"} navigation={navigation} data={data}></Header>
           }
           ListFooterComponent={
           <View>
-          <Footer navi={navigation} refS={scrollRef}/>
+          <Footer navi={navigation} refS={scrollRef} adSelected="MPU"/>
           </View>
           }
           data={data}

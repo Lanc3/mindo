@@ -162,7 +162,7 @@ const getContent = useCallback(async() =>{
         <FlatList
         ListFooterComponent={
           <View>
-            <Footer navi={props.navigation} refS={scrollRef}/>
+            <Footer navi={props.navigation} refS={scrollRef} adSelected="MPU"/>
           </View>
         }
         scrollEnabled={true}

@@ -15,6 +15,7 @@ const ICSScreen = ({navigation}) => {
     const [title,setTitle] = useState("Irish Cardiac Society");
     const [blurb,setBlurb] = useState("");
     const [slug,setSlug] = useState("ics");
+    const [adsss,setAdsss] = useState("ICS_MPU");
     const scrollRef = useRef();
 
     const nextpage = () =>{
@@ -51,7 +52,7 @@ const ICSScreen = ({navigation}) => {
       {data.length > 0 ? (
         <View>
         <FlatList
-          ListHeaderComponent={<Header title={title} blurb={blurb} navigation={navigation} data={data}></Header>}
+          ListHeaderComponent={<Header title={title} blurb={blurb} adType={"ICS_LDB"} navigation={navigation} data={data}></Header>}
           ListFooterComponent={
             <View>
             <View style={styles.pageNav}>
@@ -66,7 +67,7 @@ const ICSScreen = ({navigation}) => {
               <Text style={styles.nextGreen}>  Next</Text>
             </TouchableOpacity>
           </View>
-          <Footer navi={navigation} refS={scrollRef}/>
+          <Footer navi={navigation} refS={scrollRef} adSelected="ICS_MPU"/>
             </View>
           }
           data={data}
@@ -74,10 +75,10 @@ const ICSScreen = ({navigation}) => {
           keyExtractor={(item, index) => `_key${index.toString()}`}
           renderItem={({ item, index })=>{
             if(index === 3){
-                return(<AdManager selectedAd={"MPU"} sizeType={"BIG"}/>)
+                return(<AdManager selectedAd={"ICS_MPU"} sizeType={"BIG"}/>)
             }
             else if(index === 7){
-              return(<AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>)
+              return(<AdManager selectedAd={"ICS_MPU"} sizeType={"BIG"}/>)
             }
             return(
               <ShortCard props title={item.title.toString()}
