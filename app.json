@@ -5,7 +5,7 @@
     "slug": "mindo",
     "version": "1.0.45",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/mindo-app-icon-applestore.png",
     "plugins": [
       [
         "expo-build-properties",
