@@ -3,7 +3,7 @@
     "jsEngine": "hermes",
     "name": "mindo",
     "slug": "mindo",
-    "version": "1.0.45",
+    "version": "1.0.47",
     "orientation": "portrait",
     "icon": "./assets/mindo-app-icon-applestore.png",
     "plugins": [
@@ -11,8 +11,8 @@
         "expo-build-properties",
         {
           "android": {
-            "compileSdkVersion": 31,
-            "targetSdkVersion": 31,
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
             "buildToolsVersion": "31.0.0"
           },
           "ios": {
@@ -50,7 +50,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "ie.medicalindependant.mindo",
-      "versionCode": 45
+      "versionCode": 47
     },
     "web": {
       "favicon": "./assets/favicon.png"

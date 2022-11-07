@@ -106,9 +106,9 @@ export const Footer = (props) => {
     Linking.openURL(url)
   }
   return (
-    <SafeAreaView style={styles.stat} overScrollMode="never" removeClippedSubviews={true}>
-      <SafeAreaView style={styles.drawerContainer} overScrollMode="never" removeClippedSubviews={true}>
-      <SafeAreaView style={styles.container} overScrollMode="never" removeClippedSubviews={true}>
+    <SafeAreaView style={styles.stat} overScrollMode="never" >
+      <SafeAreaView style={styles.drawerContainer} overScrollMode="never" >
+      <SafeAreaView style={styles.container} overScrollMode="never" >
       <FlatList
       ListHeaderComponent={
         <View style={{backgroundColor:'white'}}>

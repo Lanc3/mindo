@@ -3,10 +3,10 @@ import he from 'he';
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Dimensions, FlatList, SafeAreaView, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { AdManager } from '../../components/AdManager';
-import { EcopyShortCard } from '../../components/EcopyShortCard';
 import Footer from '../../components/Footer';
 import ISSUURenderer from '../../components/ISSUURenderer';
 import LoadingView from '../../components/LoadingView';
+import { UpdateJournalShortCard } from '../../components/UpdateJournalShortCard';
 import { newGetPostsByCatSlug } from '../../hooks/useResults';
 export default function UpdateJournalReader({navigation,props,route}) {
 
@@ -68,6 +68,8 @@ const onShare = async () => {
   return (
     <SafeAreaView style={styles.container}>
 <FlatList
+overScrollMode="never"
+      removeClippedSubviews={true}
         ListHeaderComponent={
           <View style={styles.scrollView}  ref={scrollRef}>
       <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
@@ -110,6 +112,8 @@ const onShare = async () => {
           {data.length > 0 ? (
         <View>
         <FlatList
+        overScrollMode="never"
+      removeClippedSubviews={true}
           ListFooterComponent={
             <View>
             <View style={styles.pageNav}>
@@ -137,7 +141,7 @@ const onShare = async () => {
               return(<AdManager selectedAd={"LDB_MOBILE"} sizeType={"SMALL"}/>)
             }
             return(
-              <EcopyShortCard props title={item.title.toString()}
+              <UpdateJournalShortCard props title={item.title.toString()}
                 excerpt = {item.excerpt.toString()}
                 date = {item.date.toString()}
                 mediaID = {item.media.toString()}
@@ -157,10 +161,7 @@ const onShare = async () => {
           )}
           <Footer navi={navigation} refS={scrollRef} adSelected="MPU"/>
         </View>}
-      data={[]}
-      listKey={(item, index) => `D_key${index.toString()}`}
-        keyExtractor={(item, index) => `_key${index.toString()}`}
-        renderItem={({ item, index })=>{}}/>
+      />
     </SafeAreaView>
   );
 }

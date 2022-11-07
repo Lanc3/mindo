@@ -2,6 +2,28 @@ var WPAPI = require( 'wpapi/superagent' );
 
 let wp = new WPAPI({endpoint:'https://medicalindependent.ie/wp-json/'});
 
+export const fetchWithTimeout = async(resource, options = {}) =>{
+  const { timeout = 8000 } = options;
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+  const response = await fetch(resource, {
+    ...options,
+    signal: controller.signal  
+  });
+  clearTimeout(id);
+  return response;
+}
+
+export const fetchWithCancel = (url, options = {}) => {
+  const controller = new AbortController();
+  const call = fetch(
+    url, 
+    { ...options, signal: controller.signal },
+  );
+  const cancel = () => controller.abort();
+  return [call, cancel];
+};
+
 export const getMediaAPI = async(id) => {
     try{
         const response = await wp.media().id(id);
@@ -47,10 +69,11 @@ export const getAllArticles = async() => {
 }
 
 export const postToken = async(token) => {
+  console.log("token")
   try{
     const response = await fetch(`https://medicalindependent.ie/wp-json/mindo/v1/register_device/?expo_push_id=${token}`);
   }catch(error){
-    
+    console.log(error)
   }
   finally{
     return true;

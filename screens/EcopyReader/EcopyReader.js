@@ -68,6 +68,8 @@ const onShare = async () => {
   return (
     <SafeAreaView style={styles.container}>
 <FlatList
+overScrollMode="never"
+      removeClippedSubviews={true}
         ListHeaderComponent={
           <View style={styles.scrollView}  ref={scrollRef}>
       <AdManager selectedAd={"ICS_MPU"} sizeType={"SMALL"}/>
@@ -110,6 +112,8 @@ const onShare = async () => {
           {data.length > 0 ? (
         <View>
         <FlatList
+        overScrollMode="never"
+      removeClippedSubviews={true}
           ListFooterComponent={
             <View>
             <View style={styles.pageNav}>

@@ -5,12 +5,12 @@ import * as Device from 'expo-device';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Notifications from 'expo-notifications';
 import React, { useState } from 'react';
-import { ActivityIndicator, Alert, Dimensions, Platform, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Alert, Dimensions, Modal, Platform, Pressable, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import * as Animatable from 'react-native-animatable';
 import { useTheme } from 'react-native-paper';
 import Svg, { Path } from "react-native-svg";
 import { loginUrl } from '../constants/Const';
-import { postToken } from '../hooks/useResults';
+import { fetchWithTimeout, postToken } from '../hooks/useResults';
 
 
 
@@ -27,6 +27,9 @@ const SignInScreen = ({navigation}) => {
   const [logInState,setLogInState] = useState(true)
   const [exit,setExit] = useState(false);
   const [displayText,setDisplayText] = useState(" ");
+  const controller = new AbortController();
+  const [modalVisible, setModalVisible] = useState(false);
+  const signal = controller.signal
   const registerForPushNotificationsAsync = async () => {
     setDisplayText("Registering device");
     let getToken;
@@ -79,6 +82,11 @@ const SignInScreen = ({navigation}) => {
         wrongDetails();
     }
 }
+const abortFetching = () => {
+    // Abort.
+    setLogInState(true);
+    controller.abort()
+}
 
     const doAuth = async (email, password) => {
         setDisplayText("Connecting to server.")
@@ -89,51 +97,58 @@ const SignInScreen = ({navigation}) => {
         formData.append('type', 'login');
         formData.append('email', email);
         formData.append('password', password);
-        const json = await fetch(loginUrl, {method: 'POST',body: formData}).then(response => response.json());
-        if (json.status != false)
-        {
-            setDisplayText("Saving credentials")
-          try {
-            setDisplayText("Saving credentials")
-              await AsyncStorage.setItem(
-                'userProfile',
-                JSON.stringify({
-                  isLoggedIn: true,
-                  authToken: json.token,
-                  id: json.data.id,
-                  name: json.data.user_login,
-                  avatar: json.avatar,
-                  freeArticle: 5,
-                  freeAccount: false,
-                })
-              );
-            } catch {
-              setError('Error storing data on device');
-              wrongDetails();
-            }
-            finally{
-                const Expotoken = await registerForPushNotificationsAsync();
-                setDisplayText("Registering for push notification")
-                const status = await postToken(Expotoken);
-                setExit(status);
-                setDisplayText("Finishing");
-                if(status)
-                {
-                    setLogInState(true);
-                    navigation.navigate('MainDrawer',{screen :'Home'});
-                }
-            }
-        }
-        else{
+        try {
+          const response = await fetchWithTimeout(loginUrl, {method: 'POST',body: formData,signal: signal,timeout:10000});
+          const json = await response.json();
+          if (json.status != false)
+          {
+              setDisplayText("Saving credentials")
+            try {
+              setDisplayText("Saving credentials")
+                await AsyncStorage.setItem(
+                  'userProfile',
+                  JSON.stringify({
+                    isLoggedIn: true,
+                    authToken: json.token,
+                    id: json.data.id,
+                    name: json.data.user_login,
+                    avatar: json.avatar,
+                    freeArticle: 5,
+                    freeAccount: false,
+                  })
+                );
+              } catch {
+                setError('Error storing data on device');
+                setLogInState(true);
+                setModalVisible(true);
+              }
+              finally{
+                  const Expotoken = await registerForPushNotificationsAsync();
+                  setDisplayText("Registering for push notification")
+                  const status = await postToken(Expotoken);
+                  setExit(status);
+                  setDisplayText("Finishing");
+                  if(status)
+                  {
+                      setLogInState(true);
+                      navigation.navigate('MainDrawer',{screen :'Home'});
+                  }
+              }
+          }
+          else{
+              setError('Invalid email or password');
+              setLogInState(true);
+              setModalVisible(true);
+          }
+        } catch (error) {
+          if(error.name === 'AbortError')
+          {
+            setError('Network Timeout, Try again');
             setLogInState(true);
-            setError('Please enter your details.');
+            setModalVisible(true);
+          }
+          
         }
-        
-        if (json.status != false)
-        {
-        
-        }
-        
     }
 
     const [data, setData] = React.useState({
@@ -226,12 +241,34 @@ const SignInScreen = ({navigation}) => {
         </Svg>
         </Animatable.View>
         </View>
+        
         <Animatable.View
             animation="fadeInUpBig"
             style={[styles.footer, {
                 backgroundColor: '#6e822b'
             }]}
         >
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>{error}</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Close</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
             <Text style={[styles.text_footer, {
                 color: '#fff'
             }]}>Email</Text>
@@ -318,11 +355,11 @@ const SignInScreen = ({navigation}) => {
             <TouchableOpacity>
                 <Text style={{color: '#6e822b', marginTop:15}}>Forgot password?</Text>
             </TouchableOpacity>
-            <View style={styles.button}>
+            <View style={styles.buttonT}>
             {logInState ?
                 <TouchableOpacity
                     style={styles.signIn}
-                    onPress={() => doAuth(email, password)}
+                    onPress={() => {doAuth(email, password)}}
                 >
                 <LinearGradient
                     colors={['#000', '#000']}
@@ -336,6 +373,19 @@ const SignInScreen = ({navigation}) => {
              :<View><ActivityIndicator size="large" color="#000" />
                     <Text>{displayText}</Text>
              </View>}
+             <TouchableOpacity
+                    style={styles.signIn}
+                    onPress={() => abortFetching()}
+                >
+                <LinearGradient
+                    colors={['#000', '#000']}
+                    style={styles.signIn}
+                >
+                    <Text style={[styles.textSign, {
+                        color:'#fff'
+                    }]}>Cancel</Text>
+                </LinearGradient>
+                </TouchableOpacity>
             </View>
         </Animatable.View>
       </View>
@@ -400,7 +450,7 @@ const styles = StyleSheet.create({
         color: '#FF0000',
         fontSize: 14,
     },
-    button: {
+    buttonT: {
         alignItems: 'center',
         marginTop: 50
     },
@@ -409,7 +459,8 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 2
+        borderRadius: 2,
+        marginTop:10
     },
     textSign: {
         fontSize: 18,
@@ -423,4 +474,47 @@ const styles = StyleSheet.create({
         margin:20,
         padding:20,
     },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22,
+        
+      },
+      modalView: {
+        margin: 20,
+        backgroundColor: "black",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
+      button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+      },
+      buttonOpen: {
+        backgroundColor: "#F194FF",
+      },
+      buttonClose: {
+        backgroundColor: "#6e822b",
+      },
+      textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+      },
+      modalText: {
+        color:'white',
+        marginBottom: 15,
+        textAlign: "center"
+      }
   });
