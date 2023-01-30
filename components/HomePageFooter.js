@@ -11,7 +11,7 @@ import {
 import Svg, { Path } from 'react-native-svg'
 import AccordionListItemFooter from './AccordionListItemFooter'
 import MostReadSection from './MostReadSection'
-export const Footer = (props) => {
+export const HomePageFooter = (props) => {
   const [ad, setAd] = useState(props.adSelected)
   const show = props.show
   const [showMostReadIn, setShowMostRead] = useState(true)
@@ -130,7 +130,6 @@ export const Footer = (props) => {
       <SafeAreaView style={styles.drawerContainer} overScrollMode="never">
         <SafeAreaView style={styles.container} overScrollMode="never">
           <FlatList
-            ListHeaderComponent={<MostREad />}
             ListFooterComponent={
               <View style={styles.footerStyle}>
                 <View style={styles.header}>

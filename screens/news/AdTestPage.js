@@ -13,13 +13,13 @@ import LoadingView from '../../components/LoadingView'
 import { ShortCard } from '../../components/ShortCard'
 import { newGetPostsByCatSlug } from '../../hooks/useResults'
 
-const MotoringScreen = ({ navigation }) => {
+const AdTestPage = ({ navigation }) => {
   const [data, setData] = useState([])
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
-  const [title, setTitle] = useState('Motoring')
-  const [slug, setSlug] = useState('motoring')
+  const [title, setTitle] = useState('Breaking News')
+  const [slug, setSlug] = useState('breaking-news')
   const scrollRef = useRef()
 
   const nextpage = () => {
@@ -54,8 +54,8 @@ const MotoringScreen = ({ navigation }) => {
           <FlatList
             ListHeaderComponent={
               <Header
-                title={title}
-                adType={'Motoring Mobile LDB'}
+                title={'AD Test Page'}
+                adType={'LDB_MOBILE'}
                 navigation={navigation}
                 data={data}
               ></Header>
@@ -75,11 +75,7 @@ const MotoringScreen = ({ navigation }) => {
                     <Text style={styles.nextGreen}> Next</Text>
                   </TouchableOpacity>
                 </View>
-                <Footer
-                  navi={navigation}
-                  refS={scrollRef}
-                  adSelected="Motoring MPU"
-                />
+                <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
               </View>
             }
             data={data}
@@ -87,15 +83,10 @@ const MotoringScreen = ({ navigation }) => {
             keyExtractor={(item, index) => `_key${index.toString()}`}
             renderItem={({ item, index }) => {
               if (index === 3) {
-                return (
-                  <AdManager selectedAd={'Motoring MPU'} sizeType={'BIG'} />
-                )
+                return <AdManager selectedAd={'MPU'} sizeType={'BIG'} />
               } else if (index === 7) {
                 return (
-                  <AdManager
-                    selectedAd={'Motoring Mobile LDB'}
-                    sizeType={'SMALL'}
-                  />
+                  <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
                 )
               }
               return (
@@ -123,13 +114,14 @@ const MotoringScreen = ({ navigation }) => {
   )
 }
 
-export default MotoringScreen
+export default AdTestPage
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#fff',
   },
   pageTitle: {
     fontSize: 26,

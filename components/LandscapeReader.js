@@ -1,23 +1,13 @@
-import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
-
+import { Animated, Dimensions, StyleSheet, Text, View } from 'react-native'
 import WebView from 'react-native-webview'
-export default function ISSUURenderer({ htmlData }) {
-  const navigation = useNavigation()
+const LandscapeReader = ({ route, params }) => {
+  const rotateAnim = new Animated.Value(0)
+  const { content } = route.params
+  const rotate = rotateAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '90deg'],
+  })
 
-  const handleLinkPress = async (request) => {
-    return false
-  }
-  const toggleFullscreen = () => {
-    webview.current.injectJavaScript(`
-      if (document.webkitIsFullScreen) {
-        document.webkitCancelFullScreen();
-      } else {
-        document.documentElement.webkitRequestFullScreen();
-      }
-    `)
-  }
   return (
     <View>
       <WebView
@@ -26,17 +16,18 @@ export default function ISSUURenderer({ htmlData }) {
         allowsLinkPreview={false}
         onNavigationStateChange={(event) => {
           if (event.url !== 'about:blank') {
-            handleLinkPress()
           }
         }}
         originWhitelist={['*']}
         source={{
           html:
             '<html><head></head><meta name="viewport" content="width=device-width,initial-scale=1.0"><body>' +
-            htmlData +
+            '<p>tits</p>' +
             '</body></html>',
         }}
       />
+
+      <Text>tests</Text>
     </View>
   )
 }
@@ -57,3 +48,4 @@ const styles = StyleSheet.create({
     color: '#000', // make links coloured pink
   },
 })
+export default LandscapeReader

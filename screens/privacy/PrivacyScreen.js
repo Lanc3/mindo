@@ -1,11 +1,15 @@
-import React, { useRef } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
-import ContentRender from "../../components/ContentRender";
-import { Footer } from "../../components/Footer";
+import React, { useRef } from 'react'
+import { FlatList, StyleSheet, View } from 'react-native'
+import ContentRender from '../../components/ContentRender'
+import { Footer } from '../../components/Footer'
 
-const PrivacyScreen = ({navigation}) => {
-    const htmlData =
-    `<div class="col-xl-8 col-lg-7 col-md-6 col-sm-12 col-12" id="single-big-col-1">
+const PrivacyScreen = ({ navigation }) => {
+  const htmlData = `<style>
+  a:link {
+    color: black;
+    background-color: transparent;
+    text-decoration: none;
+  }</style><div class="col-xl-8 col-lg-7 col-md-6 col-sm-12 col-12" id="single-big-col-1">
 <h1 class="main-title-text">Privacy Statement</h1>
 <p>This website is owned GreenCross Publishing Ltd, publishers of The Medical Independent and&nbsp;<strong><a href="https://www.medicalindependent.ie/">www.medicalindependent.ie</a>.</strong></p>
 <p>GreenCross Publishing is committed to maintaining our users/readers privacy.</p>
@@ -37,50 +41,54 @@ const PrivacyScreen = ({navigation}) => {
 <p>If you have a complaint about GreenCross’s use of your personal data, please contact graham@greenx.ie (more extensive contact details are given above. All complaints received will be fully investigated. Please supply as much information as possible to assist us to resolve your complaint in a prompt and efficient manner.</p>
 <p>You can also contact the Office of the Data Protection Commissioner in Ireland, at&nbsp;<a href="mailto:info@dataprotection.ie"><strong>info@dataprotection.ie</strong></a>&nbsp;or by writing to them at: Data Protection Commissioner, Canal House, Station Road, Portarlington, R32 AP23 Co. Laois, Ireland. Where updates are made to this data protection notice, the updated version will be posted on our web site, so you are always aware of what data we collect, how we use it, and under what circumstances, if any, we may disclose it. If at any time we decide to use your personal data in a manner significantly different from that stated in this policy, or otherwise disclosed to you at the time it was collected, we will notify you by email, and you will have a choice as to whether or not we may use your personal data in this manner.</p>
  </div>`
-    const scrollRef = useRef();
+  const scrollRef = useRef()
 
-
-    return(
-      <View style={{ flex: 1 ,backgroundColor:"#fff"}} ref={scrollRef}>
+  return (
+    <View style={{ flex: 1, backgroundColor: '#fff' }} ref={scrollRef}>
       <FlatList
-        ListHeaderComponent={<ContentRender htmlData={htmlData} newHeight={1800}/>}
-        ListFooterComponent={<Footer navi={navigation} refS={scrollRef} adSelected="MPU"/>}
-      data={[]}
-      listKey={(item, index) => `D_key${index.toString()}`}
+        ListHeaderComponent={
+          <ContentRender htmlData={htmlData} newHeight={1800} />
+        }
+        ListFooterComponent={
+          <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
+        }
+        data={[]}
+        listKey={(item, index) => `D_key${index.toString()}`}
         keyExtractor={(item, index) => `_key${index.toString()}`}
-        renderItem={({ item, index })=>{}}/>
-      </View>
-      );
-    };
+        renderItem={({ item, index }) => {}}
+      />
+    </View>
+  )
+}
 
-export default PrivacyScreen;
+export default PrivacyScreen
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-        alignItems:'center',
-        justifyContent:'center',
-    },
-    pageTitle:{
-        fontSize:26,
-        
-        fontWeight:"bold",
-        margin:5,
-        alignSelf:'center'
-    },
-    image:{
-      width: '100%',
-      height:300,
-      resizeMode: 'contain',
-    },
-    pageNav:{
-      flexDirection:'row'
-    },
-    next:{
-      fontSize:16
-    },
-    nextGreen:{
-      fontSize:16,
-      color:'#6e822b',
-    }
-});
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pageTitle: {
+    fontSize: 26,
+
+    fontWeight: 'bold',
+    margin: 5,
+    alignSelf: 'center',
+  },
+  image: {
+    width: '100%',
+    height: 300,
+    resizeMode: 'contain',
+  },
+  pageNav: {
+    flexDirection: 'row',
+  },
+  next: {
+    fontSize: 16,
+  },
+  nextGreen: {
+    fontSize: 16,
+    color: '#6e822b',
+  },
+})

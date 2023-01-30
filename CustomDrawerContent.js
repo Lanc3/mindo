@@ -1,23 +1,30 @@
-import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import React, { useState } from 'react';
+import Icon from '@expo/vector-icons/MaterialCommunityIcons'
+import { useIsFocused } from '@react-navigation/native'
+import React, { useState } from 'react'
 import {
-  FlatList, Linking, SafeAreaView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View
-} from 'react-native';
-import AccordionListItem from './components/AccordionListItem';
-import SearchBar from './components/SearchBar';
-import { SocialContent } from './components/SocialContent';
-
+  FlatList,
+  Linking,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import AccordionListItem from './components/AccordionListItem'
+import SearchBar from './components/SearchBar'
+import { SocialContent } from './components/SocialContent'
 function CustomDrawerContent(props) {
-  const [mainDrawer, setMainDrawer] = useState(true);
-  const [filteredItems, setFilteredItems] = useState([]);
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
+  const [mainDrawer, setMainDrawer] = useState(true)
+  const [filteredItems, setFilteredItems] = useState([])
+  const [value, setValue] = useState(null)
+  const [isFocus, setIsFocus] = useState(false)
+  const isFocused = useIsFocused()
 
-const menuData = [
+  const menuData = [
     {
-      title : "News",
-      data :
-      [
+      title: 'News',
+      data: [
         { label: 'Latest News', value: 'LatestNews' },
         { label: 'Breaking News', value: 'BreakingNews' },
         { label: 'News Features', value: 'NewsFeatures' },
@@ -25,12 +32,11 @@ const menuData = [
         { label: 'Interviews', value: 'Interviews' },
         { label: 'Photo News', value: 'PhotoNews' },
         { label: 'Conference', value: 'Conference' },
-      ]
+      ],
     },
     {
-      title : "Comment",
-      data :
-      [
+      title: 'Comment',
+      data: [
         { label: 'Editorial', value: 'Editorial' },
         { label: 'Dr Paddy Barrett', value: 'DrPaddy' },
         { label: 'Dr Neasa Conneally', value: 'DrNeasa' },
@@ -43,22 +49,20 @@ const menuData = [
         { label: 'Dr Christine O’Malley', value: 'DrChristine' },
         { label: 'George Winter', value: 'GeorgeWinter' },
         { label: 'Medico-Legal', value: 'MedicoLegal' },
-      ]
+      ],
     },
     {
-      title : "Clinical",
-      data :
-      [
+      title: 'Clinical',
+      data: [
         { label: 'Clinical News', value: 'ClinicalNews' },
         { label: 'Case Studies', value: 'CaseStudies' },
         { label: 'Research', value: 'Research' },
         { label: 'Feature', value: 'Feature' },
-      ]
+      ],
     },
     {
-      title : "Life",
-      data :
-      [
+      title: 'Life',
+      data: [
         { label: 'Cartoon', value: 'Cartoon' },
         { label: 'Book Review', value: 'BookReview' },
         { label: 'Food and Drink', value: 'FoodAndDrink' },
@@ -67,12 +71,11 @@ const menuData = [
         { label: 'Finance', value: 'Finance' },
         { label: 'The Gander', value: 'TheGander' },
         { label: 'The Dorsal View', value: 'TheDorsalView' },
-      ]
+      ],
     },
     {
-      title : "Societies",
-      data :
-      [
+      title: 'Societies',
+      data: [
         { label: 'ISR', value: 'ISR' },
         { label: 'CPI', value: 'CPI' },
         { label: 'ITS', value: 'ITS' },
@@ -83,145 +86,127 @@ const menuData = [
         { label: 'IES', value: 'IES' },
         { label: 'ICS', value: 'ICS' },
         { label: 'IOS', value: 'IOSScreen' },
-      ]
+      ],
     },
     {
-      title : "News Team",
-      data :
-      [
+      title: 'News Team',
+      data: [
         { label: 'Catherine Reilly', value: 'CatherineReilly' },
         { label: 'Niamh Quinlan', value: 'NiamhQuinlan' },
         { label: 'David Lynch', value: 'DavidLynch' },
         { label: 'Paul Mullholand', value: 'PaulMulholland' },
         { label: 'Priscilla Lynch', value: 'PriscillaLynch' },
-      ]
+      ],
     },
+  ]
+  const openPhone = (phoneNumber) => {
+    Linking.openURL(`tel:${phoneNumber}`)
+  }
+  const openURL = (url) => {
+    Linking.openURL(url)
+  }
+  const goToLink = (value) => {
+    props.navigation.navigate('MainDrawer', { screen: value })
+  }
+  const expandable = <Icon name={'chevron-down'} color={'#6e822b'} size={25} />
 
-];
-    const openPhone = (phoneNumber) =>{
-      Linking.openURL(`tel:${phoneNumber}`)
-    }
-    const openURL = (url) =>{
-      Linking.openURL(url)
-    }
-  const goToLink =(value) => {
-    props.navigation.navigate('MainDrawer',{screen :value});
-  };
-  const expandable = <Icon name={"chevron-down"} color={'#6e822b'} size ={25} />;
-
-  const goToGallery =() => {
-    props.navigation.navigate('MainDrawer',{screen :'GalleriesScreen'});
-};
-const goToClassifieds =() => {
-  props.navigation.navigate('MainDrawer',{screen :'ClassifiedsScreen'});
-};
-const goToSponsored =(value) => {
-  props.navigation.navigate('MainDrawer',{screen :'SponsoredScreen'});
-};
-const goToAdvertise =() => {
-  props.navigation.navigate('MainDrawer',{screen :'AdvertiseScreen'});
-};
-const goToPrivacy =() => {
-  props.navigation.navigate('MainDrawer',{screen :'PrivacyScreen'});
-};
-const goToTerms =() => {
-  props.navigation.navigate('MainDrawer',{screen :'Terms'});
-};
-const goToLogin = () =>{
-  props.navigation.navigate('SignInScreen')
-}
-const goToAbout = () =>{
-  props.navigation.navigate('MainDrawer',{screen :'AboutScreen'})
-}
-const openEmail = (address) =>{
-  Linking.openURL(`mailto:${address}`)
-}
-
+  const goToGallery = () => {
+    props.navigation.navigate('MainDrawer', { screen: 'GalleriesScreen' })
+  }
+  const goToClassifieds = () => {
+    props.navigation.navigate('MainDrawer', { screen: 'ClassifiedsScreen' })
+  }
+  const goToSponsored = (value) => {
+    props.navigation.navigate('MainDrawer', { screen: 'SponsoredScreen' })
+  }
+  const goToAdvertise = () => {
+    props.navigation.navigate('MainDrawer', { screen: 'AdvertiseScreen' })
+  }
+  const goToPrivacy = () => {
+    props.navigation.navigate('MainDrawer', { screen: 'PrivacyScreen' })
+  }
+  const goToTerms = () => {
+    props.navigation.navigate('MainDrawer', { screen: 'Terms' })
+  }
+  const goToLogin = () => {
+    props.navigation.navigate('SignInScreen')
+  }
+  const goToAbout = () => {
+    props.navigation.navigate('MainDrawer', { screen: 'AboutScreen' })
+  }
+  const openEmail = (address) => {
+    Linking.openURL(`mailto:${address}`)
+  }
 
   return (
     <View style={styles.drawerContainer}>
       <SafeAreaView style={styles.container}>
-      <FlatList
-       ListFooterComponent={
-        <View>
-          <View style={styles.otherLinks}>
+        <FlatList
+          ListFooterComponent={
             <View>
-            <SearchBar navi={props.navigation}/>
-            <TouchableHighlight onPress={() => goToLogin()}>
-                <Text style={styles.titleSmall}>
-                  Login
-                </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToAbout()}>
-                <Text style={styles.titleSmall}>
-                  About Mindo
-                </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToSponsored()}>
-              <Text style={styles.titleSmall}>
-              Sponsored
-              </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToAdvertise()}>
-              <Text style={styles.titleSmall}>
-              Advertise
-              </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToClassifieds()}>
-              <Text style={styles.titleSmall}>
-              Classifieds
-              </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToPrivacy()}>
-              <Text style={styles.titleSmall}>
-              Privacy Statement
-              </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={() => goToTerms()}>
-              <Text style={styles.titleSmall}>
-              Terms and Conditions
-              </Text>
-              </TouchableHighlight>
-            </View>
-          </View>
-          
-          <View style={styles.padding}>
-          <SocialContent></SocialContent>
-          </View>
-      </View>
-          }
-      scrollEnabled={true}
-      data={menuData}
-      listKey={(item, index) => `outer_key${index.toString()}`}
-      keyExtractor={(item, index) => `outer_key${index.toString()}`}
-      renderItem={({item,index})=>{
-        return(
-          <AccordionListItem title={item.title}>
-          <FlatList
-          scrollEnabled={false}
-          data={item.data}
-          listKey={(item2, index) => `inner_key${index.toString()}`}
-          keyExtractor={(item2, index) => `inner_key${index.toString()}`}
-          renderItem={({ item, index })=>{
-            return(
-             <View style={styles.item}>
-               <TouchableOpacity onPress={() => goToLink(item.value)}>
-               <Text style={styles.titleSmall}>{item.label}</Text>
-               </TouchableOpacity>
+              <View style={styles.otherLinks}>
+                <View>
+                  <SearchBar navi={props.navigation} />
+                  <TouchableHighlight onPress={() => goToLogin()}>
+                    <Text style={styles.titleSmall}>Login</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => goToAbout()}>
+                    <Text style={styles.titleSmall}>About Mindo</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => goToSponsored()}>
+                    <Text style={styles.titleSmall}>Sponsored</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => goToAdvertise()}>
+                    <Text style={styles.titleSmall}>Advertise</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => goToClassifieds()}>
+                    <Text style={styles.titleSmall}>Classifieds</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => goToPrivacy()}>
+                    <Text style={styles.titleSmall}>Privacy Statement</Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => goToTerms()}>
+                    <Text style={styles.titleSmall}>Terms and Conditions</Text>
+                  </TouchableHighlight>
+                </View>
               </View>
+
+              <View style={styles.padding}>
+                <SocialContent></SocialContent>
+              </View>
+            </View>
+          }
+          scrollEnabled={true}
+          data={menuData}
+          listKey={(item, index) => `outer_key${index.toString()}`}
+          keyExtractor={(item, index) => `outer_key${index.toString()}`}
+          renderItem={({ item, index }) => {
+            return (
+              <AccordionListItem title={item.title}>
+                <FlatList
+                  scrollEnabled={false}
+                  data={item.data}
+                  listKey={(item2, index) => `inner_key${index.toString()}`}
+                  keyExtractor={(item2, index) =>
+                    `inner_key${index.toString()}`
+                  }
+                  renderItem={({ item, index }) => {
+                    return (
+                      <View style={styles.item}>
+                        <TouchableOpacity onPress={() => goToLink(item.value)}>
+                          <Text style={styles.titleSmall}>{item.label}</Text>
+                        </TouchableOpacity>
+                      </View>
+                    )
+                  }}
+                />
+              </AccordionListItem>
             )
-      }}
+          }}
         />
-          </AccordionListItem>
-        )
-      }}
-      />
-
-
       </SafeAreaView>
-
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -236,27 +221,25 @@ const styles = StyleSheet.create({
     width: 100,
     height: 75,
   },
-  listItem:{
-    color:'#fff'
+  listItem: {
+    color: '#fff',
   },
   outlinksContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginTop: 15,
     marginBottom: 10,
-    color: "#444",
-    fontSize: 14
+    color: '#444',
+    fontSize: 14,
   },
   drawerContainer: {
     backgroundColor: '#181818',
-    width:'100%',
+    width: '100%',
     height: '100%',
     zIndex: 100,
-    minWidth:10
+    minWidth: 10,
   },
-  container: {
-
-  },
+  container: {},
   centered: {
     alignItems: 'center',
   },
@@ -272,26 +255,26 @@ const styles = StyleSheet.create({
     margin: 5,
     color: '#F0F0F0',
     textAlign: 'center',
-    fontSize:26,
-    
-    fontWeight:"400",
+    fontSize: 26,
+
+    fontWeight: '400',
   },
   titleLeft: {
     margin: 10,
     color: '#F0F0F0',
     textAlign: 'left',
-    fontSize:26,
+    fontSize: 26,
     fontFamily: 'Merriweather_300Light',
 
-    paddingTop:50,
+    paddingTop: 50,
   },
   titleSmall: {
     color: '#F0F0F0',
-    fontSize:16,
+    fontSize: 16,
     fontFamily: 'Lato_400Regular',
 
-    paddingTop:10,
-    paddingLeft:10,
+    paddingTop: 10,
+    paddingLeft: 10,
   },
   backButtonRow: {
     flexDirection: 'row',
@@ -305,36 +288,36 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color: '#6e822b',
   },
-  iconStyle:{
-    flexDirection:'row',
-      paddingLeft:10
+  iconStyle: {
+    flexDirection: 'row',
+    paddingLeft: 10,
   },
-  logoutStyle:{
-    flex:1,
-    flexDirection:'row',
-      paddingLeft:10,
-      paddingTop:4
+  logoutStyle: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingLeft: 10,
+    paddingTop: 4,
   },
-  bottom:{
-    flex:1,
-    flexDirection:'row',
-    justifyContent:'flex-end',
-    alignSelf:'flex-end',
-    alignContent:'flex-end',
-    marginRight:10,
-    marginBottom:10
+  bottom: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignSelf: 'flex-end',
+    alignContent: 'flex-end',
+    marginRight: 10,
+    marginBottom: 10,
   },
-  divider:{
+  divider: {
     borderBottomColor: '#6c757d',
     borderBottomWidth: 1,
   },
-  padding:{
-    paddingTop:30,
-    paddingBottom:20
+  padding: {
+    paddingTop: 30,
+    paddingBottom: 20,
   },
-  otherLinks:{
-    paddingTop:40,
-    marginLeft:5
+  otherLinks: {
+    paddingTop: 40,
+    marginLeft: 5,
   },
   containers: {
     backgroundColor: 'black',
@@ -345,7 +328,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#6c757d',
     borderBottomWidth: 1,
     paddingHorizontal: 5,
-    marginVertical:5,
+    marginVertical: 5,
   },
   icon: {
     marginRight: 5,
@@ -358,24 +341,24 @@ const styles = StyleSheet.create({
     zIndex: 999,
     paddingHorizontal: 8,
     fontSize: 14,
-    marginVertical:-20,
+    marginVertical: -20,
   },
   placeholderStyle: {
     margin: 0,
     color: '#F0F0F0',
     textAlign: 'left',
-    fontSize:23,
-    
-    fontWeight:"400",
-    marginVertical:-10,
+    fontSize: 23,
+
+    fontWeight: '400',
+    marginVertical: -10,
   },
   selectedTextStyle: {
     fontSize: 14,
-    backgroundColor:'black',
-    color:'white',
-    height:15,
-    marginVertical:-10,
-    paddingLeft:0
+    backgroundColor: 'black',
+    color: 'white',
+    height: 15,
+    marginVertical: -10,
+    paddingLeft: 0,
   },
   iconStyle: {
     width: 20,
@@ -385,14 +368,11 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
   },
-  itemStyle:{
-    backgroundColor:'black',
-    color:'white'
+  itemStyle: {
+    backgroundColor: 'black',
+    color: 'white',
   },
-  item:{
-  
-  }
-});
+  item: {},
+})
 
-export default CustomDrawerContent;
-
+export default CustomDrawerContent
