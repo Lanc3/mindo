@@ -8,7 +8,6 @@ import {
   Dimensions,
   FlatList,
   Image,
-  ScrollView,
   Share,
   StyleSheet,
   Text,
@@ -118,12 +117,7 @@ export default function FullArticleScreen({ navigation, props, route }) {
   }
 
   return (
-    <ScrollView
-      ref={scrollViewRef}
-      style={styles.container}
-      overScrollMode="never"
-      removeClippedSubviews={true}
-    >
+    <View style={styles.container}>
       <Modal isVisible={popUpState}>
         <Modal.Container>
           <Modal.Header
@@ -252,7 +246,7 @@ export default function FullArticleScreen({ navigation, props, route }) {
         keyExtractor={(item, index) => `_key${index.toString()}`}
         renderItem={({ item, index }) => {}}
       />
-    </ScrollView>
+    </View>
   )
 }
 const windowWidth = Dimensions.get('window').width

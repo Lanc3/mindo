@@ -3,7 +3,7 @@
     "jsEngine": "jsc",
     "name": "mindo",
     "slug": "mindo",
-    "version": "1.0.55",
+    "version": "1.0.57",
     "orientation": "portrait",
     "icon": "./assets/mindo-app-icon-applestore.png",
     "plugins": [
@@ -48,7 +48,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "ie.medicalindependant.mindo",
-      "versionCode": 55
+      "versionCode": 57
     },
     "web": {
       "favicon": "./assets/favicon.png"

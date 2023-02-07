@@ -16,6 +16,7 @@ import { newGetPostsByCatSlug } from '../../hooks/useResults'
 const MotoringScreen = ({ navigation }) => {
   const [data, setData] = useState([])
   const [page, setPage] = useState(1)
+  const [sliderData, setSliderData] = useState([])
   const [loading, setLoading] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
   const [title, setTitle] = useState('Motoring')
@@ -28,13 +29,20 @@ const MotoringScreen = ({ navigation }) => {
   const perviouspage = () => {
     if (page > 0) setPage((prevPage) => prevPage - 1)
   }
+  const splitArray = (arr) => {
+    const firstArray = arr.slice(0, 3)
+    const secondArray = arr.slice(3)
+    return [firstArray, secondArray]
+  }
   const getContent = useCallback(async () => {
     setLoading(0.25)
     try {
       setLoading(0.5)
       const response = await newGetPostsByCatSlug(slug, 10, page)
       setTotalPages(Math.ceil(response.totalPosts / 10))
-      setData(response.posts)
+      const [firstArray, secondArray] = splitArray(response.posts)
+      setData(secondArray)
+      setSliderData(firstArray)
       setLoading(1)
     } catch (error) {
     } finally {
@@ -57,7 +65,7 @@ const MotoringScreen = ({ navigation }) => {
                 title={title}
                 adType={'Motoring Mobile LDB'}
                 navigation={navigation}
-                data={data}
+                data={sliderData}
               ></Header>
             }
             ListFooterComponent={

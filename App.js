@@ -24,6 +24,7 @@ import 'react-native-gesture-handler'
 import { FavoritesList } from './components/FavoritesList'
 import { CounterContextProvider } from './components/GlobalContext'
 import LandscapeReader from './components/LandscapeReader'
+import { NotificationViewList } from './components/NotificationViewList'
 import CustomDrawerContent from './CustomDrawerContent.js'
 import CustomHeader from './CustomHeader'
 import { drawerItemsMain } from './DrawerItemsMain'
@@ -462,6 +463,11 @@ function MainDrawerNavigation() {
       <Drawer.Screen
         name="FavoritesList"
         component={FavoritesList}
+        options={{ headerShown: false }}
+      />
+      <Drawer.Screen
+        name="NotificationViewList"
+        component={NotificationViewList}
         options={{ headerShown: false }}
       />
       <Drawer.Screen

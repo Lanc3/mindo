@@ -12,7 +12,6 @@ import {
 } from 'react-native'
 import { removeToken } from '../hooks/useResults'
 import AccordionListItem from './AccordionListItem'
-import { NotificationList } from './NotificationList'
 import { SideMenuItem } from './SideMenuItem'
 const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
   const navigation = useNavigation()
@@ -256,11 +255,22 @@ const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
                       subTitle={'View your saved articles for offline reading'}
                     />
                   </TouchableOpacity>
-                  <NotificationList
+                  <TouchableOpacity
+                    onPress={() => {
+                      closeDrawer()
+                      navigation.navigate('NotificationViewList')
+                    }}
+                  >
+                    <SideMenuItem
+                      title={'Notifications'}
+                      subTitle={'Never miss the latest on Mindo again'}
+                    />
+                  </TouchableOpacity>
+                  {/* <NotificationList
                     callback={() => {
                       closeDrawer()
                     }}
-                  />
+                  /> */}
                   <TouchableOpacity
                     style={styles.drawerButton}
                     onPress={() => logOut()}
