@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useIsFocused } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import * as Notifications from 'expo-notifications'
 import React, { useEffect, useRef, useState } from 'react'
 import {
@@ -22,6 +22,7 @@ Notifications.setNotificationHandler({
   }),
 })
 export default function Drawer({ navi }) {
+  const navigation = useNavigation()
   const [drawerAnimation, setDrawerAnimation] = useState(new Animated.Value(50))
   const [endValue, setEndValue] = useState(200)
   const [toggle, setToggle] = useState(false)
@@ -98,12 +99,12 @@ export default function Drawer({ navi }) {
     onPressOpen()
   }
   const onPressLogIn = () => {
-    navi.navigate('SignInScreen')
+    navigation.navigate('SignInScreen')
     //onPressOpen();
   }
 
   const onPressSignUp = () => {
-    navi.navigate('SignInScreen')
+    navigation.navigate('SignInScreen')
   }
 
   const onPressOpen = () => {

@@ -50,6 +50,7 @@ import MedicoLegal from './screens/comments/MedicoLegal'
 import ProfBrendanScreen from './screens/comments/ProfBrendanScreen'
 import ProfSeamusScreen from './screens/comments/ProfSeamusScreen'
 import EcopyReader from './screens/EcopyReader/EcopyReader'
+import EcopyReaderLandscape from './screens/EcopyReader/EcopyReaderLandscape'
 import FirstRunScreen from './screens/FirstRunScreen'
 import FullArticleScreen from './screens/FullArticleScreen'
 import GalleriesScreen from './screens/galleries/GalleriesScreen'
@@ -480,6 +481,11 @@ function MainDrawerNavigation() {
         component={AdTestPage}
         options={{ headerShown: false }}
       />
+      <Drawer.Screen
+        name="EcopyLandscape"
+        component={EcopyReaderLandscape}
+        options={{ headerShown: 'false' }}
+      />
     </Drawer.Navigator>
   )
 }
@@ -495,29 +501,30 @@ export default function App() {
 
   const [notification, setNotification] = useState(false)
   useEffect(() => {
-    if (
-      lastNotificationResponse &&
-      lastNotificationResponse.notification.request.content.data.content &&
-      lastNotificationResponse.actionIdentifier ===
-        Notifications.DEFAULT_ACTION_IDENTIFIER
-    ) {
-      const {
-        categoryName,
-        author,
-        content,
-        media,
-        title,
-        date,
-      } = lastNotificationResponse.notification.request.content.data
-      navigationRef.navigate('FullArticleScreen', {
-        nameSlug: categoryName,
-        authorName: author,
-        title: title,
-        date: date,
-        imageData: media,
-        htmlData: content,
-      })
-    }
+    // if (
+    //   lastNotificationResponse &&
+    //   lastNotificationResponse.notification.request.content.data.content &&
+    //   lastNotificationResponse.actionIdentifier ===
+    //     Notifications.DEFAULT_ACTION_IDENTIFIER
+    // ) {
+    //   const {
+    //     categoryName,
+    //     author,
+    //     content,
+    //     media,
+    //     title,
+    //     date,
+    //   } = lastNotificationResponse.notification.request.content.data
+    //   console.log(content)
+    //   navigationRef.navigate('FullArticleScreen', {
+    //     nameSlug: categoryName,
+    //     authorName: author,
+    //     title: title,
+    //     date: date,
+    //     imageData: media,
+    //     htmlData: content,
+    //   })
+    // }
     notificationListener.current = Notifications.addNotificationReceivedListener(
       (notification) => {
         const {
@@ -628,8 +635,8 @@ export default function App() {
               headerTitleStyle: {
                 fontWeight: 'bold',
               },
-              header: (props) => {
-                return <CustomHeader {...props} />
+              header: ({ navigation, route, options, back, props }) => {
+                return <CustomHeader />
               },
             }}
           >

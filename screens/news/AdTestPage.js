@@ -63,17 +63,21 @@ const AdTestPage = ({ navigation }) => {
             ListFooterComponent={
               <View>
                 <View style={styles.pageNav}>
-                  {page > 1 ? (
-                    <TouchableOpacity onPress={() => perviouspage()}>
-                      <Text style={styles.nextGreen}>Previous </Text>
-                    </TouchableOpacity>
-                  ) : null}
+                  <View style={{ flexDirection: 'row' }}>
+                    {page > 1 ? (
+                      <TouchableOpacity onPress={() => perviouspage()}>
+                        <Text style={styles.nextGreen}>Previous </Text>
+                      </TouchableOpacity>
+                    ) : null}
 
-                  <Text style={styles.next}> {page} ... </Text>
-                  <Text style={styles.next}>{totalPages}</Text>
-                  <TouchableOpacity onPress={() => nextpage()}>
-                    <Text style={styles.nextGreen}> Next</Text>
-                  </TouchableOpacity>
+                    <Text style={styles.next}> {page} ... </Text>
+                    <Text style={styles.next}>{totalPages}</Text>
+                    {page < totalPages ? (
+                      <TouchableOpacity onPress={() => nextpage()}>
+                        <Text style={styles.nextGreen}> Next</Text>
+                      </TouchableOpacity>
+                    ) : null}
+                  </View>
                 </View>
                 <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
               </View>
@@ -136,7 +140,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   pageNav: {
-    flexDirection: 'row',
+    alignItems: 'center',
   },
   next: {
     fontSize: 16,

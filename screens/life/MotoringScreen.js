@@ -30,8 +30,8 @@ const MotoringScreen = ({ navigation }) => {
     if (page > 0) setPage((prevPage) => prevPage - 1)
   }
   const splitArray = (arr) => {
-    const firstArray = arr.slice(0, 3)
-    const secondArray = arr.slice(3)
+    const firstArray = arr.slice(0, 1)
+    const secondArray = arr.slice(1)
     return [firstArray, secondArray]
   }
   const getContent = useCallback(async () => {
@@ -79,9 +79,11 @@ const MotoringScreen = ({ navigation }) => {
 
                   <Text style={styles.next}> {page} ... </Text>
                   <Text style={styles.next}>{totalPages}</Text>
-                  <TouchableOpacity onPress={() => nextpage()}>
-                    <Text style={styles.nextGreen}> Next</Text>
-                  </TouchableOpacity>
+                  {page > 1 ? (
+                    <TouchableOpacity onPress={() => nextpage()}>
+                      <Text style={styles.nextGreen}> Next</Text>
+                    </TouchableOpacity>
+                  ) : null}
                 </View>
                 <Footer
                   navi={navigation}
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   pageNav: {
-    flexDirection: 'row',
+    alignItems: 'center',
   },
   next: {
     fontSize: 16,

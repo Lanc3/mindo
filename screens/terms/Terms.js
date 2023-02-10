@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   pageNav: {
-    flexDirection: 'row',
+    alignItems: 'center',
   },
   next: {
     fontSize: 16,

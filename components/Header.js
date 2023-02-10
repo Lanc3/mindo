@@ -19,7 +19,7 @@ export const Header = ({ title, blurb, navigation, data, adType }) => {
       ) : null}
       {data != null ? (
         <Carousel
-          style="slide"
+          style="single"
           items={data}
           navigation={navigation}
           nameSlug={he.decode(title)}
