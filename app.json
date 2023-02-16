@@ -35,10 +35,12 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "ie.medicalindependant.mindo"
+      "bundleIdentifier": "ie.medicalindependant.mindo-app"
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -52,6 +54,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1b2b151f-ee32-4869-a596-c406583a8f4c"
+      }
     }
   }
 }
