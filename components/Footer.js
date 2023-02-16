@@ -82,6 +82,8 @@ export const Footer = (props) => {
         { label: 'IES', value: 'IES' },
         { label: 'ICS', value: 'ICS' },
         { label: 'IOS', value: 'IOSScreen' },
+        { label: 'INS', value: 'INSScreen' },
+        { label: 'HAI', value: 'HAIScreen' },
       ],
     },
     {

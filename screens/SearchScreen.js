@@ -39,8 +39,7 @@ const SearchScreen = ({ props, route }) => {
           <FlatList
             ListHeaderComponent={
               <Header
-                title={title}
-                adType={'LDB_MOBILE'}
+                title={'Search results for: ' + search_term}
                 adType={'LDB_MOBILE'}
                 navigation={navigation}
                 data={data}

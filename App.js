@@ -87,9 +87,11 @@ import SearchScreen from './screens/SearchScreen'
 import SignInScreen from './screens/SignInScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import CPIScreen from './screens/societies/CPIScreen'
+import HAIScreen from './screens/societies/HAIScreen'
 import ICSScreen from './screens/societies/ICSScreen'
 import IESScreen from './screens/societies/IESScreen'
 import IICNINAScreen from './screens/societies/IICNINAScreen'
+import INSScreen from './screens/societies/INSScreen'
 import IOSScreen from './screens/societies/IOSScreen'
 import ISGScreen from './screens/societies/ISGScreen'
 import ISMOScreen from './screens/societies/ISMOScreen'
@@ -102,6 +104,34 @@ import Terms from './screens/terms/Terms'
 import UpdateJournal from './screens/UpdateJournal/UpdateJournal'
 
 import UpdateJournalReader from './screens/UpdateJournalReader/UpdateJournalReader'
+Notifications.addNotificationResponseReceivedListener((response) => {
+  const {
+    categoryName,
+    author,
+    content,
+    media,
+    title,
+    date,
+  } = response.notification.request.content.data
+
+  // setNotification(notification)
+  // addNotificationData({
+  //   nameSlug: categoryName,
+  //   authorName: author,
+  //   title: title,
+  //   date: date,
+  //   imageData: media,
+  //   htmlData: content,
+  // })
+  // RootNavigation.navigate('FullArticleScreen', {
+  //   nameSlug: categoryName,
+  //   authorName: author,
+  //   title: title,
+  //   date: date,
+  //   imageData: media,
+  //   htmlData: content,
+  // })
+})
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -115,6 +145,7 @@ Notifications.setNotificationChannelAsync('default', {
   vibrationPattern: [0, 250, 250, 250],
   lightColor: '#6e822b',
 })
+
 const Drawer = createDrawerNavigator()
 
 function MainDrawerNavigation() {
@@ -412,6 +443,16 @@ function MainDrawerNavigation() {
         options={{ headerShown: false }}
       />
       <Drawer.Screen
+        name="INS"
+        component={INSScreen}
+        options={{ headerShown: false }}
+      />
+      <Drawer.Screen
+        name="HAI"
+        component={HAIScreen}
+        options={{ headerShown: false }}
+      />
+      <Drawer.Screen
         name="GalleriesScreen"
         component={GalleriesScreen}
         options={{ headerShown: false }}
@@ -501,30 +542,6 @@ export default function App() {
 
   const [notification, setNotification] = useState(false)
   useEffect(() => {
-    // if (
-    //   lastNotificationResponse &&
-    //   lastNotificationResponse.notification.request.content.data.content &&
-    //   lastNotificationResponse.actionIdentifier ===
-    //     Notifications.DEFAULT_ACTION_IDENTIFIER
-    // ) {
-    //   const {
-    //     categoryName,
-    //     author,
-    //     content,
-    //     media,
-    //     title,
-    //     date,
-    //   } = lastNotificationResponse.notification.request.content.data
-    //   console.log(content)
-    //   navigationRef.navigate('FullArticleScreen', {
-    //     nameSlug: categoryName,
-    //     authorName: author,
-    //     title: title,
-    //     date: date,
-    //     imageData: media,
-    //     htmlData: content,
-    //   })
-    // }
     notificationListener.current = Notifications.addNotificationReceivedListener(
       (notification) => {
         const {
@@ -537,6 +554,14 @@ export default function App() {
         } = notification.request.content.data
         setNotification(notification)
         addNotificationData({
+          nameSlug: categoryName,
+          authorName: author,
+          title: title,
+          date: date,
+          imageData: media,
+          htmlData: content,
+        })
+        navigationRef.navigate('FullArticleScreen', {
           nameSlug: categoryName,
           authorName: author,
           title: title,
@@ -557,7 +582,15 @@ export default function App() {
           title,
           date,
         } = response.notification.request.content.data
-
+        setNotification(notification)
+        addNotificationData({
+          nameSlug: categoryName,
+          authorName: author,
+          title: title,
+          date: date,
+          imageData: media,
+          htmlData: content,
+        })
         navigationRef.navigate('FullArticleScreen', {
           nameSlug: categoryName,
           authorName: author,

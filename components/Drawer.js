@@ -166,6 +166,7 @@ export default function Drawer({ navi }) {
         )}
       </TouchableOpacity>
       <Modal
+        backdropColor="transparent"
         theme={{
           colors: {
             backdrop: '#181818',
@@ -195,7 +196,7 @@ const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
   sideMenuStyle: {
     margin: 0,
-    top: 0,
+    top: 60,
   },
   plus: {
     flex: 1,

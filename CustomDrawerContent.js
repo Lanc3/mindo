@@ -86,6 +86,8 @@ function CustomDrawerContent(props) {
         { label: 'IES', value: 'IES' },
         { label: 'ICS', value: 'ICS' },
         { label: 'IOS', value: 'IOSScreen' },
+        { label: 'INS', value: 'INS' },
+        { label: 'HAI', value: 'HAI' },
       ],
     },
     {
@@ -106,6 +108,7 @@ function CustomDrawerContent(props) {
     Linking.openURL(url)
   }
   const goToLink = (value) => {
+    console.log(value)
     props.navigation.navigate('MainDrawer', { screen: value })
   }
   const expandable = <Icon name={'chevron-down'} color={'#6e822b'} size={25} />

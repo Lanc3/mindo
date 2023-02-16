@@ -74,14 +74,14 @@ const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
           <FlatList
             ListHeaderComponent={
               <View style={styles.safeAreaView}>
-                <View style={styles.header}>
+                {/* <View style={styles.header}>
                   <Text style={styles.DrawerTitle}>
                     {isFreeAccount ? 'Member Log In' : 'Premium Account'}
                   </Text>
                   <TouchableOpacity onPress={() => closeDrawer()}>
                     <Text style={styles.link}>X</Text>
                   </TouchableOpacity>
-                </View>
+                </View> */}
                 <View>
                   <TouchableOpacity
                     style={styles.drawerButton}
@@ -205,11 +205,11 @@ const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
           <FlatList
             ListHeaderComponent={
               <View style={styles.safeAreaView}>
-                <View style={styles.header}>
+                {/* <View style={styles.header}>
                   <TouchableOpacity onPress={() => closeDrawer()}>
                     <Text style={styles.link}>X</Text>
                   </TouchableOpacity>
-                </View>
+                </View> */}
                 <View>
                   <TouchableOpacity
                     onPress={() => {

@@ -93,63 +93,62 @@ export default function EcopyReader({ navigation, props, route }) {
               <Text>{content.date}</Text>
             </View>
             <View></View>
-            <View style={styles.imageContainer}>
-              <View style={styles.shareButton}>
-                <View style={styles.spacer}>
-                  <FontAwesome.Button
-                    name="twitter"
-                    size={26}
-                    color="#000"
-                    backgroundColor="transparent"
-                    onPress={onShare}
-                  ></FontAwesome.Button>
-                </View>
-                <View style={styles.spacer}>
-                  <FontAwesome.Button
-                    name="facebook-square"
-                    size={26}
-                    color="#000"
-                    backgroundColor="transparent"
-                    onPress={onShare}
-                  ></FontAwesome.Button>
-                </View>
-                <View style={styles.spacer}>
-                  <FontAwesome.Button
-                    name="linkedin-square"
-                    size={26}
-                    color="#000"
-                    backgroundColor="transparent"
-                    onPress={onShare}
-                  ></FontAwesome.Button>
-                </View>
-                <View style={styles.spacer}>
-                  <FontAwesome.Button
-                    name="instagram"
-                    size={26}
-                    color="#000"
-                    backgroundColor="transparent"
-                    onPress={onShare}
-                  ></FontAwesome.Button>
-                </View>
-                <View style={styles.spacer}>
-                  <SaveButton
-                    articleData={{
-                      titles,
-                      authorName,
-                      htmlData,
-                      imageData,
-                      title,
-                      date,
-                    }}
-                  />
-                </View>
-              </View>
-            </View>
+            <View style={styles.imageContainer}></View>
           </View>
         }
         ListFooterComponent={
           <View>
             <ISSUURenderer htmlData={content.content} />
+            <View style={styles.shareButton}>
+              <View style={styles.spacer}>
+                <FontAwesome.Button
+                  name="twitter"
+                  size={26}
+                  color="#000"
+                  backgroundColor="transparent"
+                  onPress={onShare}
+                ></FontAwesome.Button>
+              </View>
+              <View style={styles.spacer}>
+                <FontAwesome.Button
+                  name="facebook-square"
+                  size={26}
+                  color="#000"
+                  backgroundColor="transparent"
+                  onPress={onShare}
+                ></FontAwesome.Button>
+              </View>
+              <View style={styles.spacer}>
+                <FontAwesome.Button
+                  name="linkedin-square"
+                  size={26}
+                  color="#000"
+                  backgroundColor="transparent"
+                  onPress={onShare}
+                ></FontAwesome.Button>
+              </View>
+              <View style={styles.spacer}>
+                <FontAwesome.Button
+                  name="instagram"
+                  size={26}
+                  color="#000"
+                  backgroundColor="transparent"
+                  onPress={onShare}
+                ></FontAwesome.Button>
+              </View>
+              <View style={styles.spacer}>
+                <SaveButton
+                  articleData={{
+                    titles,
+                    authorName,
+                    htmlData,
+                    imageData,
+                    title,
+                    date,
+                  }}
+                />
+              </View>
+            </View>
             {data.length > 0 ? (
               <View>
                 <FlatList

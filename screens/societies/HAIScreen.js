@@ -7,17 +7,21 @@ import {
   View,
 } from 'react-native'
 import { AdManager } from '../../components/AdManager'
-import Footer from '../../components/Footer'
+import { Footer } from '../../components/Footer'
+import { Header } from '../../components/Header'
 import LoadingView from '../../components/LoadingView'
-import { UpdateJournalShortCard } from '../../components/UpdateJournalShortCard'
+import { ShortCard } from '../../components/ShortCard'
 import { newGetPostsByCatSlug } from '../../hooks/useResults'
-const UpdateJournal = ({ navigation }) => {
+
+const HAIScreen = ({ navigation }) => {
   const [data, setData] = useState([])
   const [page, setPage] = useState(1)
+  const [sliderData, setSliderData] = useState([])
   const [loading, setLoading] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
-  const [title, setTitle] = useState('Update Journal')
-  const [slug, setSlug] = useState('update-journal')
+  const [title, setTitle] = useState('The Haematology Association of Ireland')
+  const [blurb, setBlurb] = useState('')
+  const [slug, setSlug] = useState('hai')
   const scrollRef = useRef()
 
   const nextpage = () => {
@@ -26,13 +30,21 @@ const UpdateJournal = ({ navigation }) => {
   const perviouspage = () => {
     if (page > 0) setPage((prevPage) => prevPage - 1)
   }
+  const splitArray = (arr) => {
+    const firstArray = arr.slice(0, 1)
+    const secondArray = arr.slice(1)
+    return [firstArray, secondArray]
+  }
   const getContent = useCallback(async () => {
     setLoading(0.25)
     try {
       setLoading(0.5)
       const response = await newGetPostsByCatSlug(slug, 10, page)
       setTotalPages(Math.ceil(response.totalPosts / 10))
-      setData(response.posts)
+      const [firstArray, secondArray] = splitArray(response.posts)
+      setData(secondArray)
+      setSliderData(firstArray)
+      setBlurb(response.posts[0].categoryDescription)
       setLoading(1)
     } catch (error) {
     } finally {
@@ -50,6 +62,15 @@ const UpdateJournal = ({ navigation }) => {
       {data.length > 0 ? (
         <View>
           <FlatList
+            ListHeaderComponent={
+              <Header
+                title={title}
+                blurb={blurb}
+                adType={'PCDSI_LDB'}
+                navigation={navigation}
+                data={sliderData}
+              ></Header>
+            }
             ListFooterComponent={
               <View>
                 <View style={styles.pageNav}>
@@ -61,11 +82,17 @@ const UpdateJournal = ({ navigation }) => {
 
                   <Text style={styles.next}> {page} ... </Text>
                   <Text style={styles.next}>{totalPages}</Text>
-                  <TouchableOpacity onPress={() => nextpage()}>
-                    <Text style={styles.nextGreen}> Next</Text>
-                  </TouchableOpacity>
+                  {page > 1 ? (
+                    <TouchableOpacity onPress={() => nextpage()}>
+                      <Text style={styles.nextGreen}> Next</Text>
+                    </TouchableOpacity>
+                  ) : null}
                 </View>
-                <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
+                <Footer
+                  navi={navigation}
+                  refS={scrollRef}
+                  adSelected="HAI MPU"
+                />
               </View>
             }
             data={data}
@@ -73,14 +100,14 @@ const UpdateJournal = ({ navigation }) => {
             keyExtractor={(item, index) => `_key${index.toString()}`}
             renderItem={({ item, index }) => {
               if (index === 3) {
-                return <AdManager selectedAd={'MPU'} sizeType={'BIG'} />
+                return <AdManager selectedAd={'HAI MPU'} sizeType={'BIG'} />
               } else if (index === 7) {
                 return (
-                  <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
+                  <AdManager selectedAd={'HAI Mobile LDB'} sizeType={'SMALL'} />
                 )
               }
               return (
-                <UpdateJournalShortCard
+                <ShortCard
                   props
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
@@ -103,8 +130,7 @@ const UpdateJournal = ({ navigation }) => {
     </View>
   )
 }
-
-export default UpdateJournal
+export default HAIScreen
 
 const styles = StyleSheet.create({
   container: {
@@ -125,7 +151,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   pageNav: {
-    flexDirection: 'row',
+    alignItems: 'center',
   },
   next: {
     fontSize: 16,

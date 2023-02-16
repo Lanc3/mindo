@@ -32,18 +32,24 @@ export function EcopyShortCard({
       >
         <View style={styles.shortContainer}>
           <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: mediaID }} />
+            <Image
+              style={styles.image}
+              source={{ uri: mediaID }}
+              resizeMode="contain"
+            />
           </View>
           <View style={styles.contentContainer}>
             <Text style={styles.greenTitle}>{nameSlug}</Text>
             <Text style={styles.titleStyle}>{he.decode(title)}</Text>
             <View style={styles.footer}>
-              <Text style={{ fontWeight: 'bold' }}>By - </Text>
-              <Text style={{ fontWeight: 'bold', color: 'black' }}>
+              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>By </Text>
+              <Text
+                style={{ fontWeight: 'bold', fontSize: 16, color: 'black' }}
+              >
                 {authorId}
               </Text>
               <Text> - </Text>
-              <Text>{date}</Text>
+              <Text style={{ fontSize: 16, color: 'black' }}>{date}</Text>
             </View>
           </View>
         </View>
@@ -77,7 +83,8 @@ const styles = StyleSheet.create({
   },
   titleStyle: {
     fontFamily: 'Merriweather_300Light',
-    fontSize: 15,
+    fontSize: 18,
+    paddingRight: 50,
   },
   surface: {
     elevation: 1,
@@ -113,9 +120,11 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   image: {
-    width: '90%',
-    height: '90%',
-    margin: 10,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
   },
   greenTitle: {
     color: '#6e822b',
@@ -123,9 +132,12 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 1,
+    flexWrap: 'wrap',
     flexDirection: 'row',
     height: 20,
     width: '100%',
+    marginTop: 20,
+    paddingRight: 50,
   },
   shortContainer: {
     flex: 3,
@@ -134,7 +146,11 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+    position: 'relative',
+    height: 180,
   },
   contentContainer: {
     flex: 2,
