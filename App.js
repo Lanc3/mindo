@@ -28,8 +28,6 @@ import { NotificationViewList } from './components/NotificationViewList'
 import CustomDrawerContent from './CustomDrawerContent.js'
 import CustomHeader from './CustomHeader'
 import { drawerItemsMain } from './DrawerItemsMain'
-import * as RootNavigation from './RootNavigation'
-
 import AboutScreen from './screens/About/AboutScreen'
 import AdvertiseScreen from './screens/advertise/AdvertiseScreen'
 import ClassifiedsScreen from './screens/classifieds/Classifieds'
@@ -51,8 +49,10 @@ import ProfBrendanScreen from './screens/comments/ProfBrendanScreen'
 import ProfSeamusScreen from './screens/comments/ProfSeamusScreen'
 import EcopyReader from './screens/EcopyReader/EcopyReader'
 import EcopyReaderLandscape from './screens/EcopyReader/EcopyReaderLandscape'
+import JournalReaderLandscape from './screens/EcopyReader/JournalReaderLandscape'
 import FirstRunScreen from './screens/FirstRunScreen'
 import FullArticleScreen from './screens/FullArticleScreen'
+import FullGallaryScreen from './screens/FullGallaryScreen'
 import GalleriesScreen from './screens/galleries/GalleriesScreen'
 import HomeScreen from './screens/HomeScreen'
 import BookReview from './screens/life/BookReview'
@@ -102,7 +102,6 @@ import SponsoredScreen from './screens/sponsored/SponsoredScreen'
 import SubscriberOnly from './screens/SubscriberOnly/SubscriberOnly'
 import Terms from './screens/terms/Terms'
 import UpdateJournal from './screens/UpdateJournal/UpdateJournal'
-
 import UpdateJournalReader from './screens/UpdateJournalReader/UpdateJournalReader'
 Notifications.addNotificationResponseReceivedListener((response) => {
   const {
@@ -151,13 +150,14 @@ const Drawer = createDrawerNavigator()
 function MainDrawerNavigation() {
   return (
     <Drawer.Navigator
+      backBehavior="history"
       screenOptions={{
         drawerStyle: {
           backgroundColor: '#000',
           width: '100%',
         },
+        gestureEnabled: false,
       }}
-      initialRouteName="FirstRunScreen"
       drawerContent={(props) => (
         <CustomDrawerContent drawerItems={drawerItemsMain} {...props} />
       )}
@@ -190,6 +190,11 @@ function MainDrawerNavigation() {
       <Drawer.Screen
         name="UpdateJournalReader"
         component={UpdateJournalReader}
+        options={{ headerShown: false }}
+      />
+      <Drawer.Screen
+        name="JournalReaderLandscape"
+        component={JournalReaderLandscape}
         options={{ headerShown: false }}
       />
       <Drawer.Screen
@@ -525,7 +530,12 @@ function MainDrawerNavigation() {
       <Drawer.Screen
         name="EcopyLandscape"
         component={EcopyReaderLandscape}
-        options={{ headerShown: 'false' }}
+        options={{ headerShown: false }}
+      />
+      <Drawer.Screen
+        name="FullGallaryScreen"
+        component={FullGallaryScreen}
+        options={{ headerShown: false }}
       />
     </Drawer.Navigator>
   )
@@ -639,7 +649,7 @@ export default function App() {
 
   useEffect(() => {
     const backAction = () => {
-      RootNavigation.navigate('Home')
+      //RootNavigation.goBack(null)
       return true
     }
 
@@ -668,6 +678,7 @@ export default function App() {
               headerTitleStyle: {
                 fontWeight: 'bold',
               },
+              gestureEnabled: false,
               header: ({ navigation, route, options, back, props }) => {
                 return <CustomHeader />
               },

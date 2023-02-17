@@ -276,7 +276,7 @@ const HomeScreen = (props) => {
                     navigation={props.navigation}
                     slugName={'interviews'}
                     data={interviews}
-                    titleName={'Latest News'}
+                    titleName={'Interviews'}
                     showAmount={2}
                     pageRouteName={'LatestNews'}
                   />

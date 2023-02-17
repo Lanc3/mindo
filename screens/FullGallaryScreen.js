@@ -14,12 +14,12 @@ import {
   View,
 } from 'react-native'
 import { AdManager } from '../components/AdManager'
-import ContentRender from '../components/ContentRender'
+import ContentGalleryRender from '../components/ContentGalleryRender'
 import Footer from '../components/Footer'
 import { useCounter } from '../components/GlobalContext'
 import { Modal } from '../components/Modal'
 import SaveButton from '../components/SaveFavoriteButton'
-export default function FullArticleScreen({ navigation, props, route }) {
+export default function FullGallaryScreen({ navigation, props, route }) {
   const {
     nameSlug,
     authorName,
@@ -239,7 +239,7 @@ export default function FullArticleScreen({ navigation, props, route }) {
         }
         ListFooterComponent={
           <View>
-            <ContentRender htmlData={htmlData} newHeight={1800} />
+            <ContentGalleryRender htmlData={htmlData} newHeight={1800} />
             {/* <View
               style={{
                 flex: 1,

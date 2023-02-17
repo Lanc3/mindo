@@ -132,6 +132,8 @@ export const Footer = (props) => {
       <SafeAreaView style={styles.drawerContainer} overScrollMode="never">
         <SafeAreaView style={styles.container} overScrollMode="never">
           <FlatList
+            overScrollMode="never"
+            removeClippedSubviews={true}
             ListHeaderComponent={<MostREad />}
             ListFooterComponent={
               <View style={styles.footerStyle}>

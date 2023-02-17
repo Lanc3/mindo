@@ -10,7 +10,7 @@ import {
 import LandscapeView from '../../components/LandscapeView'
 
 import WebView from 'react-native-webview'
-export default function EcopyReaderLandscape({ props, route }) {
+export default function JournalReaderLandscape({ props, route }) {
   const { content } = route.params
   const authorName = content.author
   const htmlData = content.content
@@ -42,7 +42,7 @@ export default function EcopyReaderLandscape({ props, route }) {
       <View style={styles.back}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ECopy')
+            navigation.navigate('UpdateJournal')
           }}
         >
           <Text style={{ color: 'white', fontSize: 20 }}>back</Text>

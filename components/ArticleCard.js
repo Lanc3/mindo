@@ -22,6 +22,7 @@ export function ArticleCard({
 }) {
   useEffect(() => {}, [])
   const navigation = useNavigation()
+  const { state, navigate } = props.navigation
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -58,7 +59,7 @@ export function ArticleCard({
           >
             {authorId}
           </Text>
-          <Text> - </Text>
+
           <Text
             style={{
               fontFamily: 'Lato_400Regular',

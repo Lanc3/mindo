@@ -60,6 +60,8 @@ const Investigations = ({ navigation }) => {
       {data.length > 0 ? (
         <View>
           <FlatList
+            overScrollMode="never"
+            removeClippedSubviews={true}
             ListHeaderComponent={
               <Header
                 title={title}

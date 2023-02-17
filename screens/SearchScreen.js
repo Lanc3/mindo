@@ -37,6 +37,8 @@ const SearchScreen = ({ props, route }) => {
       {!loading ? (
         <View style={{ backgroundColor: '#fff' }} ref={scrollRef}>
           <FlatList
+            overScrollMode="never"
+            removeClippedSubviews={true}
             ListHeaderComponent={
               <Header
                 title={'Search results for: ' + search_term}

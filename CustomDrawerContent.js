@@ -108,7 +108,6 @@ function CustomDrawerContent(props) {
     Linking.openURL(url)
   }
   const goToLink = (value) => {
-    console.log(value)
     props.navigation.navigate('MainDrawer', { screen: value })
   }
   const expandable = <Icon name={'chevron-down'} color={'#6e822b'} size={25} />

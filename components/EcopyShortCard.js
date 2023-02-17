@@ -48,7 +48,7 @@ export function EcopyShortCard({
               >
                 {authorId}
               </Text>
-              <Text> - </Text>
+
               <Text style={{ fontSize: 16, color: 'black' }}>{date}</Text>
             </View>
           </View>

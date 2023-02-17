@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import he from 'he'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-export function UpdateJournalShortCard({
+export function PhotoNewsShortCard({
   navi,
   props,
   title,
@@ -13,44 +13,40 @@ export function UpdateJournalShortCard({
   authorId,
   nameSlug,
 }) {
+  const decodeString = (str) => {
+    return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
+  }
+
   const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() =>
-          navi.navigate('UpdateJournalReader', {
-            content: {
-              title: title,
-              date: date,
-              author: authorId,
-              excerpt: excerpt,
-              content: totalData,
-              media: mediaID,
-            },
+          navi.navigate('FullGallaryScreen', {
+            nameSlug: nameSlug,
+            authorName: authorId,
+            title: title,
+            date: date,
+            imageData: mediaID,
+            htmlData: totalData,
           })
         }
       >
+        <View style={styles.separators}></View>
         <View style={styles.shortContainer}>
           <View style={styles.imageContainer}>
-            <Image
-              style={styles.image}
-              resizeMode="contain"
-              source={{ uri: mediaID }}
-            />
+            <Image style={styles.image} source={{ uri: mediaID }} />
           </View>
           <View style={styles.contentContainer}>
             <Text style={styles.greenTitle}>{nameSlug}</Text>
-            <Text style={styles.titleStyle}>{he.decode(title)}</Text>
+            <Text style={styles.titleStyle}>
+              {he.decode(decodeString(title))}
+            </Text>
             <View style={styles.footer}>
-              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>By </Text>
-              <Text
-                style={{ fontWeight: 'bold', fontSize: 16, color: 'black' }}
-              >
-                {authorId}
-              </Text>
-
-              <Text style={{ fontSize: 16, color: 'black' }}>{date}</Text>
+              <Text style={styles.by}>By - </Text>
+              <Text style={styles.by}>{authorId}</Text>
             </View>
+            <Text>{date}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -62,8 +58,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingTop: 10,
     paddingBottom: 10,
+    paddingHorizontal: 10,
+  },
+  separators: {
     borderBottomColor: '#eaeaea',
     borderBottomWidth: 1,
+    marginRight: 20,
+    marginLeft: 10,
+    height: 1,
+  },
+  by: {
+    fontFamily: 'Lato_400Regular',
+    fontWeight: 'bold',
+    fontSize: 15,
+    color: 'black',
   },
   spacer: {
     padding: 10,
@@ -83,8 +91,7 @@ const styles = StyleSheet.create({
   },
   titleStyle: {
     fontFamily: 'Merriweather_300Light',
-    paddingRight: 50,
-    fontSize: 18,
+    fontSize: 15,
   },
   surface: {
     elevation: 1,
@@ -120,24 +127,21 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   image: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
+    width: '90%',
+    height: '90%',
+    margin: 10,
   },
   greenTitle: {
     color: '#6e822b',
-    paddingTop: 10,
+    paddingTop: 5,
+    fontFamily: 'Lato_400Regular',
+    fontSize: 13,
   },
   footer: {
     flex: 1,
-    flexWrap: 'wrap',
     flexDirection: 'row',
     height: 20,
     width: '100%',
-    marginTop: 20,
-    paddingRight: 50,
   },
   shortContainer: {
     flex: 3,
@@ -146,11 +150,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    position: 'relative',
-    height: 180,
+    justifyContent: 'flex-start',
   },
   contentContainer: {
     flex: 2,

@@ -12,7 +12,7 @@ export const Header = ({ title, blurb, navigation, data, adType }) => {
     <View style={styles.stat}>
       <AdManager selectedAd={adType} sizeType={'SMALL'} />
       {title != null ? (
-        <Text style={styles.pageTitle}>{he.decode(title)}</Text>
+        <Text style={styles.pageTitle}>{decodeString(he.decode(title))}</Text>
       ) : null}
       {blurb != null ? (
         <Text style={styles.pageBlurb}>{decodeString(blurb)}</Text>
@@ -22,7 +22,7 @@ export const Header = ({ title, blurb, navigation, data, adType }) => {
           style="single"
           items={data}
           navigation={navigation}
-          nameSlug={he.decode(title)}
+          nameSlug={decodeString(he.decode(title))}
         />
       ) : null}
     </View>

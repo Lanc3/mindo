@@ -9,11 +9,11 @@ import {
 } from 'react-native'
 
 import WebView from 'react-native-webview'
-export default function ISSUURenderer({ htmlData }) {
+export default function ISSUURendererJournal({ htmlData }) {
   const navigation = useNavigation()
 
   const handleLinkPress = async (request) => {
-    navigation.navigate('EcopyLandscape', { content: htmlData })
+    navigation.navigate('JournalReaderLandscape', { content: htmlData })
   }
   const toggleFullscreen = () => {
     webview.current.injectJavaScript(`

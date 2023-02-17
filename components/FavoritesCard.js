@@ -45,7 +45,6 @@ export function FavoritesCard({
             <View style={styles.footer}>
               <Text style={styles.by}>By - </Text>
               <Text style={styles.by}>{authorId}</Text>
-              <Text> - </Text>
             </View>
             <Text>{date}</Text>
           </View>

@@ -72,6 +72,8 @@ const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
       <View>
         {isFreeAccount ? (
           <FlatList
+            overScrollMode="never"
+            removeClippedSubviews={true}
             ListHeaderComponent={
               <View style={styles.safeAreaView}>
                 {/* <View style={styles.header}>
@@ -203,6 +205,8 @@ const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
           />
         ) : (
           <FlatList
+            overScrollMode="never"
+            removeClippedSubviews={true}
             ListHeaderComponent={
               <View style={styles.safeAreaView}>
                 {/* <View style={styles.header}>

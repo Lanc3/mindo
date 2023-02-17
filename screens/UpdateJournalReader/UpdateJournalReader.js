@@ -13,7 +13,7 @@ import {
 } from 'react-native'
 import { AdManager } from '../../components/AdManager'
 import Footer from '../../components/Footer'
-import ISSUURenderer from '../../components/ISSUURenderer'
+import ISSUURendererJournal from '../../components/ISSUURendererJournal'
 import LoadingView from '../../components/LoadingView'
 import SaveButton from '../../components/SaveFavoriteButton'
 import { UpdateJournalShortCard } from '../../components/UpdateJournalShortCard'
@@ -98,7 +98,7 @@ export default function UpdateJournalReader({ navigation, props, route }) {
         }
         ListFooterComponent={
           <View>
-            <ISSUURenderer htmlData={content.content} />
+            <ISSUURendererJournal htmlData={content.content} />
             <View style={styles.shareButton}>
               <View style={styles.spacer}>
                 <FontAwesome.Button

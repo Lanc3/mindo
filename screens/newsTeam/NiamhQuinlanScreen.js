@@ -59,6 +59,8 @@ const NiamhQuinlanScreen = ({ navigation }) => {
       {data ? (
         <View>
           <FlatList
+            overScrollMode="never"
+            removeClippedSubviews={true}
             ListHeaderComponent={
               <Header
                 title={title}

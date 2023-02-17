@@ -1,5 +1,4 @@
 import { FontAwesome } from '@expo/vector-icons'
-import he from 'he'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   Dimensions,
@@ -86,7 +85,7 @@ export default function EcopyReader({ navigation, props, route }) {
           <View style={styles.scrollView} ref={scrollRef}>
             <AdManager selectedAd={'ICS_MPU'} sizeType={'SMALL'} />
             <Text style={styles.greenTitle}>Ecopy</Text>
-            <Text style={styles.titleStyle}>{he.decode(content.title)}</Text>
+            <Text style={styles.titleStyle}>{content.title}</Text>
             <View style={styles.subTitle}>
               <Text style={{ paddingLeft: 10 }}>By </Text>
               <Text style={{ color: 'black' }}>{content.author} - </Text>
