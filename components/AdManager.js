@@ -469,14 +469,14 @@ const ads = [
   {
     name: 'CPI_LBD',
     private_script: `<!-- CPI LDB Mobile Private [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc547131 = window.plc547131 || 0;
-            document.write('<'+'div id="placement_547131_'+plc547131+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 547131, [320,50], 'placement_547131_'+opt.place, opt); }, opt: { place: plc547131++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc597117 = window.plc597117 || 0;
+    document.write('<'+'div id="placement_597117_'+plc597117+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 597117, [300,90], 'placement_597117_'+opt.place, opt); }, opt: { place: plc597117++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
     public_script: `<!-- - LDB Mobile Public [async] -->
             <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
             <script type="text/javascript">
@@ -490,14 +490,14 @@ const ads = [
   {
     name: 'CPI_MPU',
     private_script: `<!-- CPI MPU Private [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc547130 = window.plc547130 || 0;
-            document.write('<'+'div id="placement_547130_'+plc547130+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 547130, [300,250], 'placement_547130_'+opt.place, opt); }, opt: { place: plc547130++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc597116 = window.plc597116 || 0;
+    document.write('<'+'div id="placement_597116_'+plc597116+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 597116, [300,250], 'placement_597116_'+opt.place, opt); }, opt: { place: plc597116++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
     public_script: `<!-- - MPU Public [async] -->
             <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
             <script type="text/javascript">
@@ -715,7 +715,7 @@ export function AdManager(props) {
   }, [isFocused])
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} renderToHardwareTextureAndroid={true}>
       {sizeType === 'BIG' ? (
         <View style={styles.containerBig}>
           <View style={styles.bigImage}>

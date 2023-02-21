@@ -1,13 +1,14 @@
+import { useNavigation } from '@react-navigation/native'
 import he from 'he'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { AdManager } from './AdManager'
 import Carousel from './Carousel'
-export const Header = ({ title, blurb, navigation, data, adType }) => {
+export const Header = ({ title, blurb, data, adType }) => {
   const decodeString = (str) => {
     return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
   }
-
+  const navigation = useNavigation()
   return (
     <View style={styles.stat}>
       <AdManager selectedAd={adType} sizeType={'SMALL'} />
@@ -22,7 +23,7 @@ export const Header = ({ title, blurb, navigation, data, adType }) => {
           style="single"
           items={data}
           navigation={navigation}
-          nameSlug={decodeString(he.decode(title))}
+          nameSlug={he.decode(title)}
         />
       ) : null}
     </View>

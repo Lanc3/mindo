@@ -2,15 +2,14 @@ import { useNavigation } from '@react-navigation/native'
 
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  BackHandler,
   Dimensions,
+  FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
 import { AdManager } from '../components/AdManager'
 import ArticleListPreload from '../components/ArticleListPreload'
 import Carousel from '../components/Carousel'
@@ -43,19 +42,6 @@ const HomeScreen = (props) => {
   const [homeItems, setHomeItems] = useState([])
 
   const navigation = useNavigation()
-
-  useEffect(() => {
-    const backAction = () => {
-      navigation.navigate('MainDrawer', { screen: 'Home' })
-    }
-
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    )
-
-    return () => backHandler.remove()
-  })
 
   const getContent = useCallback(async () => {
     try {
@@ -100,7 +86,7 @@ const HomeScreen = (props) => {
             </View>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('MainDrawer', { screen: 'Editorial' })
+                navigation.navigate('Editorial')
               }}
             >
               <View style={styles.veiwContainer}>
@@ -135,7 +121,7 @@ const HomeScreen = (props) => {
               </View>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('MainDrawer', { screen: 'Life' })
+                  navigation.navigate('Life')
                 }}
               >
                 <View style={styles.veiwContainer}>
@@ -252,7 +238,7 @@ const HomeScreen = (props) => {
                     navigation={props.navigation}
                     slugName={'latest-news'}
                     data={sliderData}
-                    titleName={'Latest News'}
+                    titleName={'Latest'}
                     showAmount={5}
                     pageRouteName={'LatestNews'}
                   />
@@ -264,7 +250,7 @@ const HomeScreen = (props) => {
                     navigation={props.navigation}
                     slugName={'breaking-news'}
                     data={breakingNews}
-                    titleName={'Breaking News'}
+                    titleName={'Breaking'}
                     showAmount={3}
                     pageRouteName={'BreakingNews'}
                   />
@@ -297,7 +283,7 @@ const HomeScreen = (props) => {
                   <CategorySnap
                     navigation={props.navigation}
                     elements={feature}
-                    title={'News Features'}
+                    title={'Features'}
                     route={'NewsFeatures'}
                     padding={20}
                   />

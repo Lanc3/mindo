@@ -43,7 +43,7 @@ export function ShortCard({
               {he.decode(decodeString(title))}
             </Text>
             <View style={styles.footer}>
-              <Text style={styles.by}>By - </Text>
+              <Text>By </Text>
               <Text style={styles.by}>{authorId}</Text>
             </View>
             <Text>{date}</Text>

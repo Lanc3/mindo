@@ -21,12 +21,12 @@ export const Footer = (props) => {
     {
       title: 'News',
       data: [
-        { label: 'Latest News', value: 'LatestNews' },
-        { label: 'Breaking News', value: 'BreakingNews' },
-        { label: 'News Features', value: 'NewsFeatures' },
+        { label: 'Latest', value: 'LatestNews' },
+        { label: 'Breaking', value: 'BreakingNews' },
+        { label: 'Features', value: 'NewsFeatures' },
         { label: 'Investigations', value: 'Investigations' },
         { label: 'Interviews', value: 'Interviews' },
-        { label: 'Photo News', value: 'PhotoNews' },
+        { label: 'Photo', value: 'PhotoNews' },
         { label: 'Conference', value: 'Conference' },
       ],
     },
@@ -106,7 +106,7 @@ export const Footer = (props) => {
     },
   ]
   const goToLink = (value) => {
-    props.navi.navigate('MainDrawer', { screen: value })
+    props.navi.navigate(value)
   }
   const openURL = (url) => {
     Linking.openURL(url)

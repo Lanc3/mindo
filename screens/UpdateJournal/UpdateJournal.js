@@ -48,8 +48,10 @@ const UpdateJournal = ({ navigation }) => {
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }} ref={scrollRef}>
       {data.length > 0 ? (
-        <View>
+        <View renderToHardwareTextureAndroid={true}>
           <FlatList
+            overScrollMode="never"
+            removeClippedSubviews={true}
             ListFooterComponent={
               <View>
                 <View style={styles.pageNav}>

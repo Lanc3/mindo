@@ -76,19 +76,21 @@ const INSScreen = ({ navigation }) => {
             ListFooterComponent={
               <View>
                 <View style={styles.pageNav}>
-                  {page > 1 ? (
-                    <TouchableOpacity onPress={() => perviouspage()}>
-                      <Text style={styles.nextGreen}>Previous </Text>
-                    </TouchableOpacity>
-                  ) : null}
+                  <View style={{ flexDirection: 'row' }}>
+                    {page > 1 ? (
+                      <TouchableOpacity onPress={() => perviouspage()}>
+                        <Text style={styles.nextGreen}>Previous </Text>
+                      </TouchableOpacity>
+                    ) : null}
 
-                  <Text style={styles.next}> {page} ... </Text>
-                  <Text style={styles.next}>{totalPages}</Text>
-                  {page > 1 ? (
-                    <TouchableOpacity onPress={() => nextpage()}>
-                      <Text style={styles.nextGreen}> Next</Text>
-                    </TouchableOpacity>
-                  ) : null}
+                    <Text style={styles.next}> {page} ... </Text>
+                    <Text style={styles.next}>{totalPages}</Text>
+                    {page < totalPages ? (
+                      <TouchableOpacity onPress={() => nextpage()}>
+                        <Text style={styles.nextGreen}> Next</Text>
+                      </TouchableOpacity>
+                    ) : null}
+                  </View>
                 </View>
                 <Footer
                   navi={navigation}

@@ -4,7 +4,6 @@ import { useIsFocused } from '@react-navigation/native'
 import he from 'he'
 import React, { useEffect, useRef, useState } from 'react'
 import {
-  Button,
   Dimensions,
   FlatList,
   Image,
@@ -13,11 +12,8 @@ import {
   Text,
   View,
 } from 'react-native'
-import { AdManager } from '../components/AdManager'
-import ContentGalleryRender from '../components/ContentGalleryRender'
 import Footer from '../components/Footer'
 import { useCounter } from '../components/GlobalContext'
-import { Modal } from '../components/Modal'
 import SaveButton from '../components/SaveFavoriteButton'
 export default function FullGallaryScreen({ navigation, props, route }) {
   const {
@@ -120,7 +116,7 @@ export default function FullGallaryScreen({ navigation, props, route }) {
 
   return (
     <View style={styles.container}>
-      <Modal isVisible={popUpState}>
+      {/* <Modal isVisible={popUpState}>
         <Modal.Container>
           <Modal.Header
             style={{ color: 'white' }}
@@ -136,17 +132,13 @@ export default function FullGallaryScreen({ navigation, props, route }) {
             <Button title="Close" color="#000" onPress={handleModal} />
           </Modal.Footer>
         </Modal.Container>
-      </Modal>
+      </Modal> */}
       <FlatList
         overScrollMode="never"
         removeClippedSubviews={true}
         ListHeaderComponent={
-          <View
-            style={styles.scrollView}
-            overScrollMode="never"
-            removeClippedSubviews={true}
-          >
-            <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
+          <View style={styles.scrollView}>
+            {/* <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} /> */}
             <Text style={styles.greenTitle}>{nameSlug}</Text>
             <Text style={styles.title} numberOfLines={3}>
               {he.decode(decodeString(title))}
@@ -239,7 +231,7 @@ export default function FullGallaryScreen({ navigation, props, route }) {
         }
         ListFooterComponent={
           <View>
-            <ContentGalleryRender htmlData={htmlData} newHeight={1800} />
+            {/* <ContentGalleryRender htmlData={htmlData} newHeight={1800} /> */}
             {/* <View
               style={{
                 flex: 1,

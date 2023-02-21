@@ -66,7 +66,6 @@ const PhotoNews = ({ navigation }) => {
               <Header
                 title={title}
                 adType={'LDB_MOBILE'}
-                navigation={navigation}
                 data={sliderData}
               ></Header>
             }
@@ -105,7 +104,6 @@ const PhotoNews = ({ navigation }) => {
               }
               return (
                 <PhotoNewsShortCard
-                  props
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

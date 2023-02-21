@@ -22,7 +22,7 @@ export function PhotoNewsShortCard({
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() =>
-          navi.navigate('FullGallaryScreen', {
+          navi.navigate('FullArticleScreen', {
             nameSlug: nameSlug,
             authorName: authorId,
             title: title,

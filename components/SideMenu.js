@@ -284,8 +284,6 @@ const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
                 </View>
               </View>
             }
-            overScrollMode="never"
-            removeClippedSubviews={true}
             data={[]}
             listKey={(item, index) => `D_key${index.toString()}`}
             keyExtractor={(item, index) => `_key${index.toString()}`}

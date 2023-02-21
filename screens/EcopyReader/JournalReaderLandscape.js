@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Dimensions,
   StyleSheet,
@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import LandscapeView from '../../components/LandscapeView'
 
 import WebView from 'react-native-webview'
 export default function JournalReaderLandscape({ props, route }) {
@@ -17,38 +16,46 @@ export default function JournalReaderLandscape({ props, route }) {
   const imageData = content.media
   const title = content.title
   const date = content.date
-
+  const [newheight, setNewHeight] = useState(326)
   const navigation = useNavigation()
-
+  const windowWidth = Dimensions.get('window').width
+  const windowHeight = Dimensions.get('window').height
+  console.log(content)
   return (
-    <LandscapeView style={{}}>
-      <View></View>
-      <WebView
-        style={styles.container}
-        setSupportMultipleWindows={false}
-        allowsLinkPreview={false}
-        onNavigationStateChange={(event) => {
-          if (event.url !== 'about:blank') {
-          }
-        }}
-        originWhitelist={['*']}
-        source={{
-          html:
-            '<html><head></head><meta name="viewport" content="width=device-width,initial-scale=1.0"><body>' +
-            content +
-            '</body></html>',
-        }}
-      />
-      <View style={styles.back}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('UpdateJournal')
+    <View style={{ height: 700 }}>
+      <View style={{ height: 700 }}>
+        <WebView
+          style={{
+            fontSize: 20,
+            height: 700,
+            width: windowWidth,
+            color: '#000',
           }}
-        >
-          <Text style={{ color: 'white', fontSize: 20 }}>back</Text>
-        </TouchableOpacity>
+          setSupportMultipleWindows={false}
+          allowsLinkPreview={false}
+          onNavigationStateChange={(event) => {
+            if (event.url !== 'about:blank') {
+            }
+          }}
+          originWhitelist={['*']}
+          source={{
+            html:
+              '<html><head></head><meta name="viewport" content="width=device-width,initial-scale=1.0"><body>' +
+              content +
+              '</body></html>',
+          }}
+        />
+        <View style={styles.back}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('UpdateJournal')
+            }}
+          >
+            <Text style={{ color: 'white', fontSize: 20 }}>back</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </LandscapeView>
+    </View>
   )
 }
 const windowWidth = Dimensions.get('window').width
@@ -56,10 +63,8 @@ const windowHeight = Dimensions.get('window').height
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#282C34',
-    width: windowHeight - 50,
-    height: '100%',
-    marginLeft: -10,
-    paddingTop: 10,
+    height: 700,
+    minHeight: 700,
   },
   back: {
     position: 'absolute',

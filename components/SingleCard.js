@@ -54,10 +54,11 @@ export function SingleCard({
         <Text style={styles.titleStyle}>{decodeString(he.decode(title))}</Text>
         <View style={styles.footer}>
           <Text style={{ paddingLeft: 20 }}>By </Text>
-          <Text style={{ fontWeight: 'bold', color: 'black' }}>{authorId}</Text>
-
-          <Text>{date}</Text>
+          <Text style={{ fontWeight: 'bold', color: 'black' }}>
+            {authorId}{' '}
+          </Text>
         </View>
+        <Text style={{ paddingLeft: 20 }}>{date}</Text>
       </TouchableOpacity>
     </View>
   )

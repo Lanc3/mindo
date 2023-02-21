@@ -1,11 +1,10 @@
 {
   "name": "mindo",
-  "version": "1.0.60",
-  "main": "node_modules/expo/AppEntry.js",
+  "version": "1.0.64",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "eject": "expo eject"
   },
@@ -40,7 +39,7 @@
     "react-native-element-dropdown": "^1.6.1",
     "react-native-gesture-handler": "~2.5.0",
     "react-native-htmlview": "^0.16.0",
-    "react-native-modal": "^12.1.0",
+    "react-native-modal": "^13.0.1",
     "react-native-paper": "^4.10.1",
     "react-native-progress": "^5.0.0",
     "react-native-reanimated": "~2.9.1",
@@ -59,7 +58,8 @@
     "redux-thunk": "^2.4.1",
     "superagent": "^7.1.1",
     "wpapi": "^2.0.0-alpha.1",
-    "expo-screen-orientation": "~4.3.0"
+    "expo-screen-orientation": "~4.3.0",
+    "expo-splash-screen": "~0.16.2"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",
