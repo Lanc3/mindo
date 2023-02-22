@@ -1,9 +1,9 @@
-import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import Svg, { Path } from 'react-native-svg'
 import Drawer from './components/Drawer'
+import DrawerMain from './components/DrawerMain'
 function CustomHeader(props, title) {
   const navigation = useNavigation()
 
@@ -11,7 +11,7 @@ function CustomHeader(props, title) {
     navigation.dispatch(DrawerActions.toggleDrawer())
   }
   const goHome = () => {
-    navigation.navigate('MainDrawer', { screen: 'Home' })
+    navigation.navigate('Home')
   }
 
   return (
@@ -19,13 +19,14 @@ function CustomHeader(props, title) {
       {title === ''}
       <View style={styles.headerContainer}>
         <View style={styles.headerLeft}>
-          <TouchableOpacity
+          <DrawerMain navi={props.navigation} />
+          {/* <TouchableOpacity
             onPress={toggleDrawer}
             style={styles.leftButton}
             testID="CustomHeader-toggleDrawer"
           >
             <Icon name={'menu'} color={'#6e822b'} size={25} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View style={styles.header}>
           <TouchableOpacity onPress={goHome}>

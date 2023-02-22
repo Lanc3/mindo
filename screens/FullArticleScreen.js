@@ -27,6 +27,7 @@ export default function FullArticleScreen({ navigation, props, route }) {
     imageData,
     title,
     date,
+    go_back_key,
   } = route.params
   const scrollRef = useRef()
   const scrollViewRef = useRef()
@@ -35,6 +36,7 @@ export default function FullArticleScreen({ navigation, props, route }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const handleModal = () => setPopUpState(() => !popUpState)
   const { count, increment, decrement } = useCounter()
+  const logInRef = useRef(false)
   const decodeString = (str) => {
     return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
   }
@@ -48,16 +50,16 @@ export default function FullArticleScreen({ navigation, props, route }) {
   useEffect(() => {
     scrollViewRef.current?.scrollTo({ x: 5, y: 5, animated: false })
   }, [title])
-  const retrieveData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('userProfile')
-      if (value !== null) {
-        setIsLoggedIn(JSON.parse(value).isLoggedIn)
-      } else {
-      }
-    } catch (error) {
-    } finally {
-      if (!isLoggedIn) {
+
+  useEffect(() => {
+    logInRef.current = false
+    const retrieveData = async () => {
+      const results = await AsyncStorage.getItem('userProfile')
+      setIsLoggedIn(JSON.parse(results).isLoggedIn)
+      logInRef.current = JSON.parse(results).isLoggedIn
+    }
+    retrieveData().then(() => {
+      if (!logInRef.current) {
         decrement()
         if (count === 1) {
           setPopUpState(true)
@@ -69,11 +71,8 @@ export default function FullArticleScreen({ navigation, props, route }) {
           navigation.navigate('SignInScreen')
         }
       }
-    }
-  }
-  useEffect(() => {
-    retrieveData()
-  }, [title])
+    })
+  }, [])
 
   const saveFavorites = async (articleData) => {
     //await AsyncStorage.removeItem("FAVORITES")
@@ -155,7 +154,6 @@ export default function FullArticleScreen({ navigation, props, route }) {
                   paddingLeft: 20,
                   color: 'black',
                   fontFamily: 'Lato_400Regular',
-                  fontWeight: 'bold',
                 }}
               >
                 By{' '}
@@ -167,19 +165,18 @@ export default function FullArticleScreen({ navigation, props, route }) {
                   fontWeight: 'bold',
                 }}
               >
-                {authorName} -{' '}
-              </Text>
-              <Text
-                style={{
-                  color: 'black',
-                  fontFamily: 'Lato_400Regular',
-                  fontWeight: 'bold',
-                }}
-              >
-                {date}
+                {authorName}
               </Text>
             </View>
-            <View></View>
+            <Text
+              style={{
+                color: 'black',
+                fontFamily: 'Lato_400Regular',
+                paddingLeft: 20,
+              }}
+            >
+              {date}
+            </Text>
             <View style={styles.imageContainer}>
               <Image style={styles.image} source={{ uri: '' + imageData }} />
               <View style={styles.shareButton}>
@@ -238,6 +235,30 @@ export default function FullArticleScreen({ navigation, props, route }) {
         ListFooterComponent={
           <View>
             <ContentRender htmlData={htmlData} newHeight={1800} />
+            {/* <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  backgroundColor: '#6e822b',
+                  margin: 8,
+                  flex: 1,
+                  justifyContent: 'center',
+                  paddingHorizontal: 5,
+                  borderRadius: 4,
+                }}
+                onPress={() => {
+                  navigation.goBack()
+                }}
+              >
+                <Text style={{ color: 'white', fontSize: 16 }}>Back</Text>
+              </TouchableOpacity>
+            </View> */}
             <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
           </View>
         }

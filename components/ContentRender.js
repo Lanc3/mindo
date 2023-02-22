@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import React, { useRef, useState } from 'react'
+import { Dimensions, Linking, StyleSheet, View } from 'react-native'
 import WebView from 'react-native-webview'
 const decodeString = (str) => {
   return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
@@ -7,12 +7,40 @@ const decodeString = (str) => {
 
 export default function ContentRender({ htmlData, newHeight }) {
   const [theHeight, setHeight] = useState(2000)
+  const WebRef = useRef(null)
+  const stopLoading = () => {
+    if (WebRef.current !== null) WebRef.current.stopLoading()
+  }
   const data =
     `
   <html>
   <head>
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-  <style>body {font-family: 'Lato'; font-weight: 400; font-size: 20px; word-wrap: break-word; overflow-wrap: break-word;letter-spacing:0.1 }</style><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+  a:link {
+    color: #6e822b;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  a:visited {
+    color: #6e822b;
+  }
+
+  a:hover {
+    color: #6e822b;
+  }
+  a:active {
+    color: #6e822b;
+  }
+</style>
+<style>
+    img { display: block; width: 170%; height: auto;  margin-left: -90px;
+    margin-right: auto;}
+</style>
+<style>
+  body {font-family: 'Lato'; font-weight: 400; font-size: 20px; word-wrap: break-word; overflow-wrap: break-word;letter-spacing:0.1 }
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body id="test">
     <div style="line-height:38px ;font-family: 'Lato';" id="foo">
@@ -29,7 +57,7 @@ export default function ContentRender({ htmlData, newHeight }) {
   </body>
   </html>
 `
-  const onNavigationStateChange = (event) => {
+  const heightChange = (event) => {
     if (event) {
       setHeight(Number(event))
     }
@@ -42,9 +70,18 @@ export default function ContentRender({ htmlData, newHeight }) {
       showsHorizontalScrollIndicator={false}
     >
       <WebView
+        ref={WebRef}
         style={{ lineHeight: 42 }}
         originWhitelist={['*']}
         scrollEnabled={false}
+        onShouldStartLoadWithRequest={(request) => {
+          if (request.url.includes('https')) {
+            stopLoading()
+
+            Linking.openURL(request.url)
+            return true
+          } else return false
+        }}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         automaticallyAdjustContentInsets={true}
@@ -52,7 +89,7 @@ export default function ContentRender({ htmlData, newHeight }) {
         bounces={false}
         source={{ html: data }}
         onMessage={(event) => {
-          onNavigationStateChange(event.nativeEvent.data)
+          heightChange(event.nativeEvent.data)
         }}
       />
     </View>

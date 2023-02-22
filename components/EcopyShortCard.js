@@ -42,15 +42,16 @@ export function EcopyShortCard({
             <Text style={styles.greenTitle}>{nameSlug}</Text>
             <Text style={styles.titleStyle}>{he.decode(title)}</Text>
             <View style={styles.footer}>
-              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>By </Text>
+              <Text style={{ fontSize: 16 }}>By </Text>
               <Text
                 style={{ fontWeight: 'bold', fontSize: 16, color: 'black' }}
               >
                 {authorId}
               </Text>
-              <Text> - </Text>
-              <Text style={{ fontSize: 16, color: 'black' }}>{date}</Text>
             </View>
+            <Text style={{ marginBottom: 20, fontSize: 16, color: 'black' }}>
+              {date}
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -151,6 +152,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
     position: 'relative',
     height: 180,
+    marginLeft: 20,
   },
   contentContainer: {
     flex: 2,

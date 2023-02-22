@@ -1,9 +1,8 @@
-import Icon from '@expo/vector-icons/MaterialCommunityIcons'
-import { useIsFocused } from '@react-navigation/native'
-import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import React from 'react'
 import {
+  Dimensions,
   FlatList,
-  Linking,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -14,23 +13,18 @@ import {
 import AccordionListItem from './components/AccordionListItem'
 import SearchBar from './components/SearchBar'
 import { SocialContent } from './components/SocialContent'
-function CustomDrawerContent(props) {
-  const [mainDrawer, setMainDrawer] = useState(true)
-  const [filteredItems, setFilteredItems] = useState([])
-  const [value, setValue] = useState(null)
-  const [isFocus, setIsFocus] = useState(false)
-  const isFocused = useIsFocused()
-
+function CustomDrawerContent({ closeDrawer }) {
+  const navigation = useNavigation()
   const menuData = [
     {
       title: 'News',
       data: [
-        { label: 'Latest News', value: 'LatestNews' },
-        { label: 'Breaking News', value: 'BreakingNews' },
-        { label: 'News Features', value: 'NewsFeatures' },
+        { label: 'Latest', value: 'LatestNews' },
+        { label: 'Breaking', value: 'BreakingNews' },
+        { label: 'Features', value: 'NewsFeatures' },
         { label: 'Investigations', value: 'Investigations' },
         { label: 'Interviews', value: 'Interviews' },
-        { label: 'Photo News', value: 'PhotoNews' },
+        { label: 'Photo', value: 'PhotoNews' },
         { label: 'Conference', value: 'Conference' },
       ],
     },
@@ -101,117 +95,109 @@ function CustomDrawerContent(props) {
       ],
     },
   ]
-  const openPhone = (phoneNumber) => {
-    Linking.openURL(`tel:${phoneNumber}`)
-  }
-  const openURL = (url) => {
-    Linking.openURL(url)
-  }
-  const goToLink = (value) => {
-    console.log(value)
-    props.navigation.navigate('MainDrawer', { screen: value })
-  }
-  const expandable = <Icon name={'chevron-down'} color={'#6e822b'} size={25} />
 
-  const goToGallery = () => {
-    props.navigation.navigate('MainDrawer', { screen: 'GalleriesScreen' })
+  const goToLink = (value) => {
+    closeDrawer()
+    navigation.navigate(value)
   }
+
   const goToClassifieds = () => {
-    props.navigation.navigate('MainDrawer', { screen: 'ClassifiedsScreen' })
+    closeDrawer()
+    navigation.navigate('ClassifiedsScreen')
   }
   const goToSponsored = (value) => {
-    props.navigation.navigate('MainDrawer', { screen: 'SponsoredScreen' })
+    closeDrawer()
+    navigation.navigate('SponsoredScreen')
   }
   const goToAdvertise = () => {
-    props.navigation.navigate('MainDrawer', { screen: 'AdvertiseScreen' })
+    closeDrawer()
+    navigation.navigate('AdvertiseScreen')
   }
   const goToPrivacy = () => {
-    props.navigation.navigate('MainDrawer', { screen: 'PrivacyScreen' })
+    closeDrawer()
+    navigation.navigate('PrivacyScreen')
   }
   const goToTerms = () => {
-    props.navigation.navigate('MainDrawer', { screen: 'Terms' })
+    closeDrawer()
+    navigation.navigate('Terms')
   }
   const goToLogin = () => {
-    props.navigation.navigate('SignInScreen')
+    closeDrawer()
+    navigation.navigate('SignInScreen')
   }
   const goToAbout = () => {
-    props.navigation.navigate('MainDrawer', { screen: 'AboutScreen' })
-  }
-  const openEmail = (address) => {
-    Linking.openURL(`mailto:${address}`)
+    closeDrawer()
+    navigation.navigate('AboutScreen')
   }
 
   return (
-    <View style={styles.drawerContainer}>
-      <SafeAreaView style={styles.container}>
-        <FlatList
-          ListFooterComponent={
-            <View>
-              <View style={styles.otherLinks}>
-                <View>
-                  <SearchBar navi={props.navigation} />
-                  <TouchableHighlight onPress={() => goToLogin()}>
-                    <Text style={styles.titleSmall}>Login</Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight onPress={() => goToAbout()}>
-                    <Text style={styles.titleSmall}>About Mindo</Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight onPress={() => goToSponsored()}>
-                    <Text style={styles.titleSmall}>Sponsored</Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight onPress={() => goToAdvertise()}>
-                    <Text style={styles.titleSmall}>Advertise</Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight onPress={() => goToClassifieds()}>
-                    <Text style={styles.titleSmall}>Classifieds</Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight onPress={() => goToPrivacy()}>
-                    <Text style={styles.titleSmall}>Privacy Statement</Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight onPress={() => goToTerms()}>
-                    <Text style={styles.titleSmall}>Terms and Conditions</Text>
-                  </TouchableHighlight>
-                </View>
-              </View>
+    <SafeAreaView style={styles.drawerContainer}>
+      <FlatList
+        overScrollMode="never"
+        scrollEnabled={true}
+        ListFooterComponent={
+          <View style={styles.otherLinks}>
+            <SearchBar closeDrawer={closeDrawer} />
+            <TouchableHighlight onPress={() => goToLogin()}>
+              <Text style={styles.titleSmall}>Login</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => goToAbout()}>
+              <Text style={styles.titleSmall}>About Mindo</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => goToSponsored()}>
+              <Text style={styles.titleSmall}>Sponsored</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => goToAdvertise()}>
+              <Text style={styles.titleSmall}>Advertise</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => goToClassifieds()}>
+              <Text style={styles.titleSmall}>Classifieds</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => goToPrivacy()}>
+              <Text style={styles.titleSmall}>Privacy Statement</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => goToTerms()}>
+              <Text style={styles.titleSmall}>Terms and Conditions</Text>
+            </TouchableHighlight>
 
-              <View style={styles.padding}>
-                <SocialContent></SocialContent>
-              </View>
+            <View style={styles.padding}>
+              <SocialContent></SocialContent>
             </View>
-          }
-          scrollEnabled={true}
-          data={menuData}
-          listKey={(item, index) => `outer_key${index.toString()}`}
-          keyExtractor={(item, index) => `outer_key${index.toString()}`}
-          renderItem={({ item, index }) => {
-            return (
-              <AccordionListItem title={item.title}>
-                <FlatList
-                  scrollEnabled={false}
-                  data={item.data}
-                  listKey={(item2, index) => `inner_key${index.toString()}`}
-                  keyExtractor={(item2, index) =>
-                    `inner_key${index.toString()}`
-                  }
-                  renderItem={({ item, index }) => {
-                    return (
-                      <View style={styles.item}>
-                        <TouchableOpacity onPress={() => goToLink(item.value)}>
-                          <Text style={styles.titleSmall}>{item.label}</Text>
-                        </TouchableOpacity>
-                      </View>
-                    )
-                  }}
-                />
-              </AccordionListItem>
-            )
-          }}
-        />
-      </SafeAreaView>
-    </View>
+          </View>
+        }
+        initialNumToRender={menuData.length + 1}
+        data={menuData}
+        listKey={(item, index) => `outer_key${index.toString()}`}
+        keyExtractor={(item, index) => `outer_key${index.toString()}`}
+        renderItem={({ item, index }) => {
+          return (
+            <AccordionListItem title={item.title}>
+              <FlatList
+                overScrollMode="never"
+                removeClippedSubviews={true}
+                scrollEnabled={true}
+                data={item.data}
+                initialNumToRender={item.data.length + 1}
+                listKey={(item2, index) => `inner_key${index.toString()}`}
+                keyExtractor={(item2, index) => `inner_key${index.toString()}`}
+                renderItem={({ item, index }) => {
+                  return (
+                    <View style={styles.item}>
+                      <TouchableOpacity onPress={() => goToLink(item.value)}>
+                        <Text style={styles.titleSmall}>{item.label}</Text>
+                      </TouchableOpacity>
+                    </View>
+                  )
+                }}
+              />
+            </AccordionListItem>
+          )
+        }}
+      />
+    </SafeAreaView>
   )
 }
-
+const windowHeight = Dimensions.get('window').height
 const styles = StyleSheet.create({
   headerContainer: {
     height: '100%',
@@ -237,10 +223,8 @@ const styles = StyleSheet.create({
   },
   drawerContainer: {
     backgroundColor: '#181818',
-    width: '100%',
-    height: '100%',
     zIndex: 100,
-    minWidth: 10,
+    height: windowHeight,
   },
   container: {},
   centered: {

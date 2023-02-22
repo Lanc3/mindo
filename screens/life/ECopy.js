@@ -50,6 +50,8 @@ const ECopy = ({ navigation }) => {
       {data.length > 0 ? (
         <View>
           <FlatList
+            overScrollMode="never"
+            removeClippedSubviews={true}
             ListFooterComponent={
               <View>
                 <View style={styles.pageNav}>

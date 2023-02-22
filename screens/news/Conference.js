@@ -29,6 +29,11 @@ const Conference = ({ navigation }) => {
   const perviouspage = () => {
     if (page > 0) setPage((prevPage) => prevPage - 1)
   }
+  const splitArray = (arr) => {
+    const firstArray = arr.slice(0, 1)
+    const secondArray = arr.slice(1)
+    return [firstArray, secondArray]
+  }
   const getContent = useCallback(async () => {
     setLoading(0.25)
     try {
@@ -37,6 +42,7 @@ const Conference = ({ navigation }) => {
       setTotalPages(Math.ceil(response.totalPosts / 10))
       const [firstArray, secondArray] = splitArray(response.posts)
       setData(secondArray)
+      console.log(data)
       setSliderData(firstArray)
       setLoading(1)
     } catch (error) {
@@ -55,6 +61,8 @@ const Conference = ({ navigation }) => {
       {data.length > 0 ? (
         <View>
           <FlatList
+            overScrollMode="never"
+            removeClippedSubviews={true}
             ListHeaderComponent={
               <Header
                 title={title}

@@ -8,9 +8,9 @@ import {
   Dimensions,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import Modal from 'react-native-modal'
 import Svg, { Path } from 'react-native-svg'
 import SideMenu from './SideMenu'
@@ -27,7 +27,6 @@ export default function Drawer({ navi }) {
   const [endValue, setEndValue] = useState(200)
   const [toggle, setToggle] = useState(false)
   const notificationListener = useRef()
-  const responseListener = useRef()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [error, setError] = useState('Enter Details') //Error texts from the app or serve
   const [notificationCount, setNotificationCount] = useState('')
@@ -91,11 +90,11 @@ export default function Drawer({ navi }) {
     }
   }
   const onPressSports = () => {
-    navi.navigate('MainDrawer', { screen: 'SportsQuiz' })
+    navi.navigate('SportsQuiz')
     onPressOpen()
   }
   const onPressECopy = () => {
-    navi.navigate('MainDrawer', { screen: 'ECopy' })
+    navi.navigate('ECopy')
     onPressOpen()
   }
   const onPressLogIn = () => {
@@ -173,6 +172,7 @@ export default function Drawer({ navi }) {
           },
         }}
         isVisible={toggle}
+        useNativeDriver={true}
         onBackdropPress={onPressOpen} // Android back press
         onSwipeComplete={onPressOpen} // Swipe to discard
         animationIn="slideInRight" // Has others, we want slide in from the left
@@ -196,7 +196,7 @@ const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
   sideMenuStyle: {
     margin: 0,
-    top: 60,
+    top: 50,
   },
   plus: {
     flex: 1,

@@ -1,20 +1,21 @@
-import React, { useState } from 'react'
-import { Dimensions, Linking, StyleSheet } from 'react-native'
+import React, { useRef, useState } from 'react'
+import { Dimensions, StyleSheet } from 'react-native'
 import { WebView } from 'react-native-webview'
 
 export default function WebRender({ htmlData }) {
   const [webview, setWebview] = useState({})
+  const WebRef = useRef(null)
+  const stopLoading = () => {
+    //
+    console.log('Test')
+  }
   return (
     <WebView
+      ref={WebRef}
       style={styles.container}
       setSupportMultipleWindows={true}
       allowsLinkPreview={false}
       originWhitelist={['*']}
-      onNavigationStateChange={(event) => {
-        if (event.url !== 'about:blank') {
-          Linking.openURL(event.url)
-        }
-      }}
       source={{
         html:
           '<html><head></head><meta name="viewport" content="width=device-width,initial-scale=1.0"><body>' +

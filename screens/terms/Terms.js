@@ -4,12 +4,8 @@ import ContentRender from '../../components/ContentRender'
 import { Footer } from '../../components/Footer'
 
 const Terms = ({ navigation }) => {
-  const htmlData = `<style>
-    a:link {
-      color: black;
-      background-color: transparent;
-      text-decoration: none;
-    }</style><div class="row justify-content-center"><div class="col-xl-8 col-lg-7 col-md-6 col-sm-12 col-12" id="single-big-col-1"><h1 class="main-title-text">Terms &amp; Conditions</h1>
+  const htmlData = `
+    <div class="row justify-content-center"><div class="col-xl-8 col-lg-7 col-md-6 col-sm-12 col-12" id="single-big-col-1"><h1 class="main-title-text">Terms &amp; Conditions</h1>
 <p>This website&nbsp;<a href="https://www.medicalindependent.ie/"><strong>www.medicalindependent.ie</strong></a>&nbsp;(aka&nbsp;<a href="http://www.mindo.ie/"><strong>www.mindo.ie</strong></a>) is owned by GreenCross Publishing Ltd. This website is offered to you upon condition of your acceptance without modification of the terms and conditions. By viewing and using the site you are deemed to consent to and accept the terms and conditions. Please read this agreement carefully as it sets out your rights and obligations with respect to the use of the site and its services.</p>
 <p>GreenCross Publishing Ltd reserves the right to change, modify, add or remove portions of these terms and conditions at any time and without prior notice. Please check this page from time to time for any modifications. Your continued use of this site following the posting of any changes will mean that you have accepted the changes.</p>
 <h2 id="data-protection"><strong>Data protection</strong></h2>

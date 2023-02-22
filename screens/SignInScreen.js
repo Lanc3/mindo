@@ -12,7 +12,6 @@ import {
   Modal,
   Platform,
   Pressable,
-  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -134,7 +133,7 @@ const SignInScreen = ({ navigation }) => {
           setDisplayText('Finishing')
           if (status) {
             setLogInState(true)
-            navigation.navigate('MainDrawer', { screen: 'Home' })
+            navigation.replace('Home')
           }
         }
       } else {
@@ -171,7 +170,6 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#000" barStyle="light-content" />
       <View style={styles.header}>
         <Animatable.View
           animation="bounceIn"

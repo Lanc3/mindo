@@ -10,7 +10,7 @@ import { AdManager } from '../../components/AdManager'
 import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
 import LoadingView from '../../components/LoadingView'
-import { ShortCard } from '../../components/ShortCard'
+import { PhotoNewsShortCard } from '../../components/PhotoNewsShortCard'
 import { newGetPostsByCatSlug } from '../../hooks/useResults'
 
 const PhotoNews = ({ navigation }) => {
@@ -60,11 +60,12 @@ const PhotoNews = ({ navigation }) => {
       {data.length > 0 ? (
         <View>
           <FlatList
+            overScrollMode="never"
+            removeClippedSubviews={true}
             ListHeaderComponent={
               <Header
                 title={title}
                 adType={'LDB_MOBILE'}
-                navigation={navigation}
                 data={sliderData}
               ></Header>
             }
@@ -102,8 +103,7 @@ const PhotoNews = ({ navigation }) => {
                 )
               }
               return (
-                <ShortCard
-                  props
+                <PhotoNewsShortCard
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

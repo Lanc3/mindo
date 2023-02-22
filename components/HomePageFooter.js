@@ -104,7 +104,7 @@ export const HomePageFooter = (props) => {
     },
   ]
   const goToLink = (value) => {
-    props.navi.navigate('MainDrawer', { screen: value })
+    props.navi.navigate(value)
   }
   const openURL = (url) => {
     Linking.openURL(url)

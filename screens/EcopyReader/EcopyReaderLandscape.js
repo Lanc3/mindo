@@ -1,37 +1,76 @@
-import * as ScreenOrientation from 'expo-screen-orientation'
-import React, { useEffect, useState } from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
-export default function EcopyReaderLandscape({ navigation, props, route }) {
+import { useNavigation } from '@react-navigation/native'
+import React from 'react'
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import LandscapeView from '../../components/LandscapeView'
+
+import WebView from 'react-native-webview'
+export default function EcopyReaderLandscape({ props, route }) {
   const { content } = route.params
-  const [orientationIsLandscape, setOrientation] = useState(true)
+  const authorName = content.author
+  const htmlData = content.content
+  const imageData = content.media
+  const title = content.title
+  const date = content.date
 
-  async function changeScreenOrientation() {
-    if (orientationIsLandscape == true) {
-      ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.LANDSCAPE_LEFT,
-      )
-    } else if (orientationIsLandscape == false) {
-      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT)
-    }
-  }
-  const toggleOrientation = () => {
-    setOrientation(!orientationIsLandscape)
-    changeScreenOrientation()
-  }
+  const navigation = useNavigation()
 
-  useEffect(() => {
-    // Run! Like go get some data from an API.
-    //toggleOrientation()
-  }, [])
-
-  return <View style={styles.container}></View>
+  return (
+    <LandscapeView style={{}}>
+      <View></View>
+      <WebView
+        style={styles.container}
+        setSupportMultipleWindows={false}
+        allowsLinkPreview={false}
+        onNavigationStateChange={(event) => {
+          if (event.url !== 'about:blank') {
+          }
+        }}
+        originWhitelist={['*']}
+        source={{
+          html:
+            '<html><head></head><meta name="viewport" content="width=device-width,initial-scale=1.0"><body>' +
+            content +
+            '</body></html>',
+        }}
+      />
+      <View style={styles.back}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('ECopy')
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 20 }}>back</Text>
+        </TouchableOpacity>
+      </View>
+    </LandscapeView>
+  )
 }
 const windowWidth = Dimensions.get('window').width
+const windowHeight = Dimensions.get('window').height
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#282C34',
+    width: windowHeight - 50,
+    height: '100%',
+    marginLeft: -10,
+    paddingTop: 10,
+  },
+  back: {
     position: 'absolute',
-    top: -110,
-    zIndex: 99,
+    top: windowWidth - 40,
+    backgroundColor: '#282C34',
+    zIndex: 10,
+    height: 30,
+    width: '100%',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 25,

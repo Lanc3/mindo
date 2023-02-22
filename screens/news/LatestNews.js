@@ -60,6 +60,8 @@ const LatestNews = ({ navigation }) => {
       {data.length > 0 ? (
         <View>
           <FlatList
+            overScrollMode="never"
+            removeClippedSubviews={true}
             ListHeaderComponent={
               <Header
                 title={title}
@@ -95,10 +97,38 @@ const LatestNews = ({ navigation }) => {
             keyExtractor={(item, index) => `_key${index.toString()}`}
             renderItem={({ item, index }) => {
               if (index === 3) {
-                return <AdManager selectedAd={'MPU'} sizeType={'BIG'} />
+                return (
+                  <View>
+                    <AdManager selectedAd={'MPU'} sizeType={'BIG'} />
+                    <ShortCard
+                      props
+                      title={item.title.toString()}
+                      excerpt={item.excerpt.toString()}
+                      date={item.date.toString()}
+                      mediaID={item.media.toString()}
+                      totalData={item.content}
+                      authorId={item.author}
+                      navi={navigation}
+                      nameSlug={item.categoryName}
+                    />
+                  </View>
+                )
               } else if (index === 7) {
                 return (
-                  <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
+                  <View>
+                    <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
+                    <ShortCard
+                      props
+                      title={item.title.toString()}
+                      excerpt={item.excerpt.toString()}
+                      date={item.date.toString()}
+                      mediaID={item.media.toString()}
+                      totalData={item.content}
+                      authorId={item.author}
+                      navi={navigation}
+                      nameSlug={item.categoryName}
+                    />
+                  </View>
                 )
               }
               return (
