@@ -99,7 +99,7 @@ import SubscriberOnly from './screens/SubscriberOnly/SubscriberOnly'
 import Terms from './screens/terms/Terms'
 import UpdateJournal from './screens/UpdateJournal/UpdateJournal'
 import UpdateJournalReader from './screens/UpdateJournalReader/UpdateJournalReader'
-
+import {IOSStatusBar} from './components/IOSStatusBar'
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -250,6 +250,7 @@ export default function App() {
             backgroundColor="black"
             hidden={false}
           />
+          <IOSStatusBar backgroundColor="black" barStyle="light-content"/>
           <Stack.Navigator
             initialRouteName="FirstRunScreen"
             screenOptions={{
