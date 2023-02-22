@@ -6,7 +6,8 @@ export default function WebRender({ htmlData }) {
   const [webview, setWebview] = useState({})
   const WebRef = useRef(null)
   const stopLoading = () => {
-    if (WebRef.current !== null) WebRef.current.StopLoading()
+    //
+    console.log('Test')
   }
   return (
     <WebView

@@ -1,50 +1,25 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Dimensions, Share, StyleSheet, View } from 'react-native'
+import { FontAwesome } from '@expo/vector-icons'
+import he from 'he'
+import React, { useState } from 'react'
+import { Dimensions, Share, StyleSheet, Text, View } from 'react-native'
 import ISSUURenderer from '../../components/ISSUURenderer'
-import { newGetPostsByCatSlug } from '../../hooks/useResults'
 export default function EcopyReader({ navigation, props, route }) {
   const { content } = route.params
-  const scrollRef = useRef()
-  const [data, setData] = useState([])
-  const [page, setPage] = useState(1)
-  const [loading, setLoading] = useState(0)
   const [hideTitle, setHideTitle] = useState(false)
-  const [totalPages, setTotalPages] = useState(0)
-  const [titles, setTitle] = useState('E-Copy')
   const [slug, setSlug] = useState('ecopy')
   const authorName = content.author
-  const htmlData = content.content
-  const imageData = content.media
   const title = content.title
   const date = content.date
+  const htmlData = content.content
+  const imageData = content.media
   const decodeString = (str) => {
     return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
   }
-  const nextpage = () => {
-    if (page <= totalPages) setPage((prevPage) => prevPage + 1)
-  }
-  const perviouspage = () => {
-    if (page > 0) setPage((prevPage) => prevPage - 1)
-  }
-  const getContent = useCallback(async () => {
-    setLoading(0.25)
-    try {
-      setLoading(0.5)
-      const response = await newGetPostsByCatSlug(slug, 10, page)
-      setTotalPages(Math.ceil(response.totalPosts / 10))
-      setData(response.posts)
-      setLoading(1)
-    } catch (error) {
-    } finally {
-      setLoading(1)
-    }
-    setLoading(1)
-  }, [page])
 
-  useEffect(() => {
-    getContent()
-  }, [getContent])
-
+  const hide = () => {
+    console.log('hide', hideTitle)
+    setHideTitle(true)
+  }
   const onShare = async () => {
     try {
       const result = await Share.share({
@@ -66,11 +41,98 @@ export default function EcopyReader({ navigation, props, route }) {
   }
   return (
     <View renderToHardwareTextureAndroid={true}>
-      <View
-        style={{ backgroundColor: 'black', height: '100%' }}
-        renderToHardwareTextureAndroid={true}
-      >
-        <ISSUURenderer htmlData={content.content} />
+      {hideTitle === false ? (
+        <View
+          style={styles.scrollView}
+          overScrollMode="never"
+          removeClippedSubviews={true}
+        >
+          <Text style={styles.greenTitle}>{slug}</Text>
+          <Text style={styles.title} numberOfLines={3}>
+            {he.decode(decodeString(title))}
+          </Text>
+          <View style={styles.subTitle}>
+            <Text
+              style={{
+                color: 'black',
+                fontFamily: 'Lato_400Regular',
+                fontWeight: 'bold',
+                paddingLeft: 20,
+              }}
+            >
+              By {authorName}
+            </Text>
+          </View>
+          <Text
+            style={{
+              color: 'black',
+              fontFamily: 'Lato_400Regular',
+              paddingLeft: 20,
+            }}
+            ss
+          >
+            {date}
+          </Text>
+          <View style={styles.shareButton}>
+            <View style={styles.spacer}>
+              <FontAwesome.Button
+                name="twitter"
+                size={26}
+                color="#000"
+                backgroundColor="transparent"
+                onPress={onShare}
+              ></FontAwesome.Button>
+            </View>
+            <View style={styles.spacer}>
+              <FontAwesome.Button
+                name="facebook-square"
+                size={26}
+                color="#000"
+                backgroundColor="transparent"
+                onPress={onShare}
+              ></FontAwesome.Button>
+            </View>
+            <View style={styles.spacer}>
+              <FontAwesome.Button
+                name="linkedin-square"
+                size={26}
+                color="#000"
+                backgroundColor="transparent"
+                onPress={onShare}
+              ></FontAwesome.Button>
+            </View>
+            <View style={styles.spacer}>
+              <FontAwesome.Button
+                name="instagram"
+                size={26}
+                color="#000"
+                backgroundColor="transparent"
+                onPress={onShare}
+              ></FontAwesome.Button>
+            </View>
+            <View style={styles.spacer}>
+              {/* <SaveButton
+                articleData={{
+                  slug,
+                  authorName,
+                  htmlData,
+                  imageData,
+                  title,
+                  date,
+                }}
+              /> */}
+            </View>
+          </View>
+        </View>
+      ) : null}
+
+      <View style={{ height: '100%' }} renderToHardwareTextureAndroid={true}>
+        <ISSUURenderer
+          callback={() => {
+            hide()
+          }}
+          htmlData={content.content}
+        />
       </View>
     </View>
   )
@@ -90,11 +152,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     justifyContent: 'center',
     padding: 5,
+    paddingHorizontal: 20,
   },
-  subTitle: {
-    flex: 1,
-    flexDirection: 'row',
-  },
+  subTitle: {},
   image: {
     width: windowWidth,
     height: 300,
@@ -105,9 +165,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 0,
   },
   shareButton: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    paddingHorizontal: 15,
   },
   shareText: {
     color: '#fff',
@@ -118,7 +178,7 @@ const styles = StyleSheet.create({
   greenTitle: {
     color: '#6e822b',
     paddingTop: 10,
-    paddingLeft: 10,
+    paddingHorizontal: 20,
   },
   pageNav: {
     flexDirection: 'row',

@@ -10,18 +10,23 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import { IconButton } from 'react-native-paper'
 import { removeToken } from '../hooks/useResults'
 import AccordionListItem from './AccordionListItem'
 import { SideMenuItem } from './SideMenuItem'
 const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
   const navigation = useNavigation()
   const [token, setToken] = useState({ expoPushToken: '' })
+  const [checkIsTestPage, setTestPage] = useState(false)
   const retrieveData = useCallback(async () => {
     try {
       const value = await AsyncStorage.getItem('userProfile')
       if (value !== null) {
         setIsFreeAccount(JSON.parse(value).freeAccount)
         setArticlesLeft(JSON.parse(value).freeArticle)
+        if (JSON.parse(value).name === 'clientads@greenx.ie') {
+          setTestPage(true)
+        }
       } else {
       }
     } catch (error) {
@@ -194,8 +199,6 @@ const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
                 </View>
               </View>
             }
-            overScrollMode="never"
-            removeClippedSubviews={true}
             data={[]}
             listKey={(item, index) => `D_key${index.toString()}`}
             keyExtractor={(item, index) => `_key${index.toString()}`}
@@ -282,6 +285,17 @@ const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
                     <Text style={styles.text_footer}>Log Out</Text>
                   </TouchableOpacity>
                 </View>
+                {checkIsTestPage ? (
+                  <IconButton
+                    icon="bug"
+                    color="#6e822b"
+                    size={24}
+                    onPress={() => {
+                      closeDrawer()
+                      navigation.navigate('AdTestPage')
+                    }}
+                  />
+                ) : null}
               </View>
             }
             data={[]}
@@ -292,17 +306,7 @@ const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
             }}
           />
         )}
-        <View style={styles.testPage}>
-          {/* <IconButton
-            icon="bug"
-            color="#6e822b"
-            size={24}
-            onPress={() => {
-              closeDrawer()
-              navigation.navigate('AdTestPage')
-            }}
-          /> */}
-        </View>
+        <View style={styles.testPage}></View>
       </View>
     </View>
   )
@@ -314,8 +318,6 @@ const styles = StyleSheet.create({
     height: windowHeight,
   },
   testPage: {
-    position: 'absolute',
-    bottom: 15,
     backgroundColor: '#181818',
   },
   aboutUsTitle: {
