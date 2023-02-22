@@ -10,22 +10,26 @@ export const Header = ({ title, blurb, data, adType }) => {
   }
   const navigation = useNavigation()
   return (
-    <View style={styles.stat}>
-      <AdManager selectedAd={adType} sizeType={'SMALL'} />
-      {title != null ? (
-        <Text style={styles.pageTitle}>{decodeString(he.decode(title))}</Text>
-      ) : null}
-      {blurb != null ? (
-        <Text style={styles.pageBlurb}>{decodeString(blurb)}</Text>
-      ) : null}
-      {data != null ? (
-        <Carousel
-          style="single"
-          items={data}
-          navigation={navigation}
-          nameSlug={he.decode(title)}
-        />
-      ) : null}
+    <View>
+      <View style={{}}>
+        <AdManager selectedAd={adType} sizeType={'SMALL'} />
+      </View>
+      <View>
+        {title != null ? (
+          <Text style={styles.pageTitle}>{decodeString(he.decode(title))}</Text>
+        ) : null}
+        {blurb != null ? (
+          <Text style={styles.pageBlurb}>{decodeString(blurb)}</Text>
+        ) : null}
+        {data != null ? (
+          <Carousel
+            style="single"
+            items={data}
+            navigation={navigation}
+            nameSlug={he.decode(title)}
+          />
+        ) : null}
+      </View>
     </View>
   )
 }

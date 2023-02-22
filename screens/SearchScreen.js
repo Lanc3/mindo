@@ -1,6 +1,12 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { AdManager } from '../components/AdManager'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
@@ -12,21 +18,38 @@ const SearchScreen = ({ props, route }) => {
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true)
   const [totalPages, setTotalPages] = useState(0)
+  const [sliderData, setSliderData] = useState([])
   const [title, setTitle] = useState('Search results for: ' + search_term)
   const navigation = useNavigation()
+  const [slug, setSlug] = useState('ies')
+  const [blurb, setBlurb] = useState('')
   const scrollRef = useRef()
   const [data, setData] = useState([])
-
+  const nextpage = () => {
+    if (page <= totalPages) setPage((prevPage) => prevPage + 1)
+  }
+  const perviouspage = () => {
+    if (page > 0) setPage((prevPage) => prevPage - 1)
+  }
+  const splitArray = (arr) => {
+    const firstArray = arr.slice(0, 1)
+    const secondArray = arr.slice(1)
+    return [firstArray, secondArray]
+  }
   const getContent = useCallback(async () => {
     setLoading(true)
     try {
       const response = await searchArticles(search_term, 10, 1)
-      setData(response.posts)
+      setTotalPages(Math.ceil(response.totalPosts / 10))
+      const [firstArray, secondArray] = splitArray(response.posts)
+      setData(secondArray)
+      setSliderData(firstArray)
+      setBlurb(response.posts[0].categoryDescription)
     } catch (error) {
     } finally {
       setLoading(false)
     }
-  }, [search_term])
+  }, [search_term, page])
 
   useEffect(() => {
     getContent()
@@ -44,11 +67,33 @@ const SearchScreen = ({ props, route }) => {
                 title={'Search results for: ' + search_term}
                 adType={'LDB_MOBILE'}
                 navigation={navigation}
-                data={data}
+                data={sliderData}
               ></Header>
             }
             ListFooterComponent={
               <View>
+                <View style={styles.pageNav}>
+                  <View style={{ flexDirection: 'row' }}>
+                    {page > 1 ? (
+                      <TouchableOpacity onPress={() => perviouspage()}>
+                        <Text style={{ fontSize: 16, color: '#6e822b' }}>
+                          Previous{' '}
+                        </Text>
+                      </TouchableOpacity>
+                    ) : null}
+
+                    <Text style={styles.next}> {page} ... </Text>
+                    <Text style={styles.next}>{totalPages}</Text>
+                    {page < totalPages ? (
+                      <TouchableOpacity onPress={() => nextpage()}>
+                        <Text style={{ fontSize: 16, color: '#6e822b' }}>
+                          {' '}
+                          Next
+                        </Text>
+                      </TouchableOpacity>
+                    ) : null}
+                  </View>
+                </View>
                 <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
               </View>
             }
@@ -115,7 +160,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   nextGreen: {
-    fontSize: 16,
+    fontSize: 12,
     color: '#6e822b',
   },
   nextGreen: {

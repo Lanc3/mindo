@@ -43,7 +43,7 @@ export function FavoritesCard({
             <Text style={styles.greenTitle}>{nameSlug}</Text>
             <Text style={styles.titleStyle}>{title}</Text>
             <View style={styles.footer}>
-              <Text style={styles.by}>By - </Text>
+              <Text style={{}}>By </Text>
               <Text style={styles.by}>{authorId}</Text>
             </View>
             <Text>{date}</Text>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   separators: {
     borderBottomColor: '#eaeaea',
     borderBottomWidth: 1,
-    marginRight: 20,
+    marginRight: -40,
     marginLeft: 10,
     height: 1,
   },

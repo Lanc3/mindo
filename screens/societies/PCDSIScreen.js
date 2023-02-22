@@ -111,6 +111,8 @@ const PCDSIScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'PCDSI_LDB'}
+                  MPU_Ad={'PCDSI_MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

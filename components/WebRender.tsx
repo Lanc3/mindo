@@ -7,7 +7,6 @@ export default function WebRender({ htmlData }) {
   const WebRef = useRef(null)
   const stopLoading = () => {
     //
-    console.log('Test')
   }
   return (
     <WebView

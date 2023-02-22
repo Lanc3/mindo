@@ -113,6 +113,8 @@ const HAIScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'HAI Mobile LDB'}
+                  MPU_Ad={'HAI MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

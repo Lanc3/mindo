@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     height: 'auto',
+    marginTop: 20,
   },
   slideText: {
     width: '100%',

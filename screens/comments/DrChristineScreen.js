@@ -19,7 +19,7 @@ const DrChristineScreen = ({ navigation }) => {
   const [sliderData, setSliderData] = useState([])
   const [loading, setLoading] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
-  const [title, setTitle] = useState('Prof Seamus O’Mahony')
+  const [title, setTitle] = useState('Dr Christine O’Malley')
   const [slug, setSlug] = useState('dr-christine-omalley')
   const scrollRef = useRef()
 

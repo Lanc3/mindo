@@ -111,6 +111,8 @@ const IOSScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'IOS_LBD'}
+                  MPU_Ad={'IOS_MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

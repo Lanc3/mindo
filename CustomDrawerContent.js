@@ -88,7 +88,6 @@ function CustomDrawerContent({ closeDrawer }) {
       title: 'News Team',
       data: [
         { label: 'Catherine Reilly', value: 'CatherineReilly' },
-        { label: 'Niamh Quinlan', value: 'NiamhQuinlan' },
         { label: 'David Lynch', value: 'DavidLynch' },
         { label: 'Paul Mullholand', value: 'PaulMulholland' },
         { label: 'Priscilla Lynch', value: 'PriscillaLynch' },
@@ -359,7 +358,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     color: 'white',
   },
-  item: {},
+  item: {
+    paddingVertical: 5,
+  },
 })
 
 export default CustomDrawerContent

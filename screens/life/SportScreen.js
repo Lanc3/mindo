@@ -106,6 +106,8 @@ const SportScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'LDB_MOBILE'}
+                  MPU_Ad={'MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

@@ -21,6 +21,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Platform, StatusBar, StyleSheet } from 'react-native'
 import { FavoritesList } from './components/FavoritesList'
 import { CounterContextProvider } from './components/GlobalContext'
+import { IOSStatusBar } from './components/IOSStatusBar'
 import LandscapeReader from './components/LandscapeReader'
 import { NotificationViewList } from './components/NotificationViewList'
 import CustomHeader from './CustomHeader'
@@ -99,7 +100,6 @@ import SubscriberOnly from './screens/SubscriberOnly/SubscriberOnly'
 import Terms from './screens/terms/Terms'
 import UpdateJournal from './screens/UpdateJournal/UpdateJournal'
 import UpdateJournalReader from './screens/UpdateJournalReader/UpdateJournalReader'
-import {IOSStatusBar} from './components/IOSStatusBar'
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -132,7 +132,7 @@ Notifications.addNotificationResponseReceivedListener((response) => {
   //   imageData: media,
   //   htmlData: content,
   // })
-  console.log('her')
+
   // navigationRef.navigate('FullArticleScreen', {
   //   nameSlug: categoryName,
   //   authorName: author,
@@ -250,7 +250,7 @@ export default function App() {
             backgroundColor="black"
             hidden={false}
           />
-          <IOSStatusBar backgroundColor="black" barStyle="light-content"/>
+          <IOSStatusBar backgroundColor="black" barStyle="light-content" />
           <Stack.Navigator
             initialRouteName="FirstRunScreen"
             screenOptions={{

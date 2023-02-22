@@ -52,6 +52,9 @@ const ECopy = ({ navigation }) => {
           <FlatList
             overScrollMode="never"
             removeClippedSubviews={true}
+            ListHeaderComponent={
+              <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
+            }
             ListFooterComponent={
               <View>
                 <View style={styles.pageNav}>

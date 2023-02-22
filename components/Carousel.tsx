@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#fbfbfb',
     borderColor: '#ebebeb',
-    borderWidth: 1,
+    borderWidth: 0,
     borderRadius: 8,
     shadowColor: '#fcfcfc',
     shadowOpacity: 1,

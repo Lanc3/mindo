@@ -107,11 +107,13 @@ const ICSScreen = ({ navigation }) => {
               if (index === 3) {
                 return <AdManager selectedAd={'ICS_MPU'} sizeType={'BIG'} />
               } else if (index === 7) {
-                return <AdManager selectedAd={'ICS_MPU'} sizeType={'BIG'} />
+                return <View></View>
               }
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'ICS_LDB'}
+                  MPU_Ad={'ICS_MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

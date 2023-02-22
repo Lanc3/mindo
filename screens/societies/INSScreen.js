@@ -111,6 +111,8 @@ const INSScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'INS_LDB'}
+                  MPU_Ad={'INS_MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

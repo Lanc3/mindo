@@ -12,6 +12,8 @@ export function ShortCard({
   totalData,
   authorId,
   nameSlug,
+  LBD_Ad,
+  MPU_Ad,
 }) {
   const decodeString = (str) => {
     return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
@@ -29,6 +31,9 @@ export function ShortCard({
             date: date,
             imageData: mediaID,
             htmlData: totalData,
+            LBD_Ad: LBD_Ad,
+            MPU_Ad,
+            MPU_Ad,
           })
         }
       >
@@ -63,7 +68,7 @@ const styles = StyleSheet.create({
   separators: {
     borderBottomColor: '#eaeaea',
     borderBottomWidth: 1,
-    marginRight: 20,
+    marginRight: 10,
     marginLeft: 10,
     height: 1,
   },

@@ -111,6 +111,8 @@ const ISMOScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'ISMO_LBD'}
+                  MPU_Ad={'ISMO_MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

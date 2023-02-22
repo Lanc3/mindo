@@ -112,6 +112,8 @@ const SponsoredScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'SPONSORED_LDB'}
+                  MPU_Ad={'SPONSORED_MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

@@ -43,9 +43,14 @@ export function SingleCard({
           })
         }
       >
-        <View style={{ marginHorizontal: padding }}>
+        <View style={{ marginHorizontal: 0 }}>
           <Image
-            style={{ minWidth: '100%', height: 200, resizeMode: 'cover' }}
+            style={{
+              minWidth: '100%',
+              width: '100%',
+              height: 210,
+              resizeMode: 'cover',
+            }}
             source={{ uri: mediaID }}
           />
         </View>
@@ -58,7 +63,9 @@ export function SingleCard({
             {authorId}{' '}
           </Text>
         </View>
-        <Text style={{ paddingLeft: 20 }}>{date}</Text>
+        <Text style={{ paddingHorizontal: 20 }}>
+          {date} {excerpt}
+        </Text>
       </TouchableOpacity>
     </View>
   )

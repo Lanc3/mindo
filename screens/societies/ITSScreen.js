@@ -111,6 +111,8 @@ const ITSScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'ITS_LDB'}
+                  MPU_Ad={'ITS_MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

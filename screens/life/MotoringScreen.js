@@ -115,6 +115,8 @@ const MotoringScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'Motoring Mobile LDB'}
+                  MPU_Ad={'Motoring MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

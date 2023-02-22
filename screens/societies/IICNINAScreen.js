@@ -113,6 +113,8 @@ const IICNINAScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'IICNINA_LBD'}
+                  MPU_Ad={'IICNINA_MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

@@ -113,6 +113,8 @@ const ISRScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'ISR_LBD'}
+                  MPU_Ad={'ISR_MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

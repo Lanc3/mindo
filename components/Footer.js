@@ -10,9 +10,11 @@ import {
 } from 'react-native'
 import Svg, { Path } from 'react-native-svg'
 import AccordionListItemFooter from './AccordionListItemFooter'
+import { AdManager } from './AdManager'
 import MostReadSection from './MostReadSection'
 export const Footer = (props) => {
   const [ad, setAd] = useState(props.adSelected)
+  console.log(ad)
   const show = props.show
   const [showMostReadIn, setShowMostRead] = useState(true)
   const selectedAd = props.adSelected
@@ -90,7 +92,6 @@ export const Footer = (props) => {
       title: 'News Team',
       data: [
         { label: 'Catherine Reilly', value: 'CatherineReilly' },
-        { label: 'Niamh Quinlan', value: 'NiamhQuinlan' },
         { label: 'David Lynch', value: 'DavidLynch' },
         { label: 'Paul Mullholand', value: 'PaulMulholland' },
         { label: 'Priscilla Lynch', value: 'PriscillaLynch' },
@@ -134,7 +135,18 @@ export const Footer = (props) => {
           <FlatList
             overScrollMode="never"
             removeClippedSubviews={true}
-            ListHeaderComponent={<MostREad />}
+            ListHeaderComponent={
+              <View>
+                <View
+                  scrollEnabled={false}
+                  showsHorizontalScrollIndicator={false}
+                  style={{ backgroundColor: 'white' }}
+                >
+                  <AdManager selectedAd={selectedAd} sizeType={'BIG'} />
+                </View>
+                <MostREad />
+              </View>
+            }
             ListFooterComponent={
               <View style={styles.footerStyle}>
                 <View style={styles.header}>
@@ -221,8 +233,6 @@ export const Footer = (props) => {
                 <Text style={styles.footerText}>Built by Aaron Keating</Text>
               </View>
             }
-            overScrollMode="never"
-            removeClippedSubviews={true}
             scrollEnabled={true}
             data={menuData}
             listKey={(item, index) => `outer_key${index.toString()}`}

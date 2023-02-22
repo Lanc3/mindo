@@ -1,6 +1,6 @@
 {
   "name": "mindo",
-  "version": "1.0.65",
+  "version": "1.0.67",
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",

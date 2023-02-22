@@ -27,6 +27,7 @@ const HomeScreen = (props) => {
   const [latestNews, setlatestNews] = useState([])
   const [subscriberOnly, setSubscriberOnly] = useState([])
   const [comments, setComments] = useState([])
+  const [sport, setSport] = useState([])
   const [feature, setFeature] = useState([])
   const [cartoon, setCartoon] = useState([])
   const [commercial, setCommercial] = useState([])
@@ -57,6 +58,7 @@ const HomeScreen = (props) => {
         newGetPostsByCatSlug('sponsored-content', 3, 1),
         newGetPostsByCatSlug('breaking-news', 4, 1),
         newGetPostsByCatSlug('interviews', 4, 1),
+        newGetPostsByCatSlug('sport', 4, 1),
       ])
       const finalData = await Promise.all(results.map((result) => result.posts))
       setSliderData(finalData[0])
@@ -70,6 +72,7 @@ const HomeScreen = (props) => {
       setSponsoredContent(finalData[8])
       setBreakingNews(finalData[9])
       setInterviews(finalData[10])
+      setSport(finalData[11])
     } catch (error) {}
     setHomeItems([
       { component: <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} /> },
@@ -171,10 +174,10 @@ const HomeScreen = (props) => {
         component: (
           <SingleArticle
             navigation={props.navigation}
-            slugName={'sport'}
-            titleName={'Sport'}
+            slugName={'motoring'}
+            titleName={'Motoring'}
             showAmount={1}
-            pageRouteName={'Sport'}
+            pageRouteName={'Motoring'}
           />
         ),
       },
@@ -303,7 +306,7 @@ const HomeScreen = (props) => {
               if (index === 15) {
                 return (
                   <Single
-                    item={motoring[0]}
+                    item={sport[0]}
                     navigation={props.navigation}
                     padding={20}
                   />

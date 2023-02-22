@@ -2,6 +2,7 @@ import { FontAwesome } from '@expo/vector-icons'
 import he from 'he'
 import React, { useState } from 'react'
 import { Dimensions, Share, StyleSheet, Text, View } from 'react-native'
+import { AdManager } from '../../components/AdManager'
 import ISSUURenderer from '../../components/ISSUURenderer'
 export default function EcopyReader({ navigation, props, route }) {
   const { content } = route.params
@@ -41,6 +42,7 @@ export default function EcopyReader({ navigation, props, route }) {
   }
   return (
     <View renderToHardwareTextureAndroid={true}>
+      <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
       {hideTitle === false ? (
         <View
           style={styles.scrollView}
@@ -51,6 +53,7 @@ export default function EcopyReader({ navigation, props, route }) {
           <Text style={styles.title} numberOfLines={3}>
             {he.decode(decodeString(title))}
           </Text>
+
           <View style={styles.subTitle}>
             <Text
               style={{
@@ -163,6 +166,7 @@ const styles = StyleSheet.create({
   imageContainer: {},
   scrollView: {
     marginHorizontal: 0,
+    backgroundColor: 'white',
   },
   shareButton: {
     flexDirection: 'row',

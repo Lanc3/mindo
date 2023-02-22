@@ -111,6 +111,8 @@ const CPIScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'CPI_LBD'}
+                  MPU_Ad={'CPI_MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

@@ -27,8 +27,10 @@ export default function FullArticleScreen({ navigation, props, route }) {
     imageData,
     title,
     date,
-    go_back_key,
+    LBD_Ad,
+    MUP_Ad,
   } = route.params
+
   const scrollRef = useRef()
   const scrollViewRef = useRef()
   const [popUpState, setPopUpState] = useState(false)
@@ -36,6 +38,8 @@ export default function FullArticleScreen({ navigation, props, route }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const handleModal = () => setPopUpState(() => !popUpState)
   const { count, increment, decrement } = useCounter()
+  const [propagatedLBPAd, setPropagatedAd] = useState(LBD_Ad)
+  const [propagatedMPUAd, setPropagatedMPUAd] = useState('MPU')
   const logInRef = useRef(false)
   const decodeString = (str) => {
     return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
@@ -48,6 +52,10 @@ export default function FullArticleScreen({ navigation, props, route }) {
     }
   }, [isFocused])
   useEffect(() => {
+    if (MUP_Ad) {
+      setPropagatedMPUAd(MUP_Ad)
+    }
+
     scrollViewRef.current?.scrollTo({ x: 5, y: 5, animated: false })
   }, [title])
 
@@ -143,7 +151,12 @@ export default function FullArticleScreen({ navigation, props, route }) {
             overScrollMode="never"
             removeClippedSubviews={true}
           >
-            <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
+            {propagatedLBPAd ? (
+              <AdManager selectedAd={propagatedLBPAd} sizeType={'SMALL'} />
+            ) : (
+              <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
+            )}
+
             <Text style={styles.greenTitle}>{nameSlug}</Text>
             <Text style={styles.title} numberOfLines={3}>
               {he.decode(decodeString(title))}
@@ -259,7 +272,12 @@ export default function FullArticleScreen({ navigation, props, route }) {
                 <Text style={{ color: 'white', fontSize: 16 }}>Back</Text>
               </TouchableOpacity>
             </View> */}
-            <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
+
+            <Footer
+              navi={navigation}
+              refS={scrollRef}
+              adSelected={propagatedMPUAd}
+            />
           </View>
         }
         data={[]}

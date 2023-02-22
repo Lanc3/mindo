@@ -2,11 +2,12 @@ import React, { useRef, useState } from 'react'
 import { Dimensions, Linking, StyleSheet, View } from 'react-native'
 import WebView from 'react-native-webview'
 const decodeString = (str) => {
-  return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
+  return str.replace('(?i)<figure[^>]*>', '')
 }
 
 export default function ContentRender({ htmlData, newHeight }) {
   const [theHeight, setHeight] = useState(2000)
+
   const WebRef = useRef(null)
   const stopLoading = () => {
     if (WebRef.current !== null) WebRef.current.stopLoading()
@@ -32,9 +33,10 @@ export default function ContentRender({ htmlData, newHeight }) {
   a:active {
     color: #6e822b;
   }
+ 
 </style>
 <style>
-    img { display: block; width: 170%; height: auto;  margin-left: -90px;
+    img { display: block; width: 199%; height: auto;  margin-left: -90px;
     margin-right: auto;}
 </style>
 <style>

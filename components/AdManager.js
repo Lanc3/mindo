@@ -717,14 +717,14 @@ export function AdManager(props) {
   return (
     <View style={styles.container} renderToHardwareTextureAndroid={true}>
       {sizeType === 'BIG' ? (
-        <View style={styles.containerBig}>
-          <View style={styles.bigImage}>
+        <View style={styles.containerBig} renderToHardwareTextureAndroid={true}>
+          <View style={styles.bigImage} renderToHardwareTextureAndroid={true}>
             <WebRender htmlData={getAd(selectedAd)} />
           </View>
         </View>
       ) : (
-        <View style={styles.container}>
-          <View style={styles.image}>
+        <View style={styles.container} renderToHardwareTextureAndroid={true}>
+          <View style={styles.image} renderToHardwareTextureAndroid={true}>
             <WebRender htmlData={getAd(selectedAd)} />
           </View>
         </View>
@@ -737,7 +737,7 @@ const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
   container: {
     width: windowWidth,
-    flex: 1,
+
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -751,5 +751,6 @@ const styles = StyleSheet.create({
   bigImage: {
     flex: 1,
     width: 310,
+    height: 200,
   },
 })
