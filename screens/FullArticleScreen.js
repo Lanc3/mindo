@@ -41,7 +41,6 @@ export default function FullArticleScreen({ props, route }) {
   const [propagatedLBPAd, setPropagatedAd] = useState(LBD_Ad)
   const [propagatedMPUAd, setPropagatedMPUAd] = useState('MPU')
   const logInRef = useRef(false)
-  console.log(htmlData)
   const goToLink = (value) => {
     //console.log('before')
 
