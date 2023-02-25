@@ -41,9 +41,7 @@ export default function FullArticleScreen({ navigation, props, route }) {
   const [propagatedLBPAd, setPropagatedAd] = useState(LBD_Ad)
   const [propagatedMPUAd, setPropagatedMPUAd] = useState('MPU')
   const logInRef = useRef(false)
-  const decodeString = (str) => {
-    return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
-  }
+
   const isFocused = useIsFocused()
   useEffect(() => {
     setSaveText('Save')
@@ -159,7 +157,7 @@ export default function FullArticleScreen({ navigation, props, route }) {
 
             <Text style={styles.greenTitle}>{nameSlug}</Text>
             <Text style={styles.title} numberOfLines={3}>
-              {he.decode(decodeString(title))}
+              {he.decode(title)}
             </Text>
             <View style={styles.subTitle}>
               <Text

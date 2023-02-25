@@ -17,7 +17,7 @@ import {
 import { createStackNavigator } from '@react-navigation/stack'
 import { useFonts } from 'expo-font'
 import * as Notifications from 'expo-notifications'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { Platform, StatusBar, StyleSheet } from 'react-native'
 import { FavoritesList } from './components/FavoritesList'
 import { CounterContextProvider } from './components/GlobalContext'
@@ -149,67 +149,52 @@ export default function App() {
   const notificationListener = useRef()
   const responseListener = useRef()
   const navigationRef = useNavigationContainerRef() // You can also use a regular ref with `React.useRef()`
+  const { notification } = Notifications.useLastNotificationResponse() || {}
 
-  const [notification, setNotification] = useState(true)
-  useEffect(() => {
-    notificationListener.current = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        const {
-          categoryName,
-          author,
-          content,
-          media,
-          title,
-          date,
-        } = notification.request.content.data
-        setNotification(notification)
-        addNotificationData({
-          nameSlug: categoryName,
-          authorName: author,
-          title: title,
-          date: date,
-          imageData: media,
-          htmlData: content,
-        })
-      },
-    )
-
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        const {
-          categoryName,
-          author,
-          content,
-          media,
-          title,
-          date,
-        } = response.notification.request.content.data
-        setNotification(notification)
-        addNotificationData({
-          nameSlug: categoryName,
-          authorName: author,
-          title: title,
-          date: date,
-          imageData: media,
-          htmlData: content,
-        })
-        navigationRef.navigate('FullArticleScreen', {
-          nameSlug: categoryName,
-          authorName: author,
-          title: title,
-          date: date,
-          imageData: media,
-          htmlData: content,
-        })
-      },
-    )
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current)
-      Notifications.removeNotificationSubscription(responseListener.current)
+  React.useEffect(() => {
+    if (lastNotificationResponse) {
+      const {
+        categoryName,
+        author,
+        content,
+        media,
+        title,
+        date,
+      } = lastNotificationResponse.notification.request.content.data
+      console.log(categoryName)
+      //alert(categoryName, categoryName)
+      navigationRef.navigate('FullArticleScreen', {
+        nameSlug: categoryName,
+        authorName: author,
+        title: title,
+        date: date,
+        imageData: media,
+        htmlData: content,
+      })
+      if (!navigationRef.current) {
+        ;(async () => {
+          await checkNavigation()
+          //alert('wait nav') // loop until navigator is ready
+          navigationRef.navigate('FullArticleScreen', {
+            nameSlug: categoryName,
+            authorName: author,
+            title: title,
+            date: date,
+            imageData: media,
+            htmlData: content,
+          })
+        })()
+      }
     }
   }, [lastNotificationResponse])
-
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms))
+  const checkNavigation = async () => {
+    if (!navigationRef.current) {
+      await delay(500) // this is for call time exceeded error
+      await checkNavigation()
+    }
+    if (navigationRef.current) await delay(2000) // this is for giving my app time to set up my navigator
+  }
   const addNotificationData = async (newData) => {
     try {
       // retrieve the existing notification data from async storage
