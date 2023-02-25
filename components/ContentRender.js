@@ -33,11 +33,26 @@ export default function ContentRender({ htmlData, newHeight }) {
   a:active {
     color: #6e822b;
   }
- 
+  div:{
+    padding: 0px 25px 0px;
+  }
+  .wp-block-group__inner-container{
+    padding: 20px 25px 20px;
+  }
+  .wp-element-caption{
+    width: auto;
+  
+    top:10px;
+  }
+  .wp-element-caption{ display: block; width: 350; height: auto;  margin-left: -110px;
+    margin-right: auto;}
+  img { display: block; width: 400; height: auto;  margin-left: -120px;
+    margin-right: auto;}
+    figcaption{ display: block; width: 350; height: auto;  margin-left: -110px;
+      margin-right: auto;}
 </style>
 <style>
-    img { display: block; width: 199%; height: auto;  margin-left: -90px;
-    margin-right: auto;}
+   
 </style>
 <style>
   body {font-family: 'Lato'; font-weight: 400; font-size: 20px; word-wrap: break-word; overflow-wrap: break-word;letter-spacing:0.1 }

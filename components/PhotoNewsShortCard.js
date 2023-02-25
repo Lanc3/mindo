@@ -39,7 +39,7 @@ export function PhotoNewsShortCard({
           </View>
           <View style={styles.contentContainer}>
             <Text style={styles.greenTitle}>{nameSlug}</Text>
-            <Text style={styles.titleStyle}>
+            <Text style={styles.titleStyle} numberOfLines={3}>
               {he.decode(decodeString(title))}
             </Text>
             <View style={styles.footer}>
@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     width: '90%',
     height: '90%',
     margin: 10,
+    minHeight: 100,
   },
   greenTitle: {
     color: '#6e822b',
