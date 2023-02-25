@@ -71,6 +71,7 @@ const ISRScreen = ({ navigation }) => {
                 title={title}
                 blurb={blurb}
                 adType={'ISR_LDB'}
+                MPU_Ad={'ISR_MPU'}
                 navigation={navigation}
                 data={sliderData}
               ></Header>
@@ -113,7 +114,7 @@ const ISRScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
-                  LBD_Ad={'ISR_LBD'}
+                  LBD_Ad={'ISR_LDB'}
                   MPU_Ad={'ISR_MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}

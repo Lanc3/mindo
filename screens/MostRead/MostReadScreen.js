@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native'
 import { AdManager } from '../../components/AdManager'
+import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
 import LoadingView from '../../components/LoadingView'
 import { ShortCard } from '../../components/ShortCard'
@@ -74,6 +75,12 @@ const MostReadScreen = ({ navigation }) => {
                     <Text style={styles.nextGreen}> Next</Text>
                   </TouchableOpacity>
                 </View>
+                <Footer
+                  navi={navigation}
+                  refS={scrollRef}
+                  adSelected="MPU"
+                  show={true}
+                />
               </View>
             }
             data={data}
@@ -90,6 +97,8 @@ const MostReadScreen = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'LDB_MOBILE'}
+                  MPU_Ad={'MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

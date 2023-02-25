@@ -68,7 +68,8 @@ const HAIScreen = ({ navigation }) => {
               <Header
                 title={title}
                 blurb={blurb}
-                adType={'PCDSI_LDB'}
+                adType={'HAI Mobile LDB'}
+                MPU_Ad={'MPU'}
                 navigation={navigation}
                 data={sliderData}
               ></Header>

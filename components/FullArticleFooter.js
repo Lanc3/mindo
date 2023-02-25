@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import {
   FlatList,
@@ -12,11 +13,12 @@ import Svg, { Path } from 'react-native-svg'
 import AccordionListItemFooter from './AccordionListItemFooter'
 import { AdManager } from './AdManager'
 import MostReadSection from './MostReadSection'
-export const Footer = (props) => {
+export const FullArticleFooter = (props) => {
   const [ad, setAd] = useState(props.adSelected)
   const show = props.show
   const [showMostReadIn, setShowMostRead] = useState(true)
   const selectedAd = props.adSelected
+  const navigation = useNavigation()
   const menuData = [
     {
       title: 'News',
@@ -105,9 +107,8 @@ export const Footer = (props) => {
     },
   ]
   const goToLink = (value) => {
-    //console.log('before')
-
-    props.navi.navigate(value)
+    let parent = navigation.getParent()
+    props.navi.push(value)
   }
   const openURL = (url) => {
     Linking.openURL(url)
@@ -444,4 +445,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Footer
+export default FullArticleFooter

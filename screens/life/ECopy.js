@@ -96,6 +96,8 @@ const ECopy = ({ navigation }) => {
               return (
                 <EcopyShortCard
                   props
+                  LBD_Ad={'LDB_MOBILE'}
+                  MPU_Ad={'MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

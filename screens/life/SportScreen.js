@@ -89,7 +89,12 @@ const SportScreen = ({ navigation }) => {
                     ) : null}
                   </View>
                 </View>
-                <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
+                <Footer
+                  navi={navigation}
+                  refS={scrollRef}
+                  adSelected="MPU"
+                  show={true}
+                />
               </View>
             }
             data={data}

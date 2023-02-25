@@ -69,6 +69,7 @@ const IOSScreen = ({ navigation }) => {
                 title={title}
                 blurb={blurb}
                 adType={'IOS_LBD'}
+                MPU_Ad={'IOS_MPU'}
                 navigation={navigation}
                 data={sliderData}
               ></Header>

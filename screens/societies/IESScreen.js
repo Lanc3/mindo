@@ -68,7 +68,8 @@ const IESScreen = ({ navigation }) => {
               <Header
                 title={title}
                 blurb={blurb}
-                adType={'LDB_MOBILE'}
+                adType={'IES_LDB'}
+                MPU_Ad={'IES_MPU'}
                 navigation={navigation}
                 data={sliderData}
               ></Header>

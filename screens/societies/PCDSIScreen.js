@@ -69,6 +69,7 @@ const PCDSIScreen = ({ navigation }) => {
                 title={title}
                 blurb={blurb}
                 adType={'PCDSI_LDB'}
+                MPU_Ad={'PCDSI_LDB'}
                 navigation={navigation}
                 data={sliderData}
               ></Header>

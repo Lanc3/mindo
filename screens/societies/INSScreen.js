@@ -69,6 +69,7 @@ const INSScreen = ({ navigation }) => {
                 title={title}
                 blurb={blurb}
                 adType={'PCDSI_LDB'}
+                MPU_Ad={'PCDSI_MPU'}
                 navigation={navigation}
                 data={sliderData}
               ></Header>

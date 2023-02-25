@@ -39,8 +39,7 @@ export function FavoritesCard({
         imageData: mediaID,
         htmlData: totalData,
         LBD_Ad: LBD_Ad,
-        MPU_Ad,
-        MPU_Ad,
+        MPU_Ad: MPU_Ad,
       })
     }
   }

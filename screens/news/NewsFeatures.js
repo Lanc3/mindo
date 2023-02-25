@@ -93,7 +93,12 @@ const NewsFeatures = ({ navigation }) => {
                     ) : null}
                   </View>
                 </View>
-                <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
+                <Footer
+                  navi={navigation}
+                  refS={scrollRef}
+                  adSelected="MPU"
+                  show={true}
+                />
               </View>
             }
             data={data}
@@ -110,6 +115,8 @@ const NewsFeatures = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'LDB_MOBILE'}
+                  MPU_Ad={'MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

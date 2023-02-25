@@ -256,7 +256,12 @@ export default function FullGallaryScreen({ navigation, props, route }) {
                 <Text style={{ color: 'white', fontSize: 16 }}>Back</Text>
               </TouchableOpacity>
             </View> */}
-            <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
+            <Footer
+              navi={navigation}
+              refS={scrollRef}
+              adSelected="MPU"
+              show={true}
+            />
           </View>
         }
         data={[]}

@@ -241,7 +241,7 @@ export default function App() {
             screenOptions={{
               headerMode: 'float',
               animationTypeForReplace: 'pop',
-              animationEnabled: Platform.OS == 'android' ? true : true,
+              animationEnabled: Platform.OS == 'android' ? false : false,
               headerTintColor: '#000',
               headerTitleStyle: {
                 fontWeight: 'bold',

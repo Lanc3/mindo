@@ -89,7 +89,12 @@ const ResearchScreen = ({ navigation }) => {
                     ) : null}
                   </View>
                 </View>
-                <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
+                <Footer
+                  navi={navigation}
+                  refS={scrollRef}
+                  adSelected="MPU"
+                  show={true}
+                />
               </View>
             }
             data={data}
@@ -100,12 +105,18 @@ const ResearchScreen = ({ navigation }) => {
                 return <AdManager selectedAd={'MPU'} sizeType={'BIG'} />
               } else if (index === 7) {
                 return (
-                  <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
+                  <AdManager
+                    selectedAd={'LDB_MOBILE'}
+                    sizeType={'SMALL'}
+                    show={true}
+                  />
                 )
               }
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'LDB_MOBILE'}
+                  MPU_Ad={'MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

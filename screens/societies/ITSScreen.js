@@ -69,6 +69,7 @@ const ITSScreen = ({ navigation }) => {
                 title={title}
                 blurb={blurb}
                 adType={'ITS_LDB'}
+                MPU_Ad={'ITS_MPU'}
                 navigation={navigation}
                 data={sliderData}
               ></Header>

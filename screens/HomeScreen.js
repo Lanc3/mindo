@@ -217,7 +217,7 @@ const HomeScreen = (props) => {
                   navi={props.navigation}
                   refS={scrollRef}
                   adSelected="MPU"
-                  show={false}
+                  show={true}
                 />
               </View>
             }

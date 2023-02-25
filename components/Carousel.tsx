@@ -6,7 +6,15 @@ import Slide from './Slide'
 import Stat from './Stat'
 
 export const Carousel = (props: any) => {
-  const { items, style, navigation, nameSlug, pageRouteName } = props
+  const {
+    items,
+    style,
+    navigation,
+    nameSlug,
+    pageRouteName,
+    LBD_Ad,
+    MPU_Ad,
+  } = props
 
   const itemsPerInterval =
     props.itemsPerInterval === undefined ? 1 : props.itemsPerInterval
@@ -97,11 +105,21 @@ export const Carousel = (props: any) => {
                 />
               )
             case 'single':
-              return <Single key={index} item={item} navigation={navigation} />
+              return (
+                <Single
+                  key={index}
+                  item={item}
+                  navigation={navigation}
+                  LBD_Ad={LBD_Ad}
+                  MPU_Ad={MPU_Ad}
+                />
+              )
             case 'short':
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'LDB_MOBILE'}
+                  MPU_Ad={'MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

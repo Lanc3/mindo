@@ -70,6 +70,7 @@ const ICSScreen = ({ navigation }) => {
                 title={title}
                 blurb={blurb}
                 adType={'ICS_LDB'}
+                MPU_Ad={'ICS_MPU'}
                 navigation={navigation}
                 data={sliderData}
               ></Header>

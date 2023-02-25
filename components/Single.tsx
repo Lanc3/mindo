@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native'
 import { SingleCard } from './SingleCard'
 
 export const Single = (props: any) => {
-  const { item, padding } = props
+  const { item, padding, LBD_Ad, MPU_Ad } = props
 
   const { navigation } = props
 
@@ -13,6 +13,8 @@ export const Single = (props: any) => {
       ) : (
         <SingleCard
           props={props}
+          LBD_Ad={LBD_Ad}
+          MPU_Ad={MPU_Ad}
           title={item.title.toString()}
           excerpt={item.excerpt.toString()}
           date={item.date.toString()}

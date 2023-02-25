@@ -69,6 +69,7 @@ const IICNINAScreen = ({ navigation }) => {
                 title={title}
                 blurb={blurb}
                 adType={'IICNINA_LBD'}
+                MPU_Ad={'IICNINA_MPU'}
                 navigation={navigation}
                 data={sliderData}
               ></Header>

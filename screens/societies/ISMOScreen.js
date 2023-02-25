@@ -69,6 +69,7 @@ const ISMOScreen = ({ navigation }) => {
                 title={title}
                 blurb={blurb}
                 adType={'ISMO_LBD'}
+                MPU_Ad={'ISMO_MPU'}
                 navigation={navigation}
                 data={sliderData}
               ></Header>

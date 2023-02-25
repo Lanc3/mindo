@@ -39,8 +39,7 @@ export function ShortCard({
         imageData: mediaID,
         htmlData: totalData,
         LBD_Ad: LBD_Ad,
-        MPU_Ad,
-        MPU_Ad,
+        MPU_Ad: MPU_Ad,
       })
     }
   }

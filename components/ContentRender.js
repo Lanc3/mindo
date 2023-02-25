@@ -53,8 +53,8 @@ export default function ContentRender({ htmlData, newHeight }) {
     setTimeout(() => {
       var height = Math.max(
     document.getElementById('foo').getBoundingClientRect().height);
-    window.ReactNativeWebView.postMessage(height+50)
-  }, 300);
+    window.ReactNativeWebView.postMessage(height)
+  }, 600);
     </script>
   </body>
   </html>
@@ -66,11 +66,7 @@ export default function ContentRender({ htmlData, newHeight }) {
   }
 
   return (
-    <View
-      style={{ height: theHeight, paddingHorizontal: 20 }}
-      scrollEnabled={false}
-      showsHorizontalScrollIndicator={false}
-    >
+    <View style={{ height: theHeight, paddingHorizontal: 20 }}>
       <WebView
         ref={WebRef}
         style={{ lineHeight: 42 }}
@@ -78,7 +74,7 @@ export default function ContentRender({ htmlData, newHeight }) {
         scrollEnabled={false}
         onShouldStartLoadWithRequest={(request) => {
           if (request.url.includes('https')) {
-            stopLoading()
+            //stopLoading()
 
             Linking.openURL(request.url)
             return true

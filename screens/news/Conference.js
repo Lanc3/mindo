@@ -42,7 +42,7 @@ const Conference = ({ navigation }) => {
       setTotalPages(Math.ceil(response.totalPosts / 10))
       const [firstArray, secondArray] = splitArray(response.posts)
       setData(secondArray)
-      console.log(data)
+
       setSliderData(firstArray)
       setLoading(1)
     } catch (error) {
@@ -90,7 +90,12 @@ const Conference = ({ navigation }) => {
                     ) : null}
                   </View>
                 </View>
-                <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
+                <Footer
+                  navi={navigation}
+                  refS={scrollRef}
+                  adSelected="MPU"
+                  show={true}
+                />
               </View>
             }
             data={data}
@@ -107,6 +112,8 @@ const Conference = ({ navigation }) => {
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'LDB_MOBILE'}
+                  MPU_Ad={'MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}

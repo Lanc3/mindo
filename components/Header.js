@@ -4,7 +4,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { AdManager } from './AdManager'
 import Carousel from './Carousel'
-export const Header = ({ title, blurb, data, adType }) => {
+export const Header = ({ title, blurb, data, adType, MPU_Ad }) => {
   const decodeString = (str) => {
     return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
   }
@@ -27,6 +27,8 @@ export const Header = ({ title, blurb, data, adType }) => {
             items={data}
             navigation={navigation}
             nameSlug={he.decode(title)}
+            LBD_Ad={adType}
+            MPU_Ad={MPU_Ad}
           />
         ) : null}
       </View>

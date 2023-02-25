@@ -69,6 +69,7 @@ const CPIScreen = ({ navigation }) => {
                 title={title}
                 blurb={blurb}
                 adType={'CPI_LBD'}
+                MPU_Ad={'CPI_MPU'}
                 navigation={navigation}
                 data={sliderData}
               ></Header>

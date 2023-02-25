@@ -20,6 +20,8 @@ export function SingleCard({
   nameSlug,
   authorId,
   padding,
+  LBD_Ad,
+  MPU_Ad,
 }) {
   const decodeString = (str) => {
     return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
@@ -28,21 +30,36 @@ export function SingleCard({
   const navigation = useNavigation()
 
   const { state, navigate } = props.navigation
-
+  const selectNavigationRoute = () => {
+    if (totalData.includes('<iframe')) {
+      navi.navigate('UpdateJournalReader', {
+        content: {
+          title: title,
+          excerpt: excerpt,
+          media: mediaID,
+          content: totalData,
+          date: date,
+          author: authorId,
+        },
+        LBD_Ad: LBD_Ad,
+        MPU_Ad: MPU_Ad,
+      })
+    } else {
+      navi.navigate('FullArticleScreen', {
+        nameSlug: nameSlug,
+        authorName: authorId,
+        title: title,
+        date: date,
+        imageData: mediaID,
+        htmlData: totalData,
+        LBD_Ad: LBD_Ad,
+        MPU_Ad: MPU_Ad,
+      })
+    }
+  }
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() =>
-          navi.navigate('FullArticleScreen', {
-            nameSlug: nameSlug,
-            authorName: authorId,
-            title: title,
-            date: date,
-            imageData: mediaID,
-            htmlData: totalData,
-          })
-        }
-      >
+      <TouchableOpacity onPress={() => selectNavigationRoute()}>
         <View style={{ marginHorizontal: padding }}>
           <Image
             style={{
@@ -63,9 +80,7 @@ export function SingleCard({
             {authorId}{' '}
           </Text>
         </View>
-        <Text style={{ paddingHorizontal: 20 }}>
-          {date} {excerpt}
-        </Text>
+        <Text style={{ paddingHorizontal: 20 }}>{date}</Text>
       </TouchableOpacity>
     </View>
   )

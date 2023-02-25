@@ -280,14 +280,14 @@ const ads = [
   {
     name: 'ITS_LDB',
     private_script: `<!-- ITS Mobile LDB [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc589425 = window.plc589425 || 0;
-            document.write('<'+'div id="placement_589425_'+plc589425+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589425, [300,90], 'placement_589425_'+opt.place, opt); }, opt: { place: plc589425++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc589425 = window.plc589425 || 0;
+    document.write('<'+'div id="placement_589425_'+plc589425+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589425, [300,90], 'placement_589425_'+opt.place, opt); }, opt: { place: plc589425++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
     public_script: `<!-- - LDB Mobile Public [async] -->
             <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
             <script type="text/javascript">

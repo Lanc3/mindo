@@ -1,6 +1,6 @@
 import { FontAwesome } from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useIsFocused } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import he from 'he'
 import React, { useEffect, useRef, useState } from 'react'
 import {
@@ -19,7 +19,7 @@ import Footer from '../components/Footer'
 import { useCounter } from '../components/GlobalContext'
 import { Modal } from '../components/Modal'
 import SaveButton from '../components/SaveFavoriteButton'
-export default function FullArticleScreen({ navigation, props, route }) {
+export default function FullArticleScreen({ props, route }) {
   const {
     nameSlug,
     authorName,
@@ -28,9 +28,9 @@ export default function FullArticleScreen({ navigation, props, route }) {
     title,
     date,
     LBD_Ad,
-    MUP_Ad,
+    MPU_Ad,
   } = route.params
-
+  const navigation = useNavigation()
   const scrollRef = useRef()
   const scrollViewRef = useRef()
   const [popUpState, setPopUpState] = useState(false)
@@ -42,6 +42,11 @@ export default function FullArticleScreen({ navigation, props, route }) {
   const [propagatedMPUAd, setPropagatedMPUAd] = useState('MPU')
   const logInRef = useRef(false)
 
+  const goToLink = (value) => {
+    //console.log('before')
+
+    navigation.navigate('Home')
+  }
   const isFocused = useIsFocused()
   useEffect(() => {
     setSaveText('Save')
@@ -50,8 +55,8 @@ export default function FullArticleScreen({ navigation, props, route }) {
     }
   }, [isFocused])
   useEffect(() => {
-    if (MUP_Ad) {
-      setPropagatedMPUAd(MUP_Ad)
+    if (MPU_Ad) {
+      setPropagatedMPUAd(MPU_Ad)
     }
 
     scrollViewRef.current?.scrollTo({ x: 5, y: 5, animated: false })
@@ -245,7 +250,10 @@ export default function FullArticleScreen({ navigation, props, route }) {
         }
         ListFooterComponent={
           <View>
-            <ContentRender htmlData={htmlData} newHeight={1800} />
+            <View>
+              <ContentRender htmlData={htmlData} newHeight={900} />
+            </View>
+
             {/* <View
               style={{
                 flex: 1,
@@ -270,7 +278,6 @@ export default function FullArticleScreen({ navigation, props, route }) {
                 <Text style={{ color: 'white', fontSize: 16 }}>Back</Text>
               </TouchableOpacity>
             </View> */}
-
             <Footer
               navi={navigation}
               refS={scrollRef}
@@ -314,7 +321,7 @@ const styles = StyleSheet.create({
     marginLeft: 25,
   },
   imageContainer: {},
-  scrollView: {},
+  scrollView: { backgroundColor: 'white' },
   shareButton: {
     flex: 1,
     flexDirection: 'row',

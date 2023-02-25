@@ -15,7 +15,7 @@ import Footer from '../../components/Footer'
 import ISSUURendererJournal from '../../components/ISSUURendererJournal'
 import SaveButton from '../../components/SaveFavoriteButton'
 export default function UpdateJournalReader({ props, route }) {
-  const { content } = route.params
+  const { content, LBD_Ad, MPU_Ad } = route.params
   const [hideTitle, setHideTitle] = useState(false)
   const [iframeHeight, setIframeHeight] = useState(340)
   const windowHeight = Dimensions.get('window').height
@@ -69,7 +69,7 @@ export default function UpdateJournalReader({ props, route }) {
                 overScrollMode="never"
                 removeClippedSubviews={true}
               >
-                <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
+                <AdManager selectedAd={LBD_Ad} sizeType={'SMALL'} />
                 <Text style={styles.greenTitle}>{slug}</Text>
                 <Text style={styles.title} numberOfLines={3}>
                   {he.decode(decodeString(title))}
@@ -168,7 +168,7 @@ export default function UpdateJournalReader({ props, route }) {
         ListFooterComponent={
           <View>
             {hideTitle === false ? (
-              <Footer navi={navigation} adSelected="MPU" />
+              <Footer navi={navigation} adSelected={MPU_Ad} />
             ) : null}
           </View>
         }

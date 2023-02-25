@@ -69,6 +69,7 @@ const ISGScreen = ({ navigation }) => {
                 title={title}
                 blurb={blurb}
                 adType={'ISG_LBD'}
+                MPU_Ad={'ISG_MPU'}
                 navigation={navigation}
                 data={sliderData}
               ></Header>

@@ -7,7 +7,6 @@ import {
   View,
 } from 'react-native'
 import { newGetMostReadPosts } from '../hooks/useResults'
-import { AdManager } from './AdManager'
 import { ShortCard } from './ShortCard'
 
 const MostReadSection = ({
@@ -64,9 +63,6 @@ const MostReadSection = ({
                 </TouchableOpacity>
               </View>
             }
-            ListFooterComponent={
-              <AdManager selectedAd={mostReadAD} sizeType={'BIG'} />
-            }
             data={data}
             listKey={(item, index) => `D_key${index.toString()}`}
             keyExtractor={(item, index) => `_key${index.toString()}`}
@@ -74,6 +70,8 @@ const MostReadSection = ({
               return (
                 <ShortCard
                   props
+                  LBD_Ad={'LDB_MOBILE'}
+                  MPU_Ad={'MPU'}
                   title={item.title.toString()}
                   excerpt={item.excerpt.toString()}
                   date={item.date.toString()}
