@@ -1,24 +1,37 @@
 import { FontAwesome } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import he from 'he'
 import React, { useState } from 'react'
-import { Dimensions, Share, StyleSheet, Text, View } from 'react-native'
+import {
+  Dimensions,
+  FlatList,
+  Share,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import { AdManager } from '../../components/AdManager'
+import Footer from '../../components/Footer'
 import ISSUURenderer from '../../components/ISSUURenderer'
-export default function EcopyReader({ navigation, props, route }) {
+import SaveButton from '../../components/SaveFavoriteButton'
+export default function EcopyReader({ props, route }) {
   const { content } = route.params
   const [hideTitle, setHideTitle] = useState(false)
-  const [slug, setSlug] = useState('ecopy')
+  const [iframeHeight, setIframeHeight] = useState(340)
+  const windowHeight = Dimensions.get('window').height
+  const [slug, setSlug] = useState('Update Journal')
   const authorName = content.author
   const title = content.title
   const date = content.date
   const htmlData = content.content
   const imageData = content.media
+  const navigation = useNavigation()
   const decodeString = (str) => {
     return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
   }
 
   const hide = () => {
-    console.log('hide', hideTitle)
+    setIframeHeight(windowHeight)
     setHideTitle(true)
   }
   const onShare = async () => {
@@ -41,102 +54,125 @@ export default function EcopyReader({ navigation, props, route }) {
     }
   }
   return (
-    <View renderToHardwareTextureAndroid={true}>
-      <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
-      {hideTitle === false ? (
-        <View
-          style={styles.scrollView}
-          overScrollMode="never"
-          removeClippedSubviews={true}
-        >
-          <Text style={styles.greenTitle}>{slug}</Text>
-          <Text style={styles.title} numberOfLines={3}>
-            {he.decode(decodeString(title))}
-          </Text>
+    <View
+      renderToHardwareTextureAndroid={true}
+      style={{ backgroundColor: 'white' }}
+    >
+      <FlatList
+        overScrollMode="never"
+        removeClippedSubviews={true}
+        ListHeaderComponent={
+          <View>
+            {hideTitle === false ? (
+              <View
+                style={styles.scrollView}
+                overScrollMode="never"
+                removeClippedSubviews={true}
+              >
+                <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
+                <Text style={styles.greenTitle}>{slug}</Text>
+                <Text style={styles.title} numberOfLines={3}>
+                  {he.decode(decodeString(title))}
+                </Text>
 
-          <View style={styles.subTitle}>
-            <Text
-              style={{
-                color: 'black',
-                fontFamily: 'Lato_400Regular',
-                fontWeight: 'bold',
-                paddingLeft: 20,
-              }}
+                <View style={styles.subTitle}>
+                  <Text
+                    style={{
+                      color: 'black',
+                      fontFamily: 'Lato_400Regular',
+                      fontWeight: 'bold',
+                      paddingLeft: 20,
+                    }}
+                  >
+                    By {authorName}
+                  </Text>
+                </View>
+                <Text
+                  style={{
+                    color: 'black',
+                    fontFamily: 'Lato_400Regular',
+                    paddingLeft: 20,
+                  }}
+                  ss
+                >
+                  {date}
+                </Text>
+              </View>
+            ) : null}
+
+            <View
+              style={{ height: iframeHeight }}
+              renderToHardwareTextureAndroid={true}
             >
-              By {authorName}
-            </Text>
-          </View>
-          <Text
-            style={{
-              color: 'black',
-              fontFamily: 'Lato_400Regular',
-              paddingLeft: 20,
-            }}
-            ss
-          >
-            {date}
-          </Text>
-          <View style={styles.shareButton}>
-            <View style={styles.spacer}>
-              <FontAwesome.Button
-                name="twitter"
-                size={26}
-                color="#000"
-                backgroundColor="transparent"
-                onPress={onShare}
-              ></FontAwesome.Button>
-            </View>
-            <View style={styles.spacer}>
-              <FontAwesome.Button
-                name="facebook-square"
-                size={26}
-                color="#000"
-                backgroundColor="transparent"
-                onPress={onShare}
-              ></FontAwesome.Button>
-            </View>
-            <View style={styles.spacer}>
-              <FontAwesome.Button
-                name="linkedin-square"
-                size={26}
-                color="#000"
-                backgroundColor="transparent"
-                onPress={onShare}
-              ></FontAwesome.Button>
-            </View>
-            <View style={styles.spacer}>
-              <FontAwesome.Button
-                name="instagram"
-                size={26}
-                color="#000"
-                backgroundColor="transparent"
-                onPress={onShare}
-              ></FontAwesome.Button>
-            </View>
-            <View style={styles.spacer}>
-              {/* <SaveButton
-                articleData={{
-                  slug,
-                  authorName,
-                  htmlData,
-                  imageData,
-                  title,
-                  date,
+              <ISSUURenderer
+                callback={() => {
+                  hide()
                 }}
-              /> */}
+                htmlData={content.content}
+              />
             </View>
+            {hideTitle === false ? (
+              <View style={styles.shareButton}>
+                <View style={styles.spacer}>
+                  <FontAwesome.Button
+                    name="twitter"
+                    size={26}
+                    color="#000"
+                    backgroundColor="transparent"
+                    onPress={onShare}
+                  ></FontAwesome.Button>
+                </View>
+                <View style={styles.spacer}>
+                  <FontAwesome.Button
+                    name="facebook-square"
+                    size={26}
+                    color="#000"
+                    backgroundColor="transparent"
+                    onPress={onShare}
+                  ></FontAwesome.Button>
+                </View>
+                <View style={styles.spacer}>
+                  <FontAwesome.Button
+                    name="linkedin-square"
+                    size={26}
+                    color="#000"
+                    backgroundColor="transparent"
+                    onPress={onShare}
+                  ></FontAwesome.Button>
+                </View>
+                <View style={styles.spacer}>
+                  <FontAwesome.Button
+                    name="instagram"
+                    size={26}
+                    color="#000"
+                    backgroundColor="transparent"
+                    onPress={onShare}
+                  ></FontAwesome.Button>
+                </View>
+                <View style={styles.spacer}>
+                  <SaveButton
+                    articleData={{
+                      slug,
+                      authorName,
+                      htmlData,
+                      imageData,
+                      title,
+                      date,
+                    }}
+                  />
+                </View>
+              </View>
+            ) : null}
           </View>
-        </View>
-      ) : null}
-
-      <View style={{ height: '100%' }} renderToHardwareTextureAndroid={true}>
-        <ISSUURenderer
-          callback={() => {
-            hide()
-          }}
-          htmlData={content.content}
-        />
-      </View>
+        }
+        ListFooterComponent={
+          <View>
+            {hideTitle === false ? (
+              <Footer navi={navigation} adSelected="MPU" />
+            ) : null}
+          </View>
+        }
+      />
     </View>
   )
 }

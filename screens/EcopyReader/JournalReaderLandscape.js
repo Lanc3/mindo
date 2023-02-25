@@ -20,7 +20,7 @@ export default function JournalReaderLandscape({ props, route }) {
   const navigation = useNavigation()
   const windowWidth = Dimensions.get('window').width
   const windowHeight = Dimensions.get('window').height
-  console.log(content)
+
   return (
     <View style={{ height: 700 }}>
       <View style={{ height: 700 }}>

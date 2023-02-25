@@ -18,25 +18,36 @@ export function ShortCard({
   const decodeString = (str) => {
     return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
   }
-
+  const selectNavigationRoute = () => {
+    if (totalData.includes('<iframe')) {
+      navi.navigate('UpdateJournalReader', {
+        content: {
+          title: title,
+          excerpt: excerpt,
+          media: mediaID,
+          content: totalData,
+          date: date,
+          author: authorId,
+        },
+      })
+    } else {
+      navi.navigate('FullArticleScreen', {
+        nameSlug: nameSlug,
+        authorName: authorId,
+        title: title,
+        date: date,
+        imageData: mediaID,
+        htmlData: totalData,
+        LBD_Ad: LBD_Ad,
+        MPU_Ad,
+        MPU_Ad,
+      })
+    }
+  }
   const navigation = useNavigation()
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() =>
-          navi.navigate('FullArticleScreen', {
-            nameSlug: nameSlug,
-            authorName: authorId,
-            title: title,
-            date: date,
-            imageData: mediaID,
-            htmlData: totalData,
-            LBD_Ad: LBD_Ad,
-            MPU_Ad,
-            MPU_Ad,
-          })
-        }
-      >
+      <TouchableOpacity onPress={() => selectNavigationRoute()}>
         <View style={styles.separators}></View>
         <View style={styles.shortContainer}>
           <View style={styles.imageContainer}>
@@ -44,11 +55,11 @@ export function ShortCard({
           </View>
           <View style={styles.contentContainer}>
             <Text style={styles.greenTitle}>{nameSlug}</Text>
-            <Text style={styles.titleStyle}>
+            <Text style={styles.titleStyle} numberOfLines={3}>
               {he.decode(decodeString(title))}
             </Text>
             <View style={styles.footer}>
-              <Text>By </Text>
+              <Text style={styles.byTwo}>By </Text>
               <Text style={styles.by}>{authorId}</Text>
             </View>
             <Text>{date}</Text>
@@ -77,6 +88,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
     color: 'black',
+  },
+  byTwo: {
+    fontFamily: 'Lato_400Regular',
+    fontSize: 15,
+    color: 'black',
+    marginTop: 2,
   },
   spacer: {
     padding: 10,
@@ -135,6 +152,7 @@ const styles = StyleSheet.create({
     width: '90%',
     height: '90%',
     margin: 10,
+    minHeight: 100,
   },
   greenTitle: {
     color: '#6e822b',

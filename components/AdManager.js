@@ -745,6 +745,10 @@ const styles = StyleSheet.create({
     width: 310,
     height: 300,
   },
+  containerSmall: {
+    width: 310,
+    height: 100,
+  },
   image: {
     width: 310,
   },

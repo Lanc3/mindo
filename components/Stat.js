@@ -34,9 +34,11 @@ export const Stat = (props: any) => {
             </View>
             <View style={styles.contentContainer}>
               <Text style={styles.greenTitle}>{item.categoryName}</Text>
-              <Text style={styles.titleStyle}>{item.title.toString()}</Text>
+              <Text style={styles.titleStyle} numberOfLines={2}>
+                {item.title.toString()}
+              </Text>
               <View style={styles.footer}>
-                <Text style={{}}>By </Text>
+                <Text style={styles.byTwo}>By </Text>
                 <Text style={styles.by}>{item.author}</Text>
               </View>
               <Text>{item.date.toString()}</Text>
@@ -78,6 +80,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
     color: 'black',
+  },
+  byTwo: {
+    fontFamily: 'Lato_400Regular',
+    fontSize: 15,
+    color: 'black',
+    marginTop: 2,
   },
   spacer: {
     padding: 10,
@@ -136,6 +144,8 @@ const styles = StyleSheet.create({
     width: '90%',
     height: '90%',
     margin: 10,
+    maxHeight: 100,
+    minWidth: 100,
   },
   greenTitle: {
     color: '#6e822b',

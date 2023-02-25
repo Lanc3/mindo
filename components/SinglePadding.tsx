@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native'
 import { SingleCard } from './SingleCard'
 
-export const Single = (props: any) => {
+export const SinglePadding = (props: any) => {
   const { item, padding } = props
 
   const { navigation } = props
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     height: 'auto',
-    marginTop: 10,
+    marginTop: 20,
   },
   slideText: {
     width: '100%',
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
 })
-export default Single
+export default SinglePadding

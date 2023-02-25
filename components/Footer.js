@@ -14,7 +14,6 @@ import { AdManager } from './AdManager'
 import MostReadSection from './MostReadSection'
 export const Footer = (props) => {
   const [ad, setAd] = useState(props.adSelected)
-  console.log(ad)
   const show = props.show
   const [showMostReadIn, setShowMostRead] = useState(true)
   const selectedAd = props.adSelected

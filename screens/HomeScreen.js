@@ -298,7 +298,7 @@ const HomeScreen = (props) => {
                     navigation={props.navigation}
                     elements={clinical}
                     title={'Clinical News'}
-                    route={'NewsFeatures'}
+                    route={'ClinicalNews'}
                     padding={20}
                   />
                 )

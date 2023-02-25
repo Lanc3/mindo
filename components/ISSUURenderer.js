@@ -7,9 +7,9 @@ const ISSUURenderer = ({ callback, htmlData }) => {
   return (
     <WebView
       style={{ opacity: 0.99, overflow: 'hidden' }}
+      nestedScrollEnabled
       onShouldStartLoadWithRequest={(request) => {
         if (request.url.includes('https')) {
-          console.log('ht')
           isClicked()
           return true
         } else return true

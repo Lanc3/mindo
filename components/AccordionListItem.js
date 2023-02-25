@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     position: 'absolute',
     paddingBottom: 15,
+    paddingTop: 15,
   },
   title: {
     margin: 5,

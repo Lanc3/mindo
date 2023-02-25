@@ -74,7 +74,12 @@ const ECopy = ({ navigation }) => {
                     ) : null}
                   </View>
                 </View>
-                <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
+                <Footer
+                  navi={navigation}
+                  refS={scrollRef}
+                  adSelected="MPU"
+                  show={false}
+                />
               </View>
             }
             data={data}

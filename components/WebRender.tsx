@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     minHeight: 100,
     width: windowWidth - 10,
-    flex: 1,
+
     color: '#000',
-    marginBottom: 10,
+    marginBottom: 0,
   },
 })

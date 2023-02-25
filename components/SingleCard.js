@@ -43,12 +43,12 @@ export function SingleCard({
           })
         }
       >
-        <View style={{ marginHorizontal: 0 }}>
+        <View style={{ marginHorizontal: padding }}>
           <Image
             style={{
               minWidth: '100%',
               width: '100%',
-              height: 210,
+              height: 230,
               resizeMode: 'cover',
             }}
             source={{ uri: mediaID }}

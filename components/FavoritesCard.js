@@ -1,13 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
+import he from 'he'
 import React from 'react'
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 export function FavoritesCard({
   navi,
   props,
@@ -18,22 +12,42 @@ export function FavoritesCard({
   totalData,
   authorId,
   nameSlug,
+  LBD_Ad,
+  MPU_Ad,
 }) {
+  const decodeString = (str) => {
+    return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
+  }
+  const selectNavigationRoute = () => {
+    if (totalData.includes('<iframe')) {
+      navi.navigate('UpdateJournalReader', {
+        content: {
+          title: title,
+          excerpt: excerpt,
+          media: mediaID,
+          content: totalData,
+          date: date,
+          author: authorId,
+        },
+      })
+    } else {
+      navi.navigate('FullArticleScreen', {
+        nameSlug: nameSlug,
+        authorName: authorId,
+        title: title,
+        date: date,
+        imageData: mediaID,
+        htmlData: totalData,
+        LBD_Ad: LBD_Ad,
+        MPU_Ad,
+        MPU_Ad,
+      })
+    }
+  }
   const navigation = useNavigation()
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() =>
-          navi.navigate('FullArticleScreen', {
-            nameSlug: nameSlug,
-            authorName: authorId,
-            title: title,
-            date: date,
-            imageData: mediaID,
-            htmlData: totalData,
-          })
-        }
-      >
+      <TouchableOpacity onPress={() => selectNavigationRoute()}>
         <View style={styles.separators}></View>
         <View style={styles.shortContainer}>
           <View style={styles.imageContainer}>
@@ -41,9 +55,11 @@ export function FavoritesCard({
           </View>
           <View style={styles.contentContainer}>
             <Text style={styles.greenTitle}>{nameSlug}</Text>
-            <Text style={styles.titleStyle}>{title}</Text>
+            <Text style={styles.titleStyle}>
+              {he.decode(decodeString(title))}
+            </Text>
             <View style={styles.footer}>
-              <Text style={{}}>By </Text>
+              <Text style={styles.byTwo}>By </Text>
               <Text style={styles.by}>{authorId}</Text>
             </View>
             <Text>{date}</Text>
@@ -53,7 +69,6 @@ export function FavoritesCard({
     </View>
   )
 }
-const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
@@ -64,7 +79,7 @@ const styles = StyleSheet.create({
   separators: {
     borderBottomColor: '#eaeaea',
     borderBottomWidth: 1,
-    marginRight: -40,
+    marginRight: 10,
     marginLeft: 10,
     height: 1,
   },
@@ -73,6 +88,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
     color: 'black',
+  },
+  byTwo: {
+    fontFamily: 'Lato_400Regular',
+    fontSize: 15,
+    color: 'black',
+    marginTop: 2,
   },
   spacer: {
     padding: 10,
@@ -131,6 +152,7 @@ const styles = StyleSheet.create({
     width: '90%',
     height: '90%',
     margin: 10,
+    maxHeight: 100,
   },
   greenTitle: {
     color: '#6e822b',
@@ -145,9 +167,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   shortContainer: {
-    flex: 1,
+    flex: 3,
     flexDirection: 'row',
-    width: '100%',
     justifyContent: 'flex-start',
   },
   imageContainer: {

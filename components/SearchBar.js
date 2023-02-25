@@ -1,4 +1,4 @@
-import { Entypo, Feather } from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import {
@@ -58,17 +58,17 @@ const SearchBar = ({ closeDrawer }) => {
           </TouchableOpacity>
         )}
         {/* cross Icon, depending on whether the search bar is clicked or not */}
-        {clicked && (
+        {/* {clicked && (
           <Entypo
             name="cross"
             size={20}
-            color="black"
-            style={{ padding: 1 }}
+            color="#6e822b"
+            style={{ paddingLeft: 21 }}
             onPress={() => {
               setSearchPhrase('')
             }}
           />
-        )}
+        )} */}
       </View>
     </View>
   )

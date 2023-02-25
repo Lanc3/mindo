@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { AdManager } from './AdManager'
 import { ShortCard } from './ShortCard'
-import Single from './Single'
+import SinglePadding from './SinglePadding'
 const CategorySnap = ({ navigation, elements, title, route, padding }) => {
   return (
     <View style={{ flex: 1, paddingTop: 5 }}>
@@ -21,7 +21,11 @@ const CategorySnap = ({ navigation, elements, title, route, padding }) => {
           </View>
         </TouchableOpacity>
       </View>
-      <Single item={elements[0]} navigation={navigation} padding={padding} />
+      <SinglePadding
+        item={elements[0]}
+        navigation={navigation}
+        padding={padding}
+      />
       <ShortCard
         props
         title={elements[1].title.toString()}

@@ -136,7 +136,10 @@ function CustomDrawerContent({ closeDrawer }) {
         scrollEnabled={true}
         ListFooterComponent={
           <View style={styles.otherLinks}>
-            <SearchBar closeDrawer={closeDrawer} />
+            <View style={{ paddingBottom: 20 }}>
+              <SearchBar closeDrawer={closeDrawer} />
+            </View>
+
             <TouchableHighlight onPress={() => goToLogin()}>
               <Text style={styles.titleSmall}>Login</Text>
             </TouchableHighlight>
@@ -259,7 +262,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Lato_400Regular',
 
-    paddingTop: 10,
+    paddingTop: 15,
     paddingLeft: 10,
   },
   backButtonRow: {
@@ -359,7 +362,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   item: {
-    paddingVertical: 5,
+    paddingVertical: 0,
   },
 })
 

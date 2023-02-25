@@ -52,6 +52,9 @@ const UpdateJournal = ({ navigation }) => {
           <FlatList
             overScrollMode="never"
             removeClippedSubviews={true}
+            ListHeaderComponent={
+              <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
+            }
             ListFooterComponent={
               <View>
                 <View style={styles.pageNav}>
@@ -67,7 +70,12 @@ const UpdateJournal = ({ navigation }) => {
                     <Text style={styles.nextGreen}> Next</Text>
                   </TouchableOpacity>
                 </View>
-                <Footer navi={navigation} refS={scrollRef} adSelected="MPU" />
+                <Footer
+                  navi={navigation}
+                  refS={scrollRef}
+                  adSelected="MPU"
+                  show={false}
+                />
               </View>
             }
             data={data}
