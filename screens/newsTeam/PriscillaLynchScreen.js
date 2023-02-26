@@ -67,6 +67,9 @@ const PriscillaLynchScreen = ({ navigation }) => {
                 adType={'LDB_MOBILE'}
                 navigation={navigation}
                 data={sliderData}
+                ImageURL={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2022/02/priscilla-Lynch-medical-independent.jpg'
+                }
               ></Header>
             }
             ListFooterComponent={

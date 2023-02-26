@@ -72,6 +72,9 @@ const INSScreen = ({ navigation }) => {
                 MPU_Ad={'PCDSI_MPU'}
                 navigation={navigation}
                 data={sliderData}
+                fullImage={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2023/01/INS_Logo_Stkd_Col.jpg'
+                }
               ></Header>
             }
             ListFooterComponent={

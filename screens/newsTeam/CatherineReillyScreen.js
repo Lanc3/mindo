@@ -67,6 +67,9 @@ const CatherineReillyScreen = ({ navigation }) => {
                 adType={'LDB_MOBILE'}
                 navigation={navigation}
                 data={sliderData}
+                ImageURL={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2022/02/catherine-reily-medical-independent.jpg'
+                }
               ></Header>
             }
             ListFooterComponent={

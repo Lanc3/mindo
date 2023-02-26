@@ -19,7 +19,7 @@ const PhotoNews = ({ navigation }) => {
   const [sliderData, setSliderData] = useState([])
   const [loading, setLoading] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
-  const [title, setTitle] = useState('Photo News')
+  const [title, setTitle] = useState('Photo')
   const [slug, setSlug] = useState('photo-news')
   const scrollRef = useRef()
 

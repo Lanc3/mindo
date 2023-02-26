@@ -42,6 +42,7 @@ const ResearchScreen = ({ navigation }) => {
       setTotalPages(Math.ceil(response.totalPosts / 10))
       const [firstArray, secondArray] = splitArray(response.posts)
       setData(secondArray)
+      console.log(firstArray)
       setSliderData(firstArray)
       setLoading(1)
     } catch (error) {

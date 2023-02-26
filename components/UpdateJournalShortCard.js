@@ -13,6 +13,8 @@ export function UpdateJournalShortCard({
   authorId,
   nameSlug,
   callback,
+  LBD_Ad,
+  MPU_Ad,
 }) {
   const navigation = useNavigation()
   return (
@@ -28,6 +30,8 @@ export function UpdateJournalShortCard({
               content: totalData,
               media: mediaID,
             },
+            LBD_Ad: LBD_Ad,
+            MPU_Ad: MPU_Ad,
           })
         }
       >

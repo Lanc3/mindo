@@ -72,6 +72,9 @@ const ISMOScreen = ({ navigation }) => {
                 MPU_Ad={'ISMO_MPU'}
                 navigation={navigation}
                 data={sliderData}
+                fullImage={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2022/02/mindo-ismo-300x94-2.jpg'
+                }
               ></Header>
             }
             ListFooterComponent={

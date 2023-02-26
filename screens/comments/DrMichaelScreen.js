@@ -68,6 +68,9 @@ const DrMichaelScreen = ({ navigation }) => {
                 adType={'LDB_MOBILE'}
                 navigation={navigation}
                 data={sliderData}
+                ImageURL={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2022/02/dr.michael.conroy-01.jpg'
+                }
               ></Header>
             }
             ListFooterComponent={

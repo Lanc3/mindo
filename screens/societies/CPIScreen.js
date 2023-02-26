@@ -72,6 +72,9 @@ const CPIScreen = ({ navigation }) => {
                 MPU_Ad={'CPI_MPU'}
                 navigation={navigation}
                 data={sliderData}
+                fullImage={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2022/02/mindo-cpi-300x94-2.jpg'
+                }
               ></Header>
             }
             ListFooterComponent={

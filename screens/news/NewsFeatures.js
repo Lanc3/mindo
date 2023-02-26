@@ -19,7 +19,7 @@ const NewsFeatures = ({ navigation }) => {
   const [sliderData, setSliderData] = useState([])
   const [loading, setLoading] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
-  const [title, setTitle] = useState('News Features')
+  const [title, setTitle] = useState('Features')
   const [slug, setSlug] = useState('news-features')
   const scrollRef = useRef()
 

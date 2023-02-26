@@ -68,6 +68,9 @@ const GeorgeWinterScreen = ({ navigation }) => {
                 adType={'LDB_MOBILE'}
                 navigation={navigation}
                 data={sliderData}
+                ImageURL={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2021/09/WINTER_George-B_W-removebg-preview.png'
+                }
               ></Header>
             }
             ListFooterComponent={

@@ -19,7 +19,7 @@ const LatestNews = ({ navigation }) => {
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
-  const [title, setTitle] = useState('Latest News')
+  const [title, setTitle] = useState('Latest')
   const [slug, setSlug] = useState('latest-news')
   const scrollRef = useRef()
 

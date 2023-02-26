@@ -68,6 +68,9 @@ const MedicoLegal = ({ navigation }) => {
                 adType={'LDB_MOBILE'}
                 navigation={navigation}
                 data={sliderData}
+                ImageURL={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2022/02/84496820_2943169119036868_2563439050090348544_n.png'
+                }
               ></Header>
             }
             ListFooterComponent={

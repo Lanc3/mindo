@@ -68,6 +68,9 @@ const DrNeasaScreen = ({ navigation }) => {
                 adType={'LDB_MOBILE'}
                 navigation={navigation}
                 data={sliderData}
+                ImageURL={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2021/12/Conneally-Neasa.png'
+                }
               ></Header>
             }
             ListFooterComponent={

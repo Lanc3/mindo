@@ -68,6 +68,9 @@ const DrChristineScreen = ({ navigation }) => {
                 adType={'LDB_MOBILE'}
                 navigation={navigation}
                 data={sliderData}
+                ImageURL={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2022/01/OMalley_Christine.png'
+                }
               ></Header>
             }
             ListFooterComponent={

@@ -68,6 +68,9 @@ const DrGabrielleScreen = ({ navigation }) => {
                 adType={'LDB_MOBILE'}
                 navigation={navigation}
                 data={sliderData}
+                ImageURL={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2021/02/Colleran-Gabrielle-Dr_PRINT_BW-1.png'
+                }
               ></Header>
             }
             ListFooterComponent={

@@ -72,6 +72,9 @@ const IICNINAScreen = ({ navigation }) => {
                 MPU_Ad={'IICNINA_MPU'}
                 navigation={navigation}
                 data={sliderData}
+                fullImage={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2022/05/IICN.jpg'
+                }
               ></Header>
             }
             ListFooterComponent={

@@ -68,6 +68,9 @@ const ProfSeamusScreen = ({ navigation }) => {
                 adType={'LDB_MOBILE'}
                 navigation={navigation}
                 data={sliderData}
+                ImageURL={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2021/08/OMahony-Seamus-Prof.png'
+                }
               ></Header>
             }
             ListFooterComponent={

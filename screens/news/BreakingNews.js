@@ -19,7 +19,7 @@ const BreakingNews = ({ navigation }) => {
   const [sliderData, setSliderData] = useState([])
   const [loading, setLoading] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
-  const [title, setTitle] = useState('Breaking News')
+  const [title, setTitle] = useState('Breaking')
   const [slug, setSlug] = useState('breaking-news')
   const scrollRef = useRef()
 

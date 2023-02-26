@@ -72,6 +72,9 @@ const ISGScreen = ({ navigation }) => {
                 MPU_Ad={'ISG_MPU'}
                 navigation={navigation}
                 data={sliderData}
+                fullImage={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2022/02/mindo-isg-300x94-2.jpg'
+                }
               ></Header>
             }
             ListFooterComponent={

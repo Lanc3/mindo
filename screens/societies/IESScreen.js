@@ -72,6 +72,9 @@ const IESScreen = ({ navigation }) => {
                 MPU_Ad={'IES_MPU'}
                 navigation={navigation}
                 data={sliderData}
+                fullImage={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2022/02/mindo-ies-300x94-2.jpg'
+                }
               ></Header>
             }
             ListFooterComponent={

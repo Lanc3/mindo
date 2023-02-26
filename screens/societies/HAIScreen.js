@@ -72,6 +72,9 @@ const HAIScreen = ({ navigation }) => {
                 MPU_Ad={'MPU'}
                 navigation={navigation}
                 data={sliderData}
+                fullImage={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2022/11/hai-2.jpg'
+                }
               ></Header>
             }
             ListFooterComponent={

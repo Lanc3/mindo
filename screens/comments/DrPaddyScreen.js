@@ -63,12 +63,17 @@ const DrPaddyScreen = ({ navigation }) => {
             overScrollMode="never"
             removeClippedSubviews={true}
             ListHeaderComponent={
-              <Header
-                title={title}
-                adType={'LDB_MOBILE'}
-                navigation={navigation}
-                data={sliderData}
-              ></Header>
+              <View>
+                <Header
+                  title={title}
+                  adType={'LDB_MOBILE'}
+                  navigation={navigation}
+                  data={sliderData}
+                  ImageURL={
+                    'https://www.medicalindependent.ie/wp-content/uploads/2022/02/dr-paddy-barret-medical-independent.jpg'
+                  }
+                ></Header>
+              </View>
             }
             ListFooterComponent={
               <View>

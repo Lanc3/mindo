@@ -68,6 +68,9 @@ const DrLuciaScreen = ({ navigation }) => {
                 adType={'LDB_MOBILE'}
                 navigation={navigation}
                 data={sliderData}
+                ImageURL={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2021/10/Gannon_Dr_Lucia__1_-removebg-preview.png'
+                }
               ></Header>
             }
             ListFooterComponent={

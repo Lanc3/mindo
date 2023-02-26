@@ -72,6 +72,9 @@ const IOSScreen = ({ navigation }) => {
                 MPU_Ad={'IOS_MPU'}
                 navigation={navigation}
                 data={sliderData}
+                fullImage={
+                  'https://www.medicalindependent.ie/wp-content/uploads/2022/02/medical-independent-ios-300x75-1.jpg'
+                }
               ></Header>
             }
             ListFooterComponent={
