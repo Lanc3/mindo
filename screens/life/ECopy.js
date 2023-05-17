@@ -106,7 +106,7 @@ const ECopy = ({ navigation }) => {
                   authorId={item.author}
                   navi={navigation}
                   nameSlug={item.categoryName}
-                />
+                  podcast={item.podcastData}/>
               )
             }}
           />

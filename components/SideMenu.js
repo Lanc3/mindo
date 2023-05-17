@@ -13,6 +13,7 @@ import {
 import { IconButton } from 'react-native-paper'
 import { removeToken } from '../hooks/useResults'
 import AccordionListItem from './AccordionListItem'
+import NotificationToggle from './NotificationToggle'
 import { SideMenuItem } from './SideMenuItem'
 const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
   const navigation = useNavigation()
@@ -100,10 +101,28 @@ const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
                     <Text style={styles.text_footer}>Log In</Text>
                   </TouchableOpacity>
                 </View>
-                <View style={styles.outlinksContainer}>
-                  <Text style={styles.outlinks}>Register</Text>
+                <View
+                  style={{ flexDirection: 'row', justifyContent: 'center' }}
+                >
+                  <TouchableOpacity
+                    onPress={() => {
+                      Linking.openURL(
+                        'https://www.medicalindependent.ie/registration/',
+                      )
+                    }}
+                  >
+                    <Text style={styles.outlinks}>Subscribe</Text>
+                  </TouchableOpacity>
                   <Text style={styles.outlinks}>|</Text>
-                  <Text style={styles.outlinks}>Lost Your Password</Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      Linking.openURL(
+                        'https://www.medicalindependent.ie/reset-password/',
+                      )
+                    }}
+                  >
+                    <Text style={styles.outlinks}>Lost Your Password</Text>
+                  </TouchableOpacity>
                 </View>
                 <View>
                   <AccordionListItem title={'Publisher Information'}>
@@ -268,10 +287,7 @@ const SideMenu = ({ callParentScreenFunction, closeDrawer }) => {
                       navigation.navigate('NotificationViewList')
                     }}
                   >
-                    <SideMenuItem
-                      title={'Notifications'}
-                      subTitle={'Never miss the latest on Mindo again'}
-                    />
+                    <NotificationToggle />
                   </TouchableOpacity>
                   {/* <NotificationList
                     callback={() => {
@@ -345,7 +361,7 @@ const styles = StyleSheet.create({
   },
   outlinksContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     marginTop: 15,
     marginBottom: 10,
     color: '#444',

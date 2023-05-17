@@ -17,7 +17,7 @@ import {
 import { createStackNavigator } from '@react-navigation/stack'
 import { useFonts } from 'expo-font'
 import * as Notifications from 'expo-notifications'
-import React, { useRef } from 'react'
+import { default as React, useRef, useState } from 'react'
 import { Platform, StatusBar, StyleSheet } from 'react-native'
 import { FavoritesList } from './components/FavoritesList'
 import { CounterContextProvider } from './components/GlobalContext'
@@ -100,6 +100,7 @@ import SubscriberOnly from './screens/SubscriberOnly/SubscriberOnly'
 import Terms from './screens/terms/Terms'
 import UpdateJournal from './screens/UpdateJournal/UpdateJournal'
 import UpdateJournalReader from './screens/UpdateJournalReader/UpdateJournalReader'
+import PodcastReader from './screens/UpdateJournalReader/PodcastReader'
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -150,6 +151,7 @@ export default function App() {
   const responseListener = useRef()
   const navigationRef = useNavigationContainerRef() // You can also use a regular ref with `React.useRef()`
   const { notification } = Notifications.useLastNotificationResponse() || {}
+  const [netInfo, setNetInfo] = useState('')
 
   React.useEffect(() => {
     if (lastNotificationResponse) {
@@ -161,7 +163,7 @@ export default function App() {
         title,
         date,
       } = lastNotificationResponse.notification.request.content.data
-      console.log(categoryName)
+
       //alert(categoryName, categoryName)
       navigationRef.navigate('FullArticleScreen', {
         nameSlug: categoryName,
@@ -230,11 +232,7 @@ export default function App() {
     return (
       <CounterContextProvider>
         <NavigationContainer ref={navigationRef}>
-          <StatusBar
-            barStyle="light-content"
-            backgroundColor="black"
-            hidden={false}
-          />
+          
           <IOSStatusBar backgroundColor="black" barStyle="light-content" />
           <Stack.Navigator
             initialRouteName="FirstRunScreen"
@@ -303,6 +301,11 @@ export default function App() {
             <Stack.Screen
               name="UpdateJournalReader"
               component={UpdateJournalReader}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="PodcastReader"
+              component={PodcastReader}
               options={{ headerShown: true }}
             />
             <Stack.Screen

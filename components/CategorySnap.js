@@ -4,64 +4,68 @@ import { AdManager } from './AdManager'
 import { ShortCard } from './ShortCard'
 import SinglePadding from './SinglePadding'
 const CategorySnap = ({ navigation, elements, title, route, padding }) => {
-  return (
-    <View style={{ flex: 1, paddingTop: 5 }}>
-      <View style={styles.divider}></View>
-      <View style={styles.topSmallNav}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.titleStyle}>{title}</Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate(route)
-          }}
-        >
-          <View style={styles.veiwContainer}>
-            <Text style={styles.viewAll}>View All</Text>
+  if (elements !== undefined || elements !== null) {
+    return (
+      <View style={{ flex: 1, paddingTop: 5 }}>
+        <View style={styles.divider}></View>
+        <View style={styles.topSmallNav}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleStyle}>{title}</Text>
           </View>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(route)
+            }}
+          >
+            <View style={styles.veiwContainer}>
+              <Text style={styles.viewAll}>View All</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <SinglePadding
+          item={elements[0]}
+          navigation={navigation}
+          padding={padding}
+        />
+        <ShortCard
+          props
+          title={elements[1].title.toString()}
+          excerpt={elements[1].excerpt.toString()}
+          date={elements[1].date.toString()}
+          mediaID={elements[1].media.toString()}
+          totalData={elements[1].content}
+          authorId={elements[1].author}
+          navi={navigation}
+          nameSlug={elements[1].categoryName}
+        />
+        <ShortCard
+          props
+          title={elements[2].title.toString()}
+          excerpt={elements[2].excerpt.toString()}
+          date={elements[2].date.toString()}
+          mediaID={elements[2].media.toString()}
+          totalData={elements[2].content}
+          authorId={elements[2].author}
+          navi={navigation}
+          nameSlug={elements[2].categoryName}
+        />
+        <ShortCard
+          props
+          title={elements[3].title.toString()}
+          excerpt={elements[3].excerpt.toString()}
+          date={elements[3].date.toString()}
+          mediaID={elements[3].media.toString()}
+          totalData={elements[3].content}
+          authorId={elements[3].author}
+          navi={navigation}
+          nameSlug={elements[3].categoryName}
+        />
+        <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
       </View>
-      <SinglePadding
-        item={elements[0]}
-        navigation={navigation}
-        padding={padding}
-      />
-      <ShortCard
-        props
-        title={elements[1].title.toString()}
-        excerpt={elements[1].excerpt.toString()}
-        date={elements[1].date.toString()}
-        mediaID={elements[1].media.toString()}
-        totalData={elements[1].content}
-        authorId={elements[1].author}
-        navi={navigation}
-        nameSlug={elements[1].categoryName}
-      />
-      <ShortCard
-        props
-        title={elements[2].title.toString()}
-        excerpt={elements[2].excerpt.toString()}
-        date={elements[2].date.toString()}
-        mediaID={elements[2].media.toString()}
-        totalData={elements[2].content}
-        authorId={elements[2].author}
-        navi={navigation}
-        nameSlug={elements[2].categoryName}
-      />
-      <ShortCard
-        props
-        title={elements[3].title.toString()}
-        excerpt={elements[3].excerpt.toString()}
-        date={elements[3].date.toString()}
-        mediaID={elements[3].media.toString()}
-        totalData={elements[3].content}
-        authorId={elements[3].author}
-        navi={navigation}
-        nameSlug={elements[3].categoryName}
-      />
-      <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} />
-    </View>
-  )
+    )
+  } else {
+    return null
+  }
 }
 
 export default CategorySnap

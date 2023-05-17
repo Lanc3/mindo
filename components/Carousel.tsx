@@ -128,7 +128,7 @@ export const Carousel = (props: any) => {
                   authorId={item.author}
                   navi={navigation}
                   nameSlug={item.categoryName}
-                />
+                  podcast={item.podcastData}/>
               )
             default:
               return (

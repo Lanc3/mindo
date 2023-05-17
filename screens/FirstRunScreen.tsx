@@ -1,17 +1,23 @@
 import MaterialIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import NetInfo from '@react-native-community/netinfo'
 import { LinearGradient } from 'expo-linear-gradient'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   Dimensions,
+  Image,
+  Linking,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native'
 import * as Animatable from 'react-native-animatable'
-
+import PleaseConnectInternetScreen from './PleaseConnectInternetScreen'
 const FirstRunScreen = ({ navigation }) => {
+  const [netInfo, setNetInfo] = useState('')
+  const [isConnected, setIsConnected] = useState(false)
+
   const getContent = useCallback(async () => {
     try {
       const value = await AsyncStorage.getItem('userProfile')
@@ -46,15 +52,30 @@ const FirstRunScreen = ({ navigation }) => {
   }
 
   useEffect(() => {
-    getContent()
-  }, [getContent])
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setNetInfo(
+        `Connection type: ${state.type}
+        Is connected?: ${state.isConnected}
+        IP Address: ${state.details.ipAddress}`,
+      )
+      setIsConnected(state.isConnected)
+      if (state.isConnected) getContent()
+    })
+
+    return () => {
+      // Unsubscribe to network state updates
+      unsubscribe()
+    }
+  }, [isConnected])
+  if (!isConnected) {
+    return <PleaseConnectInternetScreen />
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Animatable.View
-          animation="bounceIn"
-          style={styles.logo}
-        ></Animatable.View>
+        <Animatable.View animation="fadeInUpBig" style={styles.logo}>
+          <Image source={require('../assets/images/adaptive-icon.png')} />
+        </Animatable.View>
       </View>
       <Animatable.View
         style={[
@@ -75,7 +96,9 @@ const FirstRunScreen = ({ navigation }) => {
         >
           Stay Up to date with Medical Independent
         </Text>
-        <Text style={styles.text}>Sign in with your account</Text>
+        <Text style={styles.text}>
+          Sign in with your Medical Independent Details
+        </Text>
         <View style={styles.button}>
           <TouchableOpacity
             style={styles.containerButtons}
@@ -97,6 +120,25 @@ const FirstRunScreen = ({ navigation }) => {
             <LinearGradient colors={['#000', '#000']} style={styles.signIn}>
               <Text style={styles.textSign}>Continue with limited access</Text>
             </LinearGradient>
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL('https://www.medicalindependent.ie/registration/')
+            }}
+          >
+            <Text style={styles.outlinks}>Subscribe</Text>
+          </TouchableOpacity>
+          <Text style={styles.outlinks}>|</Text>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL(
+                'https://www.medicalindependent.ie/reset-password/',
+              )
+            }}
+          >
+            <Text style={styles.outlinks}>Lost Your Password</Text>
           </TouchableOpacity>
         </View>
       </Animatable.View>
@@ -128,22 +170,17 @@ const styles = StyleSheet.create({
     paddingVertical: 50,
     paddingHorizontal: 30,
   },
-  logo: {
-    flex: 1,
-    justifyContent: 'center',
-    width: width_logo,
-    height: height_logo,
-    margin: 100,
-    padding: 20,
-  },
+  logo: {},
   title: {
     color: '#05375a',
     fontSize: 30,
     fontWeight: 'bold',
+    alignSelf: 'center',
   },
   text: {
     color: '#fff',
     marginTop: 5,
+    alignSelf: 'center',
   },
   button: {
     marginTop: 30,
@@ -163,5 +200,10 @@ const styles = StyleSheet.create({
   },
   containerButtons: {
     padding: 3,
+  },
+  outlinks: {
+    padding: 5,
+    color: 'black',
+    fontSize: 14,
   },
 })

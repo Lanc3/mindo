@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native'
-
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   Dimensions,
@@ -16,11 +15,13 @@ import Carousel from '../components/Carousel'
 import CategorySnap from '../components/CategorySnap'
 import { ECopy } from '../components/ECopy'
 import Footer from '../components/Footer'
+import InternetConnectionStatus from '../components/InternetConnectionStatus'
 import LoadingView from '../components/LoadingView'
 import Single from '../components/Single'
 import SingleArticle from '../components/SingleArticle'
 import SponsoredArticleList from '../components/SponsoredArticleList'
 import { newGetPostsByCatSlug } from '../hooks/useResults'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const HomeScreen = (props) => {
   //const [getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,getMediaAPI,fetchApiData,getPostByAuthorId,getTotalPostByAuthor] = useResults();
@@ -41,40 +42,27 @@ const HomeScreen = (props) => {
   const scrollRef = useRef()
   const [bgcolor, setBGColor] = useState('#fff')
   const [homeItems, setHomeItems] = useState([])
-
+  const [firstSection, setFirstSection] = useState([])
+  const [isFirstSectionLoaded,setIsFirstSectionLoaded] = useState(false)
+  const [secondSection, setSecondSection] = useState([])
+  const [isSecondSectionLoaded,setIsSecondSectionLoaded] = useState(false)
+  const [thirdSection, setThirdSection] = useState([])
+  const [isThirdSectionLoaded,setIsThirdSectionLoaded] = useState(false)
   const navigation = useNavigation()
-
+  const [test,setTest] = useState([])
   const getContent = useCallback(async () => {
     try {
       const results = await Promise.all([
         newGetPostsByCatSlug('latest-news', 5, 1),
-        newGetPostsByCatSlug('clinical-news', 4, 1),
-        newGetPostsByCatSlug('motoring', 1, 1),
-        newGetPostsByCatSlug('cartoon', 1, 1),
-        newGetPostsByCatSlug('comment', 6, 1),
-        newGetPostsByCatSlug('news-features', 5, 1),
-        newGetPostsByCatSlug('commercial-feature', 1, 1),
-        newGetPostsByCatSlug('subscriber-only', 3, 1),
-        newGetPostsByCatSlug('sponsored-content', 3, 1),
         newGetPostsByCatSlug('breaking-news', 4, 1),
-        newGetPostsByCatSlug('interviews', 4, 1),
-        newGetPostsByCatSlug('sport', 4, 1),
+        newGetPostsByCatSlug('comment', 5, 1),
       ])
       const finalData = await Promise.all(results.map((result) => result.posts))
       setSliderData(finalData[0])
-      setClinical(finalData[1])
-      setMotoring(finalData[2])
-      setCartoon(finalData[3])
-      setComments(finalData[4])
-      setFeature(finalData[5])
-      setCommercial(finalData[6])
-      setSubscriberOnly(finalData[7])
-      setSponsoredContent(finalData[8])
-      setBreakingNews(finalData[9])
-      setInterviews(finalData[10])
-      setSport(finalData[11])
+      setBreakingNews(finalData[1])
+      setComments(finalData[2])
     } catch (error) {}
-    setHomeItems([
+    setFirstSection([
       { component: <AdManager selectedAd={'LDB_MOBILE'} sizeType={'SMALL'} /> },
       { component: <View></View> },
       { component: <View></View> },
@@ -101,23 +89,54 @@ const HomeScreen = (props) => {
       },
       { component: <View></View> },
       { component: <AdManager selectedAd={'MPU'} sizeType={'BIG'} /> },
+    ])
+    setIsFirstSectionLoaded(true)
+    //second section
+    try {
+      const results = await Promise.all([
+        newGetPostsByCatSlug('interviews', 4, 1),
+        newGetPostsByCatSlug('news-features', 5, 1),
+        newGetPostsByCatSlug('clinical-news', 4, 1),
+
+      ])
+      const finalData = await Promise.all(results.map((result) => result.posts))
+      setInterviews(finalData[0])
+      setFeature(finalData[1])
+      setClinical(finalData[2])
+    } catch (error) {}
+    setSecondSection([
       { component: <View></View> },
       { component: <ECopy navigation={props.navigation} /> },
       { component: <View></View> },
       { component: <View></View> },
+    ])
+    setIsSecondSectionLoaded(true)
+    
+    //third section
+    try {
+      const results = await Promise.all([
+        newGetPostsByCatSlug('sport', 4, 1),
+        newGetPostsByCatSlug('motoring', 1, 1),
+        newGetPostsByCatSlug('cartoon', 1, 1),
+        newGetPostsByCatSlug('commercial-feature', 1, 1),
+        newGetPostsByCatSlug('subscriber-only', 3, 1),
+        newGetPostsByCatSlug('sponsored-content', 3, 1),
+        newGetPostsByCatSlug('subscriber-only', 3, 1),
+      ])
+      const finalData = await Promise.all(results.map((result) => result.posts))
+      setSport(finalData[0])
+      setMotoring(finalData[1])
+      setCartoon(finalData[2])
+      setCommercial(finalData[3])
+      setTest(finalData[6])
+      setSponsoredContent(finalData[5])
+    } catch (error) {}
+    
+    setThirdSection([
       {
         component: (
-          <Single
-            item={sponsoredContent[0]}
-            navigation={props.navigation}
-            padding={20}
-          />
-        ),
-      },
-      {
-        component: (
-          <View>
-            <View style={styles.divider}></View>
+          <View style={{paddingTop:10}}>
+            <View style={styles.divider}></View> 
             <View style={styles.topSmallNav}>
               <View style={styles.titleContainer}>
                 <Text style={styles.titleStyle}>Life</Text>
@@ -183,21 +202,17 @@ const HomeScreen = (props) => {
       },
       { component: <View style={styles.divider} /> },
       { component: <View></View> },
-      {
-        component: (
-          <SponsoredArticleList
-            navigation={props.navigation}
-            slugName={'subscriber-only'}
-            titleName={'Subscriber Only Content'}
-            showAmount={3}
-            pageRouteName={'SubscriberOnly'}
-          />
-        ),
-      },
-      { component: <Text style={{ height: 20 }}></Text> },
+      { component: <View></View> },
+      { component: <View></View> },
+     
+
+      { component: <View></View> },
+      { component: <View></View> },
       { component: <View></View> },
     ])
-    setIsLoading(true)
+    setIsThirdSectionLoaded(true)
+
+
   }, [])
 
   useEffect(() => {
@@ -206,23 +221,15 @@ const HomeScreen = (props) => {
 
   return (
     <SafeAreaView style={styles.container} ref={scrollRef}>
-      {isLoaded ? (
-        <SafeAreaView>
-          <FlatList
+
+        <ScrollView removeClippedSubviews={true}>
+          <InternetConnectionStatus />
+          {isFirstSectionLoaded ? <FlatList
             overScrollMode="never"
             removeClippedSubviews={true}
-            ListFooterComponent={
-              <View>
-                <Footer
-                  navi={props.navigation}
-                  refS={scrollRef}
-                  adSelected="MPU"
-                  show={true}
-                />
-              </View>
-            }
             scrollEnabled={true}
-            data={homeItems}
+            windowSize={10}
+            data={firstSection}
             listKey={(item, index) => `outer_key${index.toString()}`}
             keyExtractor={(item, index) => `outer_key${index.toString()}`}
             renderItem={({ item, index }) => {
@@ -259,7 +266,32 @@ const HomeScreen = (props) => {
                   />
                 )
               }
-              if (index === 9) {
+              if (index === 7) {
+                return (
+                  <Carousel
+                    style="stat"
+                    items={comments}
+                    navigation={props.navigation}
+                    nameSlug={'Comments'}
+                  />
+                )
+              }
+              return item.component
+            }} /> : (
+        <View style={{}}>
+          <LoadingView indeterminate={true} />
+        </View>
+      ) }
+      {isSecondSectionLoaded ? <FlatList
+            overScrollMode="never"
+            removeClippedSubviews={true}
+            scrollEnabled={true}
+            windowSize={10}
+            data={secondSection}
+            listKey={(item, index) => `outer_key${index.toString()}`}
+            keyExtractor={(item, index) => `outer_key${index.toString()}`}
+            renderItem={({ item, index }) => {
+              if (index === 0) {
                 return (
                   <ArticleListPreload
                     navigation={props.navigation}
@@ -271,17 +303,7 @@ const HomeScreen = (props) => {
                   />
                 )
               }
-              if (index === 7) {
-                return (
-                  <Carousel
-                    style="stat"
-                    items={comments}
-                    navigation={props.navigation}
-                    nameSlug={'Comments'}
-                  />
-                )
-              }
-              if (index === 11) {
+              if (index === 2) {
                 return (
                   <CategorySnap
                     navigation={props.navigation}
@@ -292,7 +314,7 @@ const HomeScreen = (props) => {
                   />
                 )
               }
-              if (index === 12) {
+              if (index === 3) {
                 return (
                   <CategorySnap
                     navigation={props.navigation}
@@ -303,7 +325,33 @@ const HomeScreen = (props) => {
                   />
                 )
               }
-              if (index === 15) {
+              return item.component
+            }} /> : (
+        <View style={{}}>
+          <LoadingView indeterminate={true} />
+        </View>
+      ) }
+      {isThirdSectionLoaded ? <FlatList
+            overScrollMode="never"
+            ListFooterComponent={
+              <View>
+                <Footer
+                  navi={props.navigation}
+                  refS={scrollRef}
+                  adSelected="MPU"
+                  show={false}
+                />
+              </View>
+            }
+            removeClippedSubviews={true}
+            scrollEnabled={true}
+            data={thirdSection}
+            windowSize={3}
+            listKey={(item, index) => `outer_key${index.toString()}`}
+            keyExtractor={(item, index) => `outer_key${index.toString()}`}
+            renderItem={({ item, index }) => {
+              if (index === 1) {
+                
                 return (
                   <Single
                     item={sport[0]}
@@ -312,7 +360,7 @@ const HomeScreen = (props) => {
                   />
                 )
               }
-              if (index === 16) {
+              if (index === 2) {
                 return (
                   <Single
                     item={cartoon[0]}
@@ -321,7 +369,7 @@ const HomeScreen = (props) => {
                   />
                 )
               }
-              if (index === 25) {
+              if (index === 10) {
                 return (
                   <Single
                     item={commercial[0]}
@@ -330,15 +378,30 @@ const HomeScreen = (props) => {
                   />
                 )
               }
+              
+              if (index === 11) {
+                
+                return(
+              <SponsoredArticleList
+                navigation={props.navigation}
+                slugName={'subscriber-only'}
+                titleName={'Subscriber Only Content'}
+                showAmount={3}
+                list={test}
+                newss={"test"}
+                pageRouteName={'SubscriberOnly'}
+              />
+                )
+                
+              }
               return item.component
-            }}
-          />
-        </SafeAreaView>
-      ) : (
+            }} /> : (
         <View style={{}}>
           <LoadingView indeterminate={true} />
         </View>
-      )}
+      ) }
+        </ScrollView>
+     
     </SafeAreaView>
   )
 }

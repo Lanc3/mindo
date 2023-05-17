@@ -1,6 +1,6 @@
 import React from 'react'
 import WebView from 'react-native-webview'
-const ISSUURendererJournal = ({ callback, htmlData }) => {
+const PodcastWebView = ({ callback, htmlData }) => {
   const isClicked = () => {
     callback()
   }
@@ -33,4 +33,4 @@ const ISSUURendererJournal = ({ callback, htmlData }) => {
   )
 }
 
-export default ISSUURendererJournal
+export default PodcastWebView

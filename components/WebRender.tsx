@@ -11,6 +11,7 @@ export default function WebRender({ htmlData }) {
   return (
     <WebView
       ref={WebRef}
+      scrollEnabled={false}
       style={styles.container}
       setSupportMultipleWindows={true}
       allowsLinkPreview={false}
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     minHeight: 100,
     width: windowWidth - 10,
-
+    flex:1,
     color: '#000',
     marginBottom: 0,
   },

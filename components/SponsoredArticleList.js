@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useIsFocused } from '@react-navigation/native'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState,memo } from 'react'
 import {
   FlatList,
   StyleSheet,
@@ -15,49 +15,26 @@ const SponsoredArticleList = ({
   slugName,
   list,
   titleName,
-  showAmount,
+  newss,
   pageRouteName,
 }) => {
-  //const [getCategoryAPI,getAllPosts,getCategoyIdBySlug,getFirstPostSet,getPostsByCategory,categories,getMediaAPI,getAuthor,fetchApiData] = useResults();
-  const [data, setData] = useState([])
-  const [page, setPage] = useState(1)
-  const [loading, setLoading] = useState(0)
-  const [totalPages, setTotalPages] = useState(0)
-  const [title, setTitle] = useState(titleName)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [slug, setSlug] = useState(slugName)
-  const [isdata, setisdata] = useState(false)
   const isFocused = useIsFocused()
-  const getContent = useCallback(async () => {
-    setLoading(0.25)
-    try {
-      setLoading(0.5)
-      const response = await newGetPostsByCatSlug(slug, showAmount, page)
-      setTotalPages(Math.ceil(response.totalPosts / 10))
-      setData(response.posts)
-      setLoading(1)
-    } catch (error) {
-    } finally {
-      setLoading(1)
-    }
-    setLoading(1)
-  }, [page])
-
+ 
   useEffect(() => {
-    getContent()
-  }, [getContent])
-  useEffect(() => {
-    ;(async () => {
+    console.log(list.length)
+    ;(async () => { 
       const data = await AsyncStorage.getItem('userProfile')
       if (data !== null) setIsLoggedIn(JSON.parse(data).isLoggedIn)
     })()
-  }, [isFocused])
-  return (
+  }, [])
+  return ( 
     <View>
       {isLoggedIn ? (
         <View style={{ flex: 1, paddingTop: 5 }}>
-          {data.length > 0 ? (
+          {list.length > 0 ? (
             <FlatList
+            windowSize={5}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               scrollEnabled={false}
@@ -77,7 +54,7 @@ const SponsoredArticleList = ({
                   </TouchableOpacity>
                 </View>
               }
-              data={data}
+              data={list}
               removeClippedSubviews={true}
               listKey={(item, index) => `D_key${index.toString()}`}
               keyExtractor={(item, index) => `_key${index.toString()}`}
@@ -108,7 +85,7 @@ const SponsoredArticleList = ({
   )
 }
 
-export default SponsoredArticleList
+export default memo(SponsoredArticleList)
 
 const styles = StyleSheet.create({
   container: {

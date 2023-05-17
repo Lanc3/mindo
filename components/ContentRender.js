@@ -12,6 +12,7 @@ export default function ContentRender({ htmlData, newHeight }) {
   const stopLoading = () => {
     if (WebRef.current !== null) WebRef.current.stopLoading()
   }
+
   const data =
     `
   <html>
@@ -39,20 +40,22 @@ export default function ContentRender({ htmlData, newHeight }) {
   .wp-block-group__inner-container{
     padding: 20px 25px 20px;
   }
-  .wp-element-caption{
-    width: auto;
-  
-    top:10px;
+  .is-layout-flex{
+    margin-left:-0;
   }
-  .wp-element-caption{ display: block; width: 350; height: auto;  margin-left: -110px;
+  .wp-element-caption{
+    display: block;
+    width: 350;
+    height: auto;
+    margin-left: -45px;
+    margin-right: auto;
+    inline-size: 310px;
+    overflow-wrap: break-word;
+    }
+  img { display: block; width: 400; height: auto;  margin-left: -100px;
     margin-right: auto;}
-  img { display: block; width: 400; height: auto;  margin-left: -120px;
-    margin-right: auto;}
-    figcaption{ display: block; width: 350; height: auto;  margin-left: -110px;
-      margin-right: auto;}
 </style>
 <style>
-   
 </style>
 <style>
   body {font-family: 'Lato'; font-weight: 400; font-size: 20px; word-wrap: break-word; overflow-wrap: break-word;letter-spacing:0.1 }

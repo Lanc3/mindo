@@ -80,7 +80,7 @@ const MostReadSection = ({
                   authorId={item.author}
                   navi={navigation}
                   nameSlug={item.categoryName}
-                />
+                  podcast={item.podcastData}/>
               )
             }}
           />

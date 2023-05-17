@@ -1,6 +1,7 @@
 import Feather from '@expo/vector-icons//Feather'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
 import * as Device from 'expo-device'
 import { LinearGradient } from 'expo-linear-gradient'
 import * as Notifications from 'expo-notifications'
@@ -8,7 +9,9 @@ import React, { useState } from 'react'
 import {
   ActivityIndicator,
   Alert,
+  BackHandler,
   Dimensions,
+  KeyboardAvoidingView,
   Modal,
   Platform,
   Pressable,
@@ -17,6 +20,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Linking
 } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import { useTheme } from 'react-native-paper'
@@ -52,12 +56,13 @@ const SignInScreen = ({ navigation }) => {
         finalStatus = status
       }
 
-      getToken = (await Notifications.getExpoPushTokenAsync()).data
+      getToken = await (Notifications.getExpoPushTokenAsync())
+      
       try {
         await AsyncStorage.setItem(
           'expoToken',
           JSON.stringify({
-            expoPushToken: getToken,
+            expoPushToken: getToken.data,
           }),
         )
       } catch {
@@ -66,8 +71,8 @@ const SignInScreen = ({ navigation }) => {
     } else {
       alert('Must use physical device for Push Notifications')
     }
-
-    return getToken
+    
+    return getToken.data
   }
 
   const wrongDetails = (type) =>
@@ -85,8 +90,20 @@ const SignInScreen = ({ navigation }) => {
     // Abort.
     setLogInState(true)
     controller.abort()
+    navigation.navigate("FirstRunScreen")
   }
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        return true
+      }
 
+      BackHandler.addEventListener('hardwareBackPress', onBackPress)
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+    }, []),
+  )
   const doAuth = async (email, password) => {
     setDisplayText('Connecting to server.')
     setExit(false)
@@ -126,7 +143,7 @@ const SignInScreen = ({ navigation }) => {
           setModalVisible(true)
         } finally {
           const Expotoken = await registerForPushNotificationsAsync()
-          //console.log(Expotoken)
+          console.log(Expotoken)
           setDisplayText('Registering for push notification')
           const status = await postToken(Expotoken)
           setExit(status)
@@ -169,7 +186,10 @@ const SignInScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+    >
       <View style={styles.header}>
         <Animatable.View
           animation="bounceIn"
@@ -335,8 +355,33 @@ const SignInScreen = ({ navigation }) => {
             </LinearGradient>
           </TouchableOpacity>
         </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            paddingTop: 10,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL('https://www.medicalindependent.ie/registration/')
+            }}
+          >
+            <Text style={styles.outlinks}>Subscribe</Text>
+          </TouchableOpacity>
+          <Text style={styles.outlinks}>|</Text>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL(
+                'https://www.medicalindependent.ie/reset-password/',
+              )
+            }}
+          >
+            <Text style={styles.outlinks}>Lost Your Password</Text>
+          </TouchableOpacity>
+        </View>
       </Animatable.View>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 
@@ -351,7 +396,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
   },
   header: {
-    flex: 2,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -362,6 +407,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
+  },
+  outlinks: {
+    padding: 5,
+    color: 'black',
+    fontSize: 14,
   },
   text_header: {
     color: '#fff',
@@ -400,7 +450,7 @@ const styles = StyleSheet.create({
   },
   buttonT: {
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 20,
   },
   signIn: {
     width: '100%',

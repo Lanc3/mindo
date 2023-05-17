@@ -126,7 +126,7 @@ const SearchScreen = ({ props, route }) => {
                   authorId={item.author}
                   navi={navigation}
                   nameSlug={item.categoryName}
-                />
+                  podcast={item.podcastData}/>
               )
             }}
           />

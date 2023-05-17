@@ -160,19 +160,9 @@ export default function FullArticleScreen({ props, route }) {
             )}
 
             <Text style={styles.greenTitle}>{nameSlug}</Text>
-            <Text style={styles.title} numberOfLines={3}>
-              {he.decode(title)}
-            </Text>
+            <Text style={styles.title}>{he.decode(title)}</Text>
             <View style={styles.subTitle}>
-              <Text
-                style={{
-                  paddingLeft: 20,
-                  color: 'black',
-                  fontFamily: 'Lato_400Regular',
-                }}
-              >
-                By{' '}
-              </Text>
+              <Text style={styles.byTwo}>By </Text>
               <Text
                 style={{
                   color: 'black',
@@ -187,7 +177,7 @@ export default function FullArticleScreen({ props, route }) {
               style={{
                 color: 'black',
                 fontFamily: 'Lato_400Regular',
-                paddingLeft: 20,
+                paddingLeft: 25,
               }}
             >
               {date}
@@ -306,7 +296,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     justifyContent: 'center',
     padding: 5,
-    marginLeft: 15,
+    marginHorizontal: 20,
   },
   subTitle: {
     flex: 1,
@@ -317,7 +307,8 @@ const styles = StyleSheet.create({
     width: windowWidth - 50,
     height: 300,
     resizeMode: 'contain',
-    marginLeft: 25,
+    marginHorizontal: 25,
+    marginTop: -20,
   },
   imageContainer: {},
   scrollView: { backgroundColor: 'white' },
@@ -337,7 +328,7 @@ const styles = StyleSheet.create({
   greenTitle: {
     color: '#6e822b',
     paddingTop: 10,
-    paddingLeft: 20,
+    paddingLeft: 25,
   },
   spacer: {
     margin: -5,
@@ -348,5 +339,12 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 4,
     marginTop: 10,
+  },
+  byTwo: {
+    fontFamily: 'Lato_400Regular',
+    fontSize: 15,
+    color: 'black',
+    marginTop: 1,
+    paddingLeft: 25,
   },
 })

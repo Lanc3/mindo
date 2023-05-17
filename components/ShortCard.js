@@ -14,12 +14,29 @@ export function ShortCard({
   nameSlug,
   LBD_Ad,
   MPU_Ad,
+  podcast,
 }) {
   const decodeString = (str) => {
     return str.replace(/(&nbsp;|<([^>]+)>)/gi, '').replace(/^(-)+|(-)+$/g, '')
   }
   const selectNavigationRoute = () => {
-    if (totalData.includes('<iframe')) {
+    if(podcast)
+    {
+      navi.navigate('PodcastReader', {
+        content: {
+          title: title,
+          excerpt: excerpt,
+          media: mediaID,
+          content: totalData,
+          date: date,
+          author: authorId,
+          podcastData:podcast,
+        },
+        LBD_Ad: LBD_Ad,
+        MPU_Ad: MPU_Ad,
+      })
+    }
+    else if (totalData.includes('<iframe')) {
       navi.navigate('UpdateJournalReader', {
         content: {
           title: title,

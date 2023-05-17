@@ -1,6 +1,6 @@
 {
   "name": "mindo",
-  "version": "1.0.79",
+  "version": "1.0.87",
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
@@ -14,6 +14,7 @@
     "@expo-google-fonts/merriweather": "^0.2.2",
     "@expo-google-fonts/merriweather-sans": "^0.2.2",
     "@react-native-async-storage/async-storage": "~1.17.3",
+    "@react-native-community/netinfo": "^9.3.7",
     "@react-navigation/drawer": "^6.1.8",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
@@ -25,6 +26,9 @@
     "expo-linear-gradient": "~11.4.0",
     "expo-linking": "~3.2.4",
     "expo-notifications": "~0.16.1",
+    "expo-permissions": "~13.2.0",
+    "expo-screen-orientation": "~4.3.0",
+    "expo-splash-screen": "~0.16.2",
     "expo-status-bar": "~1.4.0",
     "expo-updates": "~0.14.7",
     "he": "^1.2.0",
@@ -53,13 +57,12 @@
     "react-native-web": "~0.18.7",
     "react-native-webview": "11.23.0",
     "react-redux": "^8.0.1",
+    "react-soundcloud-embedded": "^2.0.7",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "superagent": "^7.1.1",
-    "wpapi": "^2.0.0-alpha.1",
-    "expo-screen-orientation": "~4.3.0",
-    "expo-splash-screen": "~0.16.2"
+    "wpapi": "^2.0.0-alpha.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",

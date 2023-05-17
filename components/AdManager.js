@@ -27,24 +27,24 @@ const ads = [
   },
   {
     name: 'MPU',
-    private_script: `<!-- - MPU Private [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542368 = window.plc542368 || 0;
-            document.write('<'+'div id="placement_542368_'+plc542368+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542368, [300,250], 'placement_542368_'+opt.place, opt); }, opt: { place: plc542368++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    private_script: `<!-- App - MPU Mobile Private [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc589391 = window.plc589391 || 0;
+    document.write('<'+'div id="placement_589391_'+plc589391+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589391, [300,250], 'placement_589391_'+opt.place, opt); }, opt: { place: plc589391++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'ICS_LDB',
@@ -99,15 +99,15 @@ const ads = [
             document.write('<'+'div id="placement_589403_'+plc589403+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589403, [300,90], 'placement_589403_'+opt.place, opt); }, opt: { place: plc589403++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - LDB Mobile Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542406 = window.plc542406 || 0;
-            document.write('<'+'div id="placement_542406_'+plc542406+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542406, [300,90], 'placement_542406_'+opt.place, opt); }, opt: { place: plc542406++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - LDB Mobile Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc589387 = window.plc589387 || 0;
+    document.write('<'+'div id="placement_589387_'+plc589387+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589387, [300,90], 'placement_589387_'+opt.place, opt); }, opt: { place: plc589387++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'IES_MPU',
@@ -120,15 +120,15 @@ const ads = [
             document.write('<'+'div id="placement_589404_'+plc589404+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589404, [300,250], 'placement_589404_'+opt.place, opt); }, opt: { place: plc589404++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'SPONSORED_LDB',
@@ -162,15 +162,15 @@ const ads = [
             document.write('<'+'div id="placement_589430_'+plc589430+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589430, [300,250], 'placement_589430_'+opt.place, opt); }, opt: { place: plc589430++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'PCDSI_LDB',
@@ -183,15 +183,15 @@ const ads = [
             document.write('<'+'div id="placement_589427_'+plc589427+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589427, [300,90], 'placement_589427_'+opt.place, opt); }, opt: { place: plc589427++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - LDB Mobile Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542406 = window.plc542406 || 0;
-            document.write('<'+'div id="placement_542406_'+plc542406+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542406, [300,90], 'placement_542406_'+opt.place, opt); }, opt: { place: plc542406++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - LDB Mobile Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc589387 = window.plc589387 || 0;
+    document.write('<'+'div id="placement_589387_'+plc589387+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589387, [300,90], 'placement_589387_'+opt.place, opt); }, opt: { place: plc589387++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'PCDSI_MPU',
@@ -204,15 +204,15 @@ const ads = [
             document.write('<'+'div id="placement_589428_'+plc589428+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589428, [300,250], 'placement_589428_'+opt.place, opt); }, opt: { place: plc589428++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'ISR_MPU',
@@ -225,15 +225,15 @@ const ads = [
             document.write('<'+'div id="placement_589424_'+plc589424+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589424, [300,250], 'placement_589424_'+opt.place, opt); }, opt: { place: plc589424++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'ISR_LDB',
@@ -267,15 +267,15 @@ const ads = [
             document.write('<'+'div id="placement_589426_'+plc589426+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589426, [300,250], 'placement_589426_'+opt.place, opt); }, opt: { place: plc589426++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'ITS_LDB',
@@ -330,15 +330,15 @@ const ads = [
             document.write('<'+'div id="placement_589422_'+plc589422+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589422, [300,250], 'placement_589422_'+opt.place, opt); }, opt: { place: plc589422++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'ISG_LBD',
@@ -372,15 +372,15 @@ const ads = [
             document.write('<'+'div id="placement_589420_'+plc589420+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589420, [300,250], 'placement_589420_'+opt.place, opt); }, opt: { place: plc589420++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'IOS_LBD',
@@ -414,15 +414,15 @@ const ads = [
             document.write('<'+'div id="placement_589418_'+plc589418+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589418, [300,250], 'placement_589418_'+opt.place, opt); }, opt: { place: plc589418++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'IICNINA_LBD',
@@ -456,15 +456,15 @@ const ads = [
             document.write('<'+'div id="placement_589406_'+plc589406+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589406, [300,250], 'placement_589406_'+opt.place, opt); }, opt: { place: plc589406++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'CPI_LBD',
@@ -498,15 +498,15 @@ const ads = [
     document.write('<'+'div id="placement_597116_'+plc597116+'"></'+'div>');
     AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 597116, [300,250], 'placement_597116_'+opt.place, opt); }, opt: { place: plc597116++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
     </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'HAI Mobile LDB',
@@ -540,15 +540,15 @@ const ads = [
             document.write('<'+'div id="placement_589434_'+plc589434+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589434, [300,250], 'placement_589434_'+opt.place, opt); }, opt: { place: plc589434++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'Motoring Mobile LDB',
@@ -582,15 +582,15 @@ const ads = [
             document.write('<'+'div id="placement_589432_'+plc589432+'"></'+'div>');
             AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589432, [300,250], 'placement_589432_'+opt.place, opt); }, opt: { place: plc589432++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
             </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'App Test Mobile LDB',
@@ -624,15 +624,15 @@ const ads = [
     document.write('<'+'div id="placement_589441_'+plc589441+'"></'+'div>');
     AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 589441, [300,250], 'placement_589441_'+opt.place, opt); }, opt: { place: plc589441++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
     </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
   {
     name: 'INS_LDB',
@@ -666,15 +666,15 @@ const ads = [
     document.write('<'+'div id="placement_596793_'+plc596793+'"></'+'div>');
     AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 596793, [300,250], 'placement_596793_'+opt.place, opt); }, opt: { place: plc596793++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
     </script>`,
-    public_script: `<!-- - MPU Public [async] -->
-            <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
-            <script type="text/javascript">
-            var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
-            var abkw = window.abkw || '';
-            var plc542369 = window.plc542369 || 0;
-            document.write('<'+'div id="placement_542369_'+plc542369+'"></'+'div>');
-            AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 542369, [300,250], 'placement_542369_'+opt.place, opt); }, opt: { place: plc542369++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
-            </script>`,
+    public_script: `<!-- App - MPU Moblie Public [async] -->
+    <script type="text/javascript">if (!window.AdButler){(function(){var s = document.createElement("script"); s.async = true; s.type = "text/javascript";s.src = 'https://servedbyadbutler.com/app.js';var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(s, n);}());}</script>
+    <script type="text/javascript">
+    var AdButler = AdButler || {}; AdButler.ads = AdButler.ads || [];
+    var abkw = window.abkw || '';
+    var plc599258 = window.plc599258 || 0;
+    document.write('<'+'div id="placement_599258_'+plc599258+'"></'+'div>');
+    AdButler.ads.push({handler: function(opt){ AdButler.register(183389, 599258, [300,250], 'placement_599258_'+opt.place, opt); }, opt: { place: plc599258++, keywords: abkw, domain: 'servedbyadbutler.com', click:'CLICK_MACRO_PLACEHOLDER' }});
+    </script>`,
   },
 ]
 
@@ -718,14 +718,16 @@ export function AdManager(props) {
     <View style={styles.container} renderToHardwareTextureAndroid={true}>
       {sizeType === 'BIG' ? (
         <View style={styles.containerBig} renderToHardwareTextureAndroid={true}>
-          <View style={styles.bigImage} renderToHardwareTextureAndroid={true}>
-            <WebRender htmlData={getAd(selectedAd)} />
+          <View style={styles.bigImage}>
+          {selectedAd ? <WebRender htmlData={getAd(selectedAd)} />:null}
+           
           </View>
         </View>
       ) : (
         <View style={styles.container} renderToHardwareTextureAndroid={true}>
           <View style={styles.image} renderToHardwareTextureAndroid={true}>
-            <WebRender htmlData={getAd(selectedAd)} />
+            {selectedAd ? <WebRender htmlData={getAd(selectedAd)} />:null}
+            
           </View>
         </View>
       )}
@@ -737,7 +739,7 @@ const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
   container: {
     width: windowWidth,
-
+    flex:1,
     justifyContent: 'center',
     alignItems: 'center',
   },

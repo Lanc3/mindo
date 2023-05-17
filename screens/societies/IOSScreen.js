@@ -112,6 +112,7 @@ const IOSScreen = ({ navigation }) => {
               } else if (index === 7) {
                 return <AdManager selectedAd={'IOS_LBD'} sizeType={'SMALL'} />
               }
+              
               return (
                 <ShortCard
                   props
@@ -125,7 +126,8 @@ const IOSScreen = ({ navigation }) => {
                   authorId={item.author}
                   navi={navigation}
                   nameSlug={item.categoryName}
-                />
+                  podcast={item.podcastData}/>
+                
               )
             }}
           />
